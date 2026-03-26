@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Beach Flow Color Palette */
+  --beach-primary: #E54B4B;
+  --beach-secondary: #FFA987;
+  --beach-aqua: #5BC0EB;
+  --beach-aqua-dark: #2E8BC0;
+  --beach-background: #F7EBE8;
+  --beach-text: #444140;
+  --beach-dark: #1E1E24;
+  
+  /* Semantic tokens */
+  --background: #F7EBE8;
+  --foreground: #1E1E24;
+  --card: #FFFFFF;
+  --card-foreground: #1E1E24;
+  --primary: #E54B4B;
+  --primary-foreground: #FFFFFF;
+  --secondary: #FFA987;
+  --secondary-foreground: #1E1E24;
+  --muted: #F7EBE8;
+  --muted-foreground: #444140;
+  --accent: #FFA987;
+  --accent-foreground: #1E1E24;
+  --destructive: #E54B4B;
+  --destructive-foreground: #FFFFFF;
+  --border: #E8DCD8;
+  --input: #E8DCD8;
+  --ring: #E54B4B;
+  --radius: 0.75rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--background);
+  color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-display {
+  font-family: 'Space Grotesk', sans-serif;
+}
