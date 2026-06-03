@@ -18,19 +18,33 @@ export default function Hero() {
             </button>
           </div>
         </div>
-        <div className="md:col-span-6 grid grid-cols-2 gap-4 h-[500px] mt-12 md:mt-0">
-          <div className="relative overflow-hidden rounded-lg border border-hairline">
-            <img 
-              alt="Ambiente Prius" 
-              className="w-full h-full object-cover" 
-              src="/images/prius1.webp" 
+        <div className="md:col-span-6 grid grid-cols-2 grid-rows-3 gap-4 h-[600px] mt-12 md:mt-0">
+          <div className="relative overflow-hidden rounded-lg border border-hairline row-span-2">
+            <img
+              alt="Ambiente Prius"
+              className="w-full h-full object-cover"
+              src="/images/prius1.webp"
             />
           </div>
-          <div className="relative overflow-hidden rounded-lg border border-hairline mt-12">
-            <img 
-              alt="Vista Mar Prius" 
-              className="w-full h-full object-cover" 
-              src="/images/prius2.webp" 
+          <div className="relative overflow-hidden rounded-lg border border-hairline row-span-1">
+            <img
+              alt="Vista Mar Prius"
+              className="w-full h-full object-cover"
+              src="/images/prius2.webp"
+            />
+          </div>
+          <div className="relative overflow-hidden rounded-lg border border-hairline row-span-2">
+            <img
+              alt="Detalle Prius"
+              className="w-full h-full object-cover"
+              src="/images/prius3.webp"
+            />
+          </div>
+          <div className="relative overflow-hidden rounded-lg border border-hairline row-span-1">
+            <img
+              alt="Exterior Prius"
+              className="w-full h-full object-cover"
+              src="/images/prius4.webp"
             />
           </div>
         </div>

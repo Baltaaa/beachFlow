@@ -9,7 +9,7 @@ export default function Partners() {
         </span>
       </div>
       <div className="relative w-full">
-        <div className="flex whitespace-nowrap animate-scroll hover:[animation-play-state:paused]">
+        <div className="flex whitespace-nowrap animate-scroll">
           <div className="flex items-center gap-20 md:gap-32 px-10 grayscale opacity-50 hover:opacity-100 transition-opacity">
             {[...partners, ...partners, ...partners, ...partners].map((partner, i) => (
               <span key={i} className="text-2xl font-extrabold tracking-tighter text-prius-black">
@@ -25,7 +25,7 @@ export default function Partners() {
           100% { transform: translateX(-50%); }
         }
         .animate-scroll {
-          animation: scroll 30s linear infinite;
+          animation: scroll 60s linear infinite;
           width: max-content;
         }
       `}</style>
