@@ -182,19 +182,21 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-prius-background font-sans text-prius-black">
+    <div className="min-h-screen bg-prius-background font-sans text-prius-black print:bg-white">
       {/* Header */}
-      <header className="bg-white border-b border-hairline sticky top-0 z-40 h-16 flex items-center px-6">
+      <header className="bg-white border-b border-hairline sticky top-0 z-40 h-20 flex items-center px-6 print:hidden">
         <div className="flex items-center justify-between w-full">
-          <div className="flex items-center gap-4">
-            <img src="/logo-prius.png" alt="Prius" className="h-8" />
-            <span className="font-bold text-lg tracking-tighter uppercase">Prius Playa Grande</span>
+          <div className="flex items-center gap-3">
+            <img src="/logo-prius.png" alt="Prius Logo" className="h-14 w-auto object-contain" />
+            <span className="font-light text-lg tracking-tight text-prius-black/80">
+              Prius <span className="font-semibold text-gold">App</span>
+            </span>
           </div>
           <div className="flex items-center gap-4">
-            <button onClick={() => window.print()} className="p-2 hover:bg-prius-background rounded-full transition-colors" title="Imprimir Plano">
+            <button onClick={() => window.print()} className="p-2.5 hover:bg-prius-background rounded-full transition-colors" title="Imprimir Plano">
               <Printer size={20} />
             </button>
-            <button onClick={() => setShowSettings(true)} className="p-2 hover:bg-prius-background rounded-full transition-colors" title="Configuración">
+            <button onClick={() => setShowSettings(true)} className="p-2.5 hover:bg-prius-background rounded-full transition-colors" title="Configuración">
               <Settings size={20} />
             </button>
           </div>
@@ -203,7 +205,7 @@ export default function Dashboard() {
 
       <div className="flex flex-col lg:flex-row">
         {/* Sidebar */}
-        <aside className="w-full lg:w-80 bg-white border-r border-hairline p-6 space-y-6 shrink-0">
+        <aside className="w-full lg:w-80 bg-white border-r border-hairline p-6 space-y-6 shrink-0 print:hidden">
           {/* Buscador */}
           <div className="space-y-2">
             <label className="text-[10px] font-bold uppercase tracking-widest text-prius-black/40 block">Buscador Inteligente</label>
@@ -366,9 +368,9 @@ export default function Dashboard() {
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 p-6 lg:p-8 overflow-x-auto">
+        <main className="flex-1 p-4 lg:p-8 overflow-x-auto print:p-0">
           {/* Selector de Vista */}
-          <div className="flex items-center justify-between mb-6 bg-white border border-hairline p-3 rounded-sm">
+          <div className="flex items-center justify-between mb-6 bg-white border border-hairline p-3 rounded-sm print:hidden">
             <div className="flex items-center gap-2">
               <button 
                 onClick={() => setViewMode("map")}
@@ -396,140 +398,22 @@ export default function Dashboard() {
 
           {viewMode === "map" ? (
             /* VISTA DE MAPA */
-            <div className="bg-white border border-hairline p-6 md:p-12 min-w-[850px] rounded-sm shadow-sm">
-              <div className="flex justify-center mb-8">
-                <div className="flex text-[10px] font-bold uppercase tracking-widest">
-                  <div className="w-[280px] bg-prius-background py-2 text-center border border-hairline">Recreación</div>
-                  <div className="w-[140px] bg-white py-2 text-center border-y border-hairline">Acceso</div>
-                  <div className="w-[280px] bg-gold/10 py-2 text-center border border-hairline">Piscina</div>
-                </div>
-              </div>
-
-              <div className="flex justify-center gap-4">
-                {/* Pasillo A */}
-                <div className="flex gap-12">
-                  <div className="flex flex-col gap-1">
-                    {Array.from({ length: 25 }, (_, i) => i + 1).map(num => {
-                      const unit = getCarpa(num)
-                      const isMatch = isUnitMatchingSearch(unit) && isUnitMatchingFilters(unit)
-                      return (
-                        <Cell 
-                          key={num} 
-                          number={num} 
-                          unit={unit} 
-                          onClick={handleUnitClick} 
-                          isHighlighted={searchTerm && isMatch}
-                          isDimmed={searchTerm && !isMatch}
-                        />
-                      )
-                    })}
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    {Array.from({ length: 25 }, (_, i) => i + 26).map(num => {
-                      const unit = getCarpa(num)
-                      const isMatch = isUnitMatchingSearch(unit) && isUnitMatchingFilters(unit)
-                      return (
-                        <Cell 
-                          key={num} 
-                          number={num} 
-                          unit={unit} 
-                          onClick={handleUnitClick} 
-                          isHighlighted={searchTerm && isMatch}
-                          isDimmed={searchTerm && !isMatch}
-                        />
-                      )
-                    })}
+            <div className="bg-white border border-hairline p-4 md:p-8 rounded-sm shadow-sm max-w-full overflow-auto print:border-0 print:shadow-none print:p-0 print:m-0 print:max-w-none print:overflow-visible">
+              <div className="print-container mx-auto" style={{ maxWidth: "950px" }}>
+                <div className="flex justify-center mb-6">
+                  <div className="flex text-[10px] font-bold uppercase tracking-widest">
+                    <div className="w-[280px] bg-prius-background py-2 text-center border border-hairline">Recreación</div>
+                    <div className="w-[140px] bg-white py-2 text-center border-y border-hairline">Acceso</div>
+                    <div className="w-[280px] bg-gold/10 py-2 text-center border border-hairline">Piscina</div>
                   </div>
                 </div>
 
-                <div className="w-px bg-hairline mx-4" />
-
-                {/* Pasillo B */}
-                <div className="flex gap-12">
-                  <div className="flex flex-col gap-1">
-                    {Array.from({ length: 25 }, (_, i) => i + 51).map(num => {
-                      const unit = getCarpa(num)
-                      const isMatch = isUnitMatchingSearch(unit) && isUnitMatchingFilters(unit)
-                      return (
-                        <Cell 
-                          key={num} 
-                          number={num} 
-                          unit={unit} 
-                          onClick={handleUnitClick} 
-                          isHighlighted={searchTerm && isMatch}
-                          isDimmed={searchTerm && !isMatch}
-                        />
-                      )
-                    })}
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <div className="h-[31px]" /><div className="h-[31px]" />
-                    {Array.from({ length: 23 }, (_, i) => i + 76).map(num => {
-                      const unit = getCarpa(num)
-                      const isMatch = isUnitMatchingSearch(unit) && isUnitMatchingFilters(unit)
-                      return (
-                        <Cell 
-                          key={num} 
-                          number={num} 
-                          unit={unit} 
-                          onClick={handleUnitClick} 
-                          isHighlighted={searchTerm && isMatch}
-                          isDimmed={searchTerm && !isMatch}
-                        />
-                      )
-                    })}
-                  </div>
-                </div>
-
-                <div className="w-px bg-hairline mx-4" />
-
-                {/* Pasillo C */}
-                <div className="flex gap-12">
-                  <div className="flex flex-col gap-1">
-                    <div className="h-[31px]" /><div className="h-[31px]" />
-                    {Array.from({ length: 23 }, (_, i) => i + 99).map(num => {
-                      const unit = getCarpa(num)
-                      const isMatch = isUnitMatchingSearch(unit) && isUnitMatchingFilters(unit)
-                      return (
-                        <Cell 
-                          key={num} 
-                          number={num} 
-                          unit={unit} 
-                          onClick={handleUnitClick} 
-                          isHighlighted={searchTerm && isMatch}
-                          isDimmed={searchTerm && !isMatch}
-                        />
-                      )
-                    })}
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <div className="h-[31px]" /><div className="h-[31px]" />
-                    {Array.from({ length: 23 }, (_, i) => i + 122).map(num => {
-                      const unit = getCarpa(num)
-                      const isMatch = isUnitMatchingSearch(unit) && isUnitMatchingFilters(unit)
-                      return (
-                        <Cell 
-                          key={num} 
-                          number={num} 
-                          unit={unit} 
-                          onClick={handleUnitClick} 
-                          isHighlighted={searchTerm && isMatch}
-                          isDimmed={searchTerm && !isMatch}
-                        />
-                      )
-                    })}
-                  </div>
-                </div>
-              </div>
-
-              {/* Sombrillas */}
-              <div className="mt-12 flex justify-center">
-                <div className="flex gap-4">
-                  {Array.from({ length: 8 }, (_, groupIdx) => (
-                    <div key={groupIdx} className="flex flex-col gap-1">
-                      {Array.from({ length: 5 }, (_, rowIdx) => {
-                        const num = groupIdx * 5 + rowIdx + 1
-                        const unit = getSombrilla(num)
+                <div className="flex justify-center gap-4 relative">
+                  {/* Pasillo A */}
+                  <div className="flex gap-12">
+                    <div className="flex flex-col gap-1">
+                      {Array.from({ length: 25 }, (_, i) => i + 1).map(num => {
+                        const unit = getCarpa(num)
                         const isMatch = isUnitMatchingSearch(unit) && isUnitMatchingFilters(unit)
                         return (
                           <Cell 
@@ -543,13 +427,145 @@ export default function Dashboard() {
                         )
                       })}
                     </div>
-                  ))}
-                </div>
-              </div>
+                    <div className="flex flex-col gap-1">
+                      {Array.from({ length: 25 }, (_, i) => i + 26).map(num => {
+                        const unit = getCarpa(num)
+                        const isMatch = isUnitMatchingSearch(unit) && isUnitMatchingFilters(unit)
+                        return (
+                          <Cell 
+                            key={num} 
+                            number={num} 
+                            unit={unit} 
+                            onClick={handleUnitClick} 
+                            isHighlighted={searchTerm && isMatch}
+                            isDimmed={searchTerm && !isMatch}
+                          />
+                        )
+                      })}
+                    </div>
+                  </div>
 
-              <div className="mt-12 flex justify-center">
-                <div className="w-full max-w-[600px] bg-prius-black py-3 text-center text-white font-bold text-xs tracking-[0.3em] uppercase">
-                  Mar Argentino
+                  <div className="w-px bg-hairline mx-4" />
+
+                  {/* Pasillo B */}
+                  <div className="flex gap-12">
+                    <div className="flex flex-col gap-1">
+                      {Array.from({ length: 25 }, (_, i) => i + 51).map(num => {
+                        const unit = getCarpa(num)
+                        const isMatch = isUnitMatchingSearch(unit) && isUnitMatchingFilters(unit)
+                        return (
+                          <Cell 
+                            key={num} 
+                            number={num} 
+                            unit={unit} 
+                            onClick={handleUnitClick} 
+                            isHighlighted={searchTerm && isMatch}
+                            isDimmed={searchTerm && !isMatch}
+                          />
+                        )
+                      })}
+                    </div>
+                    <div className="flex flex-col gap-1 relative">
+                      {/* Render de Piscina Rectangular en el espacio vacío */}
+                      <div className="absolute top-0 left-0 w-[280px] h-[62px] bg-sky-100 border-2 border-sky-300 rounded-sm flex flex-col items-center justify-center overflow-hidden z-20 shadow-inner">
+                        <div className="absolute inset-0 bg-gradient-to-b from-sky-200/40 to-sky-300/40 animate-pulse" />
+                        {/* Líneas de andarivel de piscina */}
+                        <div className="absolute top-1/3 left-0 w-full h-px border-t border-dashed border-sky-400/60" />
+                        <div className="absolute top-2/3 left-0 w-full h-px border-t border-dashed border-sky-400/60" />
+                        <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-sky-800 z-10">Piscina Climatizada</span>
+                        <span className="text-[7px] font-medium uppercase tracking-wider text-sky-600/80 z-10">Exclusivo Prius</span>
+                      </div>
+
+                      {/* Espacio reservado para la piscina (2 celdas de alto) */}
+                      <div className="h-[31px]" /><div className="h-[31px]" />
+                      
+                      {Array.from({ length: 23 }, (_, i) => i + 76).map(num => {
+                        const unit = getCarpa(num)
+                        const isMatch = isUnitMatchingSearch(unit) && isUnitMatchingFilters(unit)
+                        return (
+                          <Cell 
+                            key={num} 
+                            number={num} 
+                            unit={unit} 
+                            onClick={handleUnitClick} 
+                            isHighlighted={searchTerm && isMatch}
+                            isDimmed={searchTerm && !isMatch}
+                          />
+                        )
+                      })}
+                    </div>
+                  </div>
+
+                  <div className="w-px bg-hairline mx-4" />
+
+                  {/* Pasillo C */}
+                  <div className="flex gap-12">
+                    <div className="flex flex-col gap-1">
+                      <div className="h-[31px]" /><div className="h-[31px]" />
+                      {Array.from({ length: 23 }, (_, i) => i + 99).map(num => {
+                        const unit = getCarpa(num)
+                        const isMatch = isUnitMatchingSearch(unit) && isUnitMatchingFilters(unit)
+                        return (
+                          <Cell 
+                            key={num} 
+                            number={num} 
+                            unit={unit} 
+                            onClick={handleUnitClick} 
+                            isHighlighted={searchTerm && isMatch}
+                            isDimmed={searchTerm && !isMatch}
+                          />
+                        )
+                      })}
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <div className="h-[31px]" /><div className="h-[31px]" />
+                      {Array.from({ length: 23 }, (_, i) => i + 122).map(num => {
+                        const unit = getCarpa(num)
+                        const isMatch = isUnitMatchingSearch(unit) && isUnitMatchingFilters(unit)
+                        return (
+                          <Cell 
+                            key={num} 
+                            number={num} 
+                            unit={unit} 
+                            onClick={handleUnitClick} 
+                            isHighlighted={searchTerm && isMatch}
+                            isDimmed={searchTerm && !isMatch}
+                          />
+                        )
+                      })}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Sombrillas */}
+                <div className="mt-12 flex justify-center">
+                  <div className="flex gap-4">
+                    {Array.from({ length: 8 }, (_, groupIdx) => (
+                      <div key={groupIdx} className="flex flex-col gap-1">
+                        {Array.from({ length: 5 }, (_, rowIdx) => {
+                          const num = groupIdx * 5 + rowIdx + 1
+                          const unit = getSombrilla(num)
+                          const isMatch = isUnitMatchingSearch(unit) && isUnitMatchingFilters(unit)
+                          return (
+                            <Cell 
+                              key={num} 
+                              number={num} 
+                              unit={unit} 
+                              onClick={handleUnitClick} 
+                              isHighlighted={searchTerm && isMatch}
+                              isDimmed={searchTerm && !isMatch}
+                            />
+                          )
+                        })}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mt-12 flex justify-center">
+                  <div className="w-full max-w-[600px] bg-prius-black py-3 text-center text-white font-bold text-xs tracking-[0.3em] uppercase">
+                    Mar Argentino
+                  </div>
                 </div>
               </div>
             </div>
@@ -654,6 +670,32 @@ export default function Dashboard() {
           onLogout={handleLogout}
         />
       )}
+
+      {/* Estilos de Impresión A4 Perfectos */}
+      <style>{`
+        @media print {
+          body {
+            background: white !important;
+            color: black !important;
+          }
+          header, aside, button, .print\\:hidden {
+            display: none !important;
+          }
+          main {
+            padding: 0 !important;
+            margin: 0 !important;
+          }
+          .print-container {
+            transform: scale(0.85);
+            transform-origin: top center;
+            page-break-inside: avoid;
+          }
+          @page {
+            size: A4 landscape;
+            margin: 1cm;
+          }
+        }
+      `}</style>
     </div>
   )
 }
