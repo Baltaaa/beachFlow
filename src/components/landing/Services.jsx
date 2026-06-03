@@ -1,4 +1,4 @@
-import { Umbrella, Spa, Waves, Trophy } from 'lucide-react'
+import { Umbrella, Flower2, Waves, Trophy } from 'lucide-react'
 
 const services = [
   {
@@ -10,7 +10,7 @@ const services = [
   {
     title: "Spa & Bienestar",
     desc: "Circuito de aguas con saunas secos y húmedos, jacuzzi de hidromasaje y gabinetes de masajes terapéuticos.",
-    icon: Spa,
+    icon: Flower2,
     img: "/images/prius4.webp"
   },
   {
