@@ -2,313 +2,14 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { supabase } from "../lib/supabase"
 import { 
-  LogOut, Settings, Printer, X, User, Phone, Mail, 
-  Calendar, FileText, Save, Trash2, Search, Umbrella, 
-  Home, Plus, Check, Menu, ChevronRight, List, Map, 
-  DollarSign, MessageSquare, CheckSquare, Square, AlertCircle
+  Printer, Settings, Search, Plus, Trash2, CheckSquare, Square, 
+  Map, List, AlertCircle, Umbrella, Home, Check
 } from "lucide-react"
 
-// Estados posibles de reserva
-const STATUS = {
-  LIBRE: "libre",
-  TEMPORADA: "temporada",
-  PERIODO: "periodo"
-}
-
-// Modal de edición de unidad
-function UnitModal({ unit, onClose, onSave }) {
-  const [formData, setFormData] = useState({
-    status: unit?.status || STATUS.LIBRE,
-    clientName: unit?.clientName || "",
-    clientPhone: unit?.clientPhone || "",
-    clientEmail: unit?.clientEmail || "",
-    startDate: unit?.startDate || "",
-    endDate: unit?.endDate || "",
-    notes: unit?.notes || "",
-    isPaid: unit?.isPaid ?? false,
-    isTemporada: unit?.isTemporada ?? false
-  })
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    const newStatus = formData.isTemporada 
-      ? STATUS.TEMPORADA 
-      : (formData.startDate ? STATUS.PERIODO : STATUS.LIBRE)
-    
-    onSave({ 
-      ...unit, 
-      ...formData, 
-      status: newStatus 
-    })
-  }
-
-  const handleClear = () => {
-    const cleared = {
-      status: STATUS.LIBRE,
-      clientName: "",
-      clientPhone: "",
-      clientEmail: "",
-      startDate: "",
-      endDate: "",
-      notes: "",
-      isPaid: false,
-      isTemporada: false
-    }
-    setFormData(cleared)
-    onSave({ ...unit, ...cleared })
-  }
-
-  const handleWhatsAppShare = () => {
-    const text = `Hola ${formData.clientName || "Cliente"}, te confirmamos tu reserva en Prius Playa Grande:\n\n` +
-      `📍 Unidad: ${unit?.type === "sombrilla" ? "Sombrilla" : "Carpa"} #${unit?.number}\n` +
-      `📅 Tipo: ${formData.isTemporada ? "Temporada Completa" : `Desde ${formData.startDate} hasta ${formData.endDate}`}\n` +
-      `💳 Estado de Pago: ${formData.isPaid ? "PAGADO" : "PENDIENTE"}\n\n` +
-      `¡Te esperamos para disfrutar de la mejor experiencia de costa! 🌊☀️`
-    
-    const encodedText = encodeURIComponent(text)
-    window.open(`https://wa.me/${formData.clientPhone.replace(/\D/g, "")}?text=${encodedText}`, "_blank")
-  }
-
-  return (
-    <div className="fixed inset-0 bg-prius-black/60 flex items-center justify-center z-50 p-4 backdrop-blur-sm" onClick={onClose}>
-      <div className="bg-white rounded-lg w-full max-w-md max-h-[90vh] overflow-y-auto border border-hairline shadow-xl" onClick={e => e.stopPropagation()}>
-        <div className="flex items-center justify-between p-6 border-b border-hairline bg-prius-black">
-          <div className="text-white">
-            <h2 className="text-lg font-normal flex items-center gap-2 uppercase tracking-tight">
-              {unit?.type === "sombrilla" ? <Umbrella className="w-5 h-5 text-gold" /> : <Home className="w-5 h-5 text-gold" />}
-              {unit?.type === "sombrilla" ? "Sombrilla" : "Carpa"} #{unit?.number}
-            </h2>
-          </div>
-          <button onClick={onClose} className="p-2 hover:bg-white/10 rounded-full text-white transition-colors">
-            <X className="w-5 h-5" />
-          </button>
-        </div>
-
-        <form onSubmit={handleSubmit} className="p-6 space-y-5">
-          <div>
-            <label className="text-[10px] font-bold uppercase tracking-widest text-prius-black/40 block mb-2">Nombre del Cliente</label>
-            <input
-              type="text"
-              value={formData.clientName}
-              onChange={(e) => setFormData(prev => ({ ...prev, clientName: e.target.value.toUpperCase() }))}
-              className="w-full px-4 py-2 border border-hairline rounded-sm focus:border-gold outline-none text-sm"
-              placeholder="NOMBRE COMPLETO"
-            />
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="text-[10px] font-bold uppercase tracking-widest text-prius-black/40 block mb-2">Teléfono</label>
-              <input
-                type="tel"
-                value={formData.clientPhone}
-                onChange={(e) => setFormData(prev => ({ ...prev, clientPhone: e.target.value }))}
-                className="w-full px-4 py-2 border border-hairline rounded-sm focus:border-gold outline-none text-sm"
-                placeholder="+54 9..."
-              />
-            </div>
-            <div>
-              <label className="text-[10px] font-bold uppercase tracking-widest text-prius-black/40 block mb-2">Email</label>
-              <input
-                type="email"
-                value={formData.clientEmail}
-                onChange={(e) => setFormData(prev => ({ ...prev, clientEmail: e.target.value }))}
-                className="w-full px-4 py-2 border border-hairline rounded-sm focus:border-gold outline-none text-sm"
-                placeholder="ejemplo@mail.com"
-              />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <div className="flex items-center gap-3 p-3 bg-prius-background border border-hairline rounded-sm">
-              <input
-                type="checkbox"
-                id="isTemporada"
-                checked={formData.isTemporada}
-                onChange={(e) => setFormData(prev => ({ 
-                  ...prev, 
-                  isTemporada: e.target.checked,
-                  startDate: e.target.checked ? "" : prev.startDate,
-                  endDate: e.target.checked ? "" : prev.endDate
-                }))}
-                className="w-4 h-4 accent-gold cursor-pointer"
-              />
-              <label htmlFor="isTemporada" className="text-[10px] font-bold uppercase tracking-widest cursor-pointer select-none">
-                Temporada (T)
-              </label>
-            </div>
-
-            <div className="flex items-center gap-3 p-3 bg-prius-background border border-hairline rounded-sm">
-              <input
-                type="checkbox"
-                id="isPaid"
-                checked={formData.isPaid}
-                onChange={(e) => setFormData(prev => ({ ...prev, isPaid: e.target.checked }))}
-                className="w-4 h-4 accent-gold cursor-pointer"
-              />
-              <label htmlFor="isPaid" className="text-[10px] font-bold uppercase tracking-widest cursor-pointer select-none flex items-center gap-1">
-                <DollarSign className="w-3 h-3 text-green-600" /> Pagado
-              </label>
-            </div>
-          </div>
-
-          {!formData.isTemporada && (
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="text-[10px] font-bold uppercase tracking-widest text-prius-black/40 block mb-2">Desde</label>
-                <input
-                  type="date"
-                  value={formData.startDate}
-                  onChange={(e) => setFormData(prev => ({ ...prev, startDate: e.target.value }))}
-                  className="w-full px-4 py-2 border border-hairline rounded-sm focus:border-gold outline-none text-sm"
-                />
-              </div>
-              <div>
-                <label className="text-[10px] font-bold uppercase tracking-widest text-prius-black/40 block mb-2">Hasta</label>
-                <input
-                  type="date"
-                  value={formData.endDate}
-                  onChange={(e) => setFormData(prev => ({ ...prev, endDate: e.target.value }))}
-                  className="w-full px-4 py-2 border border-hairline rounded-sm focus:border-gold outline-none text-sm"
-                />
-              </div>
-            </div>
-          )}
-
-          <div>
-            <label className="text-[10px] font-bold uppercase tracking-widest text-prius-black/40 block mb-2">Notas / Observaciones</label>
-            <textarea
-              value={formData.notes}
-              onChange={(e) => setFormData(prev => ({ ...prev, notes: e.target.value }))}
-              rows={2}
-              className="w-full px-4 py-2 border border-hairline rounded-sm focus:border-gold outline-none resize-none text-sm"
-              placeholder="Detalles adicionales..."
-            />
-          </div>
-
-          {formData.clientName && formData.clientPhone && (
-            <button
-              type="button"
-              onClick={handleWhatsAppShare}
-              className="w-full py-2.5 bg-green-50 hover:bg-green-100 text-green-700 border border-green-200 rounded-sm font-bold text-[10px] uppercase tracking-widest transition-all flex items-center justify-center gap-2"
-            >
-              <MessageSquare className="w-4 h-4" />
-              Enviar Confirmación WhatsApp
-            </button>
-          )}
-
-          <div className="flex gap-3 pt-2">
-            <button
-              type="button"
-              onClick={handleClear}
-              className="flex-1 py-3 border border-hairline hover:bg-red-50 hover:text-red-600 rounded-sm font-bold text-[10px] uppercase tracking-widest transition-all"
-            >
-              Liberar Unidad
-            </button>
-            <button
-              type="submit"
-              className="flex-1 py-3 bg-gold hover:bg-gold-hover text-prius-black rounded-sm font-bold text-[10px] uppercase tracking-widest transition-all"
-            >
-              Guardar Cambios
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  )
-}
-
-// Panel de Configuración
-function SettingsPanel({ user, onClose, onLogout }) {
-  return (
-    <div className="fixed inset-0 bg-prius-black/60 flex items-center justify-center z-50 p-4 backdrop-blur-sm" onClick={onClose}>
-      <div className="bg-white rounded-lg w-full max-w-md border border-hairline shadow-xl" onClick={e => e.stopPropagation()}>
-        <div className="flex items-center justify-between p-6 border-b border-hairline">
-          <h2 className="text-lg font-normal uppercase tracking-tight">Configuración</h2>
-          <button onClick={onClose} className="p-2 hover:bg-prius-background rounded-full transition-colors">
-            <X className="w-5 h-5" />
-          </button>
-        </div>
-        <div className="p-6 space-y-4">
-          <div className="flex items-center gap-4 p-4 bg-prius-background border border-hairline rounded-sm">
-            <div className="w-10 h-10 rounded-full bg-gold flex items-center justify-center">
-              <User className="w-5 h-5 text-prius-black" />
-            </div>
-            <div>
-              <p className="text-xs font-bold uppercase tracking-widest">Usuario Administrador</p>
-              <p className="text-sm text-prius-black/60">{user?.email}</p>
-            </div>
-          </div>
-          <button
-            onClick={onLogout}
-            className="w-full py-4 bg-prius-black text-white rounded-sm font-bold text-[10px] uppercase tracking-widest hover:bg-prius-black/90 transition-all flex items-center justify-center gap-2"
-          >
-            <LogOut className="w-4 h-4" />
-            Cerrar Sesión
-          </button>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-// Celda del Mapa de Playa con Tooltip Integrado
-function Cell({ number, unit, onClick, isHighlighted, isDimmed }) {
-  const status = unit?.status || STATUS.LIBRE
-  const isTemporada = status === STATUS.TEMPORADA
-  const isPeriodo = status === STATUS.PERIODO
-  const [showTooltip, setShowTooltip] = useState(false)
-  
-  const getBgColor = () => {
-    if (isTemporada) return "bg-prius-black text-white"
-    if (isPeriodo) return "bg-gold text-prius-black"
-    return "bg-white text-prius-black/20"
-  }
-
-  const opacityClass = isDimmed ? "opacity-20" : "opacity-100"
-  const highlightClass = isHighlighted ? "ring-2 ring-offset-1 ring-gold scale-105 z-10" : ""
-  
-  return (
-    <div 
-      className="flex items-center relative"
-      onMouseEnter={() => unit?.clientName && setShowTooltip(true)}
-      onMouseLeave={() => setShowTooltip(false)}
-    >
-      <span className="w-6 md:w-8 text-[9px] font-bold text-prius-black/40 text-right pr-1">{number}</span>
-      <button
-        onClick={() => onClick(unit)}
-        className={`w-7 h-6 md:w-9 md:h-7 text-[9px] font-bold flex flex-col items-center justify-center border border-hairline cursor-pointer hover:border-gold transition-all relative ${getBgColor()} ${opacityClass} ${highlightClass}`}
-      >
-        <span className="leading-none">
-          {isTemporada && "T"}
-          {isPeriodo && "P"}
-        </span>
-        {unit?.isPaid && (status === STATUS.TEMPORADA || status === STATUS.PERIODO) && (
-          <span className="absolute bottom-0.5 right-0.5 w-1 h-1 rounded-full bg-green-500" />
-        )}
-        {!unit?.isPaid && (status === STATUS.TEMPORADA || status === STATUS.PERIODO) && (
-          <span className="absolute bottom-0.5 right-0.5 w-1 h-1 rounded-full bg-red-500" />
-        )}
-      </button>
-
-      {/* Tooltip Flotante */}
-      {showTooltip && unit?.clientName && (
-        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 bg-prius-black text-white text-[10px] p-3 rounded-sm shadow-lg z-50 pointer-events-none border border-hairline">
-          <p className="font-bold uppercase tracking-wider text-gold mb-1">{unit.clientName}</p>
-          {unit.isTemporada ? (
-            <p className="opacity-80">Temporada Completa</p>
-          ) : (
-            <p className="opacity-80">{unit.startDate} al {unit.endDate}</p>
-          )}
-          {unit.notes && <p className="mt-1 border-t border-white/10 pt-1 italic opacity-60 truncate">{unit.notes}</p>}
-          <p className={`mt-1 font-bold ${unit.isPaid ? 'text-green-400' : 'text-red-400'}`}>
-            {unit.isPaid ? "PAGADO" : "PAGO PENDIENTE"}
-          </p>
-        </div>
-      )}
-    </div>
-  )
-}
+import { STATUS } from "../components/dashboard/constants"
+import UnitModal from "../components/dashboard/UnitModal"
+import SettingsPanel from "../components/dashboard/SettingsPanel"
+import Cell from "../components/dashboard/Cell"
 
 export default function Dashboard() {
   const navigate = useNavigate()
@@ -355,7 +56,6 @@ export default function Dashboard() {
   }
 
   const initializeUnits = () => {
-    // Intentar cargar desde localStorage para persistencia local de demostración
     const savedUnits = localStorage.getItem("prius_beach_units")
     if (savedUnits) {
       setUnits(JSON.parse(savedUnits))
@@ -370,7 +70,8 @@ export default function Dashboard() {
         startDate: "", endDate: "", notes: "", isPaid: false, isTemporada: false
       }
     }
-    // Algunas unidades de ejemplo pre-cargadas para dar vida al dashboard
+    
+    // Unidades de ejemplo pre-cargadas
     initialUnits[`C12`] = {
       id: `C12`, number: 12, type: "carpa", status: STATUS.TEMPORADA,
       clientName: "CARLOS PÉREZ", clientPhone: "+542235551234", clientEmail: "carlos@perez.com",
@@ -419,16 +120,12 @@ export default function Dashboard() {
   const getCarpa = (num) => units[`C${num}`]
   const getSombrilla = (num) => units[`S${num}`]
 
-  // Lógica de búsqueda y filtrado inteligente
   const isUnitMatchingSearch = (unit) => {
     if (!unit) return false
     const term = searchTerm.toLowerCase().trim()
     if (!term) return true
 
-    // Buscar por ID exacto o número (ej. "C12", "12")
     if (unit.id.toLowerCase().includes(term) || unit.number.toString() === term) return true
-    
-    // Buscar por datos del cliente
     if (unit.clientName?.toLowerCase().includes(term)) return true
     if (unit.clientPhone?.includes(term)) return true
     if (unit.clientEmail?.toLowerCase().includes(term)) return true
@@ -440,23 +137,18 @@ export default function Dashboard() {
   const isUnitMatchingFilters = (unit) => {
     if (!unit) return false
 
-    // Filtro de Tipo
     if (typeFilter !== "all" && unit.type !== typeFilter) return false
-
-    // Filtro de Estado
     if (statusFilter !== "all" && unit.status !== statusFilter) return false
 
-    // Filtro de Pago
     if (paymentFilter !== "all") {
       if (paymentFilter === "paid" && !unit.isPaid) return false
       if (paymentFilter === "unpaid" && unit.isPaid) return false
-      if (paymentFilter === "unpaid" && unit.status === STATUS.LIBRE) return false // Libres no cuentan como impagos
+      if (paymentFilter === "unpaid" && unit.status === STATUS.LIBRE) return false
     }
 
     return true
   }
 
-  // Tareas (To-Do List)
   const handleAddTodo = (e) => {
     e.preventDefault()
     if (!newTodo.trim()) return
@@ -472,7 +164,6 @@ export default function Dashboard() {
     setTodos(prev => prev.filter(t => t.id !== id))
   }
 
-  // Estadísticas dinámicas basadas en filtros actuales
   const stats = {
     carpasLibres: Object.values(units).filter(u => u.type === "carpa" && u.status === STATUS.LIBRE).length,
     carpasOcupadas: Object.values(units).filter(u => u.type === "carpa" && u.status !== STATUS.LIBRE).length,
@@ -480,7 +171,6 @@ export default function Dashboard() {
     sombrillasOcupadas: Object.values(units).filter(u => u.type === "sombrilla" && u.status !== STATUS.LIBRE).length,
   }
 
-  // Lista de unidades filtradas para la vista de tabla
   const filteredUnitsList = Object.values(units).filter(u => isUnitMatchingSearch(u) && isUnitMatchingFilters(u))
 
   if (loading) {
