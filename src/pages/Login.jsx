@@ -68,7 +68,7 @@ export default function Login() {
           <Link to="/" className="inline-flex items-center gap-2 text-sm text-prius-black/40 hover:text-prius-black mb-12 transition-colors">
             <ArrowLeft size={16} />
             Volver al inicio
-          </button>
+          </Link>
 
           <div className="mb-10">
             <img src="/logo-prius.png" alt="Prius" className="h-12 w-auto mb-8 lg:hidden" />
