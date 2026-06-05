@@ -13,12 +13,24 @@ export default function Partners() {
           Socios Estratégicos
         </span>
       </div>
-      <div className="relative w-full overflow-hidden">
-        <div className="flex whitespace-nowrap animate-scroll">
-          <div className="flex items-center gap-24 md:gap-36 px-12 grayscale opacity-40">
-            {[...partners, ...partners, ...partners, ...partners, ...partners].map((partner, i) => (
+      <div className="relative w-full overflow-hidden flex">
+        <div className="flex animate-scroll">
+          {/* Track 1 */}
+          <div className="flex items-center gap-24 md:gap-36 px-12 grayscale opacity-40 shrink-0">
+            {partners.map((partner, i) => (
               <img 
-                key={i} 
+                key={`t1-${i}`} 
+                src={partner.logo} 
+                alt={partner.name} 
+                className={`h-12 md:h-16 w-auto object-contain select-none pointer-events-none ${partner.className || ""}`}
+              />
+            ))}
+          </div>
+          {/* Track 2 (Idéntico para loop infinito perfecto) */}
+          <div className="flex items-center gap-24 md:gap-36 px-12 grayscale opacity-40 shrink-0">
+            {partners.map((partner, i) => (
+              <img 
+                key={`t2-${i}`} 
                 src={partner.logo} 
                 alt={partner.name} 
                 className={`h-12 md:h-16 w-auto object-contain select-none pointer-events-none ${partner.className || ""}`}
@@ -30,12 +42,12 @@ export default function Partners() {
       <style>{`
         @keyframes scroll {
           0% { transform: translateX(0); }
-          100% { transform: translateX(-33.33%); }
+          100% { transform: translateX(-50%); }
         }
         .animate-scroll {
-          animation: scroll 100s linear infinite;
-          width: max-content;
+          animation: scroll 25s linear infinite;
           display: flex;
+          width: max-content;
         }
       `}</style>
     </section>
