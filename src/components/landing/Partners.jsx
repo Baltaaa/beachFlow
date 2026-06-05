@@ -1,7 +1,7 @@
 export default function Partners() {
   const partners = [
-    { name: "BNA", logo: "/images/logoBNA.svg" },
-    { name: "HAWKS SEGUROS", logo: "/images/logoHawk.svg" },
+    { name: "BNA", logo: "/images/logoBNA.svg", className: "brightness-0" },
+    { name: "HAWKS SEGUROS", logo: "/images/logoHawk.svg", className: "[clip-path:inset(0_15px_0_0)] pr-4" },
     { name: "SANCOR SEGUROS", logo: "/images/logoSancor.svg" },
     { name: "MEDIFE", logo: "/images/logoMedife.svg" }
   ]
@@ -21,7 +21,7 @@ export default function Partners() {
                 key={i} 
                 src={partner.logo} 
                 alt={partner.name} 
-                className="h-12 md:h-16 w-auto object-contain select-none pointer-events-none"
+                className={`h-12 md:h-16 w-auto object-contain select-none pointer-events-none ${partner.className || ""}`}
               />
             ))}
           </div>
