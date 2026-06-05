@@ -14,40 +14,36 @@ export default function Partners() {
         </span>
       </div>
       <div className="relative w-full overflow-hidden flex">
-        <div className="flex animate-scroll">
-          {/* Track 1 */}
-          <div className="flex items-center gap-24 md:gap-36 px-12 grayscale opacity-40 shrink-0">
-            {partners.map((partner, i) => (
-              <img 
-                key={`t1-${i}`} 
-                src={partner.logo} 
-                alt={partner.name} 
-                className={`h-12 md:h-16 w-auto object-contain select-none pointer-events-none ${partner.className || ""}`}
-              />
-            ))}
-          </div>
-          {/* Track 2 (Idéntico para loop infinito perfecto) */}
-          <div className="flex items-center gap-24 md:gap-36 px-12 grayscale opacity-40 shrink-0">
-            {partners.map((partner, i) => (
-              <img 
-                key={`t2-${i}`} 
-                src={partner.logo} 
-                alt={partner.name} 
-                className={`h-12 md:h-16 w-auto object-contain select-none pointer-events-none ${partner.className || ""}`}
-              />
-            ))}
-          </div>
+        {/* Contenedor 1 */}
+        <div className="flex justify-around items-center min-w-full shrink-0 animate-scroll gap-12 md:gap-24 px-6 grayscale opacity-40">
+          {partners.map((partner, i) => (
+            <img 
+              key={`t1-${i}`} 
+              src={partner.logo} 
+              alt={partner.name} 
+              className={`h-12 md:h-16 w-auto object-contain select-none pointer-events-none ${partner.className || ""}`}
+            />
+          ))}
+        </div>
+        {/* Contenedor 2 (Idéntico para loop infinito perfecto) */}
+        <div className="flex justify-around items-center min-w-full shrink-0 animate-scroll gap-12 md:gap-24 px-6 grayscale opacity-40" aria-hidden="true">
+          {partners.map((partner, i) => (
+            <img 
+              key={`t2-${i}`} 
+              src={partner.logo} 
+              alt={partner.name} 
+              className={`h-12 md:h-16 w-auto object-contain select-none pointer-events-none ${partner.className || ""}`}
+            />
+          ))}
         </div>
       </div>
       <style>{`
         @keyframes scroll {
           0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
+          100% { transform: translateX(-100%); }
         }
         .animate-scroll {
-          animation: scroll 25s linear infinite;
-          display: flex;
-          width: max-content;
+          animation: scroll 20s linear infinite;
         }
       `}</style>
     </section>
