@@ -46,13 +46,13 @@ export default function Navbar() {
         </div>
         
         <div className="hidden md:flex items-center space-x-8">
-          {['servicios', 'recreacion', 'galeria', 'contacto'].map((item) => (
+          {['servicios', 'eventos', 'galeria', 'contacto'].map((item) => (
             <button
               key={item}
               onClick={() => scrollToSection(item)}
               className="text-[12px] font-medium tracking-widest text-prius-black/60 hover:text-prius-black transition-colors uppercase"
             >
-              {item === 'recreacion' ? 'Recreación' : item}
+              {item}
             </button>
           ))}
         </div>
@@ -84,13 +84,13 @@ export default function Navbar() {
       {/* Mobile Dropdown */}
       {isOpen && (
         <div className="md:hidden bg-white border-b border-hairline px-margin-mobile py-6 space-y-4 flex flex-col">
-          {['servicios', 'recreacion', 'galeria', 'contacto'].map((item) => (
+          {['servicios', 'eventos', 'galeria', 'contacto'].map((item) => (
             <button
               key={item}
               onClick={() => scrollToSection(item)}
               className="text-left text-sm font-medium tracking-wider text-prius-black/80 hover:text-prius-black py-2 uppercase"
             >
-              {item === 'recreacion' ? 'Recreación' : item}
+              {item}
             </button>
           ))}
           <div className="h-px bg-hairline my-2" />

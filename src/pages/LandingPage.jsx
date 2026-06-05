@@ -2,6 +2,7 @@ import Navbar from '../components/landing/Navbar'
 import Hero from '../components/landing/Hero'
 import Partners from '../components/landing/Partners'
 import Services from '../components/landing/Services'
+import Events from '../components/landing/Events'
 import Gallery from '../components/landing/Gallery'
 import Testimonials from '../components/landing/Testimonials'
 import Contact from '../components/landing/Contact'
@@ -15,6 +16,7 @@ export default function LandingPage() {
         <Hero />
         <Partners />
         <Services />
+        <Events />
         <Gallery />
         <Testimonials />
         <Contact />
