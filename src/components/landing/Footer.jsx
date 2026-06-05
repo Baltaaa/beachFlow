@@ -4,7 +4,7 @@ export default function Footer() {
       <div className="max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-start gap-12 border-b border-hairline pb-16">
         <div className="max-w-sm">
           <div className="flex items-center mb-6">
-            <img alt="Logo Prius" className="h-20 w-auto object-contain" src="/logo-prius.png" />
+            <img alt="Logo Prius" className="h-28 md:h-32 w-auto object-contain" src="/logo-prius.png" />
           </div>
           <p className="text-prius-black/60 leading-relaxed text-sm">
             Excelencia costera en Playa Grande. Brindamos un refugio de paz y lujo en el punto más emblemático de Mar del Plata.

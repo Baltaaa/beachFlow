@@ -15,9 +15,9 @@ export default function Navbar() {
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-hairline transition-all duration-300">
-      <div className="flex justify-between items-center px-margin-mobile md:px-margin-desktop h-24">
+      <div className="flex justify-between items-center px-margin-mobile md:px-margin-desktop h-28">
         <div className="flex items-center">
-          <img alt="Prius Logo" className="h-16 md:h-20 w-auto object-contain" src="/logo-prius.png" />
+          <img alt="Prius Logo" className="h-20 md:h-24 w-auto object-contain" src="/logo-prius.png" />
         </div>
         
         <div className="hidden md:flex items-center space-x-8">
