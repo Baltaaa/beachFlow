@@ -1,7 +1,7 @@
 export default function Partners() {
   const partners = [
     { name: "BNA", logo: "/images/logoBNA.svg", className: "brightness-0" },
-    { name: "HAWKS SEGUROS", logo: "/images/logoHawk.svg", className: "[clip-path:inset(0_15px_0_0)] pr-4" },
+    { name: "HAWKS SEGUROS", logo: "/images/logoHawk.svg", className: "brightness-0" },
     { name: "SANCOR SEGUROS", logo: "/images/logoSancor.svg" },
     { name: "MEDIFE", logo: "/images/logoMedife.svg" }
   ]
