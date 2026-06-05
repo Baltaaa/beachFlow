@@ -5,6 +5,9 @@ export default function Partners() {
     { name: "SANCOR SEGUROS", logo: "/images/logoSancor.svg" },
     { name: "MEDIFE", logo: "/images/logoMedife.svg" }
   ]
+
+  // Triplicamos los elementos para garantizar que el ancho del track supere cualquier resolución de pantalla
+  const repeatedPartners = [...partners, ...partners, ...partners]
   
   return (
     <section className="py-16 bg-white border-y border-hairline overflow-hidden">
@@ -14,13 +17,13 @@ export default function Partners() {
         </span>
       </div>
       <div className="relative w-full overflow-hidden flex">
-        {/* Contenedor animado que se desplaza exactamente un 50% */}
-        <div className="flex shrink-0 animate-scroll gap-16 md:gap-28 grayscale opacity-40">
+        {/* Contenedor principal de animación sin gaps externos */}
+        <div className="flex shrink-0 animate-scroll grayscale opacity-40">
           
           {/* Track 1 */}
-          <div className="flex items-center gap-16 md:gap-28 shrink-0">
-            {partners.map((partner, i) => (
-              <div key={`t1-${i}`} className="w-28 md:w-44 h-10 md:h-14 flex items-center justify-center shrink-0">
+          <div className="flex items-center shrink-0">
+            {repeatedPartners.map((partner, i) => (
+              <div key={`t1-${i}`} className="w-28 md:w-44 h-10 md:h-14 flex items-center justify-center shrink-0 mr-16 md:mr-28">
                 <img 
                   src={partner.logo} 
                   alt={partner.name} 
@@ -30,10 +33,10 @@ export default function Partners() {
             ))}
           </div>
 
-          {/* Track 2 (Idéntico para loop infinito perfecto) */}
-          <div className="flex items-center gap-16 md:gap-28 shrink-0" aria-hidden="true">
-            {partners.map((partner, i) => (
-              <div key={`t2-${i}`} className="w-28 md:w-44 h-10 md:h-14 flex items-center justify-center shrink-0">
+          {/* Track 2 (Exactamente idéntico para el loop perfecto) */}
+          <div className="flex items-center shrink-0" aria-hidden="true">
+            {repeatedPartners.map((partner, i) => (
+              <div key={`t2-${i}`} className="w-28 md:w-44 h-10 md:h-14 flex items-center justify-center shrink-0 mr-16 md:mr-28">
                 <img 
                   src={partner.logo} 
                   alt={partner.name} 
@@ -48,16 +51,10 @@ export default function Partners() {
       <style>{`
         @keyframes scroll {
           0% { transform: translateX(0); }
-          100% { transform: translateX(calc(-50% - 8px)); } /* Ajuste fino para compensar el gap intermedio en móvil */
-        }
-        @media (min-width: 768px) {
-          @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(calc(-50% - 56px)); } /* Ajuste fino para compensar el gap intermedio en desktop */
-          }
+          100% { transform: translateX(-50%); }
         }
         .animate-scroll {
-          animation: scroll 25s linear infinite;
+          animation: scroll 30s linear infinite;
         }
       `}</style>
     </section>
