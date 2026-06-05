@@ -5,11 +5,23 @@ import {
 
 export default function Hero() {
   return (
-    <section className="min-h-screen flex items-center px-margin-mobile md:px-margin-desktop pt-32 pb-16 bg-prius-background">
-      <div className="max-w-[1440px] mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+    <section className="min-h-screen flex items-center px-margin-mobile md:px-margin-desktop pt-32 pb-16 relative overflow-hidden bg-prius-background">
+      {/* Imagen de fondo nítida con overlay degradado para no invadir la información */}
+      <div className="absolute inset-0 z-0">
+        <img 
+          src="/images/hero-bg.png" 
+          alt="Prius Playa Grande" 
+          className="w-full h-full object-cover object-center"
+        />
+        {/* Overlay degradado sofisticado: más opaco a la izquierda para el texto, y suave en el resto */}
+        <div className="absolute inset-0 bg-gradient-to-r from-prius-background via-prius-background/90 to-prius-background/40 md:to-prius-background/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-prius-background via-transparent to-transparent" />
+      </div>
+
+      <div className="max-w-[1440px] mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
         
         {/* Columna Izquierda: Título y Descripción */}
-        <div className="lg:col-span-6 space-y-6">
+        <div className="lg:col-span-6 space-y-6 bg-prius-background/80 md:bg-transparent p-6 md:p-0 rounded-xl backdrop-blur-sm md:backdrop-blur-none border border-hairline/50 md:border-none">
           <span className="inline-block text-[11px] font-bold uppercase tracking-[0.25em] text-prius-black/40 bg-white px-3 py-1.5 rounded-full border border-hairline">
             Playa Grande • Mar del Plata
           </span>
@@ -40,7 +52,7 @@ export default function Hero() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-[620px] w-full">
             
             {/* 1. CARPAS DE DISEÑO (Izquierda Alta - spans 2 rows) */}
-            <div className="bg-white rounded-lg p-5 flex flex-col justify-between min-h-[340px] sm:col-span-1 sm:row-span-2 border border-hairline group">
+            <div className="bg-white/95 backdrop-blur-md rounded-lg p-5 flex flex-col justify-between min-h-[340px] sm:col-span-1 sm:row-span-2 border border-hairline group">
               <div className="space-y-2">
                 <h3 className="text-sm font-bold text-prius-black uppercase tracking-tight">Carpas</h3>
                 <p className="text-[11px] text-prius-black/60 leading-relaxed">
@@ -73,7 +85,7 @@ export default function Hero() {
             </div>
 
             {/* 2. SPA & WELLNESS (Derecha Superior Ancha - spans 2 columns) */}
-            <div className="bg-white rounded-lg p-5 flex flex-col sm:flex-row justify-between min-h-[160px] sm:col-span-2 sm:row-span-1 border border-hairline group">
+            <div className="bg-white/95 backdrop-blur-md rounded-lg p-5 flex flex-col sm:flex-row justify-between min-h-[160px] sm:col-span-2 sm:row-span-1 border border-hairline group">
               <div className="space-y-2 max-w-[180px] flex flex-col justify-between">
                 <div>
                   <h3 className="text-sm font-bold text-prius-black uppercase tracking-tight">Spa & Relax</h3>
@@ -121,7 +133,7 @@ export default function Hero() {
             </div>
 
             {/* 4. CONSERJERÍA DIGITAL (Centro Derecha Alta - spans 1 column, spans 2 rows) */}
-            <div className="bg-white rounded-lg p-5 flex flex-col justify-between min-h-[340px] sm:col-span-1 sm:row-span-2 border border-hairline group">
+            <div className="bg-white/95 backdrop-blur-md rounded-lg p-5 flex flex-col justify-between min-h-[340px] sm:col-span-1 sm:row-span-2 border border-hairline group">
               <div className="space-y-2">
                 <h3 className="text-sm font-bold text-prius-black uppercase tracking-tight">Conserjería</h3>
                 <p className="text-[11px] text-prius-black/60 leading-relaxed">
@@ -148,12 +160,12 @@ export default function Hero() {
             </div>
 
             {/* 5. GASTRONOMÍA DE MAR (Abajo Izquierda Ancha - spans 2 columns) */}
-            <div className="bg-white rounded-lg p-5 flex flex-col sm:flex-row justify-between min-h-[160px] sm:col-span-2 sm:row-span-1 border border-hairline group">
+            <div className="bg-white/95 backdrop-blur-md rounded-lg p-5 flex flex-col sm:flex-row justify-between min-h-[160px] sm:col-span-2 sm:row-span-1 border border-hairline group">
               <div className="space-y-2 max-w-[180px] flex flex-col justify-between">
                 <div>
                   <h3 className="text-sm font-bold text-prius-black uppercase tracking-tight">Gastronomía</h3>
                   <p className="text-[11px] text-prius-black/60 leading-relaxed">
-                    Propuesta gastronómica exclusiva con servicio directo a tu carpa.
+                    Propuesta gastronomía exclusiva con servicio directo a tu carpa.
                   </p>
                 </div>
                 <div className="flex gap-1">
