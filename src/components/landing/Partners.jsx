@@ -1,5 +1,10 @@
 export default function Partners() {
-  const partners = ["BBVA", "HAWKS SEGUROS", "SANCOR SEGUROS", "MEDIFE"]
+  const partners = [
+    { name: "BNA", logo: "/images/logoBNA.svg" },
+    { name: "HAWKS SEGUROS", logo: "/images/logoHawk.svg" },
+    { name: "SANCOR SEGUROS", logo: "/images/logoSancor.svg" },
+    { name: "MEDIFE", logo: "/images/logoMedife.svg" }
+  ]
   
   return (
     <section className="py-16 bg-white border-y border-hairline overflow-hidden">
@@ -12,9 +17,12 @@ export default function Partners() {
         <div className="flex whitespace-nowrap animate-scroll">
           <div className="flex items-center gap-24 md:gap-36 px-12 grayscale opacity-40">
             {[...partners, ...partners, ...partners, ...partners, ...partners].map((partner, i) => (
-              <span key={i} className="text-xl md:text-3xl font-extrabold tracking-tighter text-prius-black select-none">
-                {partner}
-              </span>
+              <img 
+                key={i} 
+                src={partner.logo} 
+                alt={partner.name} 
+                className="h-12 md:h-16 w-auto object-contain select-none pointer-events-none"
+              />
             ))}
           </div>
         </div>
