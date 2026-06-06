@@ -63,7 +63,7 @@ export default function Hero() {
               {/* Mockup de Tarjeta de Reserva Flotante */}
               <div className="my-4 bg-prius-background rounded-md p-3 border border-hairline max-w-full mx-auto transform group-hover:scale-102 transition-transform duration-300">
                 <div className="rounded-sm overflow-hidden h-20 mb-2 relative border border-hairline">
-                  <img src="/images/prius11.webp" alt="Carpas" className="w-full h-full object-cover" />
+                  <img src="/images/prius12.webp" alt="Carpas" className="w-full h-full object-cover" />
                 </div>
                 <div className="flex justify-between items-center">
                   <div>
