@@ -17,9 +17,9 @@ export default {
         }
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        display: ['Space Grotesk', 'sans-serif'],
-        serif: ['Playfair Display', 'serif'],
+        sans: ['Plus Jakarta Sans', 'sans-serif'],
+        display: ['Cormorant Garamond', 'serif'],
+        serif: ['Cormorant Garamond', 'serif'],
       },
       borderRadius: {
         lg: '8px',

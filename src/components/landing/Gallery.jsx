@@ -18,7 +18,6 @@ export default function Gallery() {
 
   const handleOpen = (img) => {
     setActiveImage(img)
-    // Pequeño delay para asegurar que el componente se monte en el DOM antes de iniciar la transición
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         setIsOpen(true)
@@ -28,33 +27,32 @@ export default function Gallery() {
 
   const handleClose = () => {
     setIsOpen(false)
-    // Esperamos a que termine la transición de salida (500ms) antes de desmontar el estado
     setTimeout(() => {
       setActiveImage(null)
     }, 500)
   }
   
   return (
-    <section className="py-28 px-margin-mobile md:px-margin-desktop bg-white" id="galeria">
+    <section className="py-20 px-margin-mobile md:px-margin-desktop bg-white" id="galeria">
       <div className="max-w-[1440px] mx-auto">
         
         {/* Encabezado Minimalista */}
-        <div className="mb-20 flex flex-col md:flex-row md:items-end justify-between gap-8">
+        <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="max-w-xl">
-            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-prius-black/40 block mb-3">
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-prius-black/40 block mb-2">
               Galería Visual
             </span>
-            <h2 className="text-[36px] md:text-[52px] font-normal tracking-tight text-prius-black uppercase font-display leading-none">
+            <h2 className="text-[32px] md:text-[44px] font-normal tracking-tight text-prius-black uppercase font-display leading-none">
               Viví la Experiencia <span className="text-gold italic font-serif">Prius</span>
             </h2>
           </div>
-          <p className="text-prius-black/60 text-sm max-w-md leading-relaxed">
+          <p className="text-prius-black/60 text-xs md:text-sm max-w-md leading-relaxed">
             Un recorrido visual por nuestras exclusivas instalaciones y momentos únicos diseñados bajo un concepto de minimalismo estructural y confort absoluto.
           </p>
         </div>
 
-        {/* Bento Grid de Galería Ultra-Moderno */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 auto-rows-auto md:auto-rows-[240px]">
+        {/* Bento Grid de Galería Ultra-Moderno - Más compacto */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 auto-rows-auto md:auto-rows-[180px]">
           {images.map((img, idx) => (
             <div 
               key={idx} 
@@ -68,17 +66,17 @@ export default function Gallery() {
               />
               
               {/* Overlay Minimalista */}
-              <div className="absolute inset-0 bg-prius-black/40 opacity-0 group-hover:opacity-100 transition-premium flex flex-col justify-between p-6">
+              <div className="absolute inset-0 bg-prius-black/40 opacity-0 group-hover:opacity-100 transition-premium flex flex-col justify-between p-4">
                 <div className="flex justify-end">
-                  <div className="p-2 bg-white/10 backdrop-blur-md rounded-full border border-white/20 text-white transform translate-y-2 group-hover:translate-y-0 transition-premium">
-                    <Maximize2 size={14} />
+                  <div className="p-1.5 bg-white/10 backdrop-blur-md rounded-full border border-white/20 text-white transform translate-y-2 group-hover:translate-y-0 transition-premium">
+                    <Maximize2 size={12} />
                   </div>
                 </div>
                 <div className="transform translate-y-2 group-hover:translate-y-0 transition-premium">
-                  <span className="text-[9px] font-bold uppercase tracking-widest text-gold block mb-1 font-display">
+                  <span className="text-[8px] font-bold uppercase tracking-widest text-gold block mb-0.5 font-display">
                     {img.category}
                   </span>
-                  <h4 className="text-white text-sm font-normal uppercase tracking-tight font-display">
+                  <h4 className="text-white text-xs font-normal uppercase tracking-tight font-display">
                     {img.title}
                   </h4>
                 </div>
@@ -88,7 +86,7 @@ export default function Gallery() {
         </div>
       </div>
 
-      {/* Lightbox Modal con Transición Acelerada por Hardware */}
+      {/* Lightbox Modal */}
       {activeImage && (
         <div 
           className={`fixed inset-0 bg-prius-black/95 z-50 flex items-center justify-center p-4 backdrop-blur-sm transition-opacity duration-500 ease-out ${
