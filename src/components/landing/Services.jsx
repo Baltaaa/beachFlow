@@ -1,83 +1,124 @@
-import { Umbrella, Home, Shield, Waves, Trophy, Calendar, MessageCircle, Sun } from 'lucide-react'
+import { Umbrella, Shield, Waves, Heart, Sparkles, ArrowRight } from 'lucide-react'
 
 const services = [
   {
-    title: "Carpas y Sombrillas",
-    desc: "Espacios de sombra premium con diseño minimalista. Cada unidad está pensada para tu comodidad total, con mobiliario ergonómico y atención personalizada 24hs.",
+    title: "Carpas y Sombrillas Premium",
+    subtitle: "El santuario de sombra perfecto",
+    desc: "Un refugio privado de diseño nórdico frente al Atlántico. Equipado con reposeras ergonómicas de alta gama, mesas auxiliares de madera noble y textiles con protección UV certificada. Incluye atención personalizada de carperos y conserjería digital exclusiva directo a su sombra.",
     icon: Umbrella,
-    img: "/images/prius1.webp"
+    img: "/images/prius6.webp",
+    gridClass: "md:col-span-2 md:row-span-2 min-h-[460px]"
   },
   {
-    title: "Cabinas y Lockers",
-    desc: "Espacios privados para tu descanso y almacenamiento seguro. Cabinas climatizadas y lockers de alta seguridad para tu comodidad absoluta.",
-    icon: Shield,
-    img: "/images/prius2.webp"
-  },
-  {
-    title: "Masajes Terapéuticos",
-    desc: "Experiencias de relajación total con nuestros expertos. Masajes de punta, duchas de vapor y tratamientos de bienestar diseñados para tu recuperación.",
-    icon: MessageCircle,
-    img: "/images/prius3.webp"
-  },
-  {
-    title: "Pileta con Solarium",
-    desc: "Piscina climatizada con solarium privado. Acceso exclusivo con toallas de alta gama y zona de relax con sombreado selectivo.",
+    title: "Pileta & Solárium Exclusivo",
+    subtitle: "Horizonte infinito y relax templado",
+    desc: "Un espejo de agua climatizada diseñado para fundirse con el mar. Relájese en nuestro solárium de madera noble con servicio de coctelería premium, reposeras acolchadas y toallas de algodón egipcio siempre a su disposición.",
     icon: Waves,
-    img: "/images/prius4.webp"
+    img: "/images/prius4.webp",
+    gridClass: "md:col-span-1 md:row-span-1 min-h-[280px]"
   },
   {
-    title: "Recreación y Actividades",
-    desc: "Programación diaria de actividades recreativas. Deporte, cultura y entretenimiento para toda la familia con coordinadores certificados.",
-    icon: Trophy,
-    img: "/images/prius5.webp"
+    title: "Masajes & Wellness",
+    subtitle: "Bienestar frente al mar",
+    desc: "Revitalice cuerpo y mente en nuestro oasis de relajación. Sesiones personalizadas con terapeutas certificados, masajes descontracturantes con aceites orgánicos y tratamientos de aromaterapia con el murmullo de las olas de fondo.",
+    icon: Heart,
+    img: "/images/prius3.webp",
+    gridClass: "md:col-span-1 md:row-span-1 min-h-[280px]"
+  },
+  {
+    title: "Cabinas Privadas & Lockers",
+    subtitle: "Su privacidad totalmente resguardada",
+    desc: "Vestuarios de diseño minimalista, duchas con control térmico y lockers de alta seguridad integrados. El espacio perfecto para cambiarse con absoluta comodidad, discreción y total tranquilidad durante su jornada de playa.",
+    icon: Shield,
+    img: "/images/prius2.webp",
+    gridClass: "md:col-span-1 md:row-span-1 min-h-[280px]"
+  },
+  {
+    title: "Recreación & Club de Mar",
+    subtitle: "Experiencias que inspiran",
+    desc: "Una agenda diaria diseñada para enriquecer su estadía. Desde yoga al amanecer y clínicas de surf hasta talleres recreativos para niños coordinados por profesionales bilingües. El equilibrio ideal entre descanso y entretenimiento selecto.",
+    icon: Sparkles,
+    img: "/images/prius5.webp",
+    gridClass: "md:col-span-2 md:row-span-1 min-h-[280px]"
   }
 ]
 
 export default function Services() {
+  const scrollToContact = () => {
+    document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
-    <section className="py-28 px-margin-mobile md:px-margin-desktop bg-prius-background" id="servicios">
+    <section className="py-28 px-margin-mobile md:px-margin-desktop bg-prius-background border-t border-hairline" id="servicios">
       <div className="max-w-[1440px] mx-auto">
-        <div className="mb-20 text-center md:text-left">
-          <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-gold bg-prius-black px-3 py-1.5 rounded-full">
-            Experiencias Únicas
-          </span>
-          <h2 className="text-[36px] md:text-[48px] font-normal tracking-tight mt-6 text-prius-black uppercase">
-            Nuestras <span className="font-serif italic text-gold">Servicios</span>
-          </h2>
-          <p className="text-prius-black/60 mt-4 max-w-xl text-sm md:text-base mx-auto md:mx-0">
-            Cada detalle está pensado para tu experiencia perfecta. Descanso, bienestar y diversión bajo el sol de Playa Grande.
+        
+        {/* Encabezado ultra-elegante y depurado */}
+        <div className="mb-20 flex flex-col md:flex-row md:items-end justify-between gap-8">
+          <div className="max-w-2xl">
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-prius-black/40 block mb-3 font-display">
+              Estilo de Vida Prius
+            </span>
+            <h2 className="text-[36px] md:text-[52px] font-normal tracking-tight text-prius-black uppercase font-display leading-none">
+              Servicios de <span className="text-gold italic font-serif">Exclusividad</span> Absoluta
+            </h2>
+          </div>
+          <p className="text-prius-black/60 text-sm max-w-md leading-relaxed">
+            Hemos redefinido la experiencia costera combinando el minimalismo estructural con una propuesta integral de confort, descanso y bienestar diseñado al detalle.
           </p>
         </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+
+        {/* Bento Grid Asimétrico y Premium */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {services.map((s, i) => (
             <div 
               key={i} 
-              className="bg-white border border-hairline rounded-lg p-6 flex flex-col group hover:border-gold transition-all duration-300 transform hover:-translate-y-1"
+              className={`bg-white border border-hairline rounded-lg overflow-hidden flex flex-col justify-between group hover:border-gold transition-premium ${s.gridClass}`}
             >
-              <div className="mb-6 overflow-hidden rounded-md aspect-[4/3] border border-hairline relative">
+              {/* Contenedor de Imagen con Efecto Hover Minimalista */}
+              <div className="relative overflow-hidden aspect-[16/10] md:aspect-auto flex-1 border-b border-hairline bg-prius-background">
                 <img 
                   src={s.img} 
                   alt={s.title} 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                  className="w-full h-full object-cover group-hover:scale-102 transition-premium-slow" 
                 />
-                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm p-2.5 rounded-full border border-hairline">
-                  <s.icon className="w-5 h-5 text-prius-black" strokeWidth={1.5} />
+                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md p-2.5 rounded-full border border-hairline z-10">
+                  <s.icon className="w-4 h-4 text-prius-black" strokeWidth={1.5} />
+                </div>
+                
+                {/* Gradiente sutil integrado para el Bento de mayor tamaño */}
+                {s.gridClass.includes("md:row-span-2") && (
+                  <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent opacity-60 pointer-events-none" />
+                )}
+              </div>
+
+              {/* Textos y Acción */}
+              <div className="p-6 md:p-8 flex flex-col justify-between bg-white">
+                <div>
+                  <span className="text-[9px] font-bold uppercase tracking-wider text-gold block mb-1 font-display">
+                    {s.subtitle}
+                  </span>
+                  <h3 className="text-lg md:text-xl font-normal uppercase tracking-tight mb-3 text-prius-black font-display">
+                    {s.title}
+                  </h3>
+                  <p className="text-prius-black/60 text-xs md:text-sm leading-relaxed mb-6 font-light">
+                    {s.desc}
+                  </p>
+                </div>
+
+                <div className="pt-2 border-t border-hairline flex justify-between items-center">
+                  <button 
+                    onClick={scrollToContact}
+                    className="text-[10px] font-bold text-prius-black hover:text-gold transition-colors uppercase tracking-widest text-left flex items-center gap-2 group/btn font-display"
+                  >
+                    Consultar disponibilidad 
+                    <ArrowRight size={12} className="transform group-hover/btn:translate-x-1 transition-transform" />
+                  </button>
                 </div>
               </div>
-              <h3 className="text-lg font-bold uppercase tracking-tight mb-3 text-prius-black font-display">{s.title}</h3>
-              <p className="text-prius-black/60 text-xs md:text-sm leading-relaxed mb-6 flex-grow">
-                {s.desc}
-              </p>
-              <button 
-                onClick={() => document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' })}
-                className="text-[11px] font-bold text-prius-black hover:text-gold transition-colors uppercase tracking-widest text-left flex items-center gap-2"
-              >
-                Consultar Disponibilidad →
-              </button>
             </div>
           ))}
         </div>
+
       </div>
     </section>
   )
