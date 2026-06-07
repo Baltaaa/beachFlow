@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import { supabase } from "../lib/supabase"
-import { Eye, EyeOff, Loader2, ArrowLeft } from "lucide-react"
+import { Eye, EyeOff, Loader2, ArrowLeft, ShieldCheck, ShieldAlert } from "lucide-react"
 
 export default function Login() {
   const navigate = useNavigate()
@@ -11,14 +11,84 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
 
+  // Estados para la barrera de seguridad (Slide to Verify)
+  const [isVerified, setIsVerified] = useState(false)
+  const [sliderPosition, setSliderPosition] = useState(0)
+  const [isDragging, setIsDragging] = useState(false)
+  const sliderRef = useRef(null)
+  const startXRef = useRef(0)
+
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session) navigate("/dashboard")
     })
   }, [navigate])
 
+  // Manejadores de eventos para el deslizador de seguridad (Soporta Mouse y Touch)
+  const handleStart = (clientX) => {
+    if (isVerified || isLoading) return
+    setIsDragging(true)
+    startXRef.current = clientX - sliderPosition
+  }
+
+  const handleMove = (clientX) => {
+    if (!isDragging || isVerified) return
+    const sliderWidth = sliderRef.current.clientWidth
+    const handleWidth = 48 // Ancho del botón deslizante
+    const maxDistance = sliderWidth - handleWidth
+    
+    let currentPos = clientX - startXRef.current
+    if (currentPos < 0) currentPos = 0
+    if (currentPos > maxDistance) currentPos = maxDistance
+
+    const percentage = (currentPos / maxDistance) * 100
+    setSliderPosition(currentPos)
+
+    if (percentage >= 98) {
+      setIsVerified(true)
+      setIsDragging(false)
+      setSliderPosition(maxDistance)
+    }
+  }
+
+  const handleEnd = () => {
+    if (isVerified) return
+    setIsDragging(false)
+    // Si no llegó al final, vuelve al inicio con suavidad
+    setSliderPosition(0)
+  }
+
+  // Eventos de Mouse
+  const onMouseDown = (e) => handleStart(e.clientX)
+  const onMouseMove = (e) => handleMove(e.clientX)
+  const onMouseUp = () => handleEnd()
+
+  // Eventos de Touch (Mobile)
+  const onTouchStart = (e) => handleStart(e.touches[0].clientX)
+  const onTouchMove = (e) => handleMove(e.touches[0].clientX)
+  const onTouchEnd = () => handleEnd()
+
+  useEffect(() => {
+    if (isDragging) {
+      window.addEventListener("mousemove", onMouseMove)
+      window.addEventListener("mouseup", onMouseUp)
+      window.addEventListener("touchmove", onTouchMove)
+      window.addEventListener("touchend", onTouchEnd)
+    }
+    return () => {
+      window.removeEventListener("mousemove", onMouseMove)
+      window.removeEventListener("mouseup", onMouseUp)
+      window.removeEventListener("touchmove", onTouchMove)
+      window.removeEventListener("touchend", onTouchEnd)
+    }
+  }, [isDragging])
+
   const handleSubmit = async (e) => {
     e.preventDefault()
+    if (!isVerified) {
+      setError("Por favor, complete la verificación de seguridad.")
+      return
+    }
     setError("")
     setIsLoading(true)
 
@@ -30,6 +100,8 @@ export default function Login() {
 
       if (signInError) {
         setError("Email o contraseña incorrectos")
+        setIsVerified(false)
+        setSliderPosition(0)
         return
       }
 
@@ -38,6 +110,8 @@ export default function Login() {
       }
     } catch (err) {
       setError("Error de conexión. Verifica tu internet.")
+      setIsVerified(false)
+      setSliderPosition(0)
     } finally {
       setIsLoading(false)
     }
@@ -114,6 +188,47 @@ export default function Login() {
               </div>
             </div>
 
+            {/* Barrera de Seguridad: Slide to Verify */}
+            <div className="space-y-2">
+              <label className="text-[10px] font-bold uppercase tracking-widest text-prius-black/40">Verificación de Seguridad</label>
+              <div 
+                ref={sliderRef}
+                className={`relative h-12 w-full rounded-sm border flex items-center justify-center select-none overflow-hidden transition-colors duration-300 ${
+                  isVerified 
+                    ? "bg-green-50 border-green-200" 
+                    : "bg-prius-background border-hairline"
+                }`}
+              >
+                {/* Texto de fondo */}
+                <span className={`text-[9px] font-bold uppercase tracking-widest transition-opacity duration-300 ${
+                  isVerified ? "text-green-700" : "text-prius-black/40"
+                }`}>
+                  {isVerified ? "SISTEMA VERIFICADO" : "DESLICE PARA VERIFICAR"}
+                </span>
+
+                {/* Botón Deslizante */}
+                <div
+                  onMouseDown={onMouseDown}
+                  onTouchStart={onTouchStart}
+                  style={{ 
+                    transform: `translateX(${sliderPosition}px)`,
+                    transition: isDragging ? "none" : "transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)"
+                  }}
+                  className={`absolute left-0 top-0 bottom-0 w-12 flex items-center justify-center cursor-grab active:cursor-grabbing transition-colors duration-300 ${
+                    isVerified 
+                      ? "bg-green-600 text-white" 
+                      : "bg-gold text-prius-black hover:bg-gold-hover"
+                  }`}
+                >
+                  {isVerified ? (
+                    <ShieldCheck className="w-5 h-5" />
+                  ) : (
+                    <ShieldAlert className="w-5 h-5" />
+                  )}
+                </div>
+              </div>
+            </div>
+
             {error && (
               <div className="p-4 bg-red-50 border border-red-100 rounded-sm">
                 <p className="text-red-600 text-xs font-medium">{error}</p>
@@ -122,8 +237,12 @@ export default function Login() {
 
             <button
               type="submit"
-              disabled={isLoading}
-              className="w-full h-12 bg-gold hover:bg-gold-hover text-prius-black font-bold text-xs uppercase tracking-widest rounded-sm transition-all flex items-center justify-center gap-2"
+              disabled={isLoading || !isVerified}
+              className={`w-full h-12 font-bold text-xs uppercase tracking-widest rounded-sm transition-all flex items-center justify-center gap-2 ${
+                isVerified && !isLoading
+                  ? "bg-gold hover:bg-gold-hover text-prius-black cursor-pointer"
+                  : "bg-prius-black/10 text-prius-black/30 cursor-not-allowed"
+              }`}
             >
               {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Ingresar al Sistema"}
             </button>
