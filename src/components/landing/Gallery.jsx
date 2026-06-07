@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Maximize2, X } from 'lucide-react'
 
 export default function Gallery() {
   const [activeImage, setActiveImage] = useState(null)
+  const [isOpen, setIsOpen] = useState(false)
 
   const images = [
     { num: 7, size: "md:col-span-2 md:row-span-2 aspect-square md:aspect-auto", title: "Atardecer en la Costa", category: "Playa Grande" },
@@ -14,6 +15,24 @@ export default function Gallery() {
     { num: 13, size: "col-span-1 row-span-1 aspect-square", title: "Atención Personalizada", category: "Experiencia" },
     { num: 14, size: "col-span-1 row-span-1 aspect-square", title: "Experiencia Nocturna", category: "Eventos" }
   ]
+
+  const handleOpen = (img) => {
+    setActiveImage(img)
+    // Pequeño delay para asegurar que el componente se monte en el DOM antes de iniciar la transición
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        setIsOpen(true)
+      })
+    })
+  }
+
+  const handleClose = () => {
+    setIsOpen(false)
+    // Esperamos a que termine la transición de salida (500ms) antes de desmontar el estado
+    setTimeout(() => {
+      setActiveImage(null)
+    }, 500)
+  }
   
   return (
     <section className="py-28 px-margin-mobile md:px-margin-desktop bg-white" id="galeria">
@@ -39,7 +58,7 @@ export default function Gallery() {
           {images.map((img, idx) => (
             <div 
               key={idx} 
-              onClick={() => setActiveImage(img)}
+              onClick={() => handleOpen(img)}
               className={`relative overflow-hidden rounded-lg border border-hairline group cursor-pointer bg-prius-background transition-premium hover:border-gold ${img.size}`}
             >
               <img 
@@ -69,21 +88,29 @@ export default function Gallery() {
         </div>
       </div>
 
-      {/* Lightbox Modal con Animación Premium */}
+      {/* Lightbox Modal con Transición Acelerada por Hardware */}
       {activeImage && (
         <div 
-          className="fixed inset-0 bg-prius-black/95 z-50 flex items-center justify-center p-4 backdrop-blur-sm animate-premium-fade"
-          onClick={() => setActiveImage(null)}
+          className={`fixed inset-0 bg-prius-black/95 z-50 flex items-center justify-center p-4 backdrop-blur-sm transition-opacity duration-500 ease-out ${
+            isOpen ? 'opacity-100' : 'opacity-0'
+          }`}
+          onClick={handleClose}
+          style={{ willChange: 'opacity' }}
         >
           <button 
-            onClick={() => setActiveImage(null)}
-            className="absolute top-6 right-6 p-3 bg-white/10 hover:bg-white/20 text-white rounded-full border border-white/10 transition-premium"
+            onClick={handleClose}
+            className={`absolute top-6 right-6 p-3 bg-white/10 hover:bg-white/20 text-white rounded-full border border-white/10 transition-all duration-500 ease-out ${
+              isOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-75'
+            }`}
           >
             <X size={20} />
           </button>
           <div 
-            className="max-w-4xl w-full max-h-[85vh] flex flex-col items-center animate-premium-slide"
+            className={`max-w-4xl w-full max-h-[85vh] flex flex-col items-center transition-all duration-500 cubic-bezier(0.16, 1, 0.3, 1) ${
+              isOpen ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95'
+            }`}
             onClick={e => e.stopPropagation()}
+            style={{ willChange: 'transform, opacity' }}
           >
             <img 
               src={`/images/prius${activeImage.num}.webp`} 
