@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Maximize2, X } from 'lucide-react'
 
 export default function Gallery() {
   const [activeImage, setActiveImage] = useState(null)
+  const [animateModal, setAnimateModal] = useState(false)
 
   const images = [
     { num: 7, size: "md:col-span-2 md:row-span-2 aspect-square md:aspect-auto", title: "Atardecer en la Costa", category: "Playa Grande" },
@@ -14,6 +15,20 @@ export default function Gallery() {
     { num: 13, size: "col-span-1 row-span-1 aspect-square", title: "Atención Personalizada", category: "Experiencia" },
     { num: 14, size: "col-span-1 row-span-1 aspect-square", title: "Experiencia Nocturna", category: "Eventos" }
   ]
+
+  const openLightbox = (img) => {
+    setActiveImage(img)
+    setTimeout(() => {
+      setAnimateModal(true)
+    }, 50)
+  }
+
+  const closeLightbox = () => {
+    setAnimateModal(false)
+    setTimeout(() => {
+      setActiveImage(null)
+    }, 500) // Coincide con la duración de la transición
+  }
   
   return (
     <section className="py-28 px-margin-mobile md:px-margin-desktop bg-white" id="galeria">
@@ -39,23 +54,23 @@ export default function Gallery() {
           {images.map((img, idx) => (
             <div 
               key={idx} 
-              onClick={() => setActiveImage(img)}
-              className={`relative overflow-hidden rounded-lg border border-hairline group cursor-pointer bg-prius-background transition-all duration-500 hover:border-gold ${img.size}`}
+              onClick={() => openLightbox(img)}
+              className={`relative overflow-hidden rounded-lg border border-hairline group cursor-pointer bg-prius-background transition-all duration-700 ease-in-out hover:border-gold ${img.size}`}
             >
               <img 
                 alt={img.title} 
-                className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-700" 
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out" 
                 src={`/images/prius${img.num}.webp`} 
               />
               
-              {/* Overlay Minimalista */}
-              <div className="absolute inset-0 bg-prius-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-6">
+              {/* Overlay Minimalista con Transición Lenta */}
+              <div className="absolute inset-0 bg-prius-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-in-out flex flex-col justify-between p-6">
                 <div className="flex justify-end">
-                  <div className="p-2 bg-white/10 backdrop-blur-md rounded-full border border-white/20 text-white">
+                  <div className="p-2 bg-white/10 backdrop-blur-md rounded-full border border-white/20 text-white transform translate-y-2 group-hover:translate-y-0 transition-transform duration-700 ease-out">
                     <Maximize2 size={14} />
                   </div>
                 </div>
-                <div>
+                <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-700 ease-out">
                   <span className="text-[9px] font-bold uppercase tracking-widest text-gold block mb-1 font-display">
                     {img.category}
                   </span>
@@ -69,26 +84,30 @@ export default function Gallery() {
         </div>
       </div>
 
-      {/* Lightbox Modal */}
+      {/* Lightbox Modal con Transición de Opacidad y Escala Lenta */}
       {activeImage && (
         <div 
-          className="fixed inset-0 bg-prius-black/95 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
-          onClick={() => setActiveImage(null)}
+          className={`fixed inset-0 bg-prius-black/95 z-50 flex items-center justify-center p-4 backdrop-blur-sm transition-opacity duration-500 ease-in-out ${
+            animateModal ? 'opacity-100' : 'opacity-0'
+          }`}
+          onClick={closeLightbox}
         >
           <button 
-            onClick={() => setActiveImage(null)}
-            className="absolute top-6 right-6 p-3 bg-white/10 hover:bg-white/20 text-white rounded-full border border-white/10 transition-colors"
+            onClick={closeLightbox}
+            className="absolute top-6 right-6 p-3 bg-white/10 hover:bg-white/20 text-white rounded-full border border-white/10 transition-all duration-500 ease-in-out"
           >
             <X size={20} />
           </button>
           <div 
-            className="max-w-4xl w-full max-h-[85vh] flex flex-col items-center"
+            className={`max-w-4xl w-full max-h-[85vh] flex flex-col items-center transition-all duration-500 ease-out ${
+              animateModal ? 'scale-100 translate-y-0' : 'scale-95 translate-y-4'
+            }`}
             onClick={e => e.stopPropagation()}
           >
             <img 
               src={`/images/prius${activeImage.num}.webp`} 
               alt={activeImage.title} 
-              className="max-w-full max-h-[75vh] object-contain rounded-lg border border-white/10"
+              className="max-w-full max-h-[75vh] object-contain rounded-lg border border-white/10 shadow-2xl"
             />
             <div className="text-center mt-6">
               <span className="text-[10px] font-bold uppercase tracking-widest text-gold font-display">
