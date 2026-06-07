@@ -1,6 +1,5 @@
-import { Link } from 'react-router-dom'
-import { Menu, X } from 'lucide-react'
 import { useState, useEffect } from 'react'
+import { Menu, X } from 'lucide-react'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -50,7 +49,7 @@ export default function Navbar() {
             <button
               key={item}
               onClick={() => scrollToSection(item)}
-              className="text-[12px] font-medium tracking-widest text-prius-black/60 hover:text-prius-black transition-colors uppercase"
+              className="text-[12px] font-medium tracking-widest text-prius-black/60 hover:text-prius-black transition-colors uppercase font-display"
             >
               {item}
             </button>
@@ -58,15 +57,9 @@ export default function Navbar() {
         </div>
 
         <div className="hidden md:flex items-center gap-6">
-          <Link 
-            to="/login" 
-            className="text-[12px] font-medium tracking-widest uppercase hover:underline text-prius-black/80 hover:text-prius-black"
-          >
-            Acceso
-          </Link>
           <button 
             onClick={() => scrollToSection('contacto')}
-            className="bg-gold hover:bg-gold-hover px-6 py-3 rounded-sm font-medium text-[12px] uppercase tracking-wider transition-all border border-transparent"
+            className="bg-gold hover:bg-gold-hover px-6 py-3 rounded-sm font-medium text-[12px] uppercase tracking-wider transition-all border border-transparent font-display"
           >
             Solicitar cotización
           </button>
@@ -88,22 +81,15 @@ export default function Navbar() {
             <button
               key={item}
               onClick={() => scrollToSection(item)}
-              className="text-left text-sm font-medium tracking-wider text-prius-black/80 hover:text-prius-black py-2 uppercase"
+              className="text-left text-sm font-medium tracking-wider text-prius-black/80 hover:text-prius-black py-2 uppercase font-display"
             >
               {item}
             </button>
           ))}
           <div className="h-px bg-hairline my-2" />
-          <Link 
-            to="/login" 
-            onClick={() => setIsOpen(false)}
-            className="text-sm font-medium tracking-wider uppercase py-2 text-prius-black/80"
-          >
-            Acceso Administrador
-          </Link>
           <button 
             onClick={() => scrollToSection('contacto')}
-            className="w-full bg-gold hover:bg-gold-hover py-3 rounded-sm font-medium text-xs uppercase tracking-wider transition-all text-center"
+            className="w-full bg-gold hover:bg-gold-hover py-3 rounded-sm font-medium text-xs uppercase tracking-wider transition-all text-center font-display"
           >
             Solicitar cotización
           </button>
