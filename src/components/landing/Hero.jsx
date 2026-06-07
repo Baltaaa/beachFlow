@@ -26,7 +26,7 @@ export default function Hero() {
             Playa Grande • Mar del Plata
           </span>
           <h1 className="text-[40px] sm:text-[52px] md:text-[64px] font-normal leading-[1.1] tracking-[-0.04em] text-prius-black uppercase">
-            Experiencia premium en <span className="font-serif italic text-gold">Prius</span> Playa Grande
+            Experiencia premium en <span className="font-serif italic text-gold">Prius</span>
           </h1>
           <p className="text-prius-black/60 text-sm sm:text-base max-w-xl leading-relaxed">
             Redefinimos el descanso costero con una propuesta arquitectónica minimalista y servicios de exclusividad absoluta en el punto más emblemático de la costa.
