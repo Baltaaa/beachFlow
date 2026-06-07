@@ -20,7 +20,7 @@ export default function Events() {
                 Eventos sociales y corporativos a medida
               </span>
               <h2 className="text-3xl md:text-4xl font-normal uppercase tracking-tight leading-tight mb-4">
-                Tu espacio para eventos <span className="text-gold italic">frente al mar</span>
+                Tu espacio para eventos en <span className="font-serif italic text-gold">Prius</span>
               </h2>
               <p className="text-white/60 text-xs md:text-sm leading-relaxed mb-8">
                 La mítica esquina de Playa Grande se transforma. Lo que antes fue el icónico espacio de Antares, hoy renace como un salón de eventos premium totalmente privado y disponible exclusivamente bajo reserva previa.

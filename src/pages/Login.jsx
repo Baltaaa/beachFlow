@@ -126,9 +126,9 @@ export default function Login() {
         </div>
         
         <div className="relative z-10 text-center">
-          <img src="/logo-prius.png" alt="Prius" className="h-32 w-auto mx-auto mb-8 brightness-0 invert" />
+          <img src="/logo-prius.png" alt="Prius" className="h-64 w-auto mx-auto mb-8 brightness-0 invert" />
           <h1 className="text-4xl font-normal text-white mb-4 tracking-tight">
-            Gestión de Experiencias <span className="text-gold italic">Prius</span>
+            Gestión de Experiencias <span className="font-serif italic text-gold">Prius</span>
           </h1>
           <p className="text-white/60 max-w-md mx-auto">
             Acceso exclusivo para el equipo de administración de Prius Playa Grande.
@@ -145,7 +145,7 @@ export default function Login() {
           </Link>
 
           <div className="mb-10">
-            <img src="/logo-prius.png" alt="Prius" className="h-12 w-auto mb-8 lg:hidden" />
+            <img src="/logo-prius.png" alt="Prius" className="h-24 w-auto mb-8 lg:hidden" />
             <h2 className="text-3xl font-normal text-prius-black mb-2 tracking-tight">
               Bienvenido
             </h2>
@@ -203,7 +203,7 @@ export default function Login() {
                 <span className={`text-[9px] font-bold uppercase tracking-widest transition-opacity duration-300 ${
                   isVerified ? "text-green-700" : "text-prius-black/40"
                 }`}>
-                  {isVerified ? "SISTEMA VERIFICADO" : "DESLICE PARA VERIFICAR"}
+                  {isVerified ? "SISTEMA VERIFICADO" : "DESLICE PARA VERIFICAR SISTEMA"}
                 </span>
 
                 {/* Botón Deslizante */}
