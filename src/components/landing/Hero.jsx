@@ -1,6 +1,6 @@
 import { 
   Umbrella, Sparkles, CreditCard, MessageSquare, 
-  Utensils, Bell, Calendar, Check, Shield, Wifi, Coffee
+  Utensils, Calendar, Check, Shield, Wifi, Coffee, Heart, ShoppingBag
 } from 'lucide-react'
 
 export default function Hero() {
@@ -14,7 +14,7 @@ export default function Hero() {
           className="w-full h-full object-cover object-center"
         />
         {/* Overlay degradado sofisticado: más opaco a la izquierda para el texto, y suave en el resto */}
-        <div className="absolute inset-0 bg-gradient-to-r from-prius-background via-prius-background/90 to-prius-background/40 md:to-prius-background/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-prius-background via-prius-background/95 to-prius-background/40 md:to-prius-background/30" />
         <div className="absolute inset-0 bg-gradient-to-t from-prius-background via-transparent to-transparent" />
       </div>
 
@@ -47,149 +47,132 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Columna Derecha: Bento Grid Compacto con Colores Prius */}
+        {/* Columna Derecha: Bento Grid Compacto y Moderno (Adaptado a Mobile en 2 columnas) */}
         <div className="lg:col-span-6 w-full flex justify-center lg:justify-end">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-[620px] w-full">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4 max-w-[620px] w-full">
             
-            {/* 1. CARPAS DE DISEÑO (Izquierda Alta - spans 2 rows) */}
-            <div className="bg-white/95 backdrop-blur-md rounded-lg p-5 flex flex-col justify-between min-h-[340px] sm:col-span-1 sm:row-span-2 border border-hairline group">
-              <div className="space-y-2">
-                <h3 className="text-sm font-bold text-prius-black uppercase tracking-tight">Carpas</h3>
-                <p className="text-[11px] text-prius-black/60 leading-relaxed">
+            {/* 1. CARPAS DE DISEÑO (Vertical en Desktop, Compacto en Mobile) */}
+            <div className="bg-white/90 backdrop-blur-md rounded-lg p-4 sm:p-5 flex flex-col justify-between min-h-[180px] sm:min-h-[340px] col-span-1 sm:row-span-2 border border-hairline group transition-premium hover:border-gold">
+              <div className="space-y-1 sm:space-y-2">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-xs sm:text-sm font-bold text-prius-black uppercase tracking-tight font-display">Carpas</h3>
+                  <Umbrella className="w-3.5 h-3.5 text-gold sm:hidden" />
+                </div>
+                <p className="text-[10px] sm:text-[11px] text-prius-black/60 leading-tight sm:leading-relaxed">
                   Estructuras minimalistas con mobiliario premium y atención personalizada.
                 </p>
               </div>
 
-              {/* Mockup de Tarjeta de Reserva Flotante */}
-              <div className="my-4 bg-prius-background rounded-md p-3 border border-hairline max-w-full mx-auto transform group-hover:scale-102 transition-transform duration-300">
-                <div className="rounded-sm overflow-hidden h-20 mb-2 relative border border-hairline">
+              {/* Mini Mockup de Reserva */}
+              <div className="hidden sm:block my-3 bg-prius-background rounded-md p-2.5 border border-hairline max-w-full mx-auto transform group-hover:scale-102 transition-transform duration-300">
+                <div className="rounded-sm overflow-hidden h-16 mb-2 relative border border-hairline">
                   <img src="/images/prius12.webp" alt="Carpas" className="w-full h-full object-cover" />
                 </div>
                 <div className="flex justify-between items-center">
                   <div>
-                    <p className="text-[8px] font-bold uppercase tracking-wider text-prius-black/40">Unidad</p>
-                    <p className="text-[10px] font-bold text-prius-black">Carpa #12</p>
+                    <p className="text-[7px] font-bold uppercase tracking-wider text-prius-black/40">Unidad</p>
+                    <p className="text-[9px] font-bold text-prius-black">Carpa #12</p>
                   </div>
-                  <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center">
-                    <Check className="w-3 h-3 text-green-600" />
+                  <div className="w-4 h-4 bg-green-100 rounded-full flex items-center justify-center">
+                    <Check className="w-2.5 h-2.5 text-green-600" />
                   </div>
                 </div>
               </div>
 
-              {/* Barra de Servicios Inferior */}
-              <div className="flex justify-between items-center pt-2 border-t border-hairline text-[9px] text-prius-black/40">
-                <span className="flex items-center gap-1"><Wifi className="w-3 h-3" /> WiFi</span>
-                <span className="flex items-center gap-1"><Shield className="w-3 h-3" /> Seg.</span>
-                <span className="flex items-center gap-1"><Coffee className="w-3 h-3" /> Bar</span>
+              <div className="flex justify-between items-center pt-1.5 border-t border-hairline text-[8px] sm:text-[9px] text-prius-black/40">
+                <span className="flex items-center gap-1"><Wifi className="w-2.5 h-2.5" /> WiFi</span>
+                <span className="flex items-center gap-1"><Shield className="w-2.5 h-2.5" /> Seg.</span>
               </div>
             </div>
 
-            {/* 2. SPA & WELLNESS (Derecha Superior Ancha - spans 2 columns) */}
-            <div className="bg-white/95 backdrop-blur-md rounded-lg p-5 flex flex-col sm:flex-row justify-between min-h-[160px] sm:col-span-2 sm:row-span-1 border border-hairline group">
-              <div className="space-y-2 max-w-[180px] flex flex-col justify-between">
-                <div>
-                  <h3 className="text-sm font-bold text-prius-black uppercase tracking-tight">Spa & Relax</h3>
-                  <p className="text-[11px] text-prius-black/60 leading-relaxed">
-                    Circuito de aguas termales, saunas y masajes terapéuticos frente al mar.
-                  </p>
+            {/* 2. MASAJES TERAPÉUTICOS (Ancho en Desktop, Compacto en Mobile) */}
+            <div className="bg-white/90 backdrop-blur-md rounded-lg p-4 sm:p-5 flex flex-col justify-between min-h-[180px] sm:min-h-[160px] col-span-1 sm:col-span-2 border border-hairline group transition-premium hover:border-gold">
+              <div className="space-y-1 sm:space-y-2">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-xs sm:text-sm font-bold text-prius-black uppercase tracking-tight font-display">Masajes</h3>
+                  <Heart className="w-3.5 h-3.5 text-gold" />
                 </div>
+                <p className="text-[10px] sm:text-[11px] text-prius-black/60 leading-tight sm:leading-relaxed">
+                  Sesiones terapéuticas y relajantes con turnos programados a cargo de Pilar Ferrando.
+                </p>
+              </div>
+
+              <div className="flex items-center justify-between pt-2 border-t border-hairline">
                 <span className="text-[8px] font-bold uppercase tracking-widest text-gold">
-                  Membresías Disponibles
+                  Turnos Disponibles
                 </span>
-              </div>
-
-              {/* Mockup de Calendario de Turnos Flotante */}
-              <div className="mt-3 sm:mt-0 bg-prius-background rounded-md p-3 border border-hairline w-full sm:max-w-[180px] self-center">
-                <div className="flex items-center gap-1.5 mb-2 pb-1.5 border-b border-hairline">
-                  <Calendar className="w-3 h-3 text-gold" />
-                  <span className="text-[8px] font-bold uppercase tracking-wider text-prius-black/60">Turno Spa</span>
-                </div>
-                <div className="space-y-1 text-[9px]">
-                  <div className="flex justify-between">
-                    <span className="text-prius-black/60">Masaje</span>
-                    <span className="font-bold">17:00 HS</span>
-                  </div>
-                </div>
+                <span className="text-[8px] sm:text-[9px] text-prius-black/40 font-medium">Pilar Ferrando</span>
               </div>
             </div>
 
-            {/* 3. MEMBRESÍA CLUB PRIUS (Centro Izquierda - spans 1 column) */}
-            <div className="bg-prius-black text-white rounded-lg p-5 flex flex-col justify-between min-h-[160px] sm:col-span-1 sm:row-span-1 border border-hairline group">
-              {/* Tarjeta de Crédito Premium Flotante */}
-              <div className="bg-white/10 rounded-md p-3 border border-white/10 w-full transform -rotate-3 group-hover:rotate-0 transition-transform duration-300">
-                <div className="flex justify-between items-start mb-4">
-                  <span className="text-[7px] font-bold uppercase tracking-widest text-gold">Prius Club</span>
-                  <CreditCard className="w-3 h-3 text-gold" />
+            {/* 3. ALQUILER DE EQUIPAMIENTO (Vertical en Desktop, Compacto en Mobile) */}
+            <div className="bg-white/90 backdrop-blur-md rounded-lg p-4 sm:p-5 flex flex-col justify-between min-h-[180px] sm:min-h-[340px] col-span-1 sm:row-span-2 border border-hairline group transition-premium hover:border-gold">
+              <div className="space-y-1 sm:space-y-2">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-xs sm:text-sm font-bold text-prius-black uppercase tracking-tight font-display">Alquileres</h3>
+                  <ShoppingBag className="w-3.5 h-3.5 text-gold sm:hidden" />
                 </div>
-                <p className="text-[9px] font-bold tracking-widest">GOLD MEMBER</p>
-              </div>
-
-              <div className="space-y-1">
-                <h3 className="text-xs font-bold uppercase tracking-tight text-gold">Membresía</h3>
-                <p className="text-[10px] text-white/60 leading-tight">
-                  Beneficios exclusivos y preventas.
-                </p>
-              </div>
-            </div>
-
-            {/* 4. CONSERJERÍA DIGITAL (Centro Derecha Alta - spans 1 column, spans 2 rows) */}
-            <div className="bg-white/95 backdrop-blur-md rounded-lg p-5 flex flex-col justify-between min-h-[340px] sm:col-span-1 sm:row-span-2 border border-hairline group">
-              <div className="space-y-2">
-                <h3 className="text-sm font-bold text-prius-black uppercase tracking-tight">Conserjería</h3>
-                <p className="text-[11px] text-prius-black/60 leading-relaxed">
-                  Solicitá servicios y gastronomía directamente desde tu reposera.
+                <p className="text-[10px] sm:text-[11px] text-prius-black/60 leading-tight sm:leading-relaxed">
+                  Alquiler directo de reposeras adicionales, toallas premium y shampoo para su comodidad.
                 </p>
               </div>
 
-              {/* Mockup de Chat Flotante */}
-              <div className="my-4 space-y-2 w-full">
-                <div className="bg-prius-background rounded-md p-2 border border-hairline transform -translate-x-1 group-hover:translate-x-0 transition-transform duration-300">
-                  <p className="text-[7px] font-bold uppercase tracking-wider text-prius-black/40">Carpero</p>
-                  <p className="text-[9px] text-prius-black/80 leading-tight">Su sombrilla #5 ya está lista. ☀️</p>
+              {/* Mini Lista de Alquileres */}
+              <div className="hidden sm:block my-3 bg-prius-background rounded-md p-2.5 border border-hairline space-y-1.5">
+                <div className="flex justify-between text-[8px] text-prius-black/60">
+                  <span>Reposera Extra</span>
+                  <span className="font-bold text-prius-black">Disponible</span>
                 </div>
-
-                <div className="bg-prius-black text-white rounded-md p-2 border border-white/10 transform translate-x-1 group-hover:translate-x-0 transition-transform duration-300">
-                  <p className="text-[7px] font-bold uppercase tracking-wider text-gold">Bar Prius</p>
-                  <p className="text-[9px] text-white/90 leading-tight">Pedido en camino. 🍹</p>
+                <div className="flex justify-between text-[8px] text-prius-black/60">
+                  <span>Toallas Premium</span>
+                  <span className="font-bold text-prius-black">Disponible</span>
+                </div>
+                <div className="flex justify-between text-[8px] text-prius-black/60">
+                  <span>Shampoo & Care</span>
+                  <span className="font-bold text-prius-black">Disponible</span>
                 </div>
               </div>
 
               <span className="text-[8px] font-bold uppercase tracking-widest text-prius-black/40">
-                Atención 10:00 a 19:00
+                Solicitar a Carperos
               </span>
             </div>
 
-            {/* 5. GASTRONOMÍA DE MAR (Abajo Izquierda Ancha - spans 2 columns) */}
-            <div className="bg-white/95 backdrop-blur-md rounded-lg p-5 flex flex-col sm:flex-row justify-between min-h-[160px] sm:col-span-2 sm:row-span-1 border border-hairline group">
-              <div className="space-y-2 max-w-[180px] flex flex-col justify-between">
-                <div>
-                  <h3 className="text-sm font-bold text-prius-black uppercase tracking-tight">Gastronomía</h3>
-                  <p className="text-[11px] text-prius-black/60 leading-relaxed">
-                    Propuesta gastronomía exclusiva con servicio directo a tu carpa.
-                  </p>
+            {/* 4. GASTRONOMÍA DE MAR (Ancho en Desktop, Compacto en Mobile) */}
+            <div className="bg-white/90 backdrop-blur-md rounded-lg p-4 sm:p-5 flex flex-col justify-between min-h-[180px] sm:min-h-[160px] col-span-1 sm:col-span-2 border border-hairline group transition-premium hover:border-gold">
+              <div className="space-y-1 sm:space-y-2">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-xs sm:text-sm font-bold text-prius-black uppercase tracking-tight font-display">Gastronomía</h3>
+                  <Utensils className="w-3.5 h-3.5 text-gold" />
                 </div>
-                <div className="flex gap-1">
-                  <span className="text-[8px] font-bold uppercase tracking-wider bg-prius-background px-2 py-0.5 rounded-full border border-hairline">Tragos</span>
-                  <span className="text-[8px] font-bold uppercase tracking-wider bg-prius-background px-2 py-0.5 rounded-full border border-hairline">Pesca</span>
-                </div>
+                <p className="text-[10px] sm:text-[11px] text-prius-black/60 leading-tight sm:leading-relaxed">
+                  Exclusiva propuesta de cocina de mar con servicio directo a su carpa o sombrilla.
+                </p>
               </div>
 
-              {/* Mockup de Menú Flotante */}
-              <div className="mt-3 sm:mt-0 bg-prius-background rounded-md p-3 border border-hairline w-full sm:max-w-[180px] self-center">
-                <div className="flex items-center gap-1.5 mb-2 pb-1 border-b border-hairline">
-                  <Utensils className="w-3 h-3 text-gold" />
-                  <span className="text-[8px] font-bold uppercase tracking-wider text-prius-black/60">Recomendados</span>
+              <div className="flex items-center justify-between pt-2 border-t border-hairline">
+                <span className="text-[8px] font-bold uppercase tracking-widest text-gold">
+                  Servicio a la Carpa
+                </span>
+                <span className="text-[8px] sm:text-[9px] text-prius-black/40 font-medium">10:00 a 19:00 HS</span>
+              </div>
+            </div>
+
+            {/* 5. MEMBRESÍA CLUB PRIUS (Ancho completo en Mobile, 1 columna en Desktop) */}
+            <div className="bg-prius-black text-white rounded-lg p-4 sm:p-5 flex flex-col justify-between min-h-[120px] sm:min-h-[160px] col-span-2 sm:col-span-1 border border-hairline group transition-premium hover:border-gold">
+              <div className="flex justify-between items-start">
+                <div className="space-y-0.5">
+                  <span className="text-[7px] font-bold uppercase tracking-widest text-gold">Prius Club</span>
+                  <h3 className="text-xs sm:text-sm font-bold uppercase tracking-tight text-white font-display">Membresía</h3>
                 </div>
-                <div className="space-y-1 text-[9px]">
-                  <div className="flex justify-between">
-                    <span>Rabas Crujientes</span>
-                    <span className="font-bold text-gold">$14.500</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Aperol Spritz</span>
-                    <span className="font-bold text-gold">$6.200</span>
-                  </div>
-                </div>
+                <CreditCard className="w-4 h-4 text-gold" />
+              </div>
+
+              <div className="flex justify-between items-end pt-2">
+                <p className="text-[9px] text-white/60 leading-tight max-w-[120px] sm:max-w-none">
+                  Beneficios exclusivos y preventas de temporada.
+                </p>
+                <span className="text-[8px] font-bold tracking-widest text-gold uppercase shrink-0">GOLD MEMBER</span>
               </div>
             </div>
 
