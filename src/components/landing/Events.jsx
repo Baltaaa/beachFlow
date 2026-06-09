@@ -19,8 +19,8 @@ export default function Events() {
               <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-gold mb-3 block">
                 Eventos sociales y corporativos a medida
               </span>
-              <h2 className="text-2xl md:text-3xl font-normal uppercase tracking-tight leading-tight mb-3">
-                Tu espacio para eventos en <span className="font-serif italic text-gold">Prius</span>
+              <h2 className="text-2xl md:text-3xl font-medium uppercase tracking-tight leading-tight mb-3 font-display">
+                Tu espacio para eventos en <span className="font-bold text-gold">Prius</span>
               </h2>
               <p className="text-white/60 text-xs leading-relaxed mb-6">
                 La mítica esquina de Playa Grande se transforma. Lo que antes fue el icónico espacio de Antares, hoy renace como un salón de eventos premium totalmente privado y disponible exclusivamente bajo reserva previa.
@@ -29,7 +29,7 @@ export default function Events() {
                 href="https://wa.me/542235765482" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-[10px] font-bold text-gold hover:text-white transition-colors uppercase tracking-widest text-left"
+                className="inline-flex items-center gap-2 text-[10px] font-bold text-gold hover:text-white transition-colors uppercase tracking-widest text-left font-display"
               >
                 Consultar fechas disponibles <ArrowRight size={12} />
               </a>
@@ -44,8 +44,8 @@ export default function Events() {
               />
               {/* Overlay de texto integrado y minimalista */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-5">
-                <span className="text-[8px] font-bold uppercase tracking-widest text-gold mb-0.5">Salón Principal</span>
-                <h4 className="text-xs font-medium uppercase tracking-tight">Nuevo Espacio Climatizado</h4>
+                <span className="text-[8px] font-bold uppercase tracking-widest text-gold mb-0.5 font-display">Salón Principal</span>
+                <h4 className="text-xs font-medium uppercase tracking-tight font-display">Nuevo Espacio Climatizado</h4>
               </div>
             </div>
 
@@ -63,8 +63,8 @@ export default function Events() {
               />
               {/* Overlay de texto integrado y minimalista */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-5">
-                <span className="text-[8px] font-bold uppercase tracking-widest text-gold mb-0.5">Celebraciones</span>
-                <h4 className="text-xs font-medium uppercase tracking-tight">Cumpleaños, Fiestas de 15 y Casamientos</h4>
+                <span className="text-[8px] font-bold uppercase tracking-widest text-gold mb-0.5 font-display">Celebraciones</span>
+                <h4 className="text-xs font-medium uppercase tracking-tight font-display">Cumpleaños, Fiestas de 15 y Casamientos</h4>
               </div>
             </div>
 
@@ -80,8 +80,8 @@ export default function Events() {
                 />
                 {/* Overlay de texto integrado y minimalista */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-5">
-                  <span className="text-[8px] font-bold uppercase tracking-widest text-gold mb-0.5">Experiencias</span>
-                  <h4 className="text-xs font-medium uppercase tracking-tight">Celebraciones de Día y Noche</h4>
+                  <span className="text-[8px] font-bold uppercase tracking-widest text-gold mb-0.5 font-display">Experiencias</span>
+                  <h4 className="text-xs font-medium uppercase tracking-tight font-display">Celebraciones de Día y Noche</h4>
                 </div>
               </div>
 
@@ -94,12 +94,12 @@ export default function Events() {
                 />
                 {/* Overlay de texto integrado y minimalista */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-5">
-                  <span className="text-[8px] font-bold uppercase tracking-widest text-gold mb-0.5">Contacto Directo</span>
+                  <span className="text-[8px] font-bold uppercase tracking-widest text-gold mb-0.5 font-display">Contacto Directo</span>
                   <a 
                     href="https://wa.me/542235765482" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="text-xs font-medium uppercase tracking-tight flex items-center gap-1.5 hover:text-gold transition-colors"
+                    className="text-xs font-medium uppercase tracking-tight flex items-center gap-1.5 hover:text-gold transition-colors font-display"
                   >
                     <Phone size={12} className="text-gold" /> 223 5765 482
                   </a>

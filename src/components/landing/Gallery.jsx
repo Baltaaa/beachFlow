@@ -39,11 +39,11 @@ export default function Gallery() {
         {/* Encabezado Minimalista */}
         <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="max-w-xl">
-            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-prius-black/40 block mb-2">
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-prius-black/40 block mb-2 font-display">
               Galería Visual
             </span>
-            <h2 className="text-[32px] md:text-[44px] font-normal tracking-tight text-prius-black uppercase font-display leading-none">
-              Viví la Experiencia <span className="text-gold italic font-serif">Prius</span>
+            <h2 className="text-[32px] md:text-[44px] font-medium tracking-tight text-prius-black uppercase font-display leading-none">
+              Viví la Experiencia <span className="text-gold font-bold">Prius</span>
             </h2>
           </div>
           <p className="text-prius-black/60 text-xs md:text-sm max-w-md leading-relaxed">
@@ -76,7 +76,7 @@ export default function Gallery() {
                   <span className="text-[8px] font-bold uppercase tracking-widest text-gold block mb-0.5 font-display">
                     {img.category}
                   </span>
-                  <h4 className="text-white text-xs font-normal uppercase tracking-tight font-display">
+                  <h4 className="text-white text-xs font-medium uppercase tracking-tight font-display">
                     {img.title}
                   </h4>
                 </div>
@@ -119,7 +119,7 @@ export default function Gallery() {
               <span className="text-[10px] font-bold uppercase tracking-widest text-gold font-display">
                 {activeImage.category}
               </span>
-              <h3 className="text-white text-lg font-normal uppercase tracking-tight mt-1 font-display">
+              <h3 className="text-white text-lg font-medium uppercase tracking-tight mt-1 font-display">
                 {activeImage.title}
               </h3>
             </div>
