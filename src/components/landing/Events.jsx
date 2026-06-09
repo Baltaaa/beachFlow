@@ -16,7 +16,7 @@ export default function Events() {
             
             {/* Bloque de Texto (Top-Left) */}
             <div className="p-6 md:p-8 bg-white/[0.02] rounded-lg border border-white/10 flex flex-col justify-center min-h-[220px] backdrop-blur-sm">
-              <span className="text-[10px] font-extralight uppercase tracking-[0.25em] text-gold mb-3 block font-display">
+              <span className="text-[10px] font-normal uppercase tracking-[0.25em] text-gold mb-3 block font-display">
                 Eventos sociales y corporativos a medida
               </span>
               <h2 className="text-2xl md:text-3xl font-normal uppercase tracking-tight leading-tight mb-3 font-display">
@@ -44,7 +44,7 @@ export default function Events() {
               />
               {/* Overlay de texto integrado y minimalista */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-5">
-                <span className="text-[8px] font-extralight uppercase tracking-widest text-gold mb-0.5 font-display">Salón Principal</span>
+                <span className="text-[8px] font-normal uppercase tracking-widest text-gold mb-0.5 font-display">Salón Principal</span>
                 <h4 className="text-xs font-extralight uppercase tracking-tight font-display">Nuevo Espacio Climatizado</h4>
               </div>
             </div>
@@ -63,7 +63,7 @@ export default function Events() {
               />
               {/* Overlay de texto integrado y minimalista */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-5">
-                <span className="text-[8px] font-extralight uppercase tracking-widest text-gold mb-0.5 font-display">Celebraciones</span>
+                <span className="text-[8px] font-normal uppercase tracking-widest text-gold mb-0.5 font-display">Celebraciones</span>
                 <h4 className="text-xs font-extralight uppercase tracking-tight font-display">Cumpleaños, Fiestas de 15 y Casamientos</h4>
               </div>
             </div>
@@ -80,7 +80,7 @@ export default function Events() {
                 />
                 {/* Overlay de texto integrado y minimalista */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-5">
-                  <span className="text-[8px] font-extralight uppercase tracking-widest text-gold mb-0.5 font-display">Experiencias</span>
+                  <span className="text-[8px] font-normal uppercase tracking-widest text-gold mb-0.5 font-display">Experiencias</span>
                   <h4 className="text-xs font-extralight uppercase tracking-tight font-display">Celebraciones de Día y Noche</h4>
                 </div>
               </div>
@@ -94,7 +94,7 @@ export default function Events() {
                 />
                 {/* Overlay de texto integrado y minimalista */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-5">
-                  <span className="text-[8px] font-extralight uppercase tracking-widest text-gold mb-0.5 font-display">Contacto Directo</span>
+                  <span className="text-[8px] font-normal uppercase tracking-widest text-gold mb-0.5 font-display">Contacto Directo</span>
                   <a 
                     href="https://wa.me/542235765482" 
                     target="_blank" 

@@ -50,7 +50,7 @@ export default function Services() {
         {/* Encabezado ultra-elegante y compacto */}
         <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div className="max-w-xl">
-            <span className="text-[9px] font-extralight uppercase tracking-[0.3em] text-prius-black/40 block mb-1 font-display">
+            <span className="text-[9px] font-normal uppercase tracking-[0.3em] text-prius-black/40 block mb-1 font-display">
               Estilo de Vida Prius
             </span>
             <h2 className="text-2xl md:text-3xl font-normal tracking-tight text-prius-black uppercase font-display leading-none">
@@ -84,7 +84,7 @@ export default function Services() {
               {/* Textos y Acción */}
               <div className="p-4 flex flex-col justify-between flex-1 bg-white">
                 <div>
-                  <span className="text-[8px] font-extralight uppercase tracking-wider text-gold block mb-0.5 font-display">
+                  <span className="text-[8px] font-normal uppercase tracking-wider text-gold block mb-0.5 font-display">
                     {s.subtitle}
                   </span>
                   <h3 className="text-sm font-extralight uppercase tracking-tight mb-1.5 text-prius-black font-display">

@@ -39,7 +39,7 @@ export default function Gallery() {
         {/* Encabezado Minimalista */}
         <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="max-w-xl">
-            <span className="text-[10px] font-extralight uppercase tracking-[0.3em] text-prius-black/40 block mb-2 font-display">
+            <span className="text-[10px] font-normal uppercase tracking-[0.3em] text-prius-black/40 block mb-2 font-display">
               Galería Visual
             </span>
             <h2 className="text-3xl md:text-4xl font-normal tracking-tight text-prius-black uppercase font-display leading-none">
@@ -73,7 +73,7 @@ export default function Gallery() {
                   </div>
                 </div>
                 <div className="transform translate-y-2 group-hover:translate-y-0 transition-premium">
-                  <span className="text-[8px] font-extralight uppercase tracking-widest text-gold block mb-0.5 font-display">
+                  <span className="text-[8px] font-normal uppercase tracking-widest text-gold block mb-0.5 font-display">
                     {img.category}
                   </span>
                   <h4 className="text-white text-xs font-extralight uppercase tracking-tight font-display">
@@ -116,7 +116,7 @@ export default function Gallery() {
               className="max-w-full max-h-[75vh] object-contain rounded-lg border border-white/10 shadow-2xl"
             />
             <div className="text-center mt-6">
-              <span className="text-[10px] font-extralight uppercase tracking-widest text-gold font-display">
+              <span className="text-[10px] font-normal uppercase tracking-widest text-gold font-display">
                 {activeImage.category}
               </span>
               <h3 className="text-white text-lg font-extralight uppercase tracking-tight mt-1 font-display">

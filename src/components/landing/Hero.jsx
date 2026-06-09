@@ -60,7 +60,7 @@ export default function Hero() {
             <div className="bg-gradient-to-br from-white/95 to-neutral-100/70 backdrop-blur-md rounded-lg p-4 sm:p-6 flex flex-col justify-between min-h-[190px] sm:min-h-[360px] col-span-2 sm:col-span-1 sm:row-span-2 border border-hairline group transition-premium hover:border-gold">
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-[9px] font-extralight uppercase tracking-widest text-gold font-display">Santuario</span>
+                  <span className="text-[9px] font-normal uppercase tracking-widest text-gold font-display">Santuario</span>
                   <Umbrella className="w-4 h-4 text-gold" />
                 </div>
                 <h3 className="text-base sm:text-lg font-extralight text-prius-black uppercase tracking-tight font-display">
@@ -81,7 +81,7 @@ export default function Hero() {
             <div className="bg-gradient-to-br from-white/95 to-neutral-100/70 backdrop-blur-md rounded-lg p-4 sm:p-6 flex flex-col justify-between min-h-[150px] sm:min-h-[170px] col-span-2 sm:col-span-2 border border-hairline group transition-premium hover:border-gold">
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between">
-                  <span className="text-[9px] font-extralight uppercase tracking-widest text-gold font-display">Wellness</span>
+                  <span className="text-[9px] font-normal uppercase tracking-widest text-gold font-display">Wellness</span>
                   <Heart className="w-4 h-4 text-gold" />
                 </div>
                 <h3 className="text-base sm:text-lg font-extralight text-prius-black uppercase tracking-tight font-display">
@@ -93,7 +93,7 @@ export default function Hero() {
               </div>
 
               <div className="pt-2 border-t border-hairline flex items-center justify-between text-[9px] font-display font-extralight">
-                <span className="text-gold uppercase tracking-wider">Turnos Exclusivos</span>
+                <span className="text-gold uppercase tracking-wider font-normal">Turnos Exclusivos</span>
                 <span className="text-prius-black/40">Pilar Ferrando</span>
               </div>
             </div>
@@ -102,7 +102,7 @@ export default function Hero() {
             <div className="bg-gradient-to-br from-white/95 to-neutral-100/70 backdrop-blur-md rounded-lg p-4 sm:p-6 flex flex-col justify-between min-h-[190px] sm:min-h-[360px] col-span-1 sm:row-span-2 border border-hairline group transition-premium hover:border-gold">
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-[9px] font-extralight uppercase tracking-widest text-gold font-display">Confort</span>
+                  <span className="text-[9px] font-normal uppercase tracking-widest text-gold font-display">Confort</span>
                   <ShoppingBag className="w-4 h-4 text-gold" />
                 </div>
                 <h3 className="text-base sm:text-lg font-extralight text-prius-black uppercase tracking-tight font-display">
@@ -133,7 +133,7 @@ export default function Hero() {
             <div className="bg-gradient-to-br from-white/95 to-neutral-100/70 backdrop-blur-md rounded-lg p-4 sm:p-6 flex flex-col justify-between min-h-[190px] sm:min-h-[360px] col-span-1 sm:row-span-2 border border-hairline group transition-premium hover:border-gold">
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-[9px] font-extralight uppercase tracking-widest text-gold font-display">Gastronomía</span>
+                  <span className="text-[9px] font-normal uppercase tracking-widest text-gold font-display">Gastronomía</span>
                   <Utensils className="w-4 h-4 text-gold" />
                 </div>
                 <h3 className="text-base sm:text-lg font-extralight text-prius-black uppercase tracking-tight font-display">
@@ -164,7 +164,7 @@ export default function Hero() {
             <div className="bg-gold text-prius-black rounded-lg p-4 sm:p-6 flex flex-col justify-between min-h-[120px] sm:min-h-[170px] col-span-2 sm:col-span-1 border border-transparent group transition-premium hover:bg-gold-hover">
               <div className="flex justify-between items-start">
                 <div className="space-y-1">
-                  <span className="text-[8px] font-extralight uppercase tracking-widest opacity-60 font-display">Membresía</span>
+                  <span className="text-[8px] font-normal uppercase tracking-widest opacity-60 font-display">Membresía</span>
                   <h3 className="text-base sm:text-lg font-extralight uppercase tracking-tight font-display">
                     Prius Club
                   </h3>
