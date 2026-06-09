@@ -61,7 +61,7 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-6">
             <button 
               onClick={() => scrollToSection('contacto')}
-              className="bg-gold hover:bg-gold-hover px-6 py-3 rounded-sm font-extrabold text-[12px] uppercase tracking-wider transition-premium border border-transparent font-display"
+              className="bg-gold hover:bg-gold-hover text-prius-black px-8 py-4 rounded-sm font-extralight text-[11px] uppercase tracking-[0.2em] transition-premium border border-transparent font-display cursor-pointer"
             >
               Solicitar cotización
             </button>
@@ -93,7 +93,7 @@ export default function Navbar() {
             <div className="h-px bg-hairline my-2" />
             <button 
               onClick={() => scrollToSection('contacto')}
-              className="w-full bg-gold hover:bg-gold-hover py-3 rounded-sm font-extrabold text-xs uppercase tracking-wider transition-premium text-center font-display"
+              className="w-full bg-gold hover:bg-gold-hover text-prius-black py-4 rounded-sm font-extralight text-[11px] uppercase tracking-[0.2em] transition-premium text-center font-display cursor-pointer"
             >
               Solicitar cotización
             </button>

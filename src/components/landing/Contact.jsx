@@ -11,7 +11,7 @@ export default function Contact() {
               <div>
                 <span className="text-[10px] font-bold uppercase tracking-widest text-gold block mb-4">Contacto Exclusivo</span>
                 <h2 className="text-2xl md:text-3xl font-normal mb-6 leading-tight uppercase">Hablemos de su próxima estadía</h2>
-                <p className="text-xs md:text-sm opacity-60 font-light mb-12 leading-relaxed">Nuestro equipo de atención personalizada está listo para diseñar su experiencia perfecta en Playa Grande.</p>
+                <p className="text-xs md:text-sm opacity-60 font-light mb-12 leading-relaxed">Nuestro equipo de atención personalizada está listo para diseñar su experience perfecta en Playa Grande.</p>
               </div>
               <div className="space-y-6 text-xs md:text-sm border-t border-white/10 pt-6">
                 <div>
@@ -43,7 +43,7 @@ export default function Contact() {
                   </select>
                 </div>
               </div>
-              <button className="w-full bg-gold hover:bg-gold-hover py-4 rounded-sm font-bold text-[11px] uppercase tracking-[0.2em] transition-all border border-transparent">
+              <button className="w-full bg-gold hover:bg-gold-hover text-prius-black py-4 rounded-sm font-extralight text-[11px] uppercase tracking-[0.2em] transition-premium cursor-pointer border border-transparent font-display">
                 Enviar Solicitud
               </button>
             </form>
