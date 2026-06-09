@@ -121,8 +121,14 @@ export default function Login() {
     <div className="min-h-screen flex bg-white font-sans">
       {/* Panel izquierdo - Branding */}
       <div className="hidden lg:flex lg:w-1/2 bg-prius-black relative overflow-hidden items-center justify-center p-12">
-        <div className="absolute inset-0 opacity-5">
-          <div className="w-full h-full border-[100px] border-gold rounded-full -translate-x-1/2 -translate-y-1/2" />
+        {/* Imagen de fondo ultra oscura */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="/images/hero-bg.png" 
+            alt="Prius Playa Grande" 
+            className="w-full h-full object-cover object-center opacity-10 mix-blend-luminosity"
+          />
+          <div className="absolute inset-0 bg-black/30" />
         </div>
         
         <div className="relative z-10 text-center">
