@@ -12,9 +12,9 @@ export default function Hero() {
           alt="Prius Playa Grande" 
           className="w-full h-full object-cover object-center opacity-60 transition-all duration-1000"
         />
-        {/* Degradado solar asimétrico mezclado con el azul profundo #32486c */}
-        <div className="absolute inset-0 bg-gradient-to-r from-prius-background via-prius-background/85 to-[#32486c]/40" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#32486c]/25 via-transparent to-[#32486c]/15" />
+        {/* Degradado solar: En mobile funde a la calidez del fondo, en desktop mezcla con el azul profundo #32486c */}
+        <div className="absolute inset-0 bg-gradient-to-b from-prius-background/40 via-prius-background/85 to-prius-background md:bg-gradient-to-r md:from-prius-background md:via-prius-background/85 md:to-[#32486c]/40" />
+        <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-[#32486c]/25 via-transparent to-[#32486c]/15" />
       </div>
 
       <div className="max-w-[1440px] mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
