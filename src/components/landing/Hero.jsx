@@ -8,12 +8,12 @@ export default function Hero() {
       {/* Imagen de fondo con mayor presencia y nitidez */}
       <div className="absolute inset-0 z-0">
         <img 
-          src="/images/hero-bg.png" 
+          src="/images/prius1.webp" 
           alt="Prius Playa Grande" 
           className="w-full h-full object-cover object-center opacity-60 transition-all duration-1000"
         />
         {/* Degradado solar: En mobile funde a la calidez del fondo, en desktop mezcla con el azul profundo #32486c */}
-        <div className="absolute inset-0 bg-gradient-to-b from-prius-background/40 via-prius-background/85 to-prius-background md:bg-gradient-to-r md:from-prius-background md:via-prius-background/85 md:to-[#32486c]/40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-prius-background/80 to-prius-background md:bg-gradient-to-r md:from-prius-background md:via-prius-background/85 md:to-[#32486c]/40" />
         <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-[#32486c]/25 via-transparent to-[#32486c]/15" />
       </div>
 
