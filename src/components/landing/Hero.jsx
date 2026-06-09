@@ -50,13 +50,13 @@ export default function Hero() {
         {/* Columna Derecha: Bento Grid Claro, Cálido y Asimétrico */}
         <div className="lg:col-span-7 w-full flex justify-center lg:justify-end">
           {/* 
-            Grid asimétrico optimizado:
+            Grid asimétrico optimizado de 3x3 en desktop:
             - En mobile: 2 columnas compactas con gaps de 8px.
             - En desktop: 3 columnas con gaps de 16px.
           */}
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4 max-w-[680px] w-full">
             
-            {/* 1. CARPAS DE DISEÑO (Tarjeta Principal - Ocupa 2 col en mobile para jerarquía) */}
+            {/* 1. CARPAS DE DISEÑO (Columna 1 - Filas 1 y 2) */}
             <div className="bg-white/90 backdrop-blur-md rounded-lg p-4 sm:p-6 flex flex-col justify-between min-h-[190px] sm:min-h-[360px] col-span-2 sm:col-span-1 sm:row-span-2 border border-hairline group transition-premium hover:border-gold">
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
@@ -77,8 +77,8 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* 2. MASAJES TERAPÉUTICOS (Pilar Ferrando) */}
-            <div className="bg-white/90 backdrop-blur-md rounded-lg p-4 sm:p-6 flex flex-col justify-between min-h-[150px] sm:min-h-[170px] col-span-1 sm:col-span-2 border border-hairline group transition-premium hover:border-gold">
+            {/* 2. MASAJES TERAPÉUTICOS (Fila 1 - Columnas 2 y 3) */}
+            <div className="bg-white/90 backdrop-blur-md rounded-lg p-4 sm:p-6 flex flex-col justify-between min-h-[150px] sm:min-h-[170px] col-span-2 sm:col-span-2 border border-hairline group transition-premium hover:border-gold">
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between">
                   <span className="text-[9px] font-bold uppercase tracking-widest text-gold">Wellness</span>
@@ -98,7 +98,7 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* 3. ALQUILER DE EQUIPAMIENTO */}
+            {/* 3. ALQUILER DE EQUIPAMIENTO (Columna 2 - Filas 2 y 3) */}
             <div className="bg-white/90 backdrop-blur-md rounded-lg p-4 sm:p-6 flex flex-col justify-between min-h-[190px] sm:min-h-[360px] col-span-1 sm:row-span-2 border border-hairline group transition-premium hover:border-gold">
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
@@ -129,9 +129,9 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* 4. GASTRONOMÍA DE MAR */}
-            <div className="bg-white/90 backdrop-blur-md rounded-lg p-4 sm:p-6 flex flex-col justify-between min-h-[150px] sm:min-h-[170px] col-span-1 sm:col-span-2 border border-hairline group transition-premium hover:border-gold">
-              <div className="space-y-1.5">
+            {/* 4. GASTRONOMÍA DE MAR (Columna 3 - Filas 2 y 3 - *Marcado en Rojo*) */}
+            <div className="bg-white/90 backdrop-blur-md rounded-lg p-4 sm:p-6 flex flex-col justify-between min-h-[190px] sm:min-h-[360px] col-span-1 sm:row-span-2 border border-hairline group transition-premium hover:border-gold">
+              <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <span className="text-[9px] font-bold uppercase tracking-widest text-gold">Gastronomía</span>
                   <Utensils className="w-4 h-4 text-gold" />
@@ -139,18 +139,28 @@ export default function Hero() {
                 <h3 className="text-sm sm:text-base font-normal text-prius-black uppercase tracking-tight font-display">
                   Cocina de Mar
                 </h3>
-                <p className="text-[11px] text-prius-black/60 leading-relaxed font-light line-clamp-2">
+                <p className="text-[11px] text-prius-black/60 leading-relaxed font-light">
                   Platos sofisticados y coctelería de autor servidos directamente en su carpa o sombrilla.
                 </p>
               </div>
 
-              <div className="pt-2 border-t border-hairline flex items-center justify-between text-[9px]">
-                <span className="text-gold font-bold uppercase tracking-wider">Servicio a la Arena</span>
-                <span className="text-prius-black/40">10:00 a 19:00 HS</span>
+              <div className="space-y-2 pt-4 border-t border-hairline">
+                <div className="flex justify-between text-[9px] text-prius-black/40">
+                  <span>Tragos de Autor</span>
+                  <span className="text-gold font-bold">✓</span>
+                </div>
+                <div className="flex justify-between text-[9px] text-prius-black/40">
+                  <span>Pesca del Día</span>
+                  <span className="text-gold font-bold">✓</span>
+                </div>
+                <div className="flex justify-between text-[9px] text-prius-black/40">
+                  <span>Jugos Naturales</span>
+                  <span className="text-gold font-bold">✓</span>
+                </div>
               </div>
             </div>
 
-            {/* 5. MEMBRESÍA CLUB PRIUS (Ocupa 2 col en mobile para cerrar el grid con balance) */}
+            {/* 5. MEMBRESÍA CLUB PRIUS (Columna 1 - Fila 3 - *Marcado en Violeta*) */}
             <div className="bg-gold text-prius-black rounded-lg p-4 sm:p-6 flex flex-col justify-between min-h-[120px] sm:min-h-[170px] col-span-2 sm:col-span-1 border border-transparent group transition-premium hover:bg-gold-hover">
               <div className="flex justify-between items-start">
                 <div className="space-y-1">
