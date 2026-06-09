@@ -24,12 +24,12 @@ export default function Hero() {
           <span className="inline-block text-[10px] font-extrabold uppercase tracking-[0.3em] text-prius-black/60 bg-white px-3 py-1.5 rounded-sm border border-hairline font-display">
             Playa Grande • Mar del Plata
           </span>
-          <h1 className="text-[44px] sm:text-[58px] md:text-[68px] font-extrabold leading-[1.05] tracking-tight text-prius-black font-display uppercase">
+          <h1 className="text-[44px] sm:text-[58px] md:text-[68px] font-normal leading-[1.05] tracking-tight text-prius-black font-display uppercase">
             El arte del <br />
             <span className="text-gold">descanso</span>
           </h1>
           <p className="text-prius-black/60 text-sm sm:text-base max-w-md leading-relaxed font-light">
-            Redefinimos la experiencia de costa bajo un concepto de minimalismo estructural. Un refugio exclusivo diseñado para quienes aprecian el silencio, el confort y el servicio impecable.
+            Redefinimos la experiencia de costa bajo un concept de minimalismo estructural. Un refugio exclusivo diseñado para quienes aprecian el silencio, el confort y el servicio impecable.
           </p>
           <div className="flex flex-wrap gap-4 pt-4">
             <button 
@@ -63,7 +63,7 @@ export default function Hero() {
                   <span className="text-[9px] font-extrabold uppercase tracking-widest text-gold font-display">Santuario</span>
                   <Umbrella className="w-4 h-4 text-gold" />
                 </div>
-                <h3 className="text-lg sm:text-xl font-extrabold text-prius-black uppercase tracking-tight font-display">
+                <h3 className="text-base sm:text-lg font-extrabold text-prius-black uppercase tracking-tight font-display">
                   Carpas <br className="hidden sm:inline" /> Premium
                 </h3>
                 <p className="text-[11px] text-prius-black/60 leading-relaxed font-light">

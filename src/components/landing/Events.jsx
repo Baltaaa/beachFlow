@@ -19,7 +19,7 @@ export default function Events() {
               <span className="text-[10px] font-extrabold uppercase tracking-[0.25em] text-gold mb-3 block font-display">
                 Eventos sociales y corporativos a medida
               </span>
-              <h2 className="text-2xl md:text-3xl font-extrabold uppercase tracking-tight leading-tight mb-3 font-display">
+              <h2 className="text-2xl md:text-3xl font-normal uppercase tracking-tight leading-tight mb-3 font-display">
                 Tu espacio para eventos en <span className="text-gold">Prius</span>
               </h2>
               <p className="text-white/60 text-xs leading-relaxed mb-6">

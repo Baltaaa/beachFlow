@@ -42,7 +42,7 @@ export default function Gallery() {
             <span className="text-[10px] font-extrabold uppercase tracking-[0.3em] text-prius-black/40 block mb-2 font-display">
               Galería Visual
             </span>
-            <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-prius-black uppercase font-display leading-none">
+            <h2 className="text-3xl md:text-4xl font-normal tracking-tight text-prius-black uppercase font-display leading-none">
               Viví la Experiencia <span className="text-gold">Prius</span>
             </h2>
           </div>

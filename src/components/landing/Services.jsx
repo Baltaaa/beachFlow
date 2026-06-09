@@ -50,10 +50,10 @@ export default function Services() {
         {/* Encabezado ultra-elegante y compacto */}
         <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div className="max-w-xl">
-            <span className="text-[9px] font-extrabold uppercase tracking-[0.3em] text-prius-black/40 block mb-1 font-display">
+            <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-prius-black/40 block mb-1 font-display">
               Estilo de Vida Prius
             </span>
-            <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-prius-black uppercase font-display leading-none">
+            <h2 className="text-2xl md:text-3xl font-normal tracking-tight text-prius-black uppercase font-display leading-none">
               Servicios de <span className="text-gold">Exclusividad</span> Absoluta
             </h2>
           </div>
