@@ -10,11 +10,11 @@ export default function Hero() {
         <img 
           src="/images/hero-bg.png" 
           alt="Prius Playa Grande" 
-          className="w-full h-full object-cover object-center opacity-55 transition-all duration-1000"
+          className="w-full h-full object-cover object-center opacity-60 transition-all duration-1000"
         />
-        {/* Degradado solar asimétrico: protege el texto a la izquierda y libera la imagen a la derecha */}
-        <div className="absolute inset-0 bg-gradient-to-r from-prius-background via-prius-background/80 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-prius-background/40 via-transparent to-transparent" />
+        {/* Degradado solar asimétrico mezclado con el azul profundo #32486c */}
+        <div className="absolute inset-0 bg-gradient-to-r from-prius-background via-prius-background/85 to-[#32486c]/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#32486c]/25 via-transparent to-[#32486c]/15" />
       </div>
 
       <div className="max-w-[1440px] mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
