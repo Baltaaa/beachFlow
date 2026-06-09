@@ -26,13 +26,13 @@ export default function Navbar() {
   }
 
   return (
-    <nav className={`fixed top-0 left-0 w-full z-50 transition-premium ${
+    <nav className={`fixed top-0 left-0 w-full z-50 transition-premium px-margin-mobile md:px-margin-desktop ${
       isScrolled 
         ? 'bg-white/95 backdrop-blur-md border-b border-hairline shadow-sm' 
         : 'bg-transparent border-b border-transparent'
     }`}>
       {/* Contenedor con el mismo ancho máximo y centrado que el resto de las secciones */}
-      <div className="max-w-[1440px] mx-auto w-full px-margin-mobile md:px-margin-desktop">
+      <div className="max-w-[1440px] mx-auto w-full">
         <div className={`flex justify-between items-center transition-premium ${
           isScrolled ? 'h-20' : 'h-28'
         }`}>
