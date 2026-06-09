@@ -57,7 +57,7 @@ export default function Hero() {
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4 max-w-[680px] w-full">
             
             {/* 1. CARPAS DE DISEÑO (Columna 1 - Filas 1 y 2) */}
-            <div className="bg-white/80 backdrop-blur-md rounded-lg p-4 sm:p-6 flex flex-col justify-between min-h-[190px] sm:min-h-[360px] col-span-2 sm:col-span-1 sm:row-span-2 border border-hairline group transition-premium hover:border-gold">
+            <div className="bg-gradient-to-br from-white/95 to-neutral-100/70 backdrop-blur-md rounded-lg p-4 sm:p-6 flex flex-col justify-between min-h-[190px] sm:min-h-[360px] col-span-2 sm:col-span-1 sm:row-span-2 border border-hairline group transition-premium hover:border-gold">
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <span className="text-[9px] font-bold uppercase tracking-widest text-gold">Santuario</span>
@@ -78,7 +78,7 @@ export default function Hero() {
             </div>
 
             {/* 2. MASAJES TERAPÉUTICOS (Fila 1 - Columnas 2 y 3) */}
-            <div className="bg-white/80 backdrop-blur-md rounded-lg p-4 sm:p-6 flex flex-col justify-between min-h-[150px] sm:min-h-[170px] col-span-2 sm:col-span-2 border border-hairline group transition-premium hover:border-gold">
+            <div className="bg-gradient-to-br from-white/95 to-neutral-100/70 backdrop-blur-md rounded-lg p-4 sm:p-6 flex flex-col justify-between min-h-[150px] sm:min-h-[170px] col-span-2 sm:col-span-2 border border-hairline group transition-premium hover:border-gold">
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between">
                   <span className="text-[9px] font-bold uppercase tracking-widest text-gold">Wellness</span>
@@ -99,7 +99,7 @@ export default function Hero() {
             </div>
 
             {/* 3. ALQUILER DE EQUIPAMIENTO (Columna 2 - Filas 2 y 3) */}
-            <div className="bg-white/80 backdrop-blur-md rounded-lg p-4 sm:p-6 flex flex-col justify-between min-h-[190px] sm:min-h-[360px] col-span-1 sm:row-span-2 border border-hairline group transition-premium hover:border-gold">
+            <div className="bg-gradient-to-br from-white/95 to-neutral-100/70 backdrop-blur-md rounded-lg p-4 sm:p-6 flex flex-col justify-between min-h-[190px] sm:min-h-[360px] col-span-1 sm:row-span-2 border border-hairline group transition-premium hover:border-gold">
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <span className="text-[9px] font-bold uppercase tracking-widest text-gold">Confort</span>
@@ -130,7 +130,7 @@ export default function Hero() {
             </div>
 
             {/* 4. GASTRONOMÍA DE MAR (Columna 3 - Filas 2 y 3) */}
-            <div className="bg-white/80 backdrop-blur-md rounded-lg p-4 sm:p-6 flex flex-col justify-between min-h-[190px] sm:min-h-[360px] col-span-1 sm:row-span-2 border border-hairline group transition-premium hover:border-gold">
+            <div className="bg-gradient-to-br from-white/95 to-neutral-100/70 backdrop-blur-md rounded-lg p-4 sm:p-6 flex flex-col justify-between min-h-[190px] sm:min-h-[360px] col-span-1 sm:row-span-2 border border-hairline group transition-premium hover:border-gold">
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <span className="text-[9px] font-bold uppercase tracking-widest text-gold">Gastronomía</span>
