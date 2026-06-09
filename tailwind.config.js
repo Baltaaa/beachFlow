@@ -18,8 +18,8 @@ export default {
       },
       fontFamily: {
         sans: ['Plus Jakarta Sans', 'sans-serif'],
-        display: ['Cormorant Garamond', 'serif'],
-        serif: ['Cormorant Garamond', 'serif'],
+        display: ['Fredoka', 'sans-serif'],
+        serif: ['Fredoka', 'sans-serif'],
       },
       borderRadius: {
         lg: '8px',

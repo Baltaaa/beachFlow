@@ -189,7 +189,7 @@ export default function Dashboard() {
           <div className="flex items-center gap-3">
             <img src="/logo-prius.png" alt="Prius Logo" className="h-14 w-auto object-contain" />
             <span className="font-light text-lg tracking-tight text-prius-black/80">
-              <span className="font-serif italic text-gold mr-1">Prius</span> <span className="font-semibold text-gold">App</span>
+              <span className="font-bold text-gold mr-1 font-display">Prius</span> <span className="font-semibold text-gold">App</span>
             </span>
           </div>
           <div className="flex items-center gap-4">

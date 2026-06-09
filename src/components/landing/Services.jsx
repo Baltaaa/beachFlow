@@ -53,8 +53,8 @@ export default function Services() {
             <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-prius-black/40 block mb-1 font-display">
               Estilo de Vida Prius
             </span>
-            <h2 className="text-3xl md:text-4xl font-light tracking-tight text-prius-black font-display leading-none">
-              Servicios de <span className="italic font-serif text-gold">Exclusividad</span> Absoluta
+            <h2 className="text-2xl md:text-3xl font-medium tracking-tight text-prius-black uppercase font-display leading-none">
+              Servicios de <span className="text-gold font-bold">Exclusividad</span> Absoluta
             </h2>
           </div>
           <p className="text-prius-black/60 text-xs max-w-xs leading-relaxed">
