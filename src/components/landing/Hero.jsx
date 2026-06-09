@@ -24,9 +24,9 @@ export default function Hero() {
           <span className="inline-block text-[10px] font-bold uppercase tracking-[0.3em] text-prius-black/60 bg-white px-3 py-1.5 rounded-sm border border-hairline">
             Playa Grande • Mar del Plata
           </span>
-          <h1 className="text-[42px] sm:text-[56px] md:text-[68px] font-medium leading-[1.05] tracking-tight uppercase font-display">
+          <h1 className="text-[48px] sm:text-[64px] md:text-[76px] font-light leading-[0.95] tracking-tight text-prius-black font-display">
             El arte del <br />
-            <span className="font-bold text-gold">descanso</span>
+            <span className="font-serif italic text-gold">descanso</span>
           </h1>
           <p className="text-prius-black/60 text-sm sm:text-base max-w-md leading-relaxed font-light">
             Redefinimos la experiencia de costa bajo un concepto de minimalismo estructural. Un refugio exclusivo diseñado para quienes aprecian el silencio, el confort y el servicio impecable.
@@ -63,8 +63,8 @@ export default function Hero() {
                   <span className="text-[9px] font-bold uppercase tracking-widest text-gold">Santuario</span>
                   <Umbrella className="w-4 h-4 text-gold" />
                 </div>
-                <h3 className="text-base sm:text-lg font-medium text-prius-black uppercase tracking-tight font-display">
-                  Carpas <br className="hidden sm:inline" /> Premium
+                <h3 className="text-xl sm:text-2xl font-light text-prius-black font-display">
+                  Carpas <br className="hidden sm:inline" /> <span className="italic font-serif text-gold">Premium</span>
                 </h3>
                 <p className="text-[11px] text-prius-black/60 leading-relaxed font-light">
                   Estructuras de diseño nórdico con reposeras ergonómicas y atención personalizada en la arena.
@@ -84,8 +84,8 @@ export default function Hero() {
                   <span className="text-[9px] font-bold uppercase tracking-widest text-gold">Wellness</span>
                   <Heart className="w-4 h-4 text-gold" />
                 </div>
-                <h3 className="text-sm sm:text-base font-medium text-prius-black uppercase tracking-tight font-display">
-                  Masajes Terapéuticos
+                <h3 className="text-lg sm:text-xl font-light text-prius-black font-display">
+                  Masajes <span className="italic font-serif text-gold">Terapéuticos</span>
                 </h3>
                 <p className="text-[11px] text-prius-black/60 leading-relaxed font-light line-clamp-2">
                   Sesiones exclusivas de relajación y bienestar con turnos programados a cargo de Pilar Ferrando.
@@ -105,7 +105,7 @@ export default function Hero() {
                   <span className="text-[9px] font-bold uppercase tracking-widest text-gold">Confort</span>
                   <ShoppingBag className="w-4 h-4 text-gold" />
                 </div>
-                <h3 className="text-sm sm:text-base font-medium text-prius-black uppercase tracking-tight font-display">
+                <h3 className="text-lg sm:text-xl font-light text-prius-black font-display">
                   Equipamiento
                 </h3>
                 <p className="text-[11px] text-prius-black/60 leading-relaxed font-light">
@@ -136,8 +136,8 @@ export default function Hero() {
                   <span className="text-[9px] font-bold uppercase tracking-widest text-gold">Gastronomía</span>
                   <Utensils className="w-4 h-4 text-gold" />
                 </div>
-                <h3 className="text-sm sm:text-base font-medium text-prius-black uppercase tracking-tight font-display">
-                  Cocina de Mar
+                <h3 className="text-lg sm:text-xl font-light text-prius-black font-display">
+                  Cocina <span className="italic font-serif text-gold">de Mar</span>
                 </h3>
                 <p className="text-[11px] text-prius-black/60 leading-relaxed font-light">
                   Platos sofisticados y coctelería de autor servidos directamente en su carpa o sombrilla.
@@ -165,7 +165,7 @@ export default function Hero() {
               <div className="flex justify-between items-start">
                 <div className="space-y-1">
                   <span className="text-[8px] font-bold uppercase tracking-widest opacity-60">Membresía</span>
-                  <h3 className="text-sm sm:text-base font-bold uppercase tracking-tight font-display">
+                  <h3 className="text-lg sm:text-xl font-bold uppercase tracking-tight font-display">
                     Prius Club
                   </h3>
                 </div>
