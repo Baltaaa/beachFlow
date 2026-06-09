@@ -22,7 +22,7 @@ export default function Hero() {
         {/* Columna Izquierda: Título y Propuesta de Valor */}
         <div className="lg:col-span-5 space-y-6 text-prius-black">
           <span className="inline-block text-[10px] font-extralight uppercase tracking-[0.3em] text-prius-black/60 bg-white px-3 py-1.5 rounded-sm border border-hairline font-display">
-            Playa Grande • Mar del Plata
+            📍 Playa Grande • Mar del Plata
           </span>
           <h1 className="text-[44px] sm:text-[58px] md:text-[68px] font-normal leading-[1.05] tracking-tight text-prius-black font-display uppercase">
             Tu descanso <br />
