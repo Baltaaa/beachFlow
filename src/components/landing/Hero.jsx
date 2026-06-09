@@ -64,7 +64,7 @@ export default function Hero() {
                   <Umbrella className="w-4 h-4 text-gold" />
                 </div>
                 <h3 className="text-base sm:text-lg font-normal text-prius-black uppercase tracking-tight font-display">
-                  Carpas <br className="hidden sm:inline" /> Premium
+                  Carpas <br className="hidden sm:inline" />
                 </h3>
                 <p className="text-[11px] text-prius-black/60 leading-relaxed font-light">
                   Estructuras de diseño nórdico con reposeras ergonómicas y atención personalizada en la arena.
