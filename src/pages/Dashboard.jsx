@@ -10,6 +10,7 @@ import { STATUS } from "../components/dashboard/constants"
 import UnitModal from "../components/dashboard/UnitModal"
 import SettingsPanel from "../components/dashboard/SettingsPanel"
 import Cell from "../components/dashboard/Cell"
+import GlobalLoader from "../components/ui/GlobalLoader"
 
 export default function Dashboard() {
   const navigate = useNavigate()
@@ -52,7 +53,10 @@ export default function Dashboard() {
       return
     }
     setUser(session.user)
-    setLoading(false)
+    // Simulamos un pequeño delay para que la animación del loader se aprecie fluida
+    setTimeout(() => {
+      setLoading(false)
+    }, 1200)
   }
 
   const initializeUnits = () => {
@@ -174,11 +178,7 @@ export default function Dashboard() {
   const filteredUnitsList = Object.values(units).filter(u => isUnitMatchingSearch(u) && isUnitMatchingFilters(u))
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-white">
-        <div className="w-8 h-8 border-2 border-gold border-t-transparent rounded-full animate-spin" />
-      </div>
-    )
+    return <GlobalLoader message="Cargando panel de administración" />
   }
 
   return (

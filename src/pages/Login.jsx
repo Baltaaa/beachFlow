@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import { supabase } from "../lib/supabase"
-import { Eye, EyeOff, Loader2, ArrowLeft, ShieldCheck, ShieldAlert } from "lucide-react"
+import { Eye, EyeOff, ArrowLeft, ShieldCheck, ShieldAlert } from "lucide-react"
+import GlobalLoader from "../components/ui/GlobalLoader"
 
 export default function Login() {
   const navigate = useNavigate()
@@ -102,33 +103,37 @@ export default function Login() {
         setError("Email o contraseña incorrectos")
         setIsVerified(false)
         setSliderPosition(0)
+        setIsLoading(false)
         return
       }
 
       if (data?.user) {
+        // Dejamos el loading activo para que la transición al dashboard sea fluida
         navigate("/dashboard")
       }
     } catch (err) {
       setError("Error de conexión. Verifica tu internet.")
       setIsVerified(false)
       setSliderPosition(0)
-    } finally {
       setIsLoading(false)
     }
   }
 
   return (
     <div className="min-h-screen flex bg-white font-sans">
+      {/* Loader Global durante el inicio de sesión */}
+      {isLoading && <GlobalLoader message="Iniciando sesión de administrador" />}
+
       {/* Panel izquierdo - Branding */}
       <div className="hidden lg:flex lg:w-1/2 bg-prius-black relative overflow-hidden items-center justify-center p-12">
-        {/* Imagen de fondo ultra oscura */}
+        {/* Imagen de fondo con mayor claridad (opacity-20) */}
         <div className="absolute inset-0 z-0">
           <img 
             src="/images/hero-bg.png" 
             alt="Prius Playa Grande" 
-            className="w-full h-full object-cover object-center opacity-10 mix-blend-luminosity"
+            className="w-full h-full object-cover object-center opacity-20 mix-blend-luminosity"
           />
-          <div className="absolute inset-0 bg-black/30" />
+          <div className="absolute inset-0 bg-black/40" />
         </div>
         
         <div className="relative z-10 text-center">
@@ -250,7 +255,7 @@ export default function Login() {
                   : "bg-prius-black/10 text-prius-black/30 cursor-not-allowed"
               }`}
             >
-              {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Ingresar al Sistema"}
+              Ingresar al Sistema
             </button>
           </form>
         </div>

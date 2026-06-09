@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
+import GlobalLoader from './ui/GlobalLoader'
 
 export default function PrivateRoute({ children }) {
   const [session, setSession] = useState(null)
@@ -20,11 +21,7 @@ export default function PrivateRoute({ children }) {
   }, [])
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-white">
-        <div className="w-8 h-8 border-2 border-gold border-t-transparent rounded-full animate-spin" />
-      </div>
-    )
+    return <GlobalLoader message="Verificando credenciales de seguridad" />
   }
 
   if (!session) {
