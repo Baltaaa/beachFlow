@@ -50,11 +50,11 @@ export default function Services() {
         {/* Encabezado ultra-elegante y compacto */}
         <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div className="max-w-xl">
-            <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-prius-black/40 block mb-1 font-display">
+            <span className="text-[9px] font-extrabold uppercase tracking-[0.3em] text-prius-black/40 block mb-1 font-display">
               Estilo de Vida Prius
             </span>
-            <h2 className="text-2xl md:text-3xl font-medium tracking-tight text-prius-black uppercase font-display leading-none">
-              Servicios de <span className="text-gold font-bold">Exclusividad</span> Absoluta
+            <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-prius-black uppercase font-display leading-none">
+              Servicios de <span className="text-gold">Exclusividad</span> Absoluta
             </h2>
           </div>
           <p className="text-prius-black/60 text-xs max-w-xs leading-relaxed">
@@ -84,10 +84,10 @@ export default function Services() {
               {/* Textos y Acción */}
               <div className="p-4 flex flex-col justify-between flex-1 bg-white">
                 <div>
-                  <span className="text-[8px] font-bold uppercase tracking-wider text-gold block mb-0.5 font-display">
+                  <span className="text-[8px] font-extrabold uppercase tracking-wider text-gold block mb-0.5 font-display">
                     {s.subtitle}
                   </span>
-                  <h3 className="text-sm font-medium uppercase tracking-tight mb-1.5 text-prius-black font-display">
+                  <h3 className="text-sm font-extrabold uppercase tracking-tight mb-1.5 text-prius-black font-display">
                     {s.title}
                   </h3>
                   <p className="text-prius-black/60 text-[11px] leading-relaxed mb-4 font-light line-clamp-3">
@@ -98,7 +98,7 @@ export default function Services() {
                 <div className="pt-2 border-t border-hairline">
                   <button 
                     onClick={scrollToContact}
-                    className="text-[8px] font-bold text-prius-black hover:text-gold transition-colors uppercase tracking-widest text-left flex items-center gap-1 group/btn font-display"
+                    className="text-[8px] font-extrabold text-prius-black hover:text-gold transition-colors uppercase tracking-widest text-left flex items-center gap-1 group/btn font-display"
                   >
                     Consultar 
                     <ArrowRight size={8} className="transform group-hover/btn:translate-x-0.5 transition-transform" />

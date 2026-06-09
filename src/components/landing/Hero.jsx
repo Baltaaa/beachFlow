@@ -21,12 +21,12 @@ export default function Hero() {
         
         {/* Columna Izquierda: Título y Propuesta de Valor */}
         <div className="lg:col-span-5 space-y-6 text-prius-black">
-          <span className="inline-block text-[10px] font-bold uppercase tracking-[0.3em] text-prius-black/60 bg-white px-3 py-1.5 rounded-sm border border-hairline">
+          <span className="inline-block text-[10px] font-extrabold uppercase tracking-[0.3em] text-prius-black/60 bg-white px-3 py-1.5 rounded-sm border border-hairline font-display">
             Playa Grande • Mar del Plata
           </span>
-          <h1 className="text-[44px] sm:text-[58px] md:text-[68px] font-semibold leading-[1.05] tracking-tight text-prius-black font-display">
+          <h1 className="text-[44px] sm:text-[58px] md:text-[68px] font-extrabold leading-[1.05] tracking-tight text-prius-black font-display uppercase">
             El arte del <br />
-            <span className="text-gold font-bold">descanso</span>
+            <span className="text-gold">descanso</span>
           </h1>
           <p className="text-prius-black/60 text-sm sm:text-base max-w-md leading-relaxed font-light">
             Redefinimos la experiencia de costa bajo un concepto de minimalismo estructural. Un refugio exclusivo diseñado para quienes aprecian el silencio, el confort y el servicio impecable.
@@ -34,13 +34,13 @@ export default function Hero() {
           <div className="flex flex-wrap gap-4 pt-4">
             <button 
               onClick={() => document.getElementById('servicios')?.scrollIntoView({ behavior: 'smooth' })}
-              className="bg-gold hover:bg-gold-hover text-prius-black px-8 py-4 rounded-sm font-bold text-[11px] uppercase tracking-[0.2em] transition-premium cursor-pointer border border-transparent"
+              className="bg-gold hover:bg-gold-hover text-prius-black px-8 py-4 rounded-sm font-extrabold text-[11px] uppercase tracking-[0.2em] transition-premium cursor-pointer border border-transparent font-display"
             >
               Explorar Servicios
             </button>
             <button 
               onClick={() => document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' })}
-              className="border border-hairline bg-white hover:bg-prius-background text-prius-black px-8 py-4 rounded-sm font-bold text-[11px] uppercase tracking-[0.2em] transition-premium"
+              className="border border-hairline bg-white hover:bg-prius-background text-prius-black px-8 py-4 rounded-sm font-extrabold text-[11px] uppercase tracking-[0.2em] transition-premium font-display"
             >
               Reservar
             </button>
@@ -60,10 +60,10 @@ export default function Hero() {
             <div className="bg-gradient-to-br from-white/95 to-neutral-100/70 backdrop-blur-md rounded-lg p-4 sm:p-6 flex flex-col justify-between min-h-[190px] sm:min-h-[360px] col-span-2 sm:col-span-1 sm:row-span-2 border border-hairline group transition-premium hover:border-gold">
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-[9px] font-bold uppercase tracking-widest text-gold">Santuario</span>
+                  <span className="text-[9px] font-extrabold uppercase tracking-widest text-gold font-display">Santuario</span>
                   <Umbrella className="w-4 h-4 text-gold" />
                 </div>
-                <h3 className="text-lg sm:text-xl font-medium text-prius-black uppercase tracking-tight font-display">
+                <h3 className="text-lg sm:text-xl font-extrabold text-prius-black uppercase tracking-tight font-display">
                   Carpas <br className="hidden sm:inline" /> Premium
                 </h3>
                 <p className="text-[11px] text-prius-black/60 leading-relaxed font-light">
@@ -71,7 +71,7 @@ export default function Hero() {
                 </p>
               </div>
 
-              <div className="pt-4 border-t border-hairline flex justify-between items-center text-[9px] text-prius-black/40">
+              <div className="pt-4 border-t border-hairline flex justify-between items-center text-[9px] text-prius-black/40 font-display font-extrabold">
                 <span className="flex items-center gap-1"><Wifi className="w-3 h-3 text-gold" /> WiFi 100MB</span>
                 <span className="flex items-center gap-1"><Shield className="w-3 h-3 text-gold" /> Seguridad</span>
               </div>
@@ -81,10 +81,10 @@ export default function Hero() {
             <div className="bg-gradient-to-br from-white/95 to-neutral-100/70 backdrop-blur-md rounded-lg p-4 sm:p-6 flex flex-col justify-between min-h-[150px] sm:min-h-[170px] col-span-2 sm:col-span-2 border border-hairline group transition-premium hover:border-gold">
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between">
-                  <span className="text-[9px] font-bold uppercase tracking-widest text-gold">Wellness</span>
+                  <span className="text-[9px] font-extrabold uppercase tracking-widest text-gold font-display">Wellness</span>
                   <Heart className="w-4 h-4 text-gold" />
                 </div>
-                <h3 className="text-base sm:text-lg font-medium text-prius-black uppercase tracking-tight font-display">
+                <h3 className="text-base sm:text-lg font-extrabold text-prius-black uppercase tracking-tight font-display">
                   Masajes Terapéuticos
                 </h3>
                 <p className="text-[11px] text-prius-black/60 leading-relaxed font-light line-clamp-2">
@@ -92,8 +92,8 @@ export default function Hero() {
                 </p>
               </div>
 
-              <div className="pt-2 border-t border-hairline flex items-center justify-between text-[9px]">
-                <span className="text-gold font-bold uppercase tracking-wider">Turnos Exclusivos</span>
+              <div className="pt-2 border-t border-hairline flex items-center justify-between text-[9px] font-display font-extrabold">
+                <span className="text-gold uppercase tracking-wider">Turnos Exclusivos</span>
                 <span className="text-prius-black/40">Pilar Ferrando</span>
               </div>
             </div>
@@ -102,10 +102,10 @@ export default function Hero() {
             <div className="bg-gradient-to-br from-white/95 to-neutral-100/70 backdrop-blur-md rounded-lg p-4 sm:p-6 flex flex-col justify-between min-h-[190px] sm:min-h-[360px] col-span-1 sm:row-span-2 border border-hairline group transition-premium hover:border-gold">
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-[9px] font-bold uppercase tracking-widest text-gold">Confort</span>
+                  <span className="text-[9px] font-extrabold uppercase tracking-widest text-gold font-display">Confort</span>
                   <ShoppingBag className="w-4 h-4 text-gold" />
                 </div>
-                <h3 className="text-base sm:text-lg font-medium text-prius-black uppercase tracking-tight font-display">
+                <h3 className="text-base sm:text-lg font-extrabold text-prius-black uppercase tracking-tight font-display">
                   Equipamiento
                 </h3>
                 <p className="text-[11px] text-prius-black/60 leading-relaxed font-light">
@@ -113,18 +113,18 @@ export default function Hero() {
                 </p>
               </div>
 
-              <div className="space-y-2 pt-4 border-t border-hairline">
+              <div className="space-y-2 pt-4 border-t border-hairline font-display font-extrabold">
                 <div className="flex justify-between text-[9px] text-prius-black/40">
                   <span>Reposeras</span>
-                  <span className="text-gold font-bold">✓</span>
+                  <span className="text-gold">✓</span>
                 </div>
                 <div className="flex justify-between text-[9px] text-prius-black/40">
                   <span>Toallas</span>
-                  <span className="text-gold font-bold">✓</span>
+                  <span className="text-gold">✓</span>
                 </div>
                 <div className="flex justify-between text-[9px] text-prius-black/40">
                   <span>Shampoo</span>
-                  <span className="text-gold font-bold">✓</span>
+                  <span className="text-gold">✓</span>
                 </div>
               </div>
             </div>
@@ -133,10 +133,10 @@ export default function Hero() {
             <div className="bg-gradient-to-br from-white/95 to-neutral-100/70 backdrop-blur-md rounded-lg p-4 sm:p-6 flex flex-col justify-between min-h-[190px] sm:min-h-[360px] col-span-1 sm:row-span-2 border border-hairline group transition-premium hover:border-gold">
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-[9px] font-bold uppercase tracking-widest text-gold">Gastronomía</span>
+                  <span className="text-[9px] font-extrabold uppercase tracking-widest text-gold font-display">Gastronomía</span>
                   <Utensils className="w-4 h-4 text-gold" />
                 </div>
-                <h3 className="text-base sm:text-lg font-medium text-prius-black uppercase tracking-tight font-display">
+                <h3 className="text-base sm:text-lg font-extrabold text-prius-black uppercase tracking-tight font-display">
                   Cocina de Mar
                 </h3>
                 <p className="text-[11px] text-prius-black/60 leading-relaxed font-light">
@@ -144,18 +144,18 @@ export default function Hero() {
                 </p>
               </div>
 
-              <div className="space-y-2 pt-4 border-t border-hairline">
+              <div className="space-y-2 pt-4 border-t border-hairline font-display font-extrabold">
                 <div className="flex justify-between text-[9px] text-prius-black/40">
                   <span>Tragos de Autor</span>
-                  <span className="text-gold font-bold">✓</span>
+                  <span className="text-gold">✓</span>
                 </div>
                 <div className="flex justify-between text-[9px] text-prius-black/40">
                   <span>Pesca del Día</span>
-                  <span className="text-gold font-bold">✓</span>
+                  <span className="text-gold">✓</span>
                 </div>
                 <div className="flex justify-between text-[9px] text-prius-black/40">
                   <span>Jugos Naturales</span>
-                  <span className="text-gold font-bold">✓</span>
+                  <span className="text-gold">✓</span>
                 </div>
               </div>
             </div>
@@ -164,8 +164,8 @@ export default function Hero() {
             <div className="bg-gold text-prius-black rounded-lg p-4 sm:p-6 flex flex-col justify-between min-h-[120px] sm:min-h-[170px] col-span-2 sm:col-span-1 border border-transparent group transition-premium hover:bg-gold-hover">
               <div className="flex justify-between items-start">
                 <div className="space-y-1">
-                  <span className="text-[8px] font-bold uppercase tracking-widest opacity-60">Membresía</span>
-                  <h3 className="text-base sm:text-lg font-bold uppercase tracking-tight font-display">
+                  <span className="text-[8px] font-extrabold uppercase tracking-widest opacity-60 font-display">Membresía</span>
+                  <h3 className="text-base sm:text-lg font-extrabold uppercase tracking-tight font-display">
                     Prius Club
                   </h3>
                 </div>
@@ -176,7 +176,7 @@ export default function Hero() {
                 <p className="text-[10px] opacity-70 leading-tight max-w-[160px] sm:max-w-none font-light">
                   Beneficios exclusivos y preventas de temporada.
                 </p>
-                <span className="text-[8px] font-bold tracking-widest uppercase shrink-0 bg-prius-black text-white px-1.5 py-0.5 rounded-sm">
+                <span className="text-[8px] font-extrabold tracking-widest uppercase shrink-0 bg-prius-black text-white px-1.5 py-0.5 rounded-sm font-display">
                   GOLD
                 </span>
               </div>

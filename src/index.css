@@ -17,6 +17,8 @@
   --foreground: #1E1E24;
   --card: #FFFFFF;
   --card-foreground: #1E1E24;
+  --popover: #FFFFFF;
+  --popover-foreground: #1E1E24;
   --primary: #E54B4B;
   --primary-foreground: #FFFFFF;
   --secondary: #FFA987;
@@ -48,7 +50,7 @@ body {
 }
 
 .font-display {
-  font-family: 'Fredoka', sans-serif;
+  font-family: 'Exo', sans-serif;
 }
 
 /* --- ANIMACIONES PREMIUM EXCLUSIVAS PRIUS --- */

@@ -39,15 +39,15 @@ export default function Gallery() {
         {/* Encabezado Minimalista */}
         <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="max-w-xl">
-            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-prius-black/40 block mb-2 font-display">
+            <span className="text-[10px] font-extrabold uppercase tracking-[0.3em] text-prius-black/40 block mb-2 font-display">
               Galería Visual
             </span>
-            <h2 className="text-3xl md:text-4xl font-medium tracking-tight text-prius-black uppercase font-display leading-none">
-              Viví la Experiencia <span className="text-gold font-bold">Prius</span>
+            <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-prius-black uppercase font-display leading-none">
+              Viví la Experiencia <span className="text-gold">Prius</span>
             </h2>
           </div>
           <p className="text-prius-black/60 text-xs md:text-sm max-w-md leading-relaxed">
-            Un recorrido visual por nuestras exclusivas instalaciones y momentos únicos diseñados bajo un concepto de minimalismo estructural y confort absoluto.
+            Un recorrido visual por nuestras exclusivas instalaciones and momentos únicos diseñados bajo un concepto de minimalismo estructural y confort absoluto.
           </p>
         </div>
 
@@ -73,10 +73,10 @@ export default function Gallery() {
                   </div>
                 </div>
                 <div className="transform translate-y-2 group-hover:translate-y-0 transition-premium">
-                  <span className="text-[8px] font-bold uppercase tracking-widest text-gold block mb-0.5 font-display">
+                  <span className="text-[8px] font-extrabold uppercase tracking-widest text-gold block mb-0.5 font-display">
                     {img.category}
                   </span>
-                  <h4 className="text-white text-xs font-medium uppercase tracking-tight font-display">
+                  <h4 className="text-white text-xs font-extrabold uppercase tracking-tight font-display">
                     {img.title}
                   </h4>
                 </div>
@@ -116,10 +116,10 @@ export default function Gallery() {
               className="max-w-full max-h-[75vh] object-contain rounded-lg border border-white/10 shadow-2xl"
             />
             <div className="text-center mt-6">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-gold font-display">
+              <span className="text-[10px] font-extrabold uppercase tracking-widest text-gold font-display">
                 {activeImage.category}
               </span>
-              <h3 className="text-white text-lg font-medium uppercase tracking-tight mt-1 font-display">
+              <h3 className="text-white text-lg font-extrabold uppercase tracking-tight mt-1 font-display">
                 {activeImage.title}
               </h3>
             </div>

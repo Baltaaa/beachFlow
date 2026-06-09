@@ -60,7 +60,7 @@ export default function UnitModal({ unit, onClose, onSave }) {
       <div className="bg-white rounded-lg w-full max-w-md max-h-[90vh] overflow-y-auto border border-hairline shadow-xl" onClick={e => e.stopPropagation()}>
         <div className="flex items-center justify-between p-6 border-b border-hairline bg-prius-black">
           <div className="text-white">
-            <h2 className="text-lg font-normal flex items-center gap-2 uppercase tracking-tight">
+            <h2 className="text-lg font-extrabold flex items-center gap-2 uppercase tracking-tight font-display">
               {unit?.type === "sombrilla" ? <Umbrella className="w-5 h-5 text-gold" /> : <Home className="w-5 h-5 text-gold" />}
               {unit?.type === "sombrilla" ? "Sombrilla" : "Carpa"} #{unit?.number}
             </h2>
@@ -72,7 +72,7 @@ export default function UnitModal({ unit, onClose, onSave }) {
 
         <form onSubmit={handleSubmit} className="p-6 space-y-5">
           <div>
-            <label className="text-[10px] font-bold uppercase tracking-widest text-prius-black/40 block mb-2">Nombre del Cliente</label>
+            <label className="text-[10px] font-extrabold uppercase tracking-widest text-prius-black/40 block mb-2 font-display">Nombre del Cliente</label>
             <input
               type="text"
               value={formData.clientName}
@@ -84,7 +84,7 @@ export default function UnitModal({ unit, onClose, onSave }) {
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="text-[10px] font-bold uppercase tracking-widest text-prius-black/40 block mb-2">Teléfono</label>
+              <label className="text-[10px] font-extrabold uppercase tracking-widest text-prius-black/40 block mb-2 font-display">Teléfono</label>
               <input
                 type="tel"
                 value={formData.clientPhone}
@@ -94,7 +94,7 @@ export default function UnitModal({ unit, onClose, onSave }) {
               />
             </div>
             <div>
-              <label className="text-[10px] font-bold uppercase tracking-widest text-prius-black/40 block mb-2">Email</label>
+              <label className="text-[10px] font-extrabold uppercase tracking-widest text-prius-black/40 block mb-2 font-display">Email</label>
               <input
                 type="email"
                 value={formData.clientEmail}
@@ -119,7 +119,7 @@ export default function UnitModal({ unit, onClose, onSave }) {
                 }))}
                 className="w-4 h-4 accent-gold cursor-pointer"
               />
-              <label htmlFor="isTemporada" className="text-[10px] font-bold uppercase tracking-widest cursor-pointer select-none">
+              <label htmlFor="isTemporada" className="text-[10px] font-extrabold uppercase tracking-widest cursor-pointer select-none font-display">
                 Temporada (T)
               </label>
             </div>
@@ -132,7 +132,7 @@ export default function UnitModal({ unit, onClose, onSave }) {
                 onChange={(e) => setFormData(prev => ({ ...prev, isPaid: e.target.checked }))}
                 className="w-4 h-4 accent-gold cursor-pointer"
               />
-              <label htmlFor="isPaid" className="text-[10px] font-bold uppercase tracking-widest cursor-pointer select-none flex items-center gap-1">
+              <label htmlFor="isPaid" className="text-[10px] font-extrabold uppercase tracking-widest cursor-pointer select-none flex items-center gap-1 font-display">
                 <DollarSign className="w-3 h-3 text-green-600" /> Pagado
               </label>
             </div>
@@ -141,7 +141,7 @@ export default function UnitModal({ unit, onClose, onSave }) {
           {!formData.isTemporada && (
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-[10px] font-bold uppercase tracking-widest text-prius-black/40 block mb-2">Desde</label>
+                <label className="text-[10px] font-extrabold uppercase tracking-widest text-prius-black/40 block mb-2 font-display">Desde</label>
                 <input
                   type="date"
                   value={formData.startDate}
@@ -150,7 +150,7 @@ export default function UnitModal({ unit, onClose, onSave }) {
                 />
               </div>
               <div>
-                <label className="text-[10px] font-bold uppercase tracking-widest text-prius-black/40 block mb-2">Hasta</label>
+                <label className="text-[10px] font-extrabold uppercase tracking-widest text-prius-black/40 block mb-2 font-display">Hasta</label>
                 <input
                   type="date"
                   value={formData.endDate}
@@ -162,7 +162,7 @@ export default function UnitModal({ unit, onClose, onSave }) {
           )}
 
           <div>
-            <label className="text-[10px] font-bold uppercase tracking-widest text-prius-black/40 block mb-2">Notas / Observaciones</label>
+            <label className="text-[10px] font-extrabold uppercase tracking-widest text-prius-black/40 block mb-2 font-display">Notas / Observaciones</label>
             <textarea
               value={formData.notes}
               onChange={(e) => setFormData(prev => ({ ...prev, notes: e.target.value }))}
@@ -176,7 +176,7 @@ export default function UnitModal({ unit, onClose, onSave }) {
             <button
               type="button"
               onClick={handleWhatsAppShare}
-              className="w-full py-2.5 bg-green-50 hover:bg-green-100 text-green-700 border border-green-200 rounded-sm font-bold text-[10px] uppercase tracking-widest transition-all flex items-center justify-center gap-2"
+              className="w-full py-2.5 bg-green-50 hover:bg-green-100 text-green-700 border border-green-200 rounded-sm font-extrabold text-[10px] uppercase tracking-widest transition-all flex items-center justify-center gap-2 font-display"
             >
               <MessageSquare className="w-4 h-4" />
               Enviar Confirmación WhatsApp
@@ -187,13 +187,13 @@ export default function UnitModal({ unit, onClose, onSave }) {
             <button
               type="button"
               onClick={handleClear}
-              className="flex-1 py-3 border border-hairline hover:bg-red-50 hover:text-red-600 rounded-sm font-bold text-[10px] uppercase tracking-widest transition-all"
+              className="flex-1 py-3 border border-hairline hover:bg-red-50 hover:text-red-600 rounded-sm font-extrabold text-[10px] uppercase tracking-widest transition-all font-display"
             >
               Liberar Unidad
             </button>
             <button
               type="submit"
-              className="flex-1 py-3 bg-gold hover:bg-gold-hover text-prius-black rounded-sm font-bold text-[10px] uppercase tracking-widest transition-all"
+              className="flex-1 py-3 bg-gold hover:bg-gold-hover text-prius-black rounded-sm font-extrabold text-[10px] uppercase tracking-widest transition-all font-display"
             >
               Guardar Cambios
             </button>

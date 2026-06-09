@@ -51,7 +51,7 @@ export default function Navbar() {
               <button
                 key={item}
                 onClick={() => scrollToSection(item)}
-                className="text-[12px] font-medium tracking-widest text-prius-black/60 hover:text-prius-black transition-colors duration-300 uppercase font-display"
+                className="text-[12px] font-extrabold tracking-widest text-prius-black/60 hover:text-prius-black transition-colors duration-300 uppercase font-display"
               >
                 {item}
               </button>
@@ -61,7 +61,7 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-6">
             <button 
               onClick={() => scrollToSection('contacto')}
-              className="bg-gold hover:bg-gold-hover px-6 py-3 rounded-sm font-medium text-[12px] uppercase tracking-wider transition-premium border border-transparent font-display"
+              className="bg-gold hover:bg-gold-hover px-6 py-3 rounded-sm font-extrabold text-[12px] uppercase tracking-wider transition-premium border border-transparent font-display"
             >
               Solicitar cotización
             </button>
@@ -85,7 +85,7 @@ export default function Navbar() {
               <button
                 key={item}
                 onClick={() => scrollToSection(item)}
-                className="text-left text-sm font-medium tracking-wider text-prius-black/80 hover:text-prius-black py-2 uppercase font-display transition-colors duration-300"
+                className="text-left text-sm font-extrabold tracking-wider text-prius-black/80 hover:text-prius-black py-2 uppercase font-display transition-colors duration-300"
               >
                 {item}
               </button>
@@ -93,7 +93,7 @@ export default function Navbar() {
             <div className="h-px bg-hairline my-2" />
             <button 
               onClick={() => scrollToSection('contacto')}
-              className="w-full bg-gold hover:bg-gold-hover py-3 rounded-sm font-medium text-xs uppercase tracking-wider transition-premium text-center font-display"
+              className="w-full bg-gold hover:bg-gold-hover py-3 rounded-sm font-extrabold text-xs uppercase tracking-wider transition-premium text-center font-display"
             >
               Solicitar cotización
             </button>

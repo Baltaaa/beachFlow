@@ -18,8 +18,8 @@ export default {
       },
       fontFamily: {
         sans: ['Plus Jakarta Sans', 'sans-serif'],
-        display: ['Fredoka', 'sans-serif'],
-        serif: ['Fredoka', 'sans-serif'],
+        display: ['Exo', 'sans-serif'],
+        serif: ['Exo', 'sans-serif'],
       },
       borderRadius: {
         lg: '8px',
