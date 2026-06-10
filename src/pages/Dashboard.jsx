@@ -186,19 +186,31 @@ export default function Dashboard() {
     return dateStr
   }
 
-  // Renderizador de celda de Carpa para Impresión (Número a la izquierda, casillero a la derecha)
-  const renderPrintCarpaCell = (unit) => {
+  // Renderizador de celda de Carpa para Impresión (Soporta número a la izquierda o derecha)
+  const renderPrintCarpaCell = (unit, numberOnLeft = true) => {
     if (!unit) return <div className="w-[42px] h-[11px]" />
     const status = unit.status || STATUS.LIBRE
     const isTemporada = status === STATUS.TEMPORADA
     const isPeriodo = status === STATUS.PERIODO
     return (
       <div key={unit.id} className="flex items-center justify-between w-[42px] h-[11px]">
-        <span className="text-[7px] font-normal text-black w-4 text-right pr-1">{unit.number}</span>
-        <div className={`w-[18px] h-[10px] border border-black flex items-center justify-center text-[7px] font-bold ${isTemporada ? 'bg-neutral-300 text-black' : isPeriodo ? 'bg-neutral-100 text-black' : 'bg-white'}`}>
-          {isTemporada && "T"}
-          {isPeriodo && "P"}
-        </div>
+        {numberOnLeft ? (
+          <>
+            <span className="text-[7px] font-normal text-black w-4 text-right pr-1">{unit.number}</span>
+            <div className={`w-[18px] h-[10px] border border-black flex items-center justify-center text-[7px] font-bold ${isTemporada ? 'bg-neutral-300 text-black' : isPeriodo ? 'bg-neutral-100 text-black' : 'bg-white'}`}>
+              {isTemporada && "T"}
+              {isPeriodo && "P"}
+            </div>
+          </>
+        ) : (
+          <>
+            <div className={`w-[18px] h-[10px] border border-black flex items-center justify-center text-[7px] font-bold ${isTemporada ? 'bg-neutral-300 text-black' : isPeriodo ? 'bg-neutral-100 text-black' : 'bg-white'}`}>
+              {isTemporada && "T"}
+              {isPeriodo && "P"}
+            </div>
+            <span className="text-[7px] font-normal text-black w-4 text-left pl-1">{unit.number}</span>
+          </>
+        )}
       </div>
     )
   }
@@ -761,40 +773,47 @@ export default function Dashboard() {
           <div>Piscina</div>
         </div>
 
-        {/* Grilla de Carpas */}
-        <div className="flex justify-between gap-1 text-[7px] mb-2">
-          {/* Columna 1 (1-25) */}
+        {/* Grilla de Carpas Reestructurada */}
+        <div className="flex justify-center gap-6 text-[7px] mb-2">
+          {/* Pasillo 1: Columna 1 (1-25) */}
           <div className="flex flex-col gap-[1px]">
-            {Array.from({ length: 25 }, (_, i) => i + 1).map(num => renderPrintCarpaCell(getCarpa(num)))}
+            {Array.from({ length: 25 }, (_, i) => i + 1).map(num => renderPrintCarpaCell(getCarpa(num), true))}
           </div>
-          {/* Columna 2 (26-50) */}
-          <div className="flex flex-col gap-[1px]">
-            {Array.from({ length: 25 }, (_, i) => i + 26).map(num => renderPrintCarpaCell(getCarpa(num)))}
+
+          {/* Pasillo 2: Columna 2 (26-50) y Columna 3 (51-75) JUNTAS */}
+          <div className="flex gap-0">
+            <div className="flex flex-col gap-[1px]">
+              {Array.from({ length: 25 }, (_, i) => i + 26).map(num => renderPrintCarpaCell(getCarpa(num), true))}
+            </div>
+            <div className="flex flex-col gap-[1px]">
+              {Array.from({ length: 25 }, (_, i) => i + 51).map(num => renderPrintCarpaCell(getCarpa(num), false))}
+            </div>
           </div>
-          <div className="w-[1px] bg-gray-300" />
-          {/* Columna 3 (51-75) */}
-          <div className="flex flex-col gap-[1px]">
-            {Array.from({ length: 25 }, (_, i) => i + 51).map(num => renderPrintCarpaCell(getCarpa(num)))}
+
+          {/* Pasillo 3: Columna 4 (76-98) y Columna 5 (99-121) JUNTAS con Piscina arriba */}
+          <div className="flex flex-col">
+            {/* Piscina unificada arriba de las dos columnas */}
+            <div className="w-[84px] h-[23px] bg-sky-100 border border-black flex items-center justify-center text-[6px] font-bold mb-[1px]">
+              PILETA
+            </div>
+            <div className="flex gap-0">
+              <div className="flex flex-col gap-[1px]">
+                {Array.from({ length: 23 }, (_, i) => i + 76).map(num => renderPrintCarpaCell(getCarpa(num), true))}
+              </div>
+              <div className="flex flex-col gap-[1px]">
+                {Array.from({ length: 23 }, (_, i) => i + 99).map(num => renderPrintCarpaCell(getCarpa(num), false))}
+              </div>
+            </div>
           </div>
-          {/* Columna 4 (76-98) con Piscina */}
-          <div className="flex flex-col gap-[1px]">
-            <div className="h-[21px] bg-sky-100 border border-black flex items-center justify-center text-[5.5px] font-bold">PILETA</div>
-            {Array.from({ length: 23 }, (_, i) => i + 76).map(num => renderPrintCarpaCell(getCarpa(num)))}
-          </div>
-          <div className="w-[1px] bg-gray-300" />
-          {/* Columna 5 (99-121) con Piscina */}
-          <div className="flex flex-col gap-[1px]">
-            <div className="h-[21px] bg-sky-100 border border-black flex items-center justify-center text-[5.5px] font-bold">PILETA</div>
-            {Array.from({ length: 23 }, (_, i) => i + 99).map(num => renderPrintCarpaCell(getCarpa(num)))}
-          </div>
+
           {/* Columna 6 (122-144) */}
           <div className="flex flex-col gap-[1px]">
-            <div className="h-[21px] border border-transparent" /> {/* Espaciador */}
-            {Array.from({ length: 23 }, (_, i) => i + 122).map(num => renderPrintCarpaCell(getCarpa(num)))}
+            <div className="h-[23px] border border-transparent" /> {/* Espaciador para alinear con las columnas de la pileta */}
+            {Array.from({ length: 23 }, (_, i) => i + 122).map(num => renderPrintCarpaCell(getCarpa(num), false))}
           </div>
         </div>
 
-        {/* Grilla de Sombrillas (Enmarcada en recuadro grueso) */}
+        {/* Grilla de Sombrillas (Enmarcada en recuadro grueso con pasillo central) */}
         <div className="border-[1.5px] border-black p-1 mb-1.5">
           <div className="flex justify-around gap-2">
             {/* Bloque Izquierdo (1-20) */}
