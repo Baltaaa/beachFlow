@@ -217,7 +217,7 @@ export default function Testimonials() {
         {/* Botón Ver Más en Google */}
         <div className="text-center mt-16">
           <a 
-            href="https://www.google.com/search?q=Opiniones+de+Balneario+Prius+Playa+Grande" 
+            href="https://www.google.com/search?q=Balneario+Prius+Playa+Grande" 
             target="_blank" 
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-white hover:bg-prius-background text-prius-black border border-hairline px-8 py-4 rounded-sm font-extralight text-[11px] uppercase tracking-[0.2em] transition-premium font-display"
