@@ -108,8 +108,10 @@ export default function Login() {
       }
 
       if (data?.user) {
-        // Dejamos el loading activo para que la transición al dashboard sea fluida
-        navigate("/dashboard")
+        // Agregamos un retraso intencional de 2 segundos para que la animación de carga sea visible
+        setTimeout(() => {
+          navigate("/dashboard")
+        }, 2000)
       }
     } catch (err) {
       setError("Error de conexión. Verifica tu internet.")

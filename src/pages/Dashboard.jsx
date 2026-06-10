@@ -53,10 +53,10 @@ export default function Dashboard() {
       return
     }
     setUser(session.user)
-    // Simulamos un pequeño delay para que la animación del loader se aprecie fluida
+    // Incrementamos el delay a 3000ms (3 segundos) para que la animación del loader se aprecie mejor
     setTimeout(() => {
       setLoading(false)
-    }, 1200)
+    }, 3000)
   }
 
   const initializeUnits = () => {
