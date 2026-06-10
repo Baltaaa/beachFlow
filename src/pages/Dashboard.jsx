@@ -185,19 +185,28 @@ export default function Dashboard() {
     <div className="min-h-screen bg-prius-background font-sans text-prius-black print:bg-white">
       {/* Header */}
       <header className="bg-white border-b border-hairline sticky top-0 z-40 h-20 flex items-center px-6 print:hidden">
-        <div className="flex items-center justify-between w-full relative">
-          <div className="flex items-center gap-3">
-            <img src="/logo-prius.png" alt="Prius Logo" className="h-14 w-auto object-contain" />
+        <div className="flex items-center justify-between w-full">
+          {/* Logo */}
+          <div className="flex items-center shrink-0">
+            <img src="/logo-prius.png" alt="Prius Logo" className="h-16 md:h-18 w-auto object-contain" />
           </div>
           
-          {/* Centered Title */}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-            <span className="text-xl md:text-2xl font-normal tracking-tight text-prius-black font-display uppercase">
-              Prius Admin
-            </span>
+          {/* Centered Search Input */}
+          <div className="flex-1 max-w-[180px] sm:max-w-[320px] md:max-w-[400px] mx-4">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-prius-black/40" />
+              <input
+                type="text"
+                placeholder="Buscar por nro, cliente, tel..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 border border-hairline rounded-full text-xs md:text-sm focus:border-gold outline-none bg-prius-background/50"
+              />
+            </div>
           </div>
 
-          <div className="flex items-center gap-4">
+          {/* Right Actions */}
+          <div className="flex items-center gap-2 md:gap-4 shrink-0">
             <button onClick={() => window.print()} className="p-2.5 hover:bg-prius-background rounded-full transition-colors" title="Imprimir Plano">
               <Printer size={20} />
             </button>
@@ -211,23 +220,8 @@ export default function Dashboard() {
       <div className="flex flex-col lg:flex-row">
         {/* Sidebar */}
         <aside className="w-full lg:w-80 bg-white border-r border-hairline p-6 space-y-6 shrink-0 print:hidden">
-          {/* Buscador */}
-          <div className="space-y-2">
-            <label className="text-[10px] font-extralight uppercase tracking-widest text-prius-black/40 block font-display">Buscador Inteligente</label>
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-prius-black/40" />
-              <input
-                type="text"
-                placeholder="Buscar por nro, cliente, tel..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-hairline rounded-sm text-sm focus:border-gold outline-none"
-              />
-            </div>
-          </div>
-
           {/* Filtros Rápidos */}
-          <div className="space-y-4 pt-4 border-t border-hairline">
+          <div className="space-y-4">
             <h3 className="text-[10px] font-extralight uppercase tracking-widest text-prius-black/40 font-display">Filtros de Vista</h3>
             
             <div className="space-y-3">
