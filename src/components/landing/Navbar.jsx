@@ -51,7 +51,7 @@ export default function Navbar() {
               <button
                 key={item}
                 onClick={() => scrollToSection(item)}
-                className="text-[11px] font-light tracking-[0.2em] text-prius-black/60 hover:text-prius-black transition-colors duration-300 uppercase font-display"
+                className="text-[11px] font-normal tracking-[0.2em] text-prius-black/60 hover:text-prius-black transition-colors duration-300 uppercase font-display"
               >
                 {item}
               </button>
@@ -85,7 +85,7 @@ export default function Navbar() {
               <button
                 key={item}
                 onClick={() => scrollToSection(item)}
-                className="text-left text-xs font-light tracking-[0.15em] text-prius-black/80 hover:text-prius-black py-2 uppercase font-display transition-colors duration-300"
+                className="text-left text-xs font-normal tracking-[0.15em] text-prius-black/80 hover:text-prius-black py-2 uppercase font-display transition-colors duration-300"
               >
                 {item}
               </button>
