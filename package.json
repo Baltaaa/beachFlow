@@ -9,6 +9,12 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "overrides": {
+    "lightningcss": "1.29.2"
+  },
+  "resolutions": {
+    "lightningcss": "1.29.2"
+  },
   "pnpm": {
     "overrides": {
       "lightningcss": "1.29.2"
