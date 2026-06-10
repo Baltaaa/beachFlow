@@ -188,12 +188,12 @@ export default function Dashboard() {
 
   // Renderizador de celda de Carpa para Impresión (Número a la izquierda, casillero a la derecha)
   const renderPrintCarpaCell = (unit) => {
-    if (!unit) return <div className="w-[42px] h-[11px]" />
+    if (!unit) return <div className="w-[45px] h-[11px]" />
     const status = unit.status || STATUS.LIBRE
     const isTemporada = status === STATUS.TEMPORADA
     const isPeriodo = status === STATUS.PERIODO
     return (
-      <div key={unit.id} className="flex items-center justify-between w-[42px] h-[11px]">
+      <div key={unit.id} className="flex items-center justify-between w-[45px] h-[11px]">
         <span className="text-[7px] font-normal text-black w-4 text-right pr-1">{unit.number}</span>
         <div className={`w-[18px] h-[10px] border border-black flex items-center justify-center text-[7px] font-bold ${isTemporada ? 'bg-neutral-300 text-black' : isPeriodo ? 'bg-neutral-100 text-black' : 'bg-white'}`}>
           {isTemporada && "T"}
@@ -210,12 +210,12 @@ export default function Dashboard() {
     const isTemporada = status === STATUS.TEMPORADA
     const isPeriodo = status === STATUS.PERIODO
     return (
-      <div key={unit.id} className="flex items-center gap-1 w-[38px] h-[11px]">
-        <div className={`w-[14px] h-[10px] border border-black flex items-center justify-center text-[6.5px] font-bold ${isTemporada ? 'bg-neutral-300 text-black' : isPeriodo ? 'bg-neutral-100 text-black' : 'bg-white'}`}>
+      <div key={unit.id} className="flex items-center justify-between w-[45px] h-[11px]">
+        <div className={`w-[18px] h-[10px] border border-black flex items-center justify-center text-[6.5px] font-bold ${isTemporada ? 'bg-neutral-300 text-black' : isPeriodo ? 'bg-neutral-100 text-black' : 'bg-white'}`}>
           {isTemporada && "T"}
           {isPeriodo && "P"}
         </div>
-        <span className="text-[7px] font-normal text-black">{unit.number}</span>
+        <span className="text-[7px] font-normal text-black w-4 text-left pl-1">{unit.number}</span>
       </div>
     )
   }
@@ -761,51 +761,58 @@ export default function Dashboard() {
           <div>Piscina</div>
         </div>
 
-        {/* Grilla de Carpas */}
-        <div className="flex justify-between gap-1 text-[7px] mb-2">
-          {/* Columna 1 (1-25) */}
-          <div className="flex flex-col gap-[1px]">
-            {Array.from({ length: 25 }, (_, i) => i + 1).map(num => renderPrintCarpaCell(getCarpa(num)))}
+        {/* Grilla de Carpas (Espalda con espalda) */}
+        <div className="flex justify-between w-full text-[7px] mb-2 px-4">
+          {/* Pareja 1 (1-25 y 26-50) */}
+          <div className="flex gap-1">
+            <div className="flex flex-col gap-[1px]">
+              {Array.from({ length: 25 }, (_, i) => i + 1).map(num => renderPrintCarpaCell(getCarpa(num)))}
+            </div>
+            <div className="flex flex-col gap-[1px]">
+              {Array.from({ length: 25 }, (_, i) => i + 26).map(num => renderPrintCarpaCell(getCarpa(num)))}
+            </div>
           </div>
-          {/* Columna 2 (26-50) */}
-          <div className="flex flex-col gap-[1px]">
-            {Array.from({ length: 25 }, (_, i) => i + 26).map(num => renderPrintCarpaCell(getCarpa(num)))}
+          
+          {/* Pareja 2 (51-75 y 76-98) */}
+          <div className="flex gap-1">
+            <div className="flex flex-col gap-[1px]">
+              {Array.from({ length: 25 }, (_, i) => i + 51).map(num => renderPrintCarpaCell(getCarpa(num)))}
+            </div>
+            <div className="flex flex-col gap-[1px]">
+              {/* Espacio vacío de 2 filas (sin recuadro de pileta) */}
+              <div className="h-[24px]" />
+              {Array.from({ length: 23 }, (_, i) => i + 76).map(num => renderPrintCarpaCell(getCarpa(num)))}
+            </div>
           </div>
-          <div className="w-[1px] bg-gray-300" />
-          {/* Columna 3 (51-75) */}
-          <div className="flex flex-col gap-[1px]">
-            {Array.from({ length: 25 }, (_, i) => i + 51).map(num => renderPrintCarpaCell(getCarpa(num)))}
-          </div>
-          {/* Columna 4 (76-98) con Piscina */}
-          <div className="flex flex-col gap-[1px]">
-            <div className="h-[21px] bg-sky-100 border border-black flex items-center justify-center text-[5.5px] font-bold">PILETA</div>
-            {Array.from({ length: 23 }, (_, i) => i + 76).map(num => renderPrintCarpaCell(getCarpa(num)))}
-          </div>
-          <div className="w-[1px] bg-gray-300" />
-          {/* Columna 5 (99-121) con Piscina */}
-          <div className="flex flex-col gap-[1px]">
-            <div className="h-[21px] bg-sky-100 border border-black flex items-center justify-center text-[5.5px] font-bold">PILETA</div>
-            {Array.from({ length: 23 }, (_, i) => i + 99).map(num => renderPrintCarpaCell(getCarpa(num)))}
-          </div>
-          {/* Columna 6 (122-144) */}
-          <div className="flex flex-col gap-[1px]">
-            <div className="h-[21px] border border-transparent" /> {/* Espaciador */}
-            {Array.from({ length: 23 }, (_, i) => i + 122).map(num => renderPrintCarpaCell(getCarpa(num)))}
+          
+          {/* Pareja 3 (99-121 y 122-144) */}
+          <div className="flex gap-1">
+            <div className="flex flex-col gap-[1px]">
+              {/* Espacio vacío de 2 filas (sin recuadro de pileta) */}
+              <div className="h-[24px]" />
+              {Array.from({ length: 23 }, (_, i) => i + 99).map(num => renderPrintCarpaCell(getCarpa(num)))}
+            </div>
+            <div className="flex flex-col gap-[1px]">
+              {/* Espacio vacío de 2 filas */}
+              <div className="h-[24px]" />
+              {Array.from({ length: 23 }, (_, i) => i + 122).map(num => renderPrintCarpaCell(getCarpa(num)))}
+            </div>
           </div>
         </div>
 
-        {/* Grilla de Sombrillas (Enmarcada en recuadro grueso) */}
-        <div className="border-[1.5px] border-black p-1 mb-1.5">
-          <div className="flex justify-around gap-2">
-            {/* Bloque Izquierdo (1-20) */}
-            <div className="grid grid-cols-5 gap-x-1.5 gap-y-[1px]">
-              {Array.from({ length: 20 }, (_, i) => i + 1).map(num => renderPrintSombrillaCell(getSombrilla(num)))}
-            </div>
+        {/* Grilla de Sombrillas (Enmarcada en recuadro grueso, a ancho completo con pasillo central) */}
+        <div className="border-[1.5px] border-black p-2 mb-1.5 w-full flex justify-between">
+          {/* Bloque Izquierdo (1-20) */}
+          <div className="grid grid-cols-5 gap-x-3 gap-y-[2px] w-[45%]">
+            {Array.from({ length: 20 }, (_, i) => i + 1).map(num => renderPrintSombrillaCell(getSombrilla(num)))}
+          </div>
 
-            {/* Bloque Derecho (21-40) */}
-            <div className="grid grid-cols-5 gap-x-1.5 gap-y-[1px]">
-              {Array.from({ length: 20 }, (_, i) => i + 21).map(num => renderPrintSombrillaCell(getSombrilla(num)))}
-            </div>
+          {/* Pasillo Central de Salida al Mar */}
+          <div className="w-[10%]" />
+
+          {/* Bloque Derecho (21-40) */}
+          <div className="grid grid-cols-5 gap-x-3 gap-y-[2px] w-[45%]">
+            {Array.from({ length: 20 }, (_, i) => i + 21).map(num => renderPrintSombrillaCell(getSombrilla(num)))}
           </div>
         </div>
 
@@ -847,7 +854,7 @@ export default function Dashboard() {
                   : u.status === STATUS.TEMPORADA ? "TEMPORADA" : ""
                 return (
                   <div key={u.id} className="flex gap-1">
-                    <span className="font-bold min-w-[24px]">S.{u.number}</span>
+                    <span className="font-bold min-w-[24px]">S.{num}</span>
                     <span className="uppercase truncate">{u.clientName || "OCUPADO"} {formattedDates && `(${formattedDates})`}</span>
                   </div>
                 )
