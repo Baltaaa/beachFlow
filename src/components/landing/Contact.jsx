@@ -7,7 +7,7 @@ export default function Contact() {
       <div className="max-w-4xl mx-auto relative z-10">
         <div className="bg-prius-background rounded-xl overflow-hidden border border-hairline">
           <div className="grid grid-cols-1 md:grid-cols-5">
-            <div className="md:col-span-2 bg-prius-black p-8 md:p-12 text-white flex flex-col justify-between">
+            <div className="md:col-span-2 bg-prius-black p-8 md:p-12 text-white flex flex-col justify-between min-h-[400px]">
               <div>
                 <span className="text-[10px] font-bold uppercase tracking-widest text-gold block mb-4">Contacto Exclusivo</span>
                 <h2 className="text-2xl md:text-3xl font-normal mb-6 leading-tight uppercase">Hablemos de su próxima estadía</h2>
@@ -24,7 +24,7 @@ export default function Contact() {
                 </div>
               </div>
             </div>
-            <form className="md:col-span-3 p-8 md:p-12 space-y-8 bg-white">
+            <form className="md:col-span-3 p-8 md:p-12 bg-white flex flex-col justify-between min-h-[400px]">
               <div className="space-y-6">
                 <div className="relative">
                   <label className="text-[10px] font-bold uppercase tracking-widest text-prius-black/40 block mb-2">Nombre Completo</label>
@@ -37,13 +37,13 @@ export default function Contact() {
                 <div className="relative">
                   <label className="text-[10px] font-bold uppercase tracking-widest text-prius-black/40 block mb-2">Asunto de Interés</label>
                   <select className="w-full border-b border-hairline py-2 focus:border-gold outline-none bg-transparent text-sm">
-                    <option>Alquiler de Carpas</option>
-                    <option>Membresía Spa</option>
+                    <option>Alquiler de carpa</option>
+                    <option>Alquiler de sombrilla</option>
                     <option>Eventos Corporativos</option>
                   </select>
                 </div>
               </div>
-              <button className="w-full bg-gold hover:bg-gold-hover text-prius-black py-4 rounded-sm font-extralight text-[11px] uppercase tracking-[0.2em] transition-premium cursor-pointer border border-transparent font-display">
+              <button className="w-full bg-gold hover:bg-gold-hover text-prius-black py-4 rounded-sm font-extralight text-[11px] uppercase tracking-[0.2em] transition-premium cursor-pointer border border-transparent font-display mt-8">
                 Enviar Solicitud
               </button>
             </form>
