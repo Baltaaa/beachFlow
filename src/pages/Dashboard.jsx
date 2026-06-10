@@ -186,19 +186,36 @@ export default function Dashboard() {
     return dateStr
   }
 
-  // Renderizador de celda ultra-compacta para impresión
-  const renderPrintCell = (unit) => {
+  // Renderizador de celda de Carpa para Impresión (Número a la izquierda, casillero a la derecha)
+  const renderPrintCarpaCell = (unit) => {
+    if (!unit) return <div className="w-[42px] h-[11px]" />
+    const status = unit.status || STATUS.LIBRE
+    const isTemporada = status === STATUS.TEMPORADA
+    const isPeriodo = status === STATUS.PERIODO
+    return (
+      <div key={unit.id} className="flex items-center justify-between w-[42px] h-[11px]">
+        <span className="text-[7px] font-normal text-black w-4 text-right pr-1">{unit.number}</span>
+        <div className={`w-[18px] h-[10px] border border-black flex items-center justify-center text-[7px] font-bold ${isTemporada ? 'bg-neutral-300 text-black' : isPeriodo ? 'bg-neutral-100 text-black' : 'bg-white'}`}>
+          {isTemporada && "T"}
+          {isPeriodo && "P"}
+        </div>
+      </div>
+    )
+  }
+
+  // Renderizador de celda de Sombrilla para Impresión (Casillero a la izquierda, número a la derecha)
+  const renderPrintSombrillaCell = (unit) => {
     if (!unit) return null
     const status = unit.status || STATUS.LIBRE
     const isTemporada = status === STATUS.TEMPORADA
     const isPeriodo = status === STATUS.PERIODO
     return (
-      <div key={unit.id} className="flex items-center justify-between w-[52px] h-[10px]">
-        <span className="text-[6.5px] font-bold text-gray-500 w-4 text-right pr-0.5">{unit.number}</span>
-        <div className={`w-7 h-[9px] border border-black flex items-center justify-center text-[6.5px] font-bold ${isTemporada ? 'bg-black text-white' : isPeriodo ? 'bg-gray-300 text-black' : 'bg-white'}`}>
+      <div key={unit.id} className="flex items-center gap-1 w-[38px] h-[11px]">
+        <div className={`w-[14px] h-[10px] border border-black flex items-center justify-center text-[6.5px] font-bold ${isTemporada ? 'bg-neutral-300 text-black' : isPeriodo ? 'bg-neutral-100 text-black' : 'bg-white'}`}>
           {isTemporada && "T"}
           {isPeriodo && "P"}
         </div>
+        <span className="text-[7px] font-normal text-black">{unit.number}</span>
       </div>
     )
   }
@@ -748,32 +765,32 @@ export default function Dashboard() {
         <div className="flex justify-between gap-1 text-[7px] mb-2">
           {/* Columna 1 (1-25) */}
           <div className="flex flex-col gap-[1px]">
-            {Array.from({ length: 25 }, (_, i) => i + 1).map(num => renderPrintCell(getCarpa(num)))}
+            {Array.from({ length: 25 }, (_, i) => i + 1).map(num => renderPrintCarpaCell(getCarpa(num)))}
           </div>
           {/* Columna 2 (26-50) */}
           <div className="flex flex-col gap-[1px]">
-            {Array.from({ length: 25 }, (_, i) => i + 26).map(num => renderPrintCell(getCarpa(num)))}
+            {Array.from({ length: 25 }, (_, i) => i + 26).map(num => renderPrintCarpaCell(getCarpa(num)))}
           </div>
           <div className="w-[1px] bg-gray-300" />
           {/* Columna 3 (51-75) */}
           <div className="flex flex-col gap-[1px]">
-            {Array.from({ length: 25 }, (_, i) => i + 51).map(num => renderPrintCell(getCarpa(num)))}
+            {Array.from({ length: 25 }, (_, i) => i + 51).map(num => renderPrintCarpaCell(getCarpa(num)))}
           </div>
           {/* Columna 4 (76-98) con Piscina */}
           <div className="flex flex-col gap-[1px]">
             <div className="h-[21px] bg-sky-100 border border-black flex items-center justify-center text-[5.5px] font-bold">PILETA</div>
-            {Array.from({ length: 23 }, (_, i) => i + 76).map(num => renderPrintCell(getCarpa(num)))}
+            {Array.from({ length: 23 }, (_, i) => i + 76).map(num => renderPrintCarpaCell(getCarpa(num)))}
           </div>
           <div className="w-[1px] bg-gray-300" />
           {/* Columna 5 (99-121) con Piscina */}
           <div className="flex flex-col gap-[1px]">
             <div className="h-[21px] bg-sky-100 border border-black flex items-center justify-center text-[5.5px] font-bold">PILETA</div>
-            {Array.from({ length: 23 }, (_, i) => i + 99).map(num => renderPrintCell(getCarpa(num)))}
+            {Array.from({ length: 23 }, (_, i) => i + 99).map(num => renderPrintCarpaCell(getCarpa(num)))}
           </div>
           {/* Columna 6 (122-144) */}
           <div className="flex flex-col gap-[1px]">
             <div className="h-[21px] border border-transparent" /> {/* Espaciador */}
-            {Array.from({ length: 23 }, (_, i) => i + 122).map(num => renderPrintCell(getCarpa(num)))}
+            {Array.from({ length: 23 }, (_, i) => i + 122).map(num => renderPrintCarpaCell(getCarpa(num)))}
           </div>
         </div>
 
@@ -782,38 +799,12 @@ export default function Dashboard() {
           <div className="flex justify-around gap-2">
             {/* Bloque Izquierdo (1-20) */}
             <div className="grid grid-cols-5 gap-x-1.5 gap-y-[1px]">
-              {Array.from({ length: 20 }, (_, i) => i + 1).map(num => {
-                const unit = getSombrilla(num)
-                const isTemporada = unit?.status === STATUS.TEMPORADA
-                const isPeriodo = unit?.status === STATUS.PERIODO
-                return (
-                  <div key={num} className="flex items-center gap-[1px] text-[6.5px]">
-                    <span className="font-bold text-gray-500 w-2.5 text-right pr-[1px]">{num}</span>
-                    <div className={`w-4 h-[8px] border border-black flex items-center justify-center font-bold ${isTemporada ? 'bg-black text-white' : isPeriodo ? 'bg-gray-300 text-black' : 'bg-white'}`}>
-                      {isTemporada && "T"}
-                      {isPeriodo && "P"}
-                    </div>
-                  </div>
-                )
-              })}
+              {Array.from({ length: 20 }, (_, i) => i + 1).map(num => renderPrintSombrillaCell(getSombrilla(num)))}
             </div>
 
             {/* Bloque Derecho (21-40) */}
             <div className="grid grid-cols-5 gap-x-1.5 gap-y-[1px]">
-              {Array.from({ length: 20 }, (_, i) => i + 21).map(num => {
-                const unit = getSombrilla(num)
-                const isTemporada = unit?.status === STATUS.TEMPORADA
-                const isPeriodo = unit?.status === STATUS.PERIODO
-                return (
-                  <div key={num} className="flex items-center gap-[1px] text-[6.5px]">
-                    <span className="font-bold text-gray-500 w-2.5 text-right pr-[1px]">{num}</span>
-                    <div className={`w-4 h-[8px] border border-black flex items-center justify-center font-bold ${isTemporada ? 'bg-black text-white' : isPeriodo ? 'bg-gray-300 text-black' : 'bg-white'}`}>
-                      {isTemporada && "T"}
-                      {isPeriodo && "P"}
-                    </div>
-                  </div>
-                )
-              })}
+              {Array.from({ length: 20 }, (_, i) => i + 21).map(num => renderPrintSombrillaCell(getSombrilla(num)))}
             </div>
           </div>
         </div>
