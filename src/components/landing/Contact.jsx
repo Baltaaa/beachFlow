@@ -5,6 +5,17 @@ export default function Contact() {
         <span className="text-[20rem] md:text-[40rem] font-black tracking-tighter">PRIUS</span>
       </div>
       <div className="max-w-4xl mx-auto relative z-10">
+        
+        {/* Encabezado de la Sección */}
+        <div className="mb-12 text-center md:text-left">
+          <span className="text-[9px] font-normal uppercase tracking-[0.3em] text-prius-black/40 block mb-1 font-display">
+            Reservas & Consultas
+          </span>
+          <h2 className="text-2xl md:text-3xl font-normal tracking-tight text-prius-black uppercase font-display leading-none">
+            Contactate con <span className="text-gold">nuestro equipo</span>
+          </h2>
+        </div>
+
         <div className="bg-prius-background rounded-xl overflow-hidden border border-hairline">
           <div className="grid grid-cols-1 md:grid-cols-5">
             <div className="md:col-span-2 bg-prius-black p-8 md:p-12 text-white flex flex-col justify-between min-h-[400px]">
