@@ -31,16 +31,16 @@ export default function Hero() {
           <p className="text-prius-black/60 text-sm sm:text-base max-w-md leading-relaxed font-light">
             Redefinimos la experiencia de costa bajo un concept de minimalismo estructural. Un refugio exclusivo diseñado para quienes aprecian el silencio, el confort y el servicio impecable.
           </p>
-          <div className="flex flex-wrap gap-4 pt-4">
+          <div className="flex flex-col sm:flex-row gap-4 pt-4 w-full">
             <button 
               onClick={() => document.getElementById('servicios')?.scrollIntoView({ behavior: 'smooth' })}
-              className="bg-gold hover:bg-gold-hover text-prius-black px-8 py-4 rounded-sm font-extralight text-[11px] uppercase tracking-[0.2em] transition-premium cursor-pointer border border-transparent font-display"
+              className="w-full sm:w-auto text-center bg-gold hover:bg-gold-hover text-prius-black px-8 py-4 rounded-sm font-extralight text-[11px] uppercase tracking-[0.2em] transition-premium cursor-pointer border border-transparent font-display"
             >
               Explorar Servicios
             </button>
             <button 
               onClick={() => document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' })}
-              className="border border-hairline bg-white hover:bg-prius-background text-prius-black px-8 py-4 rounded-sm font-extralight text-[11px] uppercase tracking-[0.2em] transition-premium font-display"
+              className="w-full sm:w-auto text-center border border-hairline bg-white hover:bg-prius-background text-prius-black px-8 py-4 rounded-sm font-extralight text-[11px] uppercase tracking-[0.2em] transition-premium font-display"
             >
               Reservar
             </button>
