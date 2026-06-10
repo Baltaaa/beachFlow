@@ -10,10 +10,10 @@ export default function Hero() {
         <img 
           src="/images/prius1.webp" 
           alt="Prius Playa Grande" 
-          className="w-full h-full object-cover object-center opacity-60 transition-all duration-1000"
+          className="w-full h-full object-cover object-center opacity-40 md:opacity-50 transition-all duration-1000"
         />
         {/* Degradado solar: En mobile funde a la calidez del fondo, en desktop mezcla con el azul profundo #32486c */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-prius-background/40 to-prius-background md:bg-gradient-to-r md:from-prius-background md:via-prius-background/85 md:to-[#32486c]/40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-prius-background/80 to-prius-background md:bg-gradient-to-r md:from-prius-background md:via-prius-background/90 md:to-[#32486c]/40" />
         <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-[#32486c]/25 via-transparent to-[#32486c]/15" />
       </div>
 
