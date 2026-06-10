@@ -18,7 +18,7 @@ export default function Cell({ number, unit, onClick, isHighlighted, isDimmed })
   
   return (
     <div 
-      className="flex items-center relative"
+      className="flex items-center relative animate-premium-fade"
       onMouseEnter={() => unit?.clientName && setShowTooltip(true)}
       onMouseLeave={() => setShowTooltip(false)}
     >
