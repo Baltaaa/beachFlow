@@ -34,13 +34,13 @@ export default function Navbar() {
       {/* Contenedor con el mismo ancho máximo y centrado que el resto de las secciones */}
       <div className="max-w-[1440px] mx-auto w-full">
         <div className={`flex justify-between items-center transition-premium ${
-          isScrolled ? 'h-20' : 'h-28'
+          isScrolled ? 'h-16' : 'h-24'
         }`}>
           <div className="flex items-center">
             <img 
               alt="Prius Logo" 
               className={`w-auto object-contain transition-premium ${
-                isScrolled ? 'h-14 md:h-16' : 'h-20 md:h-24'
+                isScrolled ? 'h-10 md:h-12' : 'h-14 md:h-16'
               }`} 
               src="/logo-prius.png" 
             />
@@ -51,7 +51,7 @@ export default function Navbar() {
               <button
                 key={item}
                 onClick={() => scrollToSection(item)}
-                className="text-[12px] font-extrabold tracking-widest text-prius-black/60 hover:text-prius-black transition-colors duration-300 uppercase font-display"
+                className="text-[11px] font-light tracking-[0.2em] text-prius-black/60 hover:text-prius-black transition-colors duration-300 uppercase font-display"
               >
                 {item}
               </button>
@@ -61,7 +61,7 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-6">
             <button 
               onClick={() => scrollToSection('contacto')}
-              className="bg-gold hover:bg-gold-hover text-prius-black px-8 py-4 rounded-sm font-extralight text-[11px] uppercase tracking-[0.2em] transition-premium border border-transparent font-display cursor-pointer"
+              className="bg-gold hover:bg-gold-hover text-prius-black px-6 py-3 rounded-sm font-extralight text-[10px] uppercase tracking-[0.2em] transition-premium border border-transparent font-display cursor-pointer"
             >
               Solicitar cotización
             </button>
@@ -72,7 +72,7 @@ export default function Navbar() {
             onClick={() => setIsOpen(!isOpen)} 
             className="md:hidden p-2 text-prius-black hover:bg-prius-background rounded-sm transition-premium"
           >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+            {isOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
 
@@ -85,7 +85,7 @@ export default function Navbar() {
               <button
                 key={item}
                 onClick={() => scrollToSection(item)}
-                className="text-left text-sm font-extrabold tracking-wider text-prius-black/80 hover:text-prius-black py-2 uppercase font-display transition-colors duration-300"
+                className="text-left text-xs font-light tracking-[0.15em] text-prius-black/80 hover:text-prius-black py-2 uppercase font-display transition-colors duration-300"
               >
                 {item}
               </button>
@@ -93,7 +93,7 @@ export default function Navbar() {
             <div className="h-px bg-hairline my-2" />
             <button 
               onClick={() => scrollToSection('contacto')}
-              className="w-full bg-gold hover:bg-gold-hover text-prius-black py-4 rounded-sm font-extralight text-[11px] uppercase tracking-[0.2em] transition-premium text-center font-display cursor-pointer"
+              className="w-full bg-gold hover:bg-gold-hover text-prius-black py-3.5 rounded-sm font-extralight text-[10px] uppercase tracking-[0.2em] transition-premium text-center font-display cursor-pointer"
             >
               Solicitar cotización
             </button>
