@@ -531,28 +531,63 @@ export default function Dashboard() {
                   </div>
                 </div>
 
-                {/* Sombrillas */}
-                <div className="mt-12 flex justify-center">
-                  <div className="flex gap-4">
-                    {Array.from({ length: 8 }, (_, groupIdx) => (
-                      <div key={groupIdx} className="flex flex-col gap-1">
-                        {Array.from({ length: 5 }, (_, rowIdx) => {
-                          const num = groupIdx * 5 + rowIdx + 1
-                          const unit = getSombrilla(num)
-                          const isMatch = isUnitMatchingSearch(unit) && isUnitMatchingFilters(unit)
-                          return (
-                            <Cell 
-                              key={num} 
-                              number={num} 
-                              unit={unit} 
-                              onClick={handleUnitClick} 
-                              isHighlighted={searchTerm && isMatch}
-                              isDimmed={searchTerm && !isMatch}
-                            />
-                          )
-                        })}
-                      </div>
-                    ))}
+                {/* Sombrillas reestructuradas según plano original */}
+                <div className="mt-12 flex flex-col items-center">
+                  <span className="text-[10px] font-extralight uppercase tracking-widest text-prius-black/40 mb-4 font-display">Sombrillas</span>
+                  <div className="flex gap-16 justify-center">
+                    {/* Bloque Izquierdo (1-20) */}
+                    <div className="flex flex-col gap-1">
+                      {[
+                        [1, 2, 3, 4, 5],
+                        [6, 7, 8, 9, 10],
+                        [11, 12, 13, 14, 15],
+                        [16, 17, 18, 19, 20]
+                      ].map((row, rowIdx) => (
+                        <div key={`left-row-${rowIdx}`} className="flex gap-2">
+                          {row.map(num => {
+                            const unit = getSombrilla(num)
+                            const isMatch = isUnitMatchingSearch(unit) && isUnitMatchingFilters(unit)
+                            return (
+                              <Cell 
+                                key={num} 
+                                number={num} 
+                                unit={unit} 
+                                onClick={handleUnitClick} 
+                                isHighlighted={searchTerm && isMatch}
+                                isDimmed={searchTerm && !isMatch}
+                              />
+                            )
+                          })}
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Bloque Derecho (21-40) */}
+                    <div className="flex flex-col gap-1">
+                      {[
+                        [21, 22, 23, 24, 25],
+                        [26, 27, 28, 29, 30],
+                        [31, 32, 33, 34, 35],
+                        [36, 37, 38, 39, 40]
+                      ].map((row, rowIdx) => (
+                        <div key={`right-row-${rowIdx}`} className="flex gap-2">
+                          {row.map(num => {
+                            const unit = getSombrilla(num)
+                            const isMatch = isUnitMatchingSearch(unit) && isUnitMatchingFilters(unit)
+                            return (
+                              <Cell 
+                                key={num} 
+                                number={num} 
+                                unit={unit} 
+                                onClick={handleUnitClick} 
+                                isHighlighted={searchTerm && isMatch}
+                                isDimmed={searchTerm && !isMatch}
+                              />
+                            )
+                          })}
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
 
