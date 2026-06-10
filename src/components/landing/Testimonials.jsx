@@ -44,7 +44,7 @@ const testimonials = [
   },
   {
     name: "Agus .-",
-    text: "Veraneamos en el balneario hace años, nos encanta el ambiente familiar y la atención personalizada. Estuvimos el fin de semana del 20 de noviembre y encontramos espacios renovados que quedaron hermosos.",
+    text: "Veraneamos en el balneario hace años, nos encanta el ambiente familiar and la atención personalizada. Estuvimos el fin de semana del 20 de noviembre y encontramos espacios renovados que quedaron hermosos.",
     time: "Hace 6 meses",
     rating: 5,
     sub: "4 opiniones",
@@ -217,7 +217,7 @@ export default function Testimonials() {
         {/* Botón Ver Más en Google */}
         <div className="text-center mt-16">
           <a 
-            href="https://www.google.com/search?q=Balneario+Prius+Playa+Grande+Opiniones" 
+            href="https://www.google.com/search?q=Opiniones+de+Balneario+Prius+Playa+Grande" 
             target="_blank" 
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-white hover:bg-prius-background text-prius-black border border-hairline px-8 py-4 rounded-sm font-extralight text-[11px] uppercase tracking-[0.2em] transition-premium font-display"
