@@ -405,40 +405,16 @@ export default function Dashboard() {
             /* VISTA DE MAPA */
             <div className="bg-white border border-hairline p-4 md:p-8 rounded-sm shadow-sm max-w-full overflow-auto print:border-0 print:shadow-none print:p-0 print:m-0 print:max-w-none print:overflow-visible">
               <div className="print-container mx-auto" style={{ maxWidth: "950px" }}>
-                {/* Encabezados del Mapa con Alineación de Píxel Perfecta */}
-                <div className="flex justify-center gap-4 mb-6">
-                  {/* Pasillo A Header (RECREACIÓN) */}
-                  <div className="flex gap-12">
-                    <div className="w-[152px] md:w-[184px] bg-prius-background py-2 text-center border border-hairline flex items-center justify-center text-[10px] font-extralight uppercase tracking-widest font-display">
-                      Recreación
-                    </div>
-                  </div>
-
-                  {/* Espacio del Divisor A */}
-                  <div className="w-px bg-transparent mx-4" />
-
-                  {/* Pasillo B Header (ACCESO & PISCINA) */}
-                  <div className="flex gap-12 relative">
-                    {/* Column 3 Header (ACCESO) */}
-                    <div className="w-[52px] md:w-[68px] bg-white py-2 text-center border border-hairline flex items-center justify-center text-[10px] font-extralight uppercase tracking-widest font-display">
-                      Acceso
-                    </div>
-
-                    {/* Column 4 Header (PISCINA) */}
-                    <div className="w-[52px] md:w-[68px] relative">
-                      {/* Contenedor absoluto de la Piscina que cubre exactamente desde la Columna 4 hasta el final del Pasillo C */}
-                      <div className="absolute left-0 top-0 h-[112px] md:h-[124px] w-[237px] md:w-[285px] bg-sky-100 text-sky-800 border border-sky-200 rounded-sm flex flex-col items-center justify-center pb-6 z-20 shadow-inner font-bold">
+                <div className="flex justify-center mb-6">
+                  <div className="flex text-[10px] font-extralight uppercase tracking-widest font-display">
+                    <div className="w-[280px] bg-prius-background py-2 text-center border border-hairline">Recreación</div>
+                    <div className="w-[140px] bg-white py-2 text-center border-y border-hairline">Acceso</div>
+                    {/* Contenedor relativo para la Piscina que desborda verticalmente */}
+                    <div className="w-[280px] relative">
+                      <div className="absolute inset-x-0 top-0 h-[120px] bg-sky-100 text-sky-800 border border-sky-200 rounded-sm flex flex-col items-center justify-center pb-6 z-20 shadow-inner font-bold">
                         <span className="text-[11px] font-normal uppercase tracking-[0.3em] text-sky-800 font-display">Piscina</span>
                       </div>
                     </div>
-                  </div>
-
-                  {/* Espacio del Divisor B */}
-                  <div className="w-px bg-transparent mx-4" />
-
-                  {/* Pasillo C Header (Espacio reservado para el desborde de la Piscina) */}
-                  <div className="flex gap-12">
-                    <div className="w-[152px] md:w-[184px]" />
                   </div>
                 </div>
 
