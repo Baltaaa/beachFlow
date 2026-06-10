@@ -9,9 +9,11 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
-  "overrides": {
-  "lightningcss": "1.29.2"
-},
+  "pnpm": {
+    "overrides": {
+      "lightningcss": "1.29.2"
+    }
+  },
   "dependencies": {
     "@supabase/supabase-js": "^2.99.3",
     "lucide-react": "^0.511.0",
