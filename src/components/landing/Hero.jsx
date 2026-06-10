@@ -12,8 +12,8 @@ export default function Hero() {
           alt="Prius Playa Grande" 
           className="w-full h-full object-cover object-center opacity-40 md:opacity-50 transition-all duration-1000"
         />
-        {/* Degradado solar: En mobile comienza en blanco puro para tapar el cielo azul, en desktop mezcla con el azul profundo #32486c */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white via-white/30 to-white md:bg-gradient-to-r md:from-prius-background md:via-prius-background/90 md:to-[#32486c]/40" />
+        {/* Degradado solar: En mobile comienza en blanco puro y tiene alta opacidad para tapar el fondo, en desktop mezcla con el azul profundo #32486c */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white via-white/90 to-white md:bg-gradient-to-r md:from-prius-background md:via-prius-background/90 md:to-[#32486c]/40" />
         <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-[#32486c]/25 via-transparent to-[#32486c]/15" />
       </div>
 
@@ -29,7 +29,7 @@ export default function Hero() {
             ideal en <span className="text-gold">Prius</span>
           </h1>
           <p className="text-prius-black/60 text-sm sm:text-base max-w-md leading-relaxed font-light">
-            Redefinimos la experiencia de costa bajo un concepto de minimalismo estructural. Un refugio exclusivo diseñado para quienes aprecian el silencio, el confort y el servicio impecable.
+            Redefinimos la experiencia de costa bajo un concept de minimalismo estructural. Un refugio exclusivo diseñado para quienes aprecian el silencio, el confort y el servicio impecable.
           </p>
           <div className="flex flex-wrap gap-4 pt-4">
             <button 
