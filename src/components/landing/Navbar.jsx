@@ -34,13 +34,13 @@ export default function Navbar() {
       {/* Contenedor con el mismo ancho máximo y centrado que el resto de las secciones */}
       <div className="max-w-[1440px] mx-auto w-full">
         <div className={`flex justify-between items-center transition-premium ${
-          isScrolled ? 'h-16' : 'h-24'
+          isScrolled ? 'h-20' : 'h-28'
         }`}>
           <div className="flex items-center">
             <img 
               alt="Prius Logo" 
               className={`w-auto object-contain transition-premium ${
-                isScrolled ? 'h-10 md:h-12' : 'h-14 md:h-16'
+                isScrolled ? 'h-14 md:h-16' : 'h-20 md:h-24'
               }`} 
               src="/logo-prius.png" 
             />
