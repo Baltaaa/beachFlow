@@ -11,7 +11,7 @@ const services = [
   {
     title: "Pileta & Solárium",
     subtitle: "Horizonte infinito",
-    desc: "Espejo de agua climatizada diseñado para fundirse con el mar. Solárium de madera noble con servicio de coctelería premium.",
+    desc: "Espejo de agua diseñado para fundirse con el mar. Solárium de madera noble con servicio de coctelería premium.",
     icon: Waves,
     img: "/images/prius4.webp"
   },

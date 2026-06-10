@@ -8,7 +8,7 @@ export default function Gallery() {
   const images = [
     { num: 7, size: "md:col-span-2 md:row-span-2 aspect-square md:aspect-auto", title: "Atardecer en la Costa", category: "Playa Grande" },
     { num: 8, size: "col-span-1 row-span-1 aspect-square md:aspect-auto", title: "Carpas Premium", category: "Instalaciones" },
-    { num: 9, size: "col-span-1 row-span-1 aspect-square md:aspect-auto", title: "Piscina Climatizada", category: "Exclusivo" },
+    { num: 9, size: "col-span-1 row-span-1 aspect-square md:aspect-auto", title: "Piscina", category: "Exclusivo" },
     { num: 10, size: "md:col-span-1 md:row-span-2 aspect-square md:aspect-auto", title: "Spa & Relax", category: "Bienestar" },
     { num: 11, size: "col-span-1 row-span-1 aspect-square md:aspect-auto", title: "Gastronomía de Mar", category: "Restaurante" },
     { num: 12, size: "col-span-1 row-span-1 aspect-square md:aspect-auto", title: "Espacios de Sombra", category: "Servicios" },
