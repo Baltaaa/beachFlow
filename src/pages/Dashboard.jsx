@@ -185,13 +185,18 @@ export default function Dashboard() {
     <div className="min-h-screen bg-prius-background font-sans text-prius-black print:bg-white">
       {/* Header */}
       <header className="bg-white border-b border-hairline sticky top-0 z-40 h-20 flex items-center px-6 print:hidden">
-        <div className="flex items-center justify-between w-full">
+        <div className="flex items-center justify-between w-full relative">
           <div className="flex items-center gap-3">
             <img src="/logo-prius.png" alt="Prius Logo" className="h-14 w-auto object-contain" />
-            <span className="font-light text-lg tracking-tight text-prius-black/80">
-              <span className="font-extrabold text-gold mr-1 font-display">Prius</span> <span className="font-extrabold text-gold font-display">App</span>
+          </div>
+          
+          {/* Centered Title */}
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+            <span className="text-xl md:text-2xl font-normal tracking-tight text-prius-black font-display uppercase">
+              Prius Admin
             </span>
           </div>
+
           <div className="flex items-center gap-4">
             <button onClick={() => window.print()} className="p-2.5 hover:bg-prius-background rounded-full transition-colors" title="Imprimir Plano">
               <Printer size={20} />
