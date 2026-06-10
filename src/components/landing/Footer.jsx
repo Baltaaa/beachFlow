@@ -19,7 +19,14 @@ export default function Footer() {
           </div>
           <div className="flex flex-col gap-4">
             <span className="text-[10px] font-bold uppercase text-gold tracking-widest">Redes</span>
-            <a href="#" className="text-sm hover:text-gold transition-colors">Instagram</a>
+            <a 
+              href="https://www.instagram.com/prius.playagrande/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-sm hover:text-gold transition-colors"
+            >
+              Instagram
+            </a>
             <a href="#" className="text-sm hover:text-gold transition-colors">Facebook</a>
           </div>
         </div>
