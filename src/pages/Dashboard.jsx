@@ -409,7 +409,7 @@ export default function Dashboard() {
                   <div className="flex text-[10px] font-extralight uppercase tracking-widest font-display">
                     <div className="w-[280px] bg-prius-background py-2 text-center border border-hairline">Recreación</div>
                     <div className="w-[140px] bg-white py-2 text-center border-y border-hairline">Acceso</div>
-                    <div className="w-[280px] bg-gold/10 py-2 text-center border border-hairline">Piscina</div>
+                    <div className="w-[280px] bg-sky-100 text-sky-800 py-2 text-center border border-sky-200 font-bold">Piscina Climatizada</div>
                   </div>
                 </div>
 
@@ -471,16 +471,6 @@ export default function Dashboard() {
                       })}
                     </div>
                     <div className="flex flex-col gap-1 relative">
-                      {/* Render de Piscina Rectangular en el espacio vacío */}
-                      <div className="absolute top-0 left-0 w-[280px] h-[62px] bg-sky-100 border-2 border-sky-300 rounded-sm flex flex-col items-center justify-center overflow-hidden z-20 shadow-inner">
-                        <div className="absolute inset-0 bg-gradient-to-b from-sky-200/40 to-sky-300/40 animate-pulse" />
-                        {/* Líneas de andarivel de piscina */}
-                        <div className="absolute top-1/3 left-0 w-full h-px border-t border-dashed border-sky-400/60" />
-                        <div className="absolute top-2/3 left-0 w-full h-px border-t border-dashed border-sky-400/60" />
-                        <span className="text-[9px] font-extralight uppercase tracking-[0.2em] text-sky-800 z-10 font-display">Piscina Climatizada</span>
-                        <span className="text-[7px] font-extralight uppercase tracking-wider text-sky-600/80 z-10 font-display">Exclusivo Prius</span>
-                      </div>
-
                       {/* Espacio reservado para la piscina (2 celdas de alto) */}
                       <div className="h-[31px]" /><div className="h-[31px]" />
                       
