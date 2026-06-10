@@ -409,7 +409,13 @@ export default function Dashboard() {
                   <div className="flex text-[10px] font-extralight uppercase tracking-widest font-display">
                     <div className="w-[280px] bg-prius-background py-2 text-center border border-hairline">Recreación</div>
                     <div className="w-[140px] bg-white py-2 text-center border-y border-hairline">Acceso</div>
-                    <div className="w-[280px] bg-sky-100 text-sky-800 py-2 text-center border border-sky-200 font-bold">Piscina Climatizada</div>
+                    {/* Contenedor relativo para la Piscina Climatizada que desborda verticalmente */}
+                    <div className="w-[280px] relative">
+                      <div className="absolute inset-x-0 top-0 h-[120px] bg-sky-100 text-sky-800 border border-sky-200 rounded-sm flex flex-col items-center justify-center z-20 shadow-inner font-bold">
+                        <span className="text-[10px] font-extralight uppercase tracking-[0.2em] text-sky-800 font-display">Piscina Climatizada</span>
+                        <span className="text-[8px] font-extralight uppercase tracking-wider text-sky-600/80 font-display mt-1">Exclusivo Prius</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
