@@ -411,8 +411,8 @@ export default function Dashboard() {
                     <div className="w-[140px] bg-white py-2 text-center border-y border-hairline">Acceso</div>
                     {/* Contenedor relativo para la Piscina que desborda verticalmente */}
                     <div className="w-[280px] relative">
-                      <div className="absolute inset-x-0 top-0 h-[120px] bg-sky-100 text-sky-800 border border-sky-200 rounded-sm flex flex-col items-center justify-center pb-6 z-20 shadow-inner font-bold">
-                        <span className="text-[11px] font-normal uppercase tracking-[0.3em] text-sky-800 font-display">Piscina</span>
+                      <div className="absolute inset-x-0 top-0 h-[120px] bg-sky-100 text-sky-800 border border-sky-200 rounded-sm flex flex-col items-center justify-center z-20 shadow-inner font-bold">
+                        <span className="text-[11px] font-normal uppercase tracking-[0.3em] text-sky-800 font-display mb-6">Piscina</span>
                       </div>
                     </div>
                   </div>
