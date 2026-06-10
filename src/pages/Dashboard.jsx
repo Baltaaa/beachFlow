@@ -182,9 +182,9 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-prius-background font-sans text-prius-black print:bg-white animate-premium-fade">
+    <div className="h-screen flex flex-col bg-prius-background font-sans text-prius-black print:bg-white print:h-auto print:overflow-visible overflow-hidden animate-premium-fade">
       {/* Header */}
-      <header className="bg-white border-b border-hairline sticky top-0 z-40 h-20 flex items-center px-6 print:hidden">
+      <header className="bg-white border-b border-hairline h-20 flex items-center px-6 shrink-0 print:hidden">
         <div className="flex items-center justify-between w-full">
           {/* Logo */}
           <div className="flex items-center shrink-0">
@@ -217,9 +217,9 @@ export default function Dashboard() {
         </div>
       </header>
 
-      <div className="flex flex-col lg:flex-row">
+      <div className="flex-1 flex flex-col lg:flex-row overflow-hidden print:overflow-visible print:h-auto">
         {/* Sidebar */}
-        <aside className="w-full lg:w-80 bg-white border-r border-hairline p-6 space-y-6 shrink-0 print:hidden animate-premium-slide">
+        <aside className="w-full lg:w-80 bg-white border-r border-hairline p-6 space-y-6 shrink-0 print:hidden animate-premium-slide lg:h-full lg:overflow-y-auto">
           {/* Filtros Rápidos */}
           <div className="space-y-4">
             <h3 className="text-[10px] font-extralight uppercase tracking-widest text-prius-black/40 font-display">Filtros de Vista</h3>
@@ -367,320 +367,325 @@ export default function Dashboard() {
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 p-4 lg:p-8 overflow-x-auto print:p-0 animate-premium-slide">
-          {/* Selector de Vista */}
-          <div className="flex items-center justify-between mb-6 bg-white border border-hairline p-3 rounded-sm print:hidden">
-            <div className="flex items-center gap-2">
-              <button 
-                onClick={() => setViewMode("map")}
-                className={`px-4 py-2 rounded-sm font-extralight text-[10px] uppercase tracking-widest transition-all flex items-center gap-2 font-display ${viewMode === "map" ? 'bg-gold text-prius-black' : 'hover:bg-prius-background'}`}
-              >
-                <Map className="w-4 h-4" />
-                Mapa de Playa
-              </button>
-              <button 
-                onClick={() => setViewMode("list")}
-                className={`px-4 py-2 rounded-sm font-extralight text-[10px] uppercase tracking-widest transition-all flex items-center gap-2 font-display ${viewMode === "list" ? 'bg-gold text-prius-black' : 'hover:bg-prius-background'}`}
-              >
-                <List className="w-4 h-4" />
-                Lista de Unidades ({filteredUnitsList.length})
-              </button>
-            </div>
-
-            {searchTerm && (
-              <div className="text-[10px] font-extralight uppercase tracking-wider text-gold bg-prius-black px-3 py-1.5 rounded-sm flex items-center gap-2 font-display">
-                <AlertCircle className="w-3.5 h-3.5" />
-                Búsqueda Activa: "{searchTerm}"
+        <main className="flex-1 flex flex-col overflow-hidden print:overflow-visible print:h-auto animate-premium-slide">
+          {/* Selector de Vista (Fijo arriba del contenido principal) */}
+          <div className="px-4 lg:px-8 pt-4 lg:pt-8 shrink-0 print:hidden">
+            <div className="flex items-center justify-between bg-white border border-hairline p-3 rounded-sm">
+              <div className="flex items-center gap-2">
+                <button 
+                  onClick={() => setViewMode("map")}
+                  className={`px-4 py-2 rounded-sm font-extralight text-[10px] uppercase tracking-widest transition-all flex items-center gap-2 font-display ${viewMode === "map" ? 'bg-gold text-prius-black' : 'hover:bg-prius-background'}`}
+                >
+                  <Map className="w-4 h-4" />
+                  Mapa de Playa
+                </button>
+                <button 
+                  onClick={() => setViewMode("list")}
+                  className={`px-4 py-2 rounded-sm font-extralight text-[10px] uppercase tracking-widest transition-all flex items-center gap-2 font-display ${viewMode === "list" ? 'bg-gold text-prius-black' : 'hover:bg-prius-background'}`}
+                >
+                  <List className="w-4 h-4" />
+                  Lista de Unidades ({filteredUnitsList.length})
+                </button>
               </div>
-            )}
+
+              {searchTerm && (
+                <div className="text-[10px] font-extralight uppercase tracking-wider text-gold bg-prius-black px-3 py-1.5 rounded-sm flex items-center gap-2 font-display">
+                  <AlertCircle className="w-3.5 h-3.5" />
+                  Búsqueda Activa: "{searchTerm}"
+                </div>
+              )}
+            </div>
           </div>
 
-          {viewMode === "map" ? (
-            /* VISTA DE MAPA */
-            <div className="bg-white border border-hairline p-4 md:p-8 rounded-sm shadow-sm max-w-full overflow-auto print:border-0 print:shadow-none print:p-0 print:m-0 print:max-w-none print:overflow-visible">
-              <div className="print-container mx-auto" style={{ maxWidth: "950px" }}>
-                <div className="flex justify-center mb-6">
-                  <div className="flex text-[10px] font-extralight uppercase tracking-widest font-display">
-                    <div className="w-[280px] bg-prius-background py-2 text-center border border-hairline">Recreación</div>
-                    <div className="w-[140px] bg-white py-2 text-center border-y border-hairline">Acceso</div>
-                    {/* Contenedor relativo para la Piscina que desborda verticalmente */}
-                    <div className="w-[280px] relative">
-                      <div className="absolute inset-x-0 top-0 h-[110px] bg-sky-100 text-sky-800 border border-sky-200 rounded-sm flex flex-col items-center justify-center z-20 shadow-inner font-bold">
-                        <span className="text-[11px] font-normal uppercase tracking-[0.3em] text-sky-800 font-display">PILETA</span>
+          {/* Contenedor con Scroll Independiente para el Mapa o la Lista */}
+          <div className="flex-1 overflow-auto p-4 lg:p-8 print:p-0 print:overflow-visible">
+            {viewMode === "map" ? (
+              /* VISTA DE MAPA */
+              <div className="bg-white border border-hairline p-4 md:p-8 rounded-sm shadow-sm max-w-full overflow-auto print:border-0 print:shadow-none print:p-0 print:m-0 print:max-w-none print:overflow-visible">
+                <div className="print-container mx-auto" style={{ maxWidth: "950px" }}>
+                  <div className="flex justify-center mb-6">
+                    <div className="flex text-[10px] font-extralight uppercase tracking-widest font-display">
+                      <div className="w-[280px] bg-prius-background py-2 text-center border border-hairline">Recreación</div>
+                      <div className="w-[140px] bg-white py-2 text-center border-y border-hairline">Acceso</div>
+                      {/* Contenedor relativo para la Piscina que desborda verticalmente */}
+                      <div className="w-[280px] relative">
+                        <div className="absolute inset-x-0 top-0 h-[110px] bg-sky-100 text-sky-800 border border-sky-200 rounded-sm flex flex-col items-center justify-center z-20 shadow-inner font-bold">
+                          <span className="text-[11px] font-normal uppercase tracking-[0.3em] text-sky-800 font-display">PILETA</span>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
-                <div className="flex justify-center gap-4 relative">
-                  {/* Pasillo A */}
-                  <div className="flex gap-12">
-                    <div className="flex flex-col gap-1">
-                      {Array.from({ length: 25 }, (_, i) => i + 1).map(num => {
-                        const unit = getCarpa(num)
-                        const isMatch = isUnitMatchingSearch(unit) && isUnitMatchingFilters(unit)
-                        return (
-                          <Cell 
-                            key={num} 
-                            number={num} 
-                            unit={unit} 
-                            onClick={handleUnitClick} 
-                            isHighlighted={searchTerm && isMatch}
-                            isDimmed={searchTerm && !isMatch}
-                          />
-                        )
-                      })}
+                  <div className="flex justify-center gap-4 relative">
+                    {/* Pasillo A */}
+                    <div className="flex gap-12">
+                      <div className="flex flex-col gap-1">
+                        {Array.from({ length: 25 }, (_, i) => i + 1).map(num => {
+                          const unit = getCarpa(num)
+                          const isMatch = isUnitMatchingSearch(unit) && isUnitMatchingFilters(unit)
+                          return (
+                            <Cell 
+                              key={num} 
+                              number={num} 
+                              unit={unit} 
+                              onClick={handleUnitClick} 
+                              isHighlighted={searchTerm && isMatch}
+                              isDimmed={searchTerm && !isMatch}
+                            />
+                          )
+                        })}
+                      </div>
+                      <div className="flex flex-col gap-1">
+                        {Array.from({ length: 25 }, (_, i) => i + 26).map(num => {
+                          const unit = getCarpa(num)
+                          const isMatch = isUnitMatchingSearch(unit) && isUnitMatchingFilters(unit)
+                          return (
+                            <Cell 
+                              key={num} 
+                              number={num} 
+                              unit={unit} 
+                              onClick={handleUnitClick} 
+                              isHighlighted={searchTerm && isMatch}
+                              isDimmed={searchTerm && !isMatch}
+                            />
+                          )
+                        })}
+                      </div>
                     </div>
-                    <div className="flex flex-col gap-1">
-                      {Array.from({ length: 25 }, (_, i) => i + 26).map(num => {
-                        const unit = getCarpa(num)
-                        const isMatch = isUnitMatchingSearch(unit) && isUnitMatchingFilters(unit)
-                        return (
-                          <Cell 
-                            key={num} 
-                            number={num} 
-                            unit={unit} 
-                            onClick={handleUnitClick} 
-                            isHighlighted={searchTerm && isMatch}
-                            isDimmed={searchTerm && !isMatch}
-                          />
-                        )
-                      })}
+
+                    <div className="w-px bg-hairline mx-4" />
+
+                    {/* Pasillo B */}
+                    <div className="flex gap-12">
+                      <div className="flex flex-col gap-1">
+                        {Array.from({ length: 25 }, (_, i) => i + 51).map(num => {
+                          const unit = getCarpa(num)
+                          const isMatch = isUnitMatchingSearch(unit) && isUnitMatchingFilters(unit)
+                          return (
+                            <Cell 
+                              key={num} 
+                              number={num} 
+                              unit={unit} 
+                              onClick={handleUnitClick} 
+                              isHighlighted={searchTerm && isMatch}
+                              isDimmed={searchTerm && !isMatch}
+                            />
+                          )
+                        })}
+                      </div>
+                      <div className="flex flex-col gap-1 relative">
+                        {/* Espacio reservado para la piscina (2 celdas de alto) */}
+                        <div className="h-[31px]" /><div className="h-[31px]" />
+                        
+                        {Array.from({ length: 23 }, (_, i) => i + 76).map(num => {
+                          const unit = getCarpa(num)
+                          const isMatch = isUnitMatchingSearch(unit) && isUnitMatchingFilters(unit)
+                          return (
+                            <Cell 
+                              key={num} 
+                              number={num} 
+                              unit={unit} 
+                              onClick={handleUnitClick} 
+                              isHighlighted={searchTerm && isMatch}
+                              isDimmed={searchTerm && !isMatch}
+                            />
+                          )
+                        })}
+                      </div>
+                    </div>
+
+                    <div className="w-px bg-hairline mx-4" />
+
+                    {/* Pasillo C */}
+                    <div className="flex gap-12">
+                      <div className="flex flex-col gap-1">
+                        <div className="h-[31px]" /><div className="h-[31px]" />
+                        {Array.from({ length: 23 }, (_, i) => i + 99).map(num => {
+                          const unit = getCarpa(num)
+                          const isMatch = isUnitMatchingSearch(unit) && isUnitMatchingFilters(unit)
+                          return (
+                            <Cell 
+                              key={num} 
+                              number={num} 
+                              unit={unit} 
+                              onClick={handleUnitClick} 
+                              isHighlighted={searchTerm && isMatch}
+                              isDimmed={searchTerm && !isMatch}
+                            />
+                          )
+                        })}
+                      </div>
+                      <div className="flex flex-col gap-1">
+                        <div className="h-[31px]" /><div className="h-[31px]" />
+                        {Array.from({ length: 23 }, (_, i) => i + 122).map(num => {
+                          const unit = getCarpa(num)
+                          const isMatch = isUnitMatchingSearch(unit) && isUnitMatchingFilters(unit)
+                          return (
+                            <Cell 
+                              key={num} 
+                              number={num} 
+                              unit={unit} 
+                              onClick={handleUnitClick} 
+                              isHighlighted={searchTerm && isMatch}
+                              isDimmed={searchTerm && !isMatch}
+                            />
+                          )
+                        })}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Sombrillas reestructuradas según plano original */}
+                  <div className="mt-12 flex flex-col items-center">
+                    <span className="text-[10px] font-extralight uppercase tracking-widest text-prius-black/40 mb-4 font-display">Sombrillas</span>
+                    <div className="flex gap-16 justify-center">
+                      {/* Bloque Izquierdo (1-20) */}
+                      <div className="flex flex-col gap-1">
+                        {[
+                          [1, 2, 3, 4, 5],
+                          [6, 7, 8, 9, 10],
+                          [11, 12, 13, 14, 15],
+                          [16, 17, 18, 19, 20]
+                        ].map((row, rowIdx) => (
+                          <div key={`left-row-${rowIdx}`} className="flex gap-2">
+                            {row.map(num => {
+                              const unit = getSombrilla(num)
+                              const isMatch = isUnitMatchingSearch(unit) && isUnitMatchingFilters(unit)
+                              return (
+                                <Cell 
+                                  key={num} 
+                                  number={num} 
+                                  unit={unit} 
+                                  onClick={handleUnitClick} 
+                                  isHighlighted={searchTerm && isMatch}
+                                  isDimmed={searchTerm && !isMatch}
+                                />
+                              )
+                            })}
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Bloque Derecho (21-40) */}
+                      <div className="flex flex-col gap-1">
+                        {[
+                          [21, 22, 23, 24, 25],
+                          [26, 27, 28, 29, 30],
+                          [31, 32, 33, 34, 35],
+                          [36, 37, 38, 39, 40]
+                        ].map((row, rowIdx) => (
+                          <div key={`right-row-${rowIdx}`} className="flex gap-2">
+                            {row.map(num => {
+                              const unit = getSombrilla(num)
+                              const isMatch = isUnitMatchingSearch(unit) && isUnitMatchingFilters(unit)
+                              return (
+                                <Cell 
+                                  key={num} 
+                                  number={num} 
+                                  unit={unit} 
+                                  onClick={handleUnitClick} 
+                                  isHighlighted={searchTerm && isMatch}
+                                  isDimmed={searchTerm && !isMatch}
+                                />
+                              )
+                            })}
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
 
-                  <div className="w-px bg-hairline mx-4" />
-
-                  {/* Pasillo B */}
-                  <div className="flex gap-12">
-                    <div className="flex flex-col gap-1">
-                      {Array.from({ length: 25 }, (_, i) => i + 51).map(num => {
-                        const unit = getCarpa(num)
-                        const isMatch = isUnitMatchingSearch(unit) && isUnitMatchingFilters(unit)
-                        return (
-                          <Cell 
-                            key={num} 
-                            number={num} 
-                            unit={unit} 
-                            onClick={handleUnitClick} 
-                            isHighlighted={searchTerm && isMatch}
-                            isDimmed={searchTerm && !isMatch}
-                          />
-                        )
-                      })}
+                  <div className="mt-12 flex justify-center">
+                    <div className="w-full max-w-[600px] bg-prius-black py-3 text-center text-white font-extralight text-xs tracking-[0.3em] uppercase font-display">
+                      Mar Argentino
                     </div>
-                    <div className="flex flex-col gap-1 relative">
-                      {/* Espacio reservado para la piscina (2 celdas de alto) */}
-                      <div className="h-[31px]" /><div className="h-[31px]" />
-                      
-                      {Array.from({ length: 23 }, (_, i) => i + 76).map(num => {
-                        const unit = getCarpa(num)
-                        const isMatch = isUnitMatchingSearch(unit) && isUnitMatchingFilters(unit)
-                        return (
-                          <Cell 
-                            key={num} 
-                            number={num} 
-                            unit={unit} 
-                            onClick={handleUnitClick} 
-                            isHighlighted={searchTerm && isMatch}
-                            isDimmed={searchTerm && !isMatch}
-                          />
-                        )
-                      })}
-                    </div>
-                  </div>
-
-                  <div className="w-px bg-hairline mx-4" />
-
-                  {/* Pasillo C */}
-                  <div className="flex gap-12">
-                    <div className="flex flex-col gap-1">
-                      <div className="h-[31px]" /><div className="h-[31px]" />
-                      {Array.from({ length: 23 }, (_, i) => i + 99).map(num => {
-                        const unit = getCarpa(num)
-                        const isMatch = isUnitMatchingSearch(unit) && isUnitMatchingFilters(unit)
-                        return (
-                          <Cell 
-                            key={num} 
-                            number={num} 
-                            unit={unit} 
-                            onClick={handleUnitClick} 
-                            isHighlighted={searchTerm && isMatch}
-                            isDimmed={searchTerm && !isMatch}
-                          />
-                        )
-                      })}
-                    </div>
-                    <div className="flex flex-col gap-1">
-                      <div className="h-[31px]" /><div className="h-[31px]" />
-                      {Array.from({ length: 23 }, (_, i) => i + 122).map(num => {
-                        const unit = getCarpa(num)
-                        const isMatch = isUnitMatchingSearch(unit) && isUnitMatchingFilters(unit)
-                        return (
-                          <Cell 
-                            key={num} 
-                            number={num} 
-                            unit={unit} 
-                            onClick={handleUnitClick} 
-                            isHighlighted={searchTerm && isMatch}
-                            isDimmed={searchTerm && !isMatch}
-                          />
-                        )
-                      })}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Sombrillas reestructuradas según plano original */}
-                <div className="mt-12 flex flex-col items-center">
-                  <span className="text-[10px] font-extralight uppercase tracking-widest text-prius-black/40 mb-4 font-display">Sombrillas</span>
-                  <div className="flex gap-16 justify-center">
-                    {/* Bloque Izquierdo (1-20) */}
-                    <div className="flex flex-col gap-1">
-                      {[
-                        [1, 2, 3, 4, 5],
-                        [6, 7, 8, 9, 10],
-                        [11, 12, 13, 14, 15],
-                        [16, 17, 18, 19, 20]
-                      ].map((row, rowIdx) => (
-                        <div key={`left-row-${rowIdx}`} className="flex gap-2">
-                          {row.map(num => {
-                            const unit = getSombrilla(num)
-                            const isMatch = isUnitMatchingSearch(unit) && isUnitMatchingFilters(unit)
-                            return (
-                              <Cell 
-                                key={num} 
-                                number={num} 
-                                unit={unit} 
-                                onClick={handleUnitClick} 
-                                isHighlighted={searchTerm && isMatch}
-                                isDimmed={searchTerm && !isMatch}
-                              />
-                            )
-                          })}
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Bloque Derecho (21-40) */}
-                    <div className="flex flex-col gap-1">
-                      {[
-                        [21, 22, 23, 24, 25],
-                        [26, 27, 28, 29, 30],
-                        [31, 32, 33, 34, 35],
-                        [36, 37, 38, 39, 40]
-                      ].map((row, rowIdx) => (
-                        <div key={`right-row-${rowIdx}`} className="flex gap-2">
-                          {row.map(num => {
-                            const unit = getSombrilla(num)
-                            const isMatch = isUnitMatchingSearch(unit) && isUnitMatchingFilters(unit)
-                            return (
-                              <Cell 
-                                key={num} 
-                                number={num} 
-                                unit={unit} 
-                                onClick={handleUnitClick} 
-                                isHighlighted={searchTerm && isMatch}
-                                isDimmed={searchTerm && !isMatch}
-                              />
-                            )
-                          })}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-12 flex justify-center">
-                  <div className="w-full max-w-[600px] bg-prius-black py-3 text-center text-white font-extralight text-xs tracking-[0.3em] uppercase font-display">
-                    Mar Argentino
                   </div>
                 </div>
               </div>
-            </div>
-          ) : (
-            /* VISTA DE LISTA / TABLA */
-            <div className="bg-white border border-hairline rounded-sm shadow-sm overflow-hidden">
-              <table className="w-full text-left border-collapse">
-                <thead>
-                  <tr className="bg-prius-black text-white text-[10px] font-extralight uppercase tracking-widest font-display">
-                    <th className="p-4 border-b border-hairline">Unidad</th>
-                    <th className="p-4 border-b border-hairline">Cliente</th>
-                    <th className="p-4 border-b border-hairline">Contacto</th>
-                    <th className="p-4 border-b border-hairline">Estadía</th>
-                    <th className="p-4 border-b border-hairline">Estado Pago</th>
-                    <th className="p-4 border-b border-hairline text-right">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-hairline text-xs">
-                  {filteredUnitsList.map((unit) => (
-                    <tr key={unit.id} className="hover:bg-prius-background transition-colors">
-                      <td className="p-4 font-bold flex items-center gap-2">
-                        {unit.type === "sombrilla" ? <Umbrella className="w-4 h-4 text-gold" /> : <Home className="w-4 h-4 text-gold" />}
-                        <span className="uppercase">{unit.type} #{unit.number}</span>
-                      </td>
-                      <td className="p-4">
-                        {unit.clientName ? (
-                          <span className="font-medium uppercase">{unit.clientName}</span>
-                        ) : (
-                          <span className="text-prius-black/30 italic">Disponible</span>
-                        )}
-                      </td>
-                      <td className="p-4">
-                        {unit.clientPhone || unit.clientEmail ? (
-                          <div className="space-y-0.5">
-                            {unit.clientPhone && <p className="text-prius-black/60">{unit.clientPhone}</p>}
-                            {unit.clientEmail && <p className="text-prius-black/40 text-[10px]">{unit.clientEmail}</p>}
-                          </div>
-                        ) : (
-                          <span className="text-prius-black/30">-</span>
-                        )}
-                      </td>
-                      <td className="p-4">
-                        {unit.status === STATUS.LIBRE ? (
-                          <span className="text-green-600 font-bold uppercase text-[10px] tracking-wider">Libre</span>
-                        ) : unit.isTemporada ? (
-                          <span className="bg-prius-black text-white px-2 py-0.5 rounded-sm text-[9px] font-bold uppercase tracking-wider">Temporada</span>
-                        ) : (
-                          <span className="bg-gold/20 text-prius-black px-2 py-0.5 rounded-sm text-[9px] font-bold uppercase tracking-wider">
-                            {unit.startDate} al {unit.endDate}
-                          </span>
-                        )}
-                      </td>
-                      <td className="p-4">
-                        {unit.status === STATUS.LIBRE ? (
-                          <span className="text-prius-black/30">-</span>
-                        ) : unit.isPaid ? (
-                          <span className="text-green-600 font-bold uppercase text-[10px] tracking-wider flex items-center gap-1">
-                            <Check className="w-3.5 h-3.5" /> Pagado
-                          </span>
-                        ) : (
-                          <span className="text-red-500 font-bold uppercase text-[10px] tracking-wider flex items-center gap-1">
-                            <AlertCircle className="w-3.5 h-3.5" /> Pendiente
-                          </span>
-                        )}
-                      </td>
-                      <td className="p-4 text-right">
-                        <button 
-                          onClick={() => handleUnitClick(unit)}
-                          className="px-3 py-1.5 bg-prius-black text-white hover:bg-gold hover:text-prius-black rounded-sm font-bold text-[9px] uppercase tracking-wider transition-all"
-                        >
-                          Gestionar
-                        </button>
-                      </td>
+            ) : (
+              /* VISTA DE LISTA / TABLA */
+              <div className="bg-white border border-hairline rounded-sm shadow-sm overflow-hidden">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="bg-prius-black text-white text-[10px] font-extralight uppercase tracking-widest font-display">
+                      <th className="p-4 border-b border-hairline">Unidad</th>
+                      <th className="p-4 border-b border-hairline">Cliente</th>
+                      <th className="p-4 border-b border-hairline">Contacto</th>
+                      <th className="p-4 border-b border-hairline">Estadía</th>
+                      <th className="p-4 border-b border-hairline">Estado Pago</th>
+                      <th className="p-4 border-b border-hairline text-right">Acciones</th>
                     </tr>
-                  ))}
-                  {filteredUnitsList.length === 0 && (
-                    <tr>
-                      <td colSpan="6" className="p-8 text-center text-prius-black/40 italic">
-                        No se encontraron unidades que coincidan con los filtros o la búsqueda.
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
-          )}
+                  </thead>
+                  <tbody className="divide-y divide-hairline text-xs">
+                    {filteredUnitsList.map((unit) => (
+                      <tr key={unit.id} className="hover:bg-prius-background transition-colors">
+                        <td className="p-4 font-bold flex items-center gap-2">
+                          {unit.type === "sombrilla" ? <Umbrella className="w-4 h-4 text-gold" /> : <Home className="w-4 h-4 text-gold" />}
+                          <span className="uppercase">{unit.type} #{unit.number}</span>
+                        </td>
+                        <td className="p-4">
+                          {unit.clientName ? (
+                            <span className="font-medium uppercase">{unit.clientName}</span>
+                          ) : (
+                            <span className="text-prius-black/30 italic">Disponible</span>
+                          )}
+                        </td>
+                        <td className="p-4">
+                          {unit.clientPhone || unit.clientEmail ? (
+                            <div className="space-y-0.5">
+                              {unit.clientPhone && <p className="text-prius-black/60">{unit.clientPhone}</p>}
+                              {unit.clientEmail && <p className="text-prius-black/40 text-[10px]">{unit.clientEmail}</p>}
+                            </div>
+                          ) : (
+                            <span className="text-prius-black/30">-</span>
+                          )}
+                        </td>
+                        <td className="p-4">
+                          {unit.status === STATUS.LIBRE ? (
+                            <span className="text-green-600 font-bold uppercase text-[10px] tracking-wider">Libre</span>
+                          ) : unit.isTemporada ? (
+                            <span className="bg-prius-black text-white px-2 py-0.5 rounded-sm text-[9px] font-bold uppercase tracking-wider">Temporada</span>
+                          ) : (
+                            <span className="bg-gold/20 text-prius-black px-2 py-0.5 rounded-sm text-[9px] font-bold uppercase tracking-wider">
+                              {unit.startDate} al {unit.endDate}
+                            </span>
+                          )}
+                        </td>
+                        <td className="p-4">
+                          {unit.status === STATUS.LIBRE ? (
+                            <span className="text-prius-black/30">-</span>
+                          ) : unit.isPaid ? (
+                            <span className="text-green-600 font-bold uppercase text-[10px] tracking-wider flex items-center gap-1">
+                              <Check className="w-3.5 h-3.5" /> Pagado
+                            </span>
+                          ) : (
+                            <span className="text-red-500 font-bold uppercase text-[10px] tracking-wider flex items-center gap-1">
+                              <AlertCircle className="w-3.5 h-3.5" /> Pendiente
+                            </span>
+                          )}
+                        </td>
+                        <td className="p-4 text-right">
+                          <button 
+                            onClick={() => handleUnitClick(unit)}
+                            className="px-3 py-1.5 bg-prius-black text-white hover:bg-gold hover:text-prius-black rounded-sm font-bold text-[9px] uppercase tracking-wider transition-all"
+                          >
+                            Gestionar
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                    {filteredUnitsList.length === 0 && (
+                      <tr>
+                        <td colSpan="6" className="p-8 text-center text-prius-black/40 italic">
+                          No se encontraron unidades que coincidan con los filtros o la búsqueda.
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
         </main>
       </div>
 
