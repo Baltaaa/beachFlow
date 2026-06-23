@@ -41,8 +41,8 @@ export default function Navbar() {
         }`}
       />
       
-      {/* Contenedor adaptado con el espaciado exacto de Norma para alinearse con el Hero */}
-      <div className="mx-auto w-full px-6 sm:px-8 max-w-[1320px] flex h-24 items-center justify-between sm:grid sm:grid-cols-[1fr_auto_1fr]">
+      {/* Contenedor adaptado con la alineación exacta del Hero: px-10 en mobile, px-16 en desktop */}
+      <div className="mx-auto w-full px-10 md:px-16 max-w-[1320px] flex h-24 items-center justify-between sm:grid sm:grid-cols-[1fr_auto_1fr]">
         
         {/* LEFT: Logo escalado para máxima legibilidad */}
         <button 
