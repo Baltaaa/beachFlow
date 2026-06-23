@@ -1,5 +1,4 @@
 import { ArrowRight } from 'lucide-react'
-import Navbar from './Navbar'
 
 export default function Hero() {
   const scrollToSection = (id) => {
@@ -7,7 +6,7 @@ export default function Hero() {
   }
 
   return (
-    <section className="relative w-full bg-white flex flex-col justify-end p-4 md:p-6">
+    <section className="relative w-full bg-white flex flex-col justify-end p-4 md:p-6 pt-24 md:pt-28">
       
       {/* Contenedor Flotante de Proporción Cinematográfica (Estilo nor.ma) */}
       <div className="relative w-full h-[82vh] md:h-[86vh] min-h-[600px] rounded-[24px] md:rounded-[32px] overflow-hidden flex flex-col justify-between p-6 md:p-12">
@@ -25,10 +24,8 @@ export default function Hero() {
           <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-black/35" />
         </div>
 
-        {/* NAVBAR INTEGRADO: Flotando perfectamente al tope de la tarjeta */}
-        <div className="relative z-20 -mt-2 -mx-2 md:-mt-6">
-          <Navbar />
-        </div>
+        {/* Espaciador para no empujar el contenido debajo de la barra sticky */}
+        <div className="h-12 w-full md:h-16" />
 
         {/* 2. SECCIÓN CENTRAL CENTRADA Y UNIDA HORIZONTALMENTE (Estilo nor.ma) */}
         <div className="relative z-10 w-full max-w-[1440px] mx-auto my-auto flex items-center">
