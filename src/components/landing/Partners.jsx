@@ -10,7 +10,7 @@ export default function Partners() {
   const repeatedPartners = [...partners, ...partners, ...partners]
   
   return (
-    <section className="py-16 bg-white border-y border-hairline overflow-hidden">
+    <section className="py-16 bg-white border-b border-hairline overflow-hidden">
       <div className="px-margin-mobile md:px-margin-desktop mb-8 text-center md:text-left">
         <span className="text-[11px] font-bold uppercase text-prius-black/40 tracking-[0.25em]">
           Socios Estratégicos
