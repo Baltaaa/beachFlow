@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, Info, HelpCircle, LayoutGrid, Calendar, HelpCircle as HelpIcon } from 'lucide-react'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -13,78 +13,84 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="w-full bg-transparent px-6 md:px-12 py-6">
-      <div className="max-w-[1440px] mx-auto flex justify-between items-center">
+    <nav className="w-full bg-transparent py-4 md:py-6">
+      <div className="flex justify-between items-center w-full">
         
-        {/* LEFT: Wordmark con estrella dorada de Prius */}
+        {/* LEFT: Marca PRIUS en cápsula translúcida (igual a NORMA) */}
         <button 
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
-          className="flex flex-col items-start leading-none group text-left cursor-pointer z-50"
+          className="flex items-center gap-2 bg-white/10 hover:bg-white/15 backdrop-blur-md border border-white/10 px-5 py-2 rounded-full cursor-pointer transition-all duration-300 z-50"
         >
-          <div className="flex items-center gap-1.5">
-            <span className="text-gold text-xs animate-pulse">◆</span>
-            <span className="text-xl font-bold tracking-[0.2em] uppercase font-display text-white group-hover:text-gold transition-colors duration-300">
-              PRIUS
-            </span>
-          </div>
-          <span className="text-[8px] tracking-[0.45em] uppercase text-white/50 pl-5 mt-1 font-sans">
-            PARADOR
+          <span className="text-gold text-xs animate-pulse">◆</span>
+          <span className="text-xs md:text-sm font-bold tracking-[0.25em] uppercase font-display text-white">
+            PRIUS
           </span>
         </button>
 
-        {/* CENTER: Enlaces de navegación translúcidos y minimalistas */}
-        <div className="hidden md:flex items-center gap-10 bg-white/5 backdrop-blur-md border border-white/10 rounded-full px-8 py-3">
-          {['servicios', 'eventos', 'galeria', 'contacto'].map((item) => (
-            <button
-              key={item}
-              onClick={() => scrollToSection(item)}
-              className="text-[11px] font-medium tracking-[0.2em] text-white/85 hover:text-gold transition-all duration-300 uppercase cursor-pointer font-display"
-            >
-              {item}
-            </button>
-          ))}
+        {/* CENTER: Menú de navegación translúcido con micro-íconos elegantes */}
+        <div className="hidden md:flex items-center gap-6 bg-white/10 backdrop-blur-md border border-white/10 rounded-full px-6 py-2">
+          <button
+            onClick={() => scrollToSection('servicios')}
+            className="flex items-center gap-1.5 text-[11px] font-medium tracking-wider text-white/85 hover:text-white transition-all duration-300 uppercase cursor-pointer"
+          >
+            <LayoutGrid size={12} className="text-white/60" /> Servicos
+          </button>
+          <button
+            onClick={() => scrollToSection('eventos')}
+            className="flex items-center gap-1.5 text-[11px] font-medium tracking-wider text-white/85 hover:text-white transition-all duration-300 uppercase cursor-pointer"
+          >
+            <Calendar size={12} className="text-white/60" /> Eventos
+          </button>
+          <button
+            onClick={() => scrollToSection('contacto')}
+            className="flex items-center gap-1.5 text-[11px] font-medium tracking-wider text-white/85 hover:text-white transition-all duration-300 uppercase cursor-pointer"
+          >
+            <HelpIcon size={12} className="text-white/60" /> Consultas
+          </button>
         </div>
 
-        {/* RIGHT: Botón CTA con Prius Gold oficial (#D4A017) y texto blanco */}
-        <div className="hidden md:flex items-center z-50">
+        {/* RIGHT: CTA Blanco o Idioma + CTA */}
+        <div className="hidden md:flex items-center gap-3 z-50">
+          <div className="text-[11px] font-medium text-white/60 px-3 py-1.5 bg-white/5 border border-white/5 rounded-full hidden lg:block">
+            🇦🇷 ES ▾
+          </div>
           <button 
             onClick={() => scrollToSection('contacto')}
-            className="bg-[#D4A017] hover:bg-[#b88911] text-white px-6 py-2.5 rounded-lg text-[10px] font-bold uppercase tracking-[0.15em] transition-all duration-300 cursor-pointer shadow-lg shadow-black/10"
+            className="bg-white hover:bg-white/95 text-black px-6 py-2.5 rounded-full text-[11px] font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer shadow-md"
           >
-            SOLICITAR COTIZACIÓN
+            COTIZAR — 2026/2027
           </button>
         </div>
 
         {/* Botón de Menú Móvil */}
         <button 
           onClick={() => setIsOpen(!isOpen)} 
-          className="md:hidden p-2 text-white hover:bg-white/10 rounded-full transition-all z-50"
+          className="md:hidden p-2 text-white bg-white/10 hover:bg-white/15 backdrop-blur-md border border-white/10 rounded-full transition-all z-50"
           aria-label="Abrir menú"
         >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
+          {isOpen ? <X size={18} /> : <Menu size={18} />}
         </button>
       </div>
 
-      {/* Menú Móvil Desplegable Translúcido */}
+      {/* Menú Móvil Desplegable */}
       {isOpen && (
-        <div className="absolute top-full left-0 w-full bg-black/95 backdrop-blur-xl border-b border-white/10 py-8 px-6 md:hidden flex flex-col gap-6 animate-premium-fade z-40">
+        <div className="absolute top-[80px] left-4 right-4 bg-black/90 backdrop-blur-xl border border-white/10 rounded-2xl py-6 px-6 md:hidden flex flex-col gap-5 animate-premium-fade z-40">
           {['servicios', 'eventos', 'galeria', 'contacto'].map((item) => (
             <button
               key={item}
               onClick={() => scrollToSection(item)}
-              className="text-left text-sm font-semibold tracking-widest text-white/90 hover:text-gold uppercase py-1.5 transition-colors duration-300 font-display"
+              className="text-left text-xs font-semibold tracking-widest text-white/90 hover:text-gold uppercase py-1 transition-colors duration-300 font-display"
             >
               {item}
             </button>
           ))}
           <button 
             onClick={() => scrollToSection('contacto')}
-            className="w-full bg-[#D4A017] text-white py-4 rounded-full text-xs font-bold uppercase tracking-widest text-center mt-4 transition-all cursor-pointer"
+            className="w-full bg-white text-black py-3.5 rounded-full text-xs font-bold uppercase tracking-widest text-center mt-2 transition-all cursor-pointer"
           >
-            SOLICITAR COTIZACIÓN
+            COTIZAR
           </button>
         </div>
       )}
     </nav>
-  )
-}
+  )}

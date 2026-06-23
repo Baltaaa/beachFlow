@@ -10,7 +10,7 @@ export default function Hero() {
     <section className="relative w-full bg-white flex flex-col justify-end p-4 md:p-6">
       
       {/* Contenedor Flotante de Proporción Cinematográfica (Estilo nor.ma) */}
-      <div className="relative w-full h-[82vh] md:h-[86vh] min-h-[600px] rounded-[24px] md:rounded-[32px] overflow-hidden flex flex-col justify-between p-6 md:p-12">
+      <div className="relative w-full h-[85vh] md:h-[88vh] min-h-[650px] rounded-[24px] md:rounded-[32px] overflow-hidden flex flex-col justify-between p-6 md:p-12">
         
         {/* Imagen de fondo premium de alta gama */}
         <div className="absolute inset-0 z-0 select-none pointer-events-none">
@@ -22,46 +22,46 @@ export default function Hero() {
           {/* Overlay de luz blanca suave para mayor viveza del fondo */}
           <div className="absolute inset-0 bg-white/[0.12] mix-blend-overlay" />
           {/* Gradiente oscuro inferior para un contraste de texto ideal */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-black/35" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30" />
         </div>
 
-        {/* NAVBAR INTEGRADO: Flotando perfectamente al tope de la tarjeta */}
-        <div className="relative z-20 -mt-2 -mx-2 md:-mt-6">
+        {/* NAVBAR INTEGRADO: Ajustado perfectamente al mismo ancho que el contenido de abajo */}
+        <div className="relative z-20 w-full max-w-[1320px] mx-auto">
           <Navbar />
         </div>
 
-        {/* 2. SECCIÓN CENTRAL UNIDA Y COMPACTA (Alineada más arriba, menos margin top, sin expandirse a los extremos) */}
-        <div className="relative z-10 w-full max-w-[1440px] mx-auto mt-4 md:mt-6 mb-auto flex items-center">
-          <div className="flex flex-col lg:flex-row lg:items-end justify-start gap-8 lg:gap-14 w-full max-w-[1150px]">
+        {/* 2. SECCIÓN CENTRAL: Perfectamente centrada, simétrica, alineada de punta a punta con el Navbar */}
+        <div className="relative z-10 w-full max-w-[1320px] mx-auto my-auto pt-6 md:pt-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             
-            {/* Bloque Izquierdo: Etiquetas + H1 compactos */}
-            <div className="flex-1 lg:max-w-[640px] flex flex-col gap-5">
+            {/* Columna Izquierda: Etiquetas + Gran Titular */}
+            <div className="lg:col-span-7 flex flex-col gap-6">
               <div className="flex flex-wrap gap-2.5">
-                <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-[10px] md:text-[11px] uppercase tracking-[0.15em] font-display text-white">
+                <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-[10px] uppercase tracking-[0.15em] font-display text-white">
                   Reserva sin cargo
                 </div>
-                <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-[10px] md:text-[11px] uppercase tracking-[0.15em] font-display text-white/95">
+                <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-[10px] uppercase tracking-[0.15em] font-display text-white">
                   Temporada 2026/2027
                 </div>
               </div>
 
-              <h1 className="text-[38px] sm:text-[52px] md:text-[68px] lg:text-[72px] xl:text-[80px] font-black leading-[0.95] tracking-tighter uppercase font-display text-white select-none">
+              <h1 className="text-[34px] sm:text-[48px] md:text-[62px] lg:text-[66px] xl:text-[76px] font-bold leading-[1.02] tracking-tight uppercase font-display text-white select-none">
                 TU DESCANSO <br />
                 <span className="text-[#D4A017]">EN PRIUS.</span>
               </h1>
             </div>
 
-            {/* Bloque Derecho: Micro-descripción y CTAs pegados al título con un ancho máximo controlado */}
-            <div className="w-full lg:w-[360px] flex flex-col gap-6 shrink-0 lg:pb-2">
-              <p className="text-white/90 text-sm sm:text-base leading-relaxed font-light drop-shadow-sm">
+            {/* Columna Derecha: Microdescripción + Botones perfectamente alineados */}
+            <div className="lg:col-span-5 flex flex-col gap-6 lg:pl-12">
+              <p className="text-white/90 text-sm sm:text-base leading-relaxed font-light max-w-md drop-shadow-sm">
                 Un refugio exclusivo en Playa Grande. Costa, silencio y servicio impecable — todo en un lugar.
               </p>
               
-              {/* Botones de acción minimalistas */}
-              <div className="flex flex-wrap gap-3">
+              {/* Botones de acción alineados en fila y con formas ovaladas idénticas a NORMA */}
+              <div className="flex flex-wrap items-center gap-3">
                 <button 
                   onClick={() => scrollToSection('contacto')}
-                  className="inline-flex items-center justify-center bg-white hover:bg-white/90 text-prius-black font-semibold text-xs uppercase tracking-[0.15em] px-8 py-3.5 rounded-full transition-all duration-300 cursor-pointer shadow-lg"
+                  className="inline-flex items-center justify-center bg-white hover:bg-white/90 text-black font-bold text-xs uppercase tracking-[0.15em] px-8 py-3.5 rounded-full transition-all duration-300 cursor-pointer shadow-lg"
                 >
                   RESERVAR
                 </button>
@@ -81,13 +81,13 @@ export default function Hero() {
         <div className="relative z-10 flex justify-center w-full mt-4">
           <button
             onClick={() => scrollToSection('contacto')}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/25 hover:bg-white/30 backdrop-blur-md transition-all duration-300 border border-white/20 text-[9px] md:text-[11px] text-white tracking-[0.15em] uppercase font-display cursor-pointer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-md transition-all duration-300 border border-white/15 text-[10px] text-white tracking-[0.15em] uppercase font-display cursor-pointer"
           >
-            <span className="bg-black/80 text-[8px] md:text-[10px] text-[#D4A017] font-bold uppercase tracking-[0.15em] px-2.5 py-1 rounded-full">
+            <span className="bg-white text-black text-[9px] font-bold uppercase tracking-[0.15em] px-2.5 py-1 rounded-full">
               Nuevo
             </span>
             <span>Prius Club ya está disponible</span>
-            <ArrowRight size={12} className="text-[#D4A017] ml-1" />
+            <ArrowRight size={12} className="text-white ml-1" />
           </button>
         </div>
 
