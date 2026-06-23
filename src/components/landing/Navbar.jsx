@@ -13,7 +13,7 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-transparent px-margin-mobile md:px-margin-desktop py-6">
+    <nav className="w-full bg-transparent px-6 md:px-12 py-6">
       <div className="max-w-[1440px] mx-auto flex justify-between items-center">
         
         {/* LEFT: Wordmark con estrella dorada de Prius */}
@@ -38,18 +38,18 @@ export default function Navbar() {
             <button
               key={item}
               onClick={() => scrollToSection(item)}
-              className="text-[11px] font-medium tracking-[0.2em] text-white/80 hover:text-gold transition-all duration-300 uppercase cursor-pointer font-display"
+              className="text-[11px] font-medium tracking-[0.2em] text-white/85 hover:text-gold transition-all duration-300 uppercase cursor-pointer font-display"
             >
               {item}
             </button>
           ))}
         </div>
 
-        {/* RIGHT: Botón CTA con Prius Gold oficial (#F2CA50) */}
+        {/* RIGHT: Botón CTA con Prius Gold oficial (#D4A017) y texto blanco */}
         <div className="hidden md:flex items-center z-50">
           <button 
             onClick={() => scrollToSection('contacto')}
-            className="bg-gold hover:bg-gold-hover text-prius-black px-6 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-[0.15em] transition-premium cursor-pointer shadow-lg shadow-gold/10"
+            className="bg-[#D4A017] hover:bg-[#b88911] text-white px-6 py-2.5 rounded-lg text-[10px] font-bold uppercase tracking-[0.15em] transition-all duration-300 cursor-pointer shadow-lg shadow-black/10"
           >
             SOLICITAR COTIZACIÓN
           </button>
@@ -67,7 +67,7 @@ export default function Navbar() {
 
       {/* Menú Móvil Desplegable Translúcido */}
       {isOpen && (
-        <div className="absolute top-full left-0 w-full bg-prius-black/95 backdrop-blur-xl border-b border-white/10 py-8 px-6 md:hidden flex flex-col gap-6 animate-premium-fade z-40">
+        <div className="absolute top-full left-0 w-full bg-black/95 backdrop-blur-xl border-b border-white/10 py-8 px-6 md:hidden flex flex-col gap-6 animate-premium-fade z-40">
           {['servicios', 'eventos', 'galeria', 'contacto'].map((item) => (
             <button
               key={item}
@@ -79,7 +79,7 @@ export default function Navbar() {
           ))}
           <button 
             onClick={() => scrollToSection('contacto')}
-            className="w-full bg-gold hover:bg-gold-hover text-prius-black py-4 rounded-full text-xs font-bold uppercase tracking-widest text-center mt-4 transition-all cursor-pointer"
+            className="w-full bg-[#D4A017] text-white py-4 rounded-full text-xs font-bold uppercase tracking-widest text-center mt-4 transition-all cursor-pointer"
           >
             SOLICITAR COTIZACIÓN
           </button>
