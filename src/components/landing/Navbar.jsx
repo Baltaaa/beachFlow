@@ -17,17 +17,18 @@ export default function Navbar() {
       {/* Gradiente oscuro superior sutil para dar legibilidad */}
       <div aria-hidden="true" className="pointer-events-none fixed inset-x-0 top-0 -z-10 h-28 bg-gradient-to-b from-black/45 via-black/15 to-transparent opacity-100"></div>
       
+      {/* Contenedor con el ancho original de 1920px y padding de 8 */}
       <div className="mx-auto w-full px-8 max-w-[1920px] flex h-16 items-center justify-between sm:grid sm:grid-cols-[1fr_auto_1fr]">
         
-        {/* LEFT: Logo original en un botón ovalado glassmorphism */}
+        {/* LEFT: Logo limpio sin fondo ni borde */}
         <button 
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
-          className="flex items-center rounded-full backdrop-blur-md transition-colors bg-white/15 h-10 justify-self-start px-4 cursor-pointer hover:bg-white/20"
+          className="flex items-center cursor-pointer justify-self-start transition-opacity hover:opacity-90"
         >
           <img 
             src="/logo-prius.png" 
             alt="Prius" 
-            className="h-8 w-auto object-contain filter brightness-100"
+            className="h-12 md:h-14 w-auto object-contain"
           />
         </button>
 
@@ -68,7 +69,7 @@ export default function Navbar() {
           {/* Botón de Menú Móvil */}
           <button 
             onClick={() => setIsOpen(!isOpen)} 
-            className="flex items-center rounded-full backdrop-blur-md transition-colors bg-white/15 size-10 shrink-0 items-center justify-center sm:hidden text-white hover:bg-white/20 cursor-pointer"
+            className="flex items-center rounded-full backdrop-blur-md transition-colors bg-white/15 size-10 shrink-0 justify-center sm:hidden text-white hover:bg-white/20 cursor-pointer"
             aria-label="Menu"
           >
             {isOpen ? <X size={16} /> : <Menu size={16} />}
