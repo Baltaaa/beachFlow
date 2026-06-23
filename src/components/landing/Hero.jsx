@@ -9,8 +9,8 @@ export default function Hero() {
   return (
     <section className="relative w-full bg-white flex flex-col justify-end p-4">
       
-      {/* Contenedor Flotante de Proporción Cinematográfica con altura fijada en 82vh (Estilo nor.ma) */}
-      <div className="relative w-full h-[82vh] min-h-[550px] rounded-[24px] md:rounded-[32px] overflow-hidden flex flex-col justify-between p-6 md:p-12">
+      {/* Contenedor Flotante de Proporción Cinematográfica con estructura idéntica a nor.ma */}
+      <div className="relative mx-auto flex min-h-[84vh] w-full max-w-[1920px] flex-col overflow-hidden rounded-[28px] justify-between p-6 md:p-12">
         
         {/* Imagen de fondo premium de alta gama */}
         <div className="absolute inset-0 z-0 select-none pointer-events-none">
