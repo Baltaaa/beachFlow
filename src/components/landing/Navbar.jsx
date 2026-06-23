@@ -26,16 +26,16 @@ export default function Navbar() {
   }
 
   return (
-    <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 px-4 md:px-6 pt-4 md:pt-6`}>
-      {/* Contenedor alineado perfectamente con el Hero Card */}
+    <nav className="fixed top-0 left-0 w-full z-50 transition-all duration-500 px-margin-mobile md:px-margin-desktop pt-4 md:pt-6">
+      {/* Contenedor alineado perfectamente con los márgenes globales de la app */}
       <div className="max-w-[1440px] mx-auto w-full">
         <div className={`flex justify-between items-center transition-all duration-500 ${
           isScrolled 
-            ? 'bg-prius-black/85 backdrop-blur-lg border border-white/10 rounded-full px-4 md:px-6 py-2.5 shadow-lg' 
+            ? 'bg-prius-black/90 backdrop-blur-lg border border-white/10 rounded-full px-4 md:px-6 py-2.5 shadow-lg' 
             : 'bg-transparent py-2'
         }`}>
           
-          {/* LOGO: En cápsula translúcida estilo nor.ma */}
+          {/* LOGO: Conservando sus colores originales de marca */}
           <div className={`transition-all duration-500 ${
             isScrolled 
               ? '' 
@@ -44,13 +44,13 @@ export default function Navbar() {
             <a href="#" className="flex items-center">
               <img 
                 alt="Prius Logo" 
-                className="h-8 md:h-9 w-auto object-contain brightness-0 invert" 
+                className="h-8 md:h-9 w-auto object-contain" 
                 src="/logo-prius.png" 
               />
             </a>
           </div>
           
-          {/* ENLACES: En cápsula translúcida estilo nor.ma (Oculto en scroll para minimalismo, o mantenido) */}
+          {/* ENLACES: Estilo nor.ma en cápsula translúcida */}
           <div className="hidden md:flex items-center bg-white/10 backdrop-blur-md border border-white/10 rounded-full px-8 py-2.5 gap-8">
             {['servicios', 'eventos', 'galeria', 'contacto'].map((item) => (
               <button
@@ -63,7 +63,7 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* BOTÓN CTA: Sólido, elegante y redondeado estilo nor.ma */}
+          {/* BOTÓN CTA */}
           <div className="hidden md:flex items-center">
             <button 
               onClick={() => scrollToSection('contacto')}
@@ -82,7 +82,7 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* Dropdown Móvil Translúcido */}
+        {/* Dropdown Móvil */}
         <div className={`md:hidden bg-prius-black/95 backdrop-blur-lg border border-white/10 rounded-2xl mt-3 transition-all duration-500 overflow-hidden ${
           isOpen ? 'max-h-[320px] p-6 opacity-100' : 'max-h-0 p-0 opacity-0 pointer-events-none'
         }`}>

@@ -2,7 +2,7 @@ import { ArrowRight, Sparkles } from 'lucide-react'
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen bg-white md:bg-prius-background pt-4 md:pt-6 pb-6 px-4 md:px-6 flex flex-col justify-center">
+    <section className="relative min-h-screen bg-white md:bg-prius-background pt-4 md:pt-6 pb-6 px-margin-mobile md:px-margin-desktop flex flex-col justify-center">
       
       {/* Contenedor Principal "Card Flotante" de Gran Altura */}
       <div className="relative w-full max-w-[1440px] mx-auto min-h-[85vh] lg:min-h-[90vh] rounded-[24px] md:rounded-[32px] overflow-hidden flex flex-col justify-between p-6 sm:p-10 lg:p-16 border border-hairline bg-prius-black text-white">
@@ -12,13 +12,13 @@ export default function Hero() {
           <img 
             src="/images/prius1.webp" 
             alt="Experiencia Premium Prius Playa Grande" 
-            className="w-full h-full object-cover object-center opacity-60 scale-102 transform transition-all duration-1000"
+            className="w-full h-full object-cover object-center opacity-65 scale-102 transform transition-all duration-1000"
           />
           {/* Capa de gradiente oscuro premium de nor.ma */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/75" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/30 to-black/80" />
         </div>
 
-        {/* 1. SECCIÓN SUPERIOR: Espacio reservado para el Navbar integrado */}
+        {/* 1. SECCIÓN SUPERIOR: Espacio de resguardo para el Navbar */}
         <div className="h-16 md:h-20" />
 
         {/* 2. SECCIÓN CENTRAL: Disposición Asimétrica de Contenido (Estilo nor.ma) */}
