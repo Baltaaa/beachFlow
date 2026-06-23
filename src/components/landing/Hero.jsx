@@ -61,9 +61,9 @@ export default function Hero() {
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                 <button 
                   onClick={() => scrollToSection('contacto')}
-                  className="inline-flex h-9 w-full sm:w-auto cursor-pointer items-center justify-center rounded-full bg-white px-4 text-[0.875rem] font-medium text-black transition-colors hover:bg-white/90"
+                  className="inline-flex h-9 w-full sm:w-auto cursor-pointer items-center justify-center rounded-full bg-white px-5 text-[0.875rem] font-medium text-black transition-colors hover:bg-white/90 uppercase tracking-wider"
                 >
-                  RESERVAR ESTADÍA
+                  Reservas
                 </button>
                 <button 
                   onClick={() => scrollToSection('servicios')}
