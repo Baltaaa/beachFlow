@@ -1,102 +1,87 @@
+import { ArrowRight, Sparkles } from 'lucide-react'
+
 export default function Hero() {
   const scrollToSection = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
   }
 
   return (
-    <section className="px-3 pt-3 sm:px-4 sm:pt-4">
-      <div className="relative mx-auto flex min-h-[86vh] max-w-[1920px] flex-col overflow-hidden rounded-[28px]">
+    <section className="relative min-h-screen bg-white flex flex-col justify-end p-3 md:p-4">
+      
+      {/* Contenedor Flotante del Hero con Bordes Redondeados (Inspirado en nor.ma) */}
+      <div className="relative w-full h-[90vh] md:h-[94vh] min-h-[680px] rounded-[24px] md:rounded-[32px] overflow-hidden flex flex-col justify-between p-6 md:p-16">
         
-        {/* Imagen Estelar de Fondo con Aspecto de Cobertura */}
-        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[#3a3b3d]"></div>
-        <img 
-          src="/images/prius1.webp" 
-          alt="Experiencia Prius" 
-          className="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover"
-        />
-        
-        {/* Filtros de Gradiente Idénticos */}
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-black/55 via-black/25 to-transparent"></div>
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-black/10 mix-blend-multiply"></div>
+        {/* Imagen de fondo premium con un overlay de contraste sutil y elegante */}
+        <div className="absolute inset-0 z-0 select-none pointer-events-none">
+          <img 
+            src="/images/prius1.webp" 
+            alt="Experiencia Prius Playa Grande" 
+            className="w-full h-full object-cover object-center"
+          />
+          {/* Capa de overlay translúcida de alta gama */}
+          <div className="absolute inset-0 bg-black/40 mix-blend-multiply" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+        </div>
 
-        {/* CONTENIDO PRINCIPAL Y SUPERIOR */}
-        <div className="mx-auto w-full px-6 sm:px-8 max-w-[1920px] relative z-10 pt-28 sm:pt-36">
+        {/* 1. SECCIÓN SUPERIOR: Badges de contexto integrados elegantemente */}
+        <div className="relative z-10 flex flex-wrap gap-2.5 mt-20 md:mt-16">
+          <div className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-[10px] md:text-xs uppercase tracking-[0.2em] font-display text-white">
+            <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
+            Reserva sin cargo
+          </div>
+          <div className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-[10px] md:text-xs uppercase tracking-[0.2em] font-display text-white/90">
+            Temporada 2024–2025
+          </div>
+        </div>
+
+        {/* 2. SECCIÓN CENTRAL: Grilla asimétrica con la tipografía monumental y márgenes exactos */}
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-end my-auto w-full">
           
-          {/* Pills Superiores */}
-          <div className="transition-[opacity,filter,transform] duration-700 ease-out opacity-100 blur-0 translate-y-0">
-            <div className="hidden flex-wrap gap-2 sm:flex">
-              <span className="inline-flex select-none items-center whitespace-nowrap rounded-full bg-white/15 px-3.5 py-2 text-[0.8125rem] font-medium text-white/80 backdrop-blur-md border border-white/5">
-                Reserva sin cargo de carpa
-              </span>
-              <span className="inline-flex select-none items-center whitespace-nowrap rounded-full bg-white/15 px-3.5 py-2 text-[0.8125rem] font-medium text-white/80 backdrop-blur-md border border-white/5">
-                Temporada 2024–2025
-              </span>
-            </div>
+          {/* Bloque Izquierdo: Titular Gigante */}
+          <div className="lg:col-span-7">
+            <h1 className="text-[40px] sm:text-[56px] md:text-[76px] lg:text-[88px] xl:text-[96px] font-black leading-[0.95] tracking-tighter uppercase font-display text-white select-none">
+              TU DESCANSO <br />
+              <span className="text-gold">EN PRIUS.</span>
+            </h1>
           </div>
 
-          {/* Grilla de Título y Columna Derecha de Acción */}
-          <div className="mt-7 grid grid-cols-1 gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
+          {/* Bloque Derecho: Micro-descripción y CTAs con colores oficiales corregidos */}
+          <div className="lg:col-span-5 flex flex-col gap-6 lg:pl-6">
+            <p className="text-white/90 text-sm sm:text-base md:text-[17px] leading-relaxed font-light max-w-sm">
+              Un refugio exclusivo en Playa Grande. Costa, silencio y servicio impecable — todo en un lugar.
+            </p>
             
-            {/* Título de Gran Impacto */}
-            <div className="transition-[opacity,filter,transform] duration-700 ease-out opacity-100 blur-0 translate-y-0">
-              <h1 className="text-[2.25rem] sm:text-[3.25rem] md:text-[4rem] lg:text-[4.75rem] xl:text-[5.5rem] font-bold leading-[1.02] tracking-[-0.03em] text-balance font-display">
-                <span className="text-white/55">TU DESCANSO.</span>
-                <br />
-                <span className="text-gold">EN PRIUS.</span>
-              </h1>
+            {/* Botones de acción estilo píldora */}
+            <div className="flex flex-col sm:flex-row gap-3">
+              <button 
+                onClick={() => scrollToSection('contacto')}
+                className="inline-flex items-center justify-center bg-white hover:bg-white/95 text-prius-black font-bold text-xs uppercase tracking-[0.15em] px-8 py-4 rounded-full transition-premium cursor-pointer shadow-lg"
+              >
+                RESERVAR
+              </button>
+              <button 
+                onClick={() => scrollToSection('servicios')}
+                className="inline-flex items-center justify-center bg-transparent hover:bg-white/10 text-white border-2 border-white px-8 py-4 rounded-full font-bold text-xs uppercase tracking-[0.15em] transition-premium"
+              >
+                VER SERVICIOS
+              </button>
             </div>
-
-            {/* Micro-descripción y CTAs */}
-            <div className="transition-[opacity,filter,transform] duration-700 ease-out opacity-100 blur-0 translate-y-0">
-              <div>
-                <p className="max-w-[44ch] text-base sm:text-lg lg:text-xl font-medium leading-[1.5] text-white/80">
-                  Un refugio exclusivo en Playa Grande. Costa, silencio y servicio impecable — todo en un lugar.
-                </p>
-                
-                <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-                  <button 
-                    type="button" 
-                    onClick={() => scrollToSection('contacto')}
-                    className="inline-flex h-9 w-full cursor-pointer items-center justify-center rounded-full bg-white px-5 text-[0.875rem] font-bold text-prius-black transition-colors hover:bg-white/90 sm:w-auto"
-                  >
-                    RESERVAR
-                  </button>
-                  <button 
-                    onClick={() => scrollToSection('servicios')}
-                    className="inline-flex h-9 w-full items-center justify-center rounded-full border border-white/30 bg-white/10 px-5 text-[0.875rem] font-bold text-white backdrop-blur-md transition-colors hover:bg-white/20 sm:w-auto"
-                  >
-                    VER SERVICIOS
-                  </button>
-                </div>
-              </div>
-            </div>
-
           </div>
 
         </div>
 
-        {/* ANUNCIADOR INFERIOR PILL */}
-        <div className="mx-auto w-full px-6 sm:px-8 max-w-[1920px] relative z-10 mt-auto pb-6 sm:pb-8">
-          <div className="transition-[opacity,filter,transform] duration-700 ease-out opacity-100 blur-0 translate-y-0">
-            <button 
-              onClick={() => scrollToSection('contacto')}
-              className="group mx-auto flex w-fit max-w-full items-center gap-2.5 rounded-full border border-white/20 bg-white/10 py-1.5 pl-1.5 pr-3 backdrop-blur-md transition-colors hover:border-white/40 hover:bg-white/20 sm:pr-4"
-            >
-              <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-white px-2.5 py-1 text-[0.6875rem] font-semibold text-prius-black font-display">
-                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <rect x="3" y="4" width="18" height="12.5" rx="1.6"></rect>
-                  <path d="M9 20h6M12 16.5V20"></path>
-                </svg>
-                Nuevo
-              </span>
-              <span className="truncate text-[0.8125rem] font-medium text-white/90 sm:text-[0.875rem] font-display">
-                Prius Club ya está disponible
-              </span>
-              <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="shrink-0 text-white/80 transition-transform duration-300 group-hover:translate-x-0.5">
-                <path d="M3 8h9M8.5 4l4 4-4 4"></path>
-              </svg>
-            </button>
-          </div>
+        {/* 3. SECCIÓN INFERIOR: Pill de Novedad flotando perfectamente al pie */}
+        <div className="relative z-10 flex justify-center w-full mt-4">
+          <button
+            onClick={() => scrollToSection('contacto')}
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/10 hover:bg-white/15 backdrop-blur-md transition-premium border border-white/10 text-[9px] md:text-[11px] text-white tracking-[0.15em] uppercase font-display cursor-pointer"
+          >
+            <span className="bg-black/60 text-[8px] md:text-[10px] text-gold font-bold uppercase tracking-[0.15em] px-2.5 py-1 rounded-full">
+              Nuevo
+            </span>
+            <span>Prius Club ya está disponible</span>
+            <ArrowRight size={12} className="text-gold ml-1 animate-bounce-horizontal" />
+          </button>
         </div>
 
       </div>
