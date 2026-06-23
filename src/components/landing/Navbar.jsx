@@ -58,7 +58,7 @@ export default function Navbar() {
             onClick={() => scrollToSection('contacto')}
             className="bg-white hover:bg-white/95 text-black px-6 py-2.5 rounded-full text-[11px] font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer shadow-md"
           >
-            COTIZAR — 2026/2027
+            COTIZAR ESTADÍA
           </button>
         </div>
 
@@ -88,7 +88,7 @@ export default function Navbar() {
             onClick={() => scrollToSection('contacto')}
             className="w-full bg-white text-black py-3.5 rounded-full text-xs font-bold uppercase tracking-widest text-center mt-2 transition-all cursor-pointer"
           >
-            COTIZAR
+            COTIZAR ESTADÍA
           </button>
         </div>
       )}
