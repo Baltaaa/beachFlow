@@ -43,9 +43,9 @@ export default function Hero() {
           {/* Grilla principal */}
           <div className="mt-7 grid grid-cols-1 gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
             
-            {/* Columna Izquierda: Titular */}
+            {/* Columna Izquierda: Titular un poco más chico */}
             <div>
-              <h1 className="text-[34px] sm:text-[46px] md:text-[58px] lg:text-[62px] xl:text-[70px] font-bold leading-[1.02] tracking-[-0.03em] uppercase font-display text-white select-none text-balance">
+              <h1 className="text-[28px] sm:text-[38px] md:text-[48px] lg:text-[52px] xl:text-[58px] font-bold leading-[1.05] tracking-[-0.03em] uppercase font-display text-white select-none text-balance">
                 <span className="text-white/55">TU DESCANSO</span> <br />
                 <span className="text-white/55">EN LA COSTA.</span> <br />
                 <span className="text-gold">EN PRIUS.</span>
