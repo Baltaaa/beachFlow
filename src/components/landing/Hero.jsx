@@ -7,7 +7,7 @@ export default function Hero() {
   }
 
   return (
-    <section className="relative w-full bg-white flex flex-col justify-end p-4 md:p-6">
+    <section className="relative w-full bg-white flex flex-col justify-end p-4">
       
       {/* Contenedor Flotante de Proporción Cinematográfica con altura fijada en 80vh (Estilo nor.ma) */}
       <div className="relative w-full h-[80vh] min-h-[550px] rounded-[24px] md:rounded-[32px] overflow-hidden flex flex-col justify-between p-6 md:p-12">
