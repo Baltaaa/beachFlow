@@ -29,7 +29,7 @@ export default function Navbar() {
     <header 
       className={`fixed inset-x-0 z-50 transition-all duration-500 ease-in-out ${
         isScrolled 
-          ? 'top-0 bg-white/80 backdrop-blur-md py-1 shadow-sm' 
+          ? 'top-0 bg-white/70 backdrop-blur-xl py-1 shadow-sm' 
           : 'top-9 py-0'
       }`}
     >
@@ -140,8 +140,8 @@ export default function Navbar() {
       {isOpen && (
         <div className={`absolute left-8 right-8 border rounded-2xl py-6 px-6 sm:hidden flex flex-col gap-5 animate-premium-fade z-40 transition-all duration-500 ${
           isScrolled 
-            ? 'top-[56px] bg-white/95 border-hairline text-black' 
-            : 'top-[64px] bg-black/90 border-white/10 text-white'
+            ? 'top-[56px] bg-white/90 backdrop-blur-xl border-hairline text-black' 
+            : 'top-[64px] bg-black/90 backdrop-blur-xl border-white/10 text-white'
         }`}>
           {['servicios', 'eventos', 'galeria', 'contacto'].map((item) => (
             <button
