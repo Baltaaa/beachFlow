@@ -41,8 +41,8 @@ export default function Navbar() {
         }`}
       />
       
-      {/* Contenedor adaptado para albergar el logo más grande */}
-      <div className="mx-auto w-full px-6 md:px-0 max-w-[1320px] flex h-24 items-center justify-between sm:grid sm:grid-cols-[1fr_auto_1fr]">
+      {/* Contenedor adaptado con el espaciado exacto de Norma para alinearse con el Hero */}
+      <div className="mx-auto w-full px-6 sm:px-8 max-w-[1320px] flex h-24 items-center justify-between sm:grid sm:grid-cols-[1fr_auto_1fr]">
         
         {/* LEFT: Logo escalado para máxima legibilidad */}
         <button 
