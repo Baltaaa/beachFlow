@@ -16,15 +16,16 @@ export default function Navbar() {
     <nav className="w-full bg-transparent py-4 md:py-6">
       <div className="flex justify-between items-center w-full">
         
-        {/* LEFT: Marca PRIUS en cápsula translúcida (igual a NORMA) */}
+        {/* LEFT: Logo original sin fondo, escalado de forma premium */}
         <button 
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
-          className="flex items-center gap-2 bg-white/10 hover:bg-white/15 backdrop-blur-md border border-white/10 px-5 py-2 rounded-full cursor-pointer transition-all duration-300 z-50"
+          className="flex items-center cursor-pointer transition-transform duration-300 hover:scale-102 z-50"
         >
-          <span className="text-gold text-xs animate-pulse">◆</span>
-          <span className="text-xs md:text-sm font-bold tracking-[0.25em] uppercase font-display text-white">
-            PRIUS
-          </span>
+          <img 
+            src="/logo-prius.png" 
+            alt="Prius" 
+            className="h-16 md:h-20 w-auto object-contain filter brightness-100"
+          />
         </button>
 
         {/* CENTER: Menú de navegación translúcido con micro-íconos elegantes */}
