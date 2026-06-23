@@ -30,7 +30,7 @@ export default function Navbar() {
       className={`fixed inset-x-0 z-50 transition-all duration-500 ease-in-out ${
         isScrolled 
           ? 'top-0 bg-white/70 backdrop-blur-xl py-1 shadow-sm' 
-          : 'top-9 py-0'
+          : 'top-5 py-0'
       }`}
     >
       {/* Gradiente oscuro superior sutil para dar legibilidad en estado inicial */}
@@ -42,7 +42,7 @@ export default function Navbar() {
       />
       
       {/* Contenedor adaptado con la alineación exacta de Norma: px-6 sm:px-8 y max-w-[1216px] */}
-      <div className="mx-auto w-full px-6 sm:px-8 max-w-[1216px] flex h-20 items-center justify-between sm:grid sm:grid-cols-[1fr_auto_1fr] transition-all duration-500">
+      <div className="mx-auto w-full px-6 sm:px-8 max-w-[1216px] flex h-24 items-center justify-between sm:grid sm:grid-cols-[1fr_auto_1fr] transition-all duration-500">
         
         {/* LEFT: Logo escalado de forma más minimalista y compacta */}
         <button 
@@ -53,7 +53,7 @@ export default function Navbar() {
             src="/logo-prius.png" 
             alt="Prius" 
             className={`w-auto object-contain transition-all duration-500 ${
-              isScrolled ? 'h-11 md:h-12' : 'h-16 md:h-18'
+              isScrolled ? 'h-20 md:h-22' : 'h-32 md:h-36'
             }`}
           />
         </button>
@@ -140,7 +140,7 @@ export default function Navbar() {
       {isOpen && (
         <div className={`absolute left-8 right-8 border rounded-2xl py-6 px-6 sm:hidden flex flex-col gap-5 animate-premium-fade z-40 transition-all duration-500 ${
           isScrolled 
-            ? 'top-[56px] bg-white/90 backdrop-blur-xl border-hairline text-black' 
+            ? 'top-[56px] bg-white/95 border-hairline text-black' 
             : 'top-[64px] bg-black/90 backdrop-blur-xl border-white/10 text-white'
         }`}>
           {['servicios', 'eventos', 'galeria', 'contacto'].map((item) => (
