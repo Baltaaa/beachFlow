@@ -30,12 +30,12 @@ export default function Hero() {
           <Navbar />
         </div>
 
-        {/* 2. SECCIÓN CENTRAL CENTRADA Y UNIDA HORIZONTALMENTE (Estilo nor.ma) */}
-        <div className="relative z-10 w-full max-w-[1440px] mx-auto my-auto flex items-center">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center w-full">
+        {/* 2. SECCIÓN CENTRAL UNIDA Y COMPACTA (Alineada más arriba, menos margin top, sin expandirse a los extremos) */}
+        <div className="relative z-10 w-full max-w-[1440px] mx-auto mt-4 md:mt-6 mb-auto flex items-center">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-start gap-8 lg:gap-14 w-full max-w-[1150px]">
             
-            {/* Bloque Izquierdo: Etiquetas + H1 con padding e interlineado exacto */}
-            <div className="lg:col-span-7 flex flex-col gap-5">
+            {/* Bloque Izquierdo: Etiquetas + H1 compactos */}
+            <div className="flex-1 lg:max-w-[640px] flex flex-col gap-5">
               <div className="flex flex-wrap gap-2.5">
                 <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-[10px] md:text-[11px] uppercase tracking-[0.15em] font-display text-white">
                   Reserva sin cargo
@@ -45,15 +45,15 @@ export default function Hero() {
                 </div>
               </div>
 
-              <h1 className="text-[38px] sm:text-[52px] md:text-[68px] lg:text-[76px] xl:text-[84px] font-black leading-[0.95] tracking-tighter uppercase font-display text-white select-none">
+              <h1 className="text-[38px] sm:text-[52px] md:text-[68px] lg:text-[72px] xl:text-[80px] font-black leading-[0.95] tracking-tighter uppercase font-display text-white select-none">
                 TU DESCANSO <br />
                 <span className="text-[#D4A017]">EN PRIUS.</span>
               </h1>
             </div>
 
-            {/* Bloque Derecho: Micro-descripción y CTAs alineados a la perfección horizontal con el H1 */}
-            <div className="lg:col-span-5 flex flex-col gap-6 lg:pl-10">
-              <p className="text-white/90 text-sm sm:text-base leading-relaxed font-light max-w-md drop-shadow-sm">
+            {/* Bloque Derecho: Micro-descripción y CTAs pegados al título con un ancho máximo controlado */}
+            <div className="w-full lg:w-[360px] flex flex-col gap-6 shrink-0 lg:pb-2">
+              <p className="text-white/90 text-sm sm:text-base leading-relaxed font-light drop-shadow-sm">
                 Un refugio exclusivo en Playa Grande. Costa, silencio y servicio impecable — todo en un lugar.
               </p>
               
