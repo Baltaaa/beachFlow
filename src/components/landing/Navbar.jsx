@@ -7,7 +7,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
+      if (window.scrollY > 20) {
         setIsScrolled(true)
       } else {
         setIsScrolled(false)
@@ -26,80 +26,74 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 transition-all duration-500 px-margin-mobile md:px-margin-desktop pt-4 md:pt-6">
-      {/* Contenedor alineado perfectamente con los márgenes globales de la app */}
+    <nav className={`fixed top-0 left-0 w-full z-50 transition-premium px-margin-mobile md:px-margin-desktop ${
+      isScrolled 
+        ? 'bg-white/95 backdrop-blur-md border-b border-hairline shadow-sm' 
+        : 'bg-transparent border-b border-transparent'
+    }`}>
+      {/* Contenedor con el mismo ancho máximo y centrado que el resto de las secciones */}
       <div className="max-w-[1440px] mx-auto w-full">
-        <div className={`flex justify-between items-center transition-all duration-500 ${
-          isScrolled 
-            ? 'bg-prius-black/90 backdrop-blur-lg border border-white/10 rounded-full px-4 md:px-6 py-2.5 shadow-lg' 
-            : 'bg-transparent py-2'
+        <div className={`flex justify-between items-center transition-premium ${
+          isScrolled ? 'h-20' : 'h-28'
         }`}>
-          
-          {/* LOGO: Conservando sus colores originales de marca */}
-          <div className={`transition-all duration-500 ${
-            isScrolled 
-              ? '' 
-              : 'bg-white/10 backdrop-blur-md border border-white/10 rounded-full px-5 py-2'
-          }`}>
-            <a href="#" className="flex items-center">
-              <img 
-                alt="Prius Logo" 
-                className="h-8 md:h-9 w-auto object-contain" 
-                src="/logo-prius.png" 
-              />
-            </a>
+          <div className="flex items-center">
+            <img 
+              alt="Prius Logo" 
+              className={`w-auto object-contain transition-premium ${
+                isScrolled ? 'h-14 md:h-16' : 'h-20 md:h-24'
+              }`} 
+              src="/logo-prius.png" 
+            />
           </div>
           
-          {/* ENLACES: Estilo nor.ma en cápsula translúcida */}
-          <div className="hidden md:flex items-center bg-white/10 backdrop-blur-md border border-white/10 rounded-full px-8 py-2.5 gap-8">
+          <div className="hidden md:flex items-center space-x-8">
             {['servicios', 'eventos', 'galeria', 'contacto'].map((item) => (
               <button
                 key={item}
                 onClick={() => scrollToSection(item)}
-                className="text-[10px] font-semibold tracking-[0.25em] text-white/70 hover:text-white transition-colors duration-300 uppercase font-display"
+                className="text-[11px] font-normal tracking-[0.2em] text-prius-black/60 hover:text-prius-black transition-colors duration-300 uppercase font-display"
               >
                 {item}
               </button>
             ))}
           </div>
 
-          {/* BOTÓN CTA */}
-          <div className="hidden md:flex items-center">
+          <div className="hidden md:flex items-center gap-6">
             <button 
               onClick={() => scrollToSection('contacto')}
-              className="bg-white hover:bg-white/90 text-prius-black px-6 py-3 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] transition-all duration-300 font-display cursor-pointer shadow-sm"
+              className="bg-gold hover:bg-gold-hover text-prius-black px-6 py-3 rounded-sm font-extralight text-[10px] uppercase tracking-[0.2em] transition-premium border border-transparent font-display cursor-pointer"
             >
               Solicitar cotización
             </button>
           </div>
 
-          {/* Botón de Menú Móvil */}
+          {/* Mobile Menu Button */}
           <button 
             onClick={() => setIsOpen(!isOpen)} 
-            className="md:hidden p-2.5 bg-white/10 backdrop-blur-md border border-white/10 text-white rounded-full transition-all"
+            className="md:hidden p-2 text-prius-black hover:bg-prius-background rounded-sm transition-premium"
           >
-            {isOpen ? <X size={18} /> : <Menu size={18} />}
+            {isOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
 
-        {/* Dropdown Móvil */}
-        <div className={`md:hidden bg-prius-black/95 backdrop-blur-lg border border-white/10 rounded-2xl mt-3 transition-all duration-500 overflow-hidden ${
-          isOpen ? 'max-h-[320px] p-6 opacity-100' : 'max-h-0 p-0 opacity-0 pointer-events-none'
+        {/* Mobile Dropdown con transición premium */}
+        <div className={`md:hidden bg-white border-t border-hairline transition-premium overflow-hidden ${
+          isOpen ? 'max-h-[300px] py-6 opacity-100' : 'max-h-0 py-0 opacity-0 pointer-events-none'
         }`}>
           <div className="flex flex-col space-y-4">
             {['servicios', 'eventos', 'galeria', 'contacto'].map((item) => (
               <button
                 key={item}
                 onClick={() => scrollToSection(item)}
-                className="text-left text-[11px] font-semibold tracking-[0.2em] text-white/80 hover:text-white py-2 uppercase font-display transition-colors duration-300"
+                className="text-left text-xs font-normal tracking-[0.15em] text-prius-black/80 hover:text-prius-black py-2 uppercase font-display transition-colors duration-300"
               >
                 {item}
               </button>
             ))}
-            <div className="h-px bg-white/10 my-2" />
+            <div className="h-px bg-hairline my-2" />
             <button 
               onClick={() => scrollToSection('contacto')}
-              className="w-full bg-white text-prius-black py-3.5 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] transition-all text-center font-display cursor-pointer"
+              className="w-full bg-gold hover:bg-gold-hover text-prius-black py-3.5 rounded-sm font-extralight text-[10px] uppercase tracking-[0.2em] transition-premium text-center font-display cursor-pointer"
             >
               Solicitar cotización
             </button>
