@@ -8,8 +8,8 @@ export default function Hero() {
   return (
     <section className="relative w-full bg-white flex flex-col justify-end p-4">
       
-      {/* Contenedor principal de proporción cinematográfica (estilo tarjeta de Norma) */}
-      <div className="relative mx-auto flex min-h-[85vh] w-full max-w-[1920px] flex-col overflow-hidden rounded-[28px] justify-between py-8 md:py-12 px-0">
+      {/* Contenedor principal de proporción cinematográfica (estilo tarjeta de Norma) - configurado con py-8 */}
+      <div className="relative mx-auto flex min-h-[85vh] w-full max-w-[1920px] flex-col overflow-hidden rounded-[28px] justify-between py-8 px-0">
         
         {/* Imagen de fondo de alta gama con oscurecimiento graduado */}
         <div className="absolute inset-0 z-0 select-none pointer-events-none">
@@ -77,8 +77,8 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* SECCIÓN INFERIOR: Botón informativo Prius Club alineado al pie con la estructura exacta de Norma */}
-        <div className="mx-auto w-full px-6 sm:px-8 max-w-[1216px] relative z-10 mt-auto pb-6 sm:pb-8">
+        {/* SECCIÓN INFERIOR: Botón informativo Prius Club sin padding en su contenedor */}
+        <div className="mx-auto w-full max-w-[1216px] relative z-10 mt-auto p-0">
           <div style={{ transitionDelay: '240ms' }} className="transition-[opacity,filter,transform] duration-700 ease-in-out motion-reduce:transition-none opacity-100 blur-0 translate-y-0">
             <button
               onClick={() => scrollToSection('contacto')}
