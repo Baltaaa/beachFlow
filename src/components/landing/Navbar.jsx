@@ -13,12 +13,12 @@ export default function Navbar() {
   }
 
   return (
-    <header className="fixed inset-x-0 z-50" style={{ top: '28px' }}>
+    <header className="fixed inset-x-0 z-50 animate-premium-fade" style={{ top: '36px' }}>
       {/* Gradiente oscuro superior sutil para dar legibilidad */}
       <div aria-hidden="true" className="pointer-events-none fixed inset-x-0 top-0 -z-10 h-28 bg-gradient-to-b from-black/45 via-black/15 to-transparent opacity-100"></div>
       
-      {/* Contenedor con el ancho original de 1920px y padding de 8 */}
-      <div className="mx-auto w-full px-8 max-w-[1920px] flex h-16 items-center justify-between sm:grid sm:grid-cols-[1fr_auto_1fr]">
+      {/* Contenedor alineado con el contenido del Hero (max-w-[1320px]) */}
+      <div className="mx-auto w-full px-6 md:px-0 max-w-[1320px] flex h-16 items-center justify-between sm:grid sm:grid-cols-[1fr_auto_1fr]">
         
         {/* LEFT: Logo limpio sin fondo ni borde */}
         <button 
