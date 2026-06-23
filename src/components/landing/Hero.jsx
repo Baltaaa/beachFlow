@@ -1,4 +1,4 @@
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Sparkles } from 'lucide-react'
 
 export default function Hero() {
   const scrollToSection = (id) => {
@@ -27,7 +27,7 @@ export default function Hero() {
         {/* Espacio para compensar el Navbar flotante superior */}
         <div className="h-20 w-full" />
 
-        {/* SECCIÓN CENTRAL: Con el ancho, padding horizontal y vertical exacto solicitado */}
+        {/* SECCIÓN CENTRAL: Con el ancho, padding horizontal y vertical exacto */}
         <div className="mx-auto w-full px-6 sm:px-8 max-w-[1216px] relative z-10 pt-28 sm:pt-36 pb-12">
           
           {/* Badges horizontales */}
@@ -40,7 +40,7 @@ export default function Hero() {
             </span>
           </div>
 
-          {/* Grilla principal de Norma */}
+          {/* Grilla principal */}
           <div className="mt-7 grid grid-cols-1 gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
             
             {/* Columna Izquierda: Titular */}
@@ -77,18 +77,23 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* SECCIÓN INFERIOR: Botón informativo de Prius Club centrado al pie */}
-        <div className="relative z-10 flex justify-center w-full mt-auto pb-4">
-          <button
-            onClick={() => scrollToSection('contacto')}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-md transition-all duration-300 border border-white/15 text-[10px] text-white tracking-[0.15em] uppercase font-display cursor-pointer"
-          >
-            <span className="bg-white text-black text-[9px] font-bold uppercase tracking-[0.15em] px-2.5 py-1 rounded-full">
-              Nuevo
-            </span>
-            <span>Prius Club ya está disponible</span>
-            <ArrowRight size={12} className="text-white ml-1" />
-          </button>
+        {/* SECCIÓN INFERIOR: Botón informativo Prius Club replicando exactamente a Norma */}
+        <div className="mx-auto w-full px-6 sm:px-8 max-w-[1216px] relative z-10 mt-auto pb-6 sm:pb-8">
+          <div style={{ transitionDelay: '240ms' }} className="transition-[opacity,filter,transform] duration-700 ease-in-out motion-reduce:transition-none opacity-100 blur-0 translate-y-0">
+            <button
+              onClick={() => scrollToSection('contacto')}
+              className="group mx-auto flex w-fit max-w-full items-center gap-2.5 rounded-full border border-white/20 bg-white/10 py-1.5 pl-1.5 pr-3 backdrop-blur-md transition-colors hover:border-white/40 hover:bg-white/20 sm:pr-4 cursor-pointer"
+            >
+              <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-white px-2.5 py-1 text-[0.6875rem] font-semibold text-black">
+                <Sparkles size={11} className="text-black shrink-0" strokeWidth={2.2} />
+                Nuevo
+              </span>
+              <span className="truncate text-[0.8125rem] font-medium text-white/90 sm:text-[0.875rem] font-sans">
+                Prius Club ya está disponible
+              </span>
+              <ArrowRight size={14} className="shrink-0 text-white/80 transition-transform duration-300 group-hover:translate-x-0.5" />
+            </button>
+          </div>
         </div>
 
       </div>
