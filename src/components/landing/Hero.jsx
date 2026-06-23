@@ -1,5 +1,4 @@
 import { ArrowRight } from 'lucide-react'
-import Navbar from './Navbar'
 
 export default function Hero() {
   const scrollToSection = (id) => {
@@ -25,13 +24,11 @@ export default function Hero() {
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30" />
         </div>
 
-        {/* NAVBAR INTEGRADO: Ajustado perfectamente al mismo ancho que el contenido de abajo */}
-        <div className="relative z-20 w-full max-w-[1320px] mx-auto">
-          <Navbar />
-        </div>
+        {/* Espaciador para el Header flotante de arriba para que no colisione */}
+        <div className="h-20 w-full" />
 
         {/* 2. SECCIÓN CENTRAL: Perfectamente centrada, simétrica, alineada de punta a punta con el Navbar */}
-        <div className="relative z-10 w-full max-w-[1320px] mx-auto my-auto pt-6 md:pt-10">
+        <div className="relative z-10 w-full max-w-[1320px] mx-auto my-auto pt-16 md:pt-24 pb-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             
             {/* Columna Izquierda: Etiquetas + Gran Titular */}
@@ -78,7 +75,7 @@ export default function Hero() {
         </div>
 
         {/* 3. SECCIÓN INFERIOR: Pill de Novedad perfectamente centrada al pie */}
-        <div className="relative z-10 flex justify-center w-full mt-4">
+        <div className="relative z-10 flex justify-center w-full mt-auto">
           <button
             onClick={() => scrollToSection('contacto')}
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-md transition-all duration-300 border border-white/15 text-[10px] text-white tracking-[0.15em] uppercase font-display cursor-pointer"

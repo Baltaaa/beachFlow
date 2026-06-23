@@ -1,3 +1,4 @@
+import Navbar from '../components/landing/Navbar'
 import Hero from '../components/landing/Hero'
 import Partners from '../components/landing/Partners'
 import Services from '../components/landing/Services'
@@ -10,6 +11,8 @@ import Footer from '../components/landing/Footer'
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-white font-sans text-prius-black selection:bg-gold selection:text-prius-black">
+      {/* El Header / Navbar se posiciona de forma global y fija como hermano de la página principal */}
+      <Navbar />
       <main>
         <Hero />
         <Partners />
