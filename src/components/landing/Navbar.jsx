@@ -46,7 +46,7 @@ export default function Navbar() {
         isScrolled ? 'h-16' : 'h-20'
       }`}>
         
-        {/* LEFT: Logo escalado x1.5 */}
+        {/* LEFT: Logo escalado x1.3 */}
         <button 
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
           className="flex items-center cursor-pointer justify-self-start transition-all duration-300 hover:opacity-90"
@@ -55,7 +55,7 @@ export default function Navbar() {
             src="/logo-prius.png" 
             alt="Prius" 
             className={`w-auto object-contain transition-all duration-500 ${
-              isScrolled ? 'h-[66px] md:h-[72px]' : 'h-[96px] md:h-[108px]'
+              isScrolled ? 'h-[57px] md:h-[62px]' : 'h-[83px] md:h-[94px]'
             }`}
           />
         </button>
