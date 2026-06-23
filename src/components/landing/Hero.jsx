@@ -47,7 +47,7 @@ export default function Hero() {
               <h1 className="text-[34px] sm:text-[46px] md:text-[58px] lg:text-[62px] xl:text-[70px] font-bold leading-[1.04] tracking-tight uppercase font-display text-white select-none">
                 TU DESCANSO <br />
                 <span className="opacity-50">EN LA COSTA.</span> <br />
-                <span className="text-gold">DE PRIUS.</span>
+                <span className="text-gold">EN PRIUS.</span>
               </h1>
             </div>
 
