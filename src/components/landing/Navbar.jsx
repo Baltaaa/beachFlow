@@ -29,7 +29,7 @@ export default function Navbar() {
     <header 
       className={`fixed inset-x-0 z-50 transition-all duration-500 ease-in-out ${
         isScrolled 
-          ? 'top-0 bg-white/80 backdrop-blur-md py-2' 
+          ? 'top-0 bg-white/80 backdrop-blur-md py-1 shadow-sm border-b border-hairline/50' 
           : 'top-9 py-0'
       }`}
     >
@@ -41,10 +41,14 @@ export default function Navbar() {
         }`}
       />
       
-      {/* Contenedor adaptado con la alineación exacta del Hero: px-10 en mobile, px-16 en desktop */}
-      <div className="mx-auto w-full px-10 md:px-16 max-w-[1320px] flex h-24 items-center justify-between sm:grid sm:grid-cols-[1fr_auto_1fr]">
+      {/* Contenedor adaptado con la alineación exacta del Hero y altura dinámica */}
+      <div 
+        className={`mx-auto w-full px-10 md:px-16 max-w-[1320px] flex items-center justify-between sm:grid sm:grid-cols-[1fr_auto_1fr] transition-all duration-500 ${
+          isScrolled ? 'h-14' : 'h-20'
+        }`}
+      >
         
-        {/* LEFT: Logo escalado para máxima legibilidad */}
+        {/* LEFT: Logo escalado de forma más minimalista y compacta */}
         <button 
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
           className="flex items-center cursor-pointer justify-self-start transition-all duration-300 hover:opacity-90"
@@ -53,44 +57,44 @@ export default function Navbar() {
             src="/logo-prius.png" 
             alt="Prius" 
             className={`w-auto object-contain transition-all duration-500 ${
-              isScrolled ? 'h-20 md:h-24' : 'h-28 md:h-32'
+              isScrolled ? 'h-11 md:h-12' : 'h-16 md:h-18'
             }`}
           />
         </button>
 
         {/* CENTER: Menú de navegación translúcido integrado como píldora */}
-        <nav className={`flex items-center rounded-full backdrop-blur-md transition-all duration-500 hidden h-10 justify-self-center p-1 sm:flex ${
+        <nav className={`flex items-center rounded-full backdrop-blur-md transition-all duration-500 hidden h-9 justify-self-center p-1 sm:flex ${
           isScrolled ? 'bg-black/5' : 'bg-white/15'
         }`}>
           <button
             onClick={() => scrollToSection('servicios')}
-            className={`flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[11px] font-medium tracking-wider transition-all uppercase cursor-pointer ${
+            className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[10px] font-medium tracking-wider transition-all uppercase cursor-pointer ${
               isScrolled 
                 ? 'text-black/75 hover:bg-black/5 hover:text-black' 
                 : 'text-white/75 hover:bg-white/15 hover:text-white'
             }`}
           >
-            <LayoutGrid size={12} className={isScrolled ? "text-black/50" : "text-white/60"} /> Servicios
+            <LayoutGrid size={11} className={isScrolled ? "text-black/50" : "text-white/60"} /> Servicios
           </button>
           <button
             onClick={() => scrollToSection('eventos')}
-            className={`flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[11px] font-medium tracking-wider transition-all uppercase cursor-pointer ${
+            className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[10px] font-medium tracking-wider transition-all uppercase cursor-pointer ${
               isScrolled 
                 ? 'text-black/75 hover:bg-black/5 hover:text-black' 
                 : 'text-white/75 hover:bg-white/15 hover:text-white'
             }`}
           >
-            <Calendar size={12} className={isScrolled ? "text-black/50" : "text-white/60"} /> Eventos
+            <Calendar size={11} className={isScrolled ? "text-black/50" : "text-white/60"} /> Eventos
           </button>
           <button
             onClick={() => scrollToSection('contacto')}
-            className={`flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[11px] font-medium tracking-wider transition-all uppercase cursor-pointer ${
+            className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[10px] font-medium tracking-wider transition-all uppercase cursor-pointer ${
               isScrolled 
                 ? 'text-black/75 hover:bg-black/5 hover:text-black' 
                 : 'text-white/75 hover:bg-white/15 hover:text-white'
             }`}
           >
-            <HelpIcon size={12} className={isScrolled ? "text-black/50" : "text-white/60"} /> Consultas
+            <HelpIcon size={11} className={isScrolled ? "text-black/50" : "text-white/60"} /> Consultas
           </button>
         </nav>
 
@@ -99,13 +103,13 @@ export default function Navbar() {
           <div className="relative hidden sm:block">
             <button 
               type="button" 
-              className={`inline-flex h-10 items-center gap-1.5 rounded-full px-3.5 text-[11px] font-medium backdrop-blur-md transition-all duration-500 cursor-pointer ${
+              className={`inline-flex h-9 items-center gap-1.5 rounded-full px-3 text-[10px] font-medium backdrop-blur-md transition-all duration-500 cursor-pointer ${
                 isScrolled 
                   ? 'bg-black/5 text-black/85 hover:bg-black/10' 
                   : 'bg-white/15 text-white/85 hover:bg-white/20'
               }`}
             >
-              <span className="text-[14px] leading-none">🇦🇷</span>
+              <span className="text-[12px] leading-none">🇦🇷</span>
               <span className="uppercase">es</span>
             </button>
           </div>
@@ -113,19 +117,19 @@ export default function Navbar() {
           {/* Botón de Menú Móvil */}
           <button 
             onClick={() => setIsOpen(!isOpen)} 
-            className={`flex items-center rounded-full backdrop-blur-md transition-all duration-500 size-10 shrink-0 justify-center sm:hidden cursor-pointer ${
+            className={`flex items-center rounded-full backdrop-blur-md transition-all duration-500 size-9 shrink-0 justify-center sm:hidden cursor-pointer ${
               isScrolled 
                 ? 'bg-black/5 text-black hover:bg-black/10' 
                 : 'bg-white/15 text-white hover:bg-white/20'
             }`}
             aria-label="Menu"
           >
-            {isOpen ? <X size={16} /> : <Menu size={16} />}
+            {isOpen ? <X size={15} /> : <Menu size={15} />}
           </button>
 
           <button 
             onClick={() => scrollToSection('contacto')}
-            className={`h-10 cursor-pointer items-center justify-center whitespace-nowrap rounded-full px-5 text-[11px] font-bold hidden sm:inline-flex uppercase tracking-wider transition-all duration-500 ${
+            className={`h-9 cursor-pointer items-center justify-center whitespace-nowrap rounded-full px-4 text-[10px] font-bold hidden sm:inline-flex uppercase tracking-wider transition-all duration-500 ${
               isScrolled 
                 ? 'bg-black text-white hover:bg-black/90' 
                 : 'bg-white text-black hover:bg-white/90'
@@ -140,8 +144,8 @@ export default function Navbar() {
       {isOpen && (
         <div className={`absolute left-8 right-8 border rounded-2xl py-6 px-6 sm:hidden flex flex-col gap-5 animate-premium-fade z-40 transition-all duration-500 ${
           isScrolled 
-            ? 'top-[64px] bg-white/95 border-hairline text-black' 
-            : 'top-[72px] bg-black/90 border-white/10 text-white'
+            ? 'top-[56px] bg-white/95 border-hairline text-black' 
+            : 'top-[64px] bg-black/90 border-white/10 text-white'
         }`}>
           {['servicios', 'eventos', 'galeria', 'contacto'].map((item) => (
             <button
@@ -156,7 +160,7 @@ export default function Navbar() {
           ))}
           <button 
             onClick={() => scrollToSection('contacto')}
-            className={`w-full py-3.5 rounded-full text-xs font-bold uppercase tracking-widest text-center mt-2 transition-all cursor-pointer ${
+            className={`w-full py-3 rounded-full text-xs font-bold uppercase tracking-widest text-center mt-2 transition-all cursor-pointer ${
               isScrolled ? 'bg-black text-white' : 'bg-white text-black'
             }`}
           >
