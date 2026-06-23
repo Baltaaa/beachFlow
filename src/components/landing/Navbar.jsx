@@ -44,7 +44,7 @@ export default function Navbar() {
       {/* Contenedor alineado con el contenido del Hero (max-w-[1320px]) */}
       <div className="mx-auto w-full px-6 md:px-0 max-w-[1320px] flex h-16 items-center justify-between sm:grid sm:grid-cols-[1fr_auto_1fr]">
         
-        {/* LEFT: Logo limpio sin fondo ni borde */}
+        {/* LEFT: Logo limpio sin fondo ni borde (se mantiene idéntico al scrollear sin invertir colores) */}
         <button 
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
           className="flex items-center cursor-pointer justify-self-start transition-all duration-300 hover:opacity-90"
@@ -53,7 +53,7 @@ export default function Navbar() {
             src="/logo-prius.png" 
             alt="Prius" 
             className={`w-auto object-contain transition-all duration-500 ${
-              isScrolled ? 'h-10 md:h-12 invert' : 'h-12 md:h-14'
+              isScrolled ? 'h-10 md:h-12' : 'h-12 md:h-14'
             }`}
           />
         </button>
