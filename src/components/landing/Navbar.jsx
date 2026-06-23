@@ -41,12 +41,8 @@ export default function Navbar() {
         }`}
       />
       
-      {/* Contenedor adaptado con la alineación exacta del Hero y altura dinámica */}
-      <div 
-        className={`mx-auto w-full px-10 md:px-16 max-w-[1320px] flex items-center justify-between sm:grid sm:grid-cols-[1fr_auto_1fr] transition-all duration-500 ${
-          isScrolled ? 'h-14' : 'h-20'
-        }`}
-      >
+      {/* Contenedor adaptado con la alineación exacta de Norma: px-6 sm:px-8 y max-w-[1216px] */}
+      <div className="mx-auto w-full px-6 sm:px-8 max-w-[1216px] flex h-20 items-center justify-between sm:grid sm:grid-cols-[1fr_auto_1fr] transition-all duration-500">
         
         {/* LEFT: Logo escalado de forma más minimalista y compacta */}
         <button 
