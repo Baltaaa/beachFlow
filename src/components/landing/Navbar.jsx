@@ -42,7 +42,7 @@ export default function Navbar() {
       />
       
       {/* Contenedor adaptado con la alineación exacta de Norma: px-6 sm:px-8 y max-w-[1216px] */}
-      <div className="mx-auto w-full px-6 sm:px-8 max-w-[1216px] flex h-24 items-center justify-between sm:grid sm:grid-cols-[1fr_auto_1fr] transition-all duration-500">
+      <div className="mx-auto w-full px-6 sm:px-8 max-w-[1216px] flex h-16 items-center justify-between sm:grid sm:grid-cols-[1fr_auto_1fr] transition-all duration-500">
         
         {/* LEFT: Logo escalado de forma más minimalista y compacta */}
         <button 
@@ -53,7 +53,7 @@ export default function Navbar() {
             src="/logo-prius.png" 
             alt="Prius" 
             className={`w-auto object-contain transition-all duration-500 ${
-              isScrolled ? 'h-20 md:h-22' : 'h-32 md:h-36'
+              isScrolled ? 'h-9 md:h-10' : 'h-14 md:h-15'
             }`}
           />
         </button>
