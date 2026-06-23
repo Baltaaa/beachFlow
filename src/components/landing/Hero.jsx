@@ -25,22 +25,22 @@ export default function Hero() {
           <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-black/35" />
         </div>
 
-        {/* NAVBAR INTEGRADO: Evita cortes fuera de la tarjeta redondeada */}
+        {/* NAVBAR INTEGRADO: Flotando perfectamente al tope de la tarjeta */}
         <div className="relative z-20 -mt-2 -mx-2 md:-mt-6">
           <Navbar />
         </div>
 
-        {/* 2. SECCIÓN CENTRAL UNIDA Y CENTRADA: Centrado perfecto y alineado con el ancho del Navbar */}
-        <div className="relative z-10 w-full max-w-[1440px] mx-auto my-auto flex items-center justify-center">
+        {/* 2. SECCIÓN CENTRAL CENTRADA Y UNIDA HORIZONTALMENTE (Estilo nor.ma) */}
+        <div className="relative z-10 w-full max-w-[1440px] mx-auto my-auto flex items-center">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center w-full">
             
-            {/* Bloque Izquierdo: Etiquetas + H1 */}
-            <div className="lg:col-span-7 flex flex-col gap-4">
+            {/* Bloque Izquierdo: Etiquetas + H1 con padding e interlineado exacto */}
+            <div className="lg:col-span-7 flex flex-col gap-5">
               <div className="flex flex-wrap gap-2.5">
-                <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-black/30 backdrop-blur-md border border-white/20 text-[10px] md:text-xs uppercase tracking-[0.2em] font-display text-white">
+                <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-[10px] md:text-[11px] uppercase tracking-[0.15em] font-display text-white">
                   Reserva sin cargo
                 </div>
-                <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-black/30 backdrop-blur-md border border-white/20 text-[10px] md:text-xs uppercase tracking-[0.2em] font-display text-white/95">
+                <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/10 text-[10px] md:text-[11px] uppercase tracking-[0.15em] font-display text-white/95">
                   Temporada 2026/2027
                 </div>
               </div>
@@ -51,23 +51,23 @@ export default function Hero() {
               </h1>
             </div>
 
-            {/* Bloque Derecho: Micro-descripción y CTAs alineados a la perfección */}
-            <div className="lg:col-span-5 flex flex-col gap-6 lg:pl-6">
-              <p className="text-white/95 text-xs sm:text-sm md:text-base leading-relaxed font-light max-w-sm drop-shadow-sm">
+            {/* Bloque Derecho: Micro-descripción y CTAs alineados a la perfección horizontal con el H1 */}
+            <div className="lg:col-span-5 flex flex-col gap-6 lg:pl-10">
+              <p className="text-white/90 text-sm sm:text-base leading-relaxed font-light max-w-md drop-shadow-sm">
                 Un refugio exclusivo en Playa Grande. Costa, silencio y servicio impecable — todo en un lugar.
               </p>
               
               {/* Botones de acción minimalistas */}
-              <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex flex-wrap gap-3">
                 <button 
                   onClick={() => scrollToSection('contacto')}
-                  className="inline-flex items-center justify-center bg-white hover:bg-white/90 text-prius-black font-bold text-xs uppercase tracking-[0.15em] px-8 py-3.5 rounded-full transition-all duration-300 cursor-pointer shadow-lg"
+                  className="inline-flex items-center justify-center bg-white hover:bg-white/90 text-prius-black font-semibold text-xs uppercase tracking-[0.15em] px-8 py-3.5 rounded-full transition-all duration-300 cursor-pointer shadow-lg"
                 >
                   RESERVAR
                 </button>
                 <button 
                   onClick={() => scrollToSection('servicios')}
-                  className="inline-flex items-center justify-center bg-transparent hover:bg-white/10 text-white border-2 border-white px-8 py-3.5 rounded-full font-bold text-xs uppercase tracking-[0.15em] transition-all duration-300"
+                  className="inline-flex items-center justify-center bg-white/10 hover:bg-white/20 text-white border border-white/20 px-8 py-3.5 rounded-full font-semibold text-xs uppercase tracking-[0.15em] transition-all duration-300 cursor-pointer"
                 >
                   VER SERVICIOS
                 </button>
