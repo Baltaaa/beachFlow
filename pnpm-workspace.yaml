@@ -4,8 +4,6 @@ overrides:
 packages:
   - '.'
 ...
-packages:
-  - '.'
 
 allowBuilds:
   # dyad-default-allow-builds begin
