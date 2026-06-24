@@ -138,29 +138,23 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Menú Móvil Desplegable */}
+      {/* Menú Móvil Desplegable - Siempre con estilo claro premium */}
       {isOpen && (
-        <div className={`absolute left-8 right-8 border rounded-2xl py-6 px-6 sm:hidden flex flex-col gap-5 animate-premium-fade z-40 transition-all duration-500 ${
-          isScrolled 
-            ? 'top-[56px] bg-white/95 border-hairline text-black' 
-            : 'top-[64px] bg-black/90 backdrop-blur-xl border-white/10 text-white'
+        <div className={`absolute left-8 right-8 border border-hairline rounded-2xl py-6 px-6 sm:hidden flex flex-col gap-5 animate-premium-fade z-40 transition-all duration-500 bg-white/95 backdrop-blur-xl text-black ${
+          isScrolled ? 'top-[56px]' : 'top-[64px]'
         }`}>
           {['servicios', 'eventos', 'galeria', 'contacto'].map((item) => (
             <button
               key={item}
               onClick={() => scrollToSection(item)}
-              className={`text-left text-xs font-semibold tracking-widest uppercase py-1 transition-colors duration-300 font-display ${
-                isScrolled ? 'text-black/90 hover:text-gold' : 'text-white/90 hover:text-gold'
-              }`}
+              className="text-left text-xs font-semibold tracking-widest uppercase py-1 transition-colors duration-300 font-display text-black/90 hover:text-gold"
             >
               {item}
             </button>
           ))}
           <button 
             onClick={() => scrollToSection('contacto')}
-            className={`w-full py-3 rounded-full text-xs font-bold uppercase tracking-widest text-center mt-2 transition-all cursor-pointer ${
-              isScrolled ? 'bg-black text-white' : 'bg-white text-black'
-            }`}
+            className="w-full py-3 rounded-full text-xs font-bold uppercase tracking-widest text-center mt-2 transition-all cursor-pointer bg-black text-white hover:bg-black/90"
           >
             COTIZAR ESTADÍA
           </button>
