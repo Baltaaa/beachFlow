@@ -30,8 +30,8 @@ export default function Hero() {
         {/* SECCIÓN CENTRAL: Pegada más arriba para dejar libre el centro de la imagen */}
         <div className="mx-auto w-full px-6 sm:px-8 max-w-[1216px] relative z-10 pt-4 sm:pt-6 pb-12">
           
-          {/* Badges horizontales */}
-          <div className="hidden md:flex flex-wrap gap-2 mb-6">
+          {/* Badges horizontales - Ocultos en mobile/tablet (hidden), visibles solo en desktop (lg:flex) */}
+          <div className="hidden lg:flex flex-wrap gap-2 mb-6">
             <span className="inline-flex select-none items-center whitespace-nowrap rounded-full bg-white/15 px-3.5 py-2 text-[11px] sm:text-[0.8125rem] font-medium text-white/85 backdrop-blur-md">
               Reserva sin cargo
             </span>
