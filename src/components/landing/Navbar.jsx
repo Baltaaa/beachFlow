@@ -41,8 +41,8 @@ export default function Navbar() {
         }`}
       />
       
-      {/* Contenedor adaptado con la alineación exacta de Norma: px-6 sm:px-8 y max-w-[1216px] */}
-      <div className={`mx-auto w-full px-6 sm:px-8 max-w-[1216px] flex items-center justify-between sm:grid sm:grid-cols-[1fr_auto_1fr] transition-all duration-500 ${
+      {/* Contenedor adaptado con padding lateral incrementado en mobile (px-8) */}
+      <div className={`mx-auto w-full px-8 max-w-[1216px] flex items-center justify-between sm:grid sm:grid-cols-[1fr_auto_1fr] transition-all duration-500 ${
         isScrolled ? 'h-16' : 'h-20'
       }`}>
         

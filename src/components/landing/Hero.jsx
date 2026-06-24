@@ -27,8 +27,8 @@ export default function Hero() {
         {/* Espacio compacto superior para dar paso al Navbar */}
         <div className="h-14 sm:h-20 w-full shrink-0" />
 
-        {/* SECCIÓN CENTRAL: Pegada más arriba para dejar libre el centro de la imagen */}
-        <div className="mx-auto w-full px-6 sm:px-8 max-w-[1216px] relative z-10 pt-4 sm:pt-6 pb-12">
+        {/* SECCIÓN CENTRAL: Pegada más arriba para dejar libre el centro de la imagen, con padding lateral incrementado en mobile (px-8) */}
+        <div className="mx-auto w-full px-8 max-w-[1216px] relative z-10 pt-4 sm:pt-6 pb-12">
           
           {/* Badges horizontales - Ocultos en mobile/tablet (hidden), visibles solo en desktop (lg:flex) */}
           <div className="hidden lg:flex flex-wrap gap-2 mb-6">
