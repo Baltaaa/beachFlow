@@ -8,8 +8,8 @@ export default function Hero() {
   return (
     <section className="relative w-full bg-white flex flex-col justify-end p-4">
       
-      {/* Contenedor principal de proporción cinematográfica (estilo tarjeta de Norma) - configurado con py-8 */}
-      <div className="relative mx-auto flex min-h-[85vh] w-full max-w-[1920px] flex-col overflow-hidden rounded-[28px] justify-between py-8 px-0">
+      {/* Contenedor principal con altura responsiva para mantener la proporción visual en mobile (min-h-[60vh] en lugar de forzar 85vh) */}
+      <div className="relative mx-auto flex min-h-[60vh] sm:min-h-[75vh] md:min-h-[85vh] w-full max-w-[1920px] flex-col overflow-hidden rounded-[28px] justify-between py-8 px-0">
         
         {/* Imagen de fondo de alta gama con oscurecimiento graduado */}
         <div className="absolute inset-0 z-0 select-none pointer-events-none">
