@@ -46,7 +46,7 @@ export default function Navbar() {
         isScrolled ? 'h-16' : 'h-20'
       }`}>
         
-        {/* LEFT: Logo blanco unificado en ambos estados */}
+        {/* LEFT: Logo blanco con tamaño optimizado y elegante */}
         <button 
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
           className="flex items-center cursor-pointer justify-self-start transition-all duration-300 hover:opacity-90"
@@ -55,7 +55,7 @@ export default function Navbar() {
             src="/images/prius-logo-white.png" 
             alt="Prius Playa Grande" 
             className={`w-auto object-contain transition-all duration-500 ${
-              isScrolled ? 'h-[42px] md:h-[46px]' : 'h-[75px] md:h-[85px]'
+              isScrolled ? 'h-[32px] md:h-[36px]' : 'h-[48px] md:h-[54px]'
             }`}
           />
         </button>
