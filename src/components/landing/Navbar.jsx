@@ -68,8 +68,8 @@ export default function Navbar() {
             onClick={() => scrollToSection('servicios')}
             className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[10px] font-medium tracking-wider transition-all uppercase cursor-pointer ${
               isScrolled 
-                ? 'text-black/75 hover:bg-black/5 hover:text-black' 
-                : 'text-white/75 hover:bg-white/15 hover:text-white'
+                ? 'text-black/75 hover:bg-black/5 hover:text-gold' 
+                : 'text-white/75 hover:bg-white/15 hover:text-gold'
             }`}
           >
             <LayoutGrid size={11} className={isScrolled ? "text-black/50" : "text-white/60"} /> Servicios
@@ -78,8 +78,8 @@ export default function Navbar() {
             onClick={() => scrollToSection('eventos')}
             className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[10px] font-medium tracking-wider transition-all uppercase cursor-pointer ${
               isScrolled 
-                ? 'text-black/75 hover:bg-black/5 hover:text-black' 
-                : 'text-white/75 hover:bg-white/15 hover:text-white'
+                ? 'text-black/75 hover:bg-black/5 hover:text-gold' 
+                : 'text-white/75 hover:bg-white/15 hover:text-gold'
             }`}
           >
             <Calendar size={11} className={isScrolled ? "text-black/50" : "text-white/60"} /> Eventos
@@ -88,8 +88,8 @@ export default function Navbar() {
             onClick={() => scrollToSection('contacto')}
             className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[10px] font-medium tracking-wider transition-all uppercase cursor-pointer ${
               isScrolled 
-                ? 'text-black/75 hover:bg-black/5 hover:text-black' 
-                : 'text-white/75 hover:bg-white/15 hover:text-white'
+                ? 'text-black/75 hover:bg-black/5 hover:text-gold' 
+                : 'text-white/75 hover:bg-white/15 hover:text-gold'
             }`}
           >
             <HelpIcon size={11} className={isScrolled ? "text-black/50" : "text-white/60"} /> Consultas
@@ -127,11 +127,7 @@ export default function Navbar() {
 
           <button 
             onClick={() => scrollToSection('contacto')}
-            className={`h-9 cursor-pointer items-center justify-center whitespace-nowrap rounded-full px-4 text-[10px] font-bold hidden sm:inline-flex uppercase tracking-wider transition-all duration-500 ${
-              isScrolled 
-                ? 'bg-black text-white hover:bg-black/90' 
-                : 'bg-white text-black hover:bg-white/90'
-            }`}
+            className="h-9 cursor-pointer items-center justify-center whitespace-nowrap rounded-full px-4 text-[10px] font-bold hidden sm:inline-flex uppercase tracking-wider transition-all duration-500 bg-gold text-prius-black hover:bg-gold-hover"
           >
             COTIZAR ESTADÍA
           </button>
@@ -154,7 +150,7 @@ export default function Navbar() {
           ))}
           <button 
             onClick={() => scrollToSection('contacto')}
-            className="w-full py-3 rounded-full text-xs font-bold uppercase tracking-widest text-center mt-2 transition-all cursor-pointer bg-black text-white hover:bg-black/90"
+            className="w-full py-3 rounded-full text-xs font-bold uppercase tracking-widest text-center mt-2 transition-all cursor-pointer bg-gold text-prius-black hover:bg-gold-hover"
           >
             COTIZAR ESTADÍA
           </button>

@@ -5,7 +5,7 @@ import Services from '../components/landing/Services'
 import Events from '../components/landing/Events'
 import Gallery from '../components/landing/Gallery'
 import Testimonials from '../components/landing/Testimonials'
-import Contact from '../components/landing/Contact'
+import ContactSection from '../components/ContactSection'
 import Footer from '../components/landing/Footer'
 
 export default function LandingPage() {
@@ -20,7 +20,7 @@ export default function LandingPage() {
         <Events />
         <Gallery />
         <Testimonials />
-        <Contact />
+        <ContactSection />
       </main>
       <Footer />
     </div>
