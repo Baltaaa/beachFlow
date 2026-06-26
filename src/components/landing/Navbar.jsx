@@ -41,8 +41,8 @@ export default function Navbar() {
         }`}
       />
       
-      {/* Contenedor adaptado con padding lateral incrementado en mobile (px-8) */}
-      <div className={`mx-auto w-full px-8 max-w-[1216px] flex items-center justify-between sm:grid sm:grid-cols-[1fr_auto_1fr] transition-all duration-500 ${
+      {/* Contenedor adaptado con px-12 en mobile para alinear perfectamente con el contenido del Hero (16px de marco + 32px de padding interno = 48px) */}
+      <div className={`mx-auto w-full px-12 sm:px-8 max-w-[1216px] flex items-center justify-between sm:grid sm:grid-cols-[1fr_auto_1fr] transition-all duration-500 ${
         isScrolled ? 'h-16' : 'h-20'
       }`}>
         
@@ -124,7 +124,7 @@ export default function Navbar() {
 
       {/* Menú Móvil Desplegable - Siempre con estilo claro premium */}
       {isOpen && (
-        <div className={`absolute left-8 right-8 border border-hairline rounded-2xl py-6 px-6 sm:hidden flex flex-col gap-5 animate-premium-fade z-40 transition-all duration-500 bg-white/95 backdrop-blur-xl text-black ${
+        <div className={`absolute left-12 right-12 border border-hairline rounded-2xl py-6 px-6 sm:hidden flex flex-col gap-5 animate-premium-fade z-40 transition-all duration-500 bg-white/95 backdrop-blur-xl text-black ${
           isScrolled ? 'top-[56px]' : 'top-[64px]'
         }`}>
           {['servicios', 'eventos', 'galeria', 'contacto'].map((item) => (
