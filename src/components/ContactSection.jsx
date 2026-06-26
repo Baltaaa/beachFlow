@@ -109,14 +109,14 @@ export default function ContactSection() {
           </p>
           <h2 className="text-4xl sm:text-5xl font-extrabold text-gray-900 leading-tight">
             CONTACTATE CON{" "}
-            <span className="text-[#F2CA50]">NUESTRO EQUIPO</span>
+            <span style={{ color: '#F2CA50' }}>NUESTRO EQUIPO</span>
           </h2>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-0 rounded-2xl overflow-hidden shadow-xl">
           <div className="lg:col-span-2 bg-gray-900 text-white p-8 sm:p-10 flex flex-col justify-between">
             <div>
-              <p className="text-xs tracking-[0.18em] text-[#F2CA50] uppercase mb-4">
+              <p className="text-xs tracking-[0.18em] uppercase mb-4" style={{ color: '#F2CA50' }}>
                 CONTACTO EXCLUSIVO
               </p>
               <h3 className="text-2xl sm:text-3xl font-extrabold leading-snug mb-6">
@@ -130,21 +130,21 @@ export default function ContactSection() {
             </div>
             <div className="mt-10 space-y-5 border-t border-gray-700 pt-8">
               <div>
-                <p className="text-xs tracking-[0.15em] text-[#F2CA50] uppercase mb-1">TELÉFONO / WHATSAPP</p>
+                <p className="text-xs tracking-[0.15em] uppercase mb-1" style={{ color: '#F2CA50' }}>TELÉFONO / WHATSAPP</p>
                 <a href="https://wa.me/542235765482" target="_blank" rel="noopener noreferrer"
-                  className="text-white font-semibold hover:text-[#F2CA50] transition-colors">
+                  className="text-white font-semibold hover:opacity-80 transition-opacity">
                   +54 223 576 5482
                 </a>
               </div>
               <div>
-                <p className="text-xs tracking-[0.15em] text-[#F2CA50] uppercase mb-1">EMAIL</p>
+                <p className="text-xs tracking-[0.15em] uppercase mb-1" style={{ color: '#F2CA50' }}>EMAIL</p>
                 <a href="mailto:info@priusplayagrande.com"
-                  className="text-white font-semibold hover:text-[#F2CA50] transition-colors">
+                  className="text-white font-semibold hover:opacity-80 transition-opacity">
                   info@priusplayagrande.com
                 </a>
               </div>
               <div>
-                <p className="text-xs tracking-[0.15em] text-[#F2CA50] uppercase mb-1">UBICACIÓN</p>
+                <p className="text-xs tracking-[0.15em] uppercase mb-1" style={{ color: '#F2CA50' }}>UBICACIÓN</p>
                 <p className="text-white font-semibold">Paseo Victoria Ocampo, Playa Grande</p>
               </div>
             </div>
@@ -154,7 +154,7 @@ export default function ContactSection() {
             {status === "success" ? (
               <div className="h-full flex flex-col items-center justify-center text-center py-12">
                 <div className="w-16 h-16 rounded-full bg-[#F2CA50]/15 flex items-center justify-center mb-5">
-                  <svg className="w-8 h-8 text-[#F2CA50]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <svg className="w-8 h-8" style={{ color: '#F2CA50' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                   </svg>
                 </div>
@@ -163,7 +163,7 @@ export default function ContactSection() {
                   Recibimos tu consulta. Nuestro equipo se va a comunicar con vos por WhatsApp en breve.
                 </p>
                 <button onClick={() => setStatus("idle")}
-                  className="mt-8 text-xs tracking-widest text-[#F2CA50] uppercase font-semibold hover:opacity-70 transition-opacity">
+                  className="mt-8 text-xs tracking-widest uppercase font-semibold hover:opacity-70 transition-opacity" style={{ color: '#F2CA50' }}>
                   Enviar otra consulta →
                 </button>
               </div>
@@ -232,7 +232,7 @@ export default function ContactSection() {
                 <p className="text-center text-xs text-gray-400">
                   También podés escribirnos directo por{" "}
                   <a href="https://wa.me/542235765482" target="_blank" rel="noopener noreferrer"
-                    className="text-[#F2CA50] font-semibold hover:opacity-70 transition-opacity">
+                    className="font-semibold hover:opacity-70 transition-opacity" style={{ color: '#F2CA50' }}>
                     WhatsApp
                   </a>
                 </p>
