@@ -7,13 +7,13 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 40) {
+      if (window.scrollY > 50) {
         setIsScrolled(true)
       } else {
         setIsScrolled(false)
       }
     }
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
@@ -29,7 +29,7 @@ export default function Navbar() {
     <header 
       className={`fixed inset-x-0 z-50 transition-all duration-500 ease-in-out ${
         isScrolled 
-          ? 'top-0 bg-white/70 backdrop-blur-xl py-1 shadow-sm' 
+          ? 'top-0 bg-gray-900/95 backdrop-blur-xl py-1 shadow-sm border-b border-white/5' 
           : 'top-5 py-0'
       }`}
     >
@@ -46,53 +46,41 @@ export default function Navbar() {
         isScrolled ? 'h-16' : 'h-20'
       }`}>
         
-        {/* LEFT: Logo un 10% más chico */}
+        {/* LEFT: Logo dinámico según scroll */}
         <button 
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
           className="flex items-center cursor-pointer justify-self-start transition-all duration-300 hover:opacity-90"
         >
           <img 
-            src="/logo-prius.png" 
-            alt="Prius" 
+            src={isScrolled ? '/images/prius-logo-white.png' : '/logo-prius.png'} 
+            alt="Prius Playa Grande" 
             className={`w-auto object-contain transition-all duration-500 ${
-              isScrolled ? 'h-[51px] md:h-[56px]' : 'h-[75px] md:h-[85px]'
+              isScrolled ? 'h-[42px] md:h-[46px]' : 'h-[75px] md:h-[85px]'
             }`}
           />
         </button>
 
         {/* CENTER: Menú de navegación translúcido integrado como píldora */}
         <nav className={`flex items-center rounded-full backdrop-blur-md transition-all duration-500 hidden h-9 justify-self-center p-1 sm:flex ${
-          isScrolled ? 'bg-black/5' : 'bg-white/15'
+          isScrolled ? 'bg-white/10' : 'bg-white/15'
         }`}>
           <button
             onClick={() => scrollToSection('servicios')}
-            className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[10px] font-medium tracking-wider transition-all uppercase cursor-pointer ${
-              isScrolled 
-                ? 'text-black/75 hover:bg-black/5 hover:text-gold' 
-                : 'text-white/75 hover:bg-white/15 hover:text-gold'
-            }`}
+            className="flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[10px] font-medium tracking-wider transition-all uppercase cursor-pointer text-white/75 hover:bg-white/15 hover:text-gold"
           >
-            <LayoutGrid size={11} className={isScrolled ? "text-black/50" : "text-white/60"} /> Servicios
+            <LayoutGrid size={11} className="text-white/60" /> Servicios
           </button>
           <button
             onClick={() => scrollToSection('eventos')}
-            className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[10px] font-medium tracking-wider transition-all uppercase cursor-pointer ${
-              isScrolled 
-                ? 'text-black/75 hover:bg-black/5 hover:text-gold' 
-                : 'text-white/75 hover:bg-white/15 hover:text-gold'
-            }`}
+            className="flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[10px] font-medium tracking-wider transition-all uppercase cursor-pointer text-white/75 hover:bg-white/15 hover:text-gold"
           >
-            <Calendar size={11} className={isScrolled ? "text-black/50" : "text-white/60"} /> Eventos
+            <Calendar size={11} className="text-white/60" /> Eventos
           </button>
           <button
             onClick={() => scrollToSection('contacto')}
-            className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[10px] font-medium tracking-wider transition-all uppercase cursor-pointer ${
-              isScrolled 
-                ? 'text-black/75 hover:bg-black/5 hover:text-gold' 
-                : 'text-white/75 hover:bg-white/15 hover:text-gold'
-            }`}
+            className="flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[10px] font-medium tracking-wider transition-all uppercase cursor-pointer text-white/75 hover:bg-white/15 hover:text-gold"
           >
-            <HelpIcon size={11} className={isScrolled ? "text-black/50" : "text-white/60"} /> Consultas
+            <HelpIcon size={11} className="text-white/60" /> Consultas
           </button>
         </nav>
 
@@ -103,7 +91,7 @@ export default function Navbar() {
               type="button" 
               className={`inline-flex h-9 items-center gap-1.5 rounded-full px-3 text-[10px] font-medium backdrop-blur-md transition-all duration-500 cursor-pointer ${
                 isScrolled 
-                  ? 'bg-black/5 text-black/85 hover:bg-black/10' 
+                  ? 'bg-white/10 text-white/85 hover:bg-white/20' 
                   : 'bg-white/15 text-white/85 hover:bg-white/20'
               }`}
             >
@@ -117,7 +105,7 @@ export default function Navbar() {
             onClick={() => setIsOpen(!isOpen)} 
             className={`flex items-center rounded-full backdrop-blur-md transition-all duration-500 size-9 shrink-0 justify-center sm:hidden cursor-pointer ${
               isScrolled 
-                ? 'bg-black/5 text-black hover:bg-black/10' 
+                ? 'bg-white/10 text-white hover:bg-white/20' 
                 : 'bg-white/15 text-white hover:bg-white/20'
             }`}
             aria-label="Menu"

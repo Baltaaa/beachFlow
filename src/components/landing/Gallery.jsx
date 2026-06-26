@@ -13,7 +13,11 @@ export default function Gallery() {
     { num: 11, size: "col-span-1 row-span-1 aspect-square md:aspect-auto", title: "Gastronomía de Mar", category: "Restaurante" },
     { num: 12, size: "col-span-1 row-span-1 aspect-square md:aspect-auto", title: "Espacios de Sombra", category: "Servicios" },
     { num: 13, size: "col-span-1 row-span-1 aspect-square md:aspect-auto", title: "Atención Personalizada", category: "Experiencia" },
-    { num: 14, size: "col-span-1 row-span-1 aspect-square md:aspect-auto", title: "Experiencia Nocturna", category: "Eventos" }
+    { num: 14, size: "col-span-1 row-span-1 aspect-square md:aspect-auto", title: "Experiencia Nocturna", category: "Eventos" },
+    { src: '/images/carpas-amigos.webp', size: "col-span-1 row-span-1 aspect-square md:aspect-auto", title: "Grupo de amigos en carpas Prius", category: "Carpas" },
+    { src: '/images/gastronomia-1.webp', size: "col-span-1 row-span-1 aspect-square md:aspect-auto", title: "Gastronomía Prius Playa Grande", category: "Gastronomía" },
+    { src: '/images/gastronomia-2.webp', size: "col-span-1 row-span-1 aspect-square md:aspect-auto", title: "Atención personalizada en Prius", category: "Servicio" },
+    { src: '/images/pareja-playa.webp', size: "col-span-1 row-span-1 aspect-square md:aspect-auto", title: "Pileta y relax en Prius", category: "Relax" }
   ]
 
   const handleOpen = (img) => {
@@ -62,7 +66,7 @@ export default function Gallery() {
               <img 
                 alt={img.title} 
                 className="w-full h-full object-cover group-hover:scale-105 transition-premium-slow" 
-                src={`/images/prius${img.num}.webp`} 
+                src={img.src || `/images/prius${img.num}.webp`} 
               />
               
               {/* Overlay Minimalista */}
@@ -111,7 +115,7 @@ export default function Gallery() {
             style={{ willChange: 'transform, opacity' }}
           >
             <img 
-              src={`/images/prius${activeImage.num}.webp`} 
+              src={activeImage.src || `/images/prius${activeImage.num}.webp`} 
               alt={activeImage.title} 
               className="max-w-full max-h-[75vh] object-contain rounded-lg border border-white/10 shadow-2xl"
             />

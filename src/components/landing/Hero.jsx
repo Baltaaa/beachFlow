@@ -11,13 +11,17 @@ export default function Hero() {
       {/* Contenedor principal con altura responsiva ajustada a 85vh en mobile para igualar la referencia */}
       <div className="relative mx-auto flex min-h-[85vh] sm:min-h-[85vh] md:min-h-[85vh] w-full max-w-[1920px] flex-col overflow-hidden rounded-[28px] justify-between py-8 px-0">
         
-        {/* Imagen de fondo de alta gama con oscurecimiento graduado */}
+        {/* Imagen de fondo de alta gama con oscurecimiento graduado y soporte responsive real */}
         <div className="absolute inset-0 z-0 select-none pointer-events-none">
-          <img 
-            src="/images/prius1.webp" 
-            alt="Experiencia Prius Playa Grande" 
-            className="w-full h-full object-cover object-center"
-          />
+          <picture className="absolute inset-0 w-full h-full">
+            <source media="(max-width: 768px)" srcSet="/images/bg-mobile.webp" type="image/webp" />
+            <source srcSet="/images/bg-desktop.webp" type="image/webp" />
+            <img 
+              src="/images/bg-desktop.webp" 
+              alt="Experiencia Prius Playa Grande" 
+              className="w-full h-full object-cover object-center"
+            />
+          </picture>
           {/* Sutil overlay de mezcla */}
           <div className="absolute inset-0 bg-white/[0.08] mix-blend-overlay" />
           {/* Degradado oscuro para visibilidad perfecta de textos */}
