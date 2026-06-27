@@ -55,7 +55,7 @@ export default function Hero() {
 
             {/* Columna Derecha: Descripción y botones */}
             <div>
-              <p className="max-w-[44ch] text-sm sm:text-base md:text-[1.15rem] leading-[1.5] font-light tracking-wide text-white/90 drop-shadow-sm font-instrument">
+              <p className="max-w-[44ch] text-sm sm:text-base md:text-[1.15rem] leading-[1.5] font-light tracking-wide text-white/90 drop-shadow-sm">
                 Un refugio exclusivo en Playa Grande. Costa, silencio y servicio impecable — diseñado al detalle para su estadía ideal.
               </p>
               

@@ -17,7 +17,7 @@ export default {
         }
       },
       fontFamily: {
-        sans: ['Plus Jakarta Sans', 'sans-serif'],
+        sans: ['Instrument Sans', 'sans-serif'],
         display: ['Exo', 'sans-serif'],
         serif: ['Exo', 'sans-serif'],
         instrument: ['Instrument Sans', 'sans-serif'],
