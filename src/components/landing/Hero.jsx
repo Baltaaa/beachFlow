@@ -29,7 +29,7 @@ export default function Hero() {
         </div>
 
         {/* SECCIÓN CENTRAL: Subida usando mb-auto para que se posicione sobre el cielo */}
-        <div className="mx-auto w-full px-6 sm:px-8 max-w-[1216px] relative z-10 pt-28 sm:pt-36 mb-auto">
+        <div className="mx-auto w-full px-6 sm:px-8 max-w-[1040px] relative z-10 pt-28 sm:pt-36 mb-auto">
           
           {/* Badges horizontales - Ocultos en mobile/tablet, visibles en desktop */}
           <div className="hidden lg:flex flex-wrap gap-2 mb-6">
@@ -79,7 +79,7 @@ export default function Hero() {
         </div>
 
         {/* SECCIÓN INFERIOR: Botón informativo Prius Club en la base */}
-        <div className="mx-auto w-full px-6 sm:px-8 max-w-[1216px] relative z-10 mt-auto pb-6 sm:pb-8 shrink-0">
+        <div className="mx-auto w-full px-6 sm:px-8 max-w-[1040px] relative z-10 mt-auto pb-6 sm:pb-8 shrink-0">
           <div style={{ transitionDelay: '240ms' }} className="transition-[opacity,filter,transform] duration-700 ease-in-out motion-reduce:transition-none opacity-100 blur-0 translate-y-0">
             <button
               onClick={() => scrollToSection('contacto')}

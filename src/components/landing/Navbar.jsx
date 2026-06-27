@@ -41,8 +41,8 @@ export default function Navbar() {
         }`}
       />
       
-      {/* Contenedor interno alineado milimétricamente con el contenido del Hero (max-w-[1216px] y px-6 sm:px-8) */}
-      <div className={`mx-auto w-full px-6 sm:px-8 max-w-[1216px] flex items-center justify-between sm:grid sm:grid-cols-[1fr_auto_1fr] transition-all duration-500 ${
+      {/* Contenedor interno alineado milimétricamente con el contenido del Hero (max-w-[1040px] y px-6 sm:px-8) */}
+      <div className={`mx-auto w-full px-6 sm:px-8 max-w-[1040px] flex items-center justify-between sm:grid sm:grid-cols-[1fr_auto_1fr] transition-all duration-500 ${
         isScrolled ? 'h-16' : 'h-20'
       }`}>
         
