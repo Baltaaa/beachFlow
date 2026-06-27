@@ -20,6 +20,7 @@ export default {
         sans: ['Plus Jakarta Sans', 'sans-serif'],
         display: ['Exo', 'sans-serif'],
         serif: ['Exo', 'sans-serif'],
+        instrument: ['Instrument Sans', 'sans-serif'],
       },
       borderRadius: {
         lg: '8px',
