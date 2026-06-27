@@ -96,3 +96,16 @@ body {
 .animate-premium-slide {
   animation: premiumSlideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
+/* --- SCROLL REVEAL EFFECT --- */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
