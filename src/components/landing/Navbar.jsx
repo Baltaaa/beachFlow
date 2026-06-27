@@ -29,7 +29,7 @@ export default function Navbar() {
     <header 
       className={`fixed z-50 transition-all duration-500 ease-in-out left-0 right-0 mx-auto ${
         isScrolled 
-          ? 'top-0 bg-gray-900/95 backdrop-blur-xl py-1 shadow-sm border-b border-white/5 w-full max-w-full px-6 sm:px-8' 
+          ? 'top-0 bg-neutral-950/95 backdrop-blur-xl py-1 shadow-sm border-b border-white/5 w-full max-w-full px-6 sm:px-8' 
           : 'top-[28px] w-full max-w-[1952px] px-4'
       }`}
     >
@@ -41,12 +41,12 @@ export default function Navbar() {
         }`}
       />
       
-      {/* Contenedor interno alineado milimétricamente con el contenido del Hero (max-w-[1040px] y px-6 sm:px-8) */}
+      {/* Contenedor interno */}
       <div className={`mx-auto w-full px-6 sm:px-8 max-w-[1040px] flex items-center justify-between sm:grid sm:grid-cols-[1fr_auto_1fr] transition-all duration-500 ${
         isScrolled ? 'h-16' : 'h-20'
       }`}>
         
-        {/* LEFT: Logo blanco con tamaño optimizado y elegante */}
+        {/* LEFT: Logo blanco */}
         <button 
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
           className="flex items-center cursor-pointer justify-self-start transition-all duration-300 hover:opacity-90"
@@ -60,7 +60,7 @@ export default function Navbar() {
           />
         </button>
 
-        {/* CENTER: Menú de navegación translúcido integrado como píldora */}
+        {/* CENTER: Menú de navegación translúcido */}
         <nav className={`flex items-center rounded-full backdrop-blur-md transition-all duration-500 hidden h-9 justify-self-center p-1 sm:flex ${
           isScrolled ? 'bg-white/10' : 'bg-white/15'
         }`}>
