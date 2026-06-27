@@ -62,13 +62,13 @@ export default function Hero() {
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                 <button 
                   onClick={() => scrollToSection('contacto')}
-                  className="inline-flex h-9 w-full sm:w-auto cursor-pointer items-center justify-center rounded-full bg-gold px-5 text-[0.875rem] font-bold text-prius-black transition-colors hover:bg-gold-hover tracking-wider"
+                  className="inline-flex h-9 w-full sm:w-auto cursor-pointer items-center justify-center rounded-full bg-gold px-5 text-[10px] font-bold uppercase tracking-wider text-prius-black transition-colors hover:bg-gold-hover"
                 >
                   Reservas
                 </button>
                 <button 
                   onClick={() => scrollToSection('servicios')}
-                  className="inline-flex h-9 w-full sm:w-auto cursor-pointer items-center justify-center rounded-full border border-white/30 bg-white/10 px-4 text-[0.875rem] font-medium text-white backdrop-blur-md transition-colors hover:bg-white/20"
+                  className="inline-flex h-9 w-full sm:w-auto cursor-pointer items-center justify-center rounded-full border border-white/30 bg-white/10 px-4 text-[10px] font-bold uppercase tracking-wider text-white backdrop-blur-md transition-colors hover:bg-white/20"
                 >
                   Ver servicios
                 </button>
