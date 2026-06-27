@@ -9,7 +9,7 @@ export default function Hero() {
     <section className="relative w-full bg-white flex flex-col justify-end p-4">
       
       {/* Contenedor principal con altura responsiva ajustada a 85vh */}
-      <div className="relative mx-auto flex min-h-[85vh] sm:min-h-[85vh] md:min-h-[85vh] w-full max-w-[1920px] flex-col overflow-hidden rounded-[28px] justify-between py-8 px-0">
+      <div className="relative mx-auto flex min-h-[85vh] w-full max-w-[1920px] flex-col overflow-hidden rounded-[28px]">
         
         {/* Imagen de fondo alineada al tope (object-top) para mostrar más cielo arriba */}
         <div className="absolute inset-0 z-0 select-none pointer-events-none">
@@ -28,11 +28,8 @@ export default function Hero() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/40 to-black/60" />
         </div>
 
-        {/* Espacio compacto superior para dar paso al Navbar */}
-        <div className="h-16 sm:h-24 w-full shrink-0" />
-
         {/* SECCIÓN CENTRAL: Subida usando mb-auto para que se posicione sobre el cielo */}
-        <div className="mx-auto w-full px-8 max-w-[1216px] relative z-10 pt-2 md:pt-6 pb-12 mb-auto">
+        <div className="mx-auto w-full px-6 sm:px-8 max-w-[1216px] relative z-10 pt-28 sm:pt-36 mb-auto">
           
           {/* Badges horizontales - Ocultos en mobile/tablet, visibles en desktop */}
           <div className="hidden lg:flex flex-wrap gap-2 mb-6">
@@ -71,7 +68,7 @@ export default function Hero() {
                 </button>
                 <button 
                   onClick={() => scrollToSection('servicios')}
-                  className="inline-flex h-9 w-full sm:w-auto cursor-pointer items-center justify-center rounded-full border border-white/30 bg-white/10 px-4 text-[0.875rem] font-medium text-white backdrop-blur-md transition-colors hover:bg-white/20 tracking-wider"
+                  className="inline-flex h-9 w-full sm:w-auto cursor-pointer items-center justify-center rounded-full border border-white/30 bg-white/10 px-4 text-[0.875rem] font-medium text-white backdrop-blur-md transition-colors hover:bg-white/20"
                 >
                   Ver servicios
                 </button>
@@ -82,7 +79,7 @@ export default function Hero() {
         </div>
 
         {/* SECCIÓN INFERIOR: Botón informativo Prius Club en la base */}
-        <div className="mx-auto w-full max-w-[1216px] relative z-10 mt-auto p-0 shrink-0">
+        <div className="mx-auto w-full px-6 sm:px-8 max-w-[1216px] relative z-10 mt-auto pb-6 sm:pb-8 shrink-0">
           <div style={{ transitionDelay: '240ms' }} className="transition-[opacity,filter,transform] duration-700 ease-in-out motion-reduce:transition-none opacity-100 blur-0 translate-y-0">
             <button
               onClick={() => scrollToSection('contacto')}

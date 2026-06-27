@@ -27,10 +27,10 @@ export default function Navbar() {
 
   return (
     <header 
-      className={`fixed z-50 transition-all duration-500 ease-in-out left-0 right-0 mx-auto max-w-[1920px] ${
+      className={`fixed z-50 transition-all duration-500 ease-in-out left-0 right-0 mx-auto ${
         isScrolled 
-          ? 'top-0 bg-gray-900/95 backdrop-blur-xl py-1 shadow-sm border-b border-white/5 px-4 md:px-8' 
-          : 'top-9 px-8 md:px-12'
+          ? 'top-0 bg-gray-900/95 backdrop-blur-xl py-1 shadow-sm border-b border-white/5 w-full max-w-full px-6 sm:px-8' 
+          : 'top-4 w-full max-w-[1952px] px-4'
       }`}
     >
       {/* Gradiente oscuro superior sutil para dar legibilidad en estado inicial */}
@@ -41,8 +41,8 @@ export default function Navbar() {
         }`}
       />
       
-      {/* Contenedor interno alineado milimétricamente con el contenido del Hero (max-w-1216px y px-8) */}
-      <div className={`mx-auto w-full px-8 max-w-[1216px] flex items-center justify-between sm:grid sm:grid-cols-[1fr_auto_1fr] transition-all duration-500 ${
+      {/* Contenedor interno alineado milimétricamente con el contenido del Hero (max-w-[1216px] y px-6 sm:px-8) */}
+      <div className={`mx-auto w-full px-6 sm:px-8 max-w-[1216px] flex items-center justify-between sm:grid sm:grid-cols-[1fr_auto_1fr] transition-all duration-500 ${
         isScrolled ? 'h-16' : 'h-20'
       }`}>
         
@@ -124,7 +124,7 @@ export default function Navbar() {
 
       {/* Menú Móvil Desplegable */}
       {isOpen && (
-        <div className={`absolute left-8 right-8 border border-hairline rounded-2xl py-6 px-6 sm:hidden flex flex-col gap-5 animate-premium-fade z-40 transition-all duration-500 bg-white/95 backdrop-blur-xl text-black ${
+        <div className={`absolute left-6 right-6 border border-hairline rounded-2xl py-6 px-6 sm:hidden flex flex-col gap-5 animate-premium-fade z-40 transition-all duration-500 bg-white/95 backdrop-blur-xl text-black ${
           isScrolled ? 'top-[56px]' : 'top-[64px]'
         }`}>
           {['servicios', 'eventos', 'galeria', 'contacto'].map((item) => (
