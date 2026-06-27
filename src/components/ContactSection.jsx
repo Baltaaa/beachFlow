@@ -174,8 +174,8 @@ export default function ContactSection() {
                 </div>
                 <div>
                   <p className="text-[7px] font-normal uppercase tracking-widest text-white/40 leading-none mb-0.5">Ubicación</p>
-                  <p className="text-[11px] font-light text-white/90 tracking-wide">
-                    Paseo Victoria Ocampo, Playa Grande
+                  <p className="text-[11px] font-light text-white/90 tracking-wide leading-relaxed">
+                    Balneario 7, Playa Grande, Mar del Plata
                   </p>
                 </div>
               </div>
