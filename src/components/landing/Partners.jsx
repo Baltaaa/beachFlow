@@ -11,11 +11,16 @@ export default function Partners() {
   
   return (
     <section className="py-16 bg-white border-b border-hairline overflow-hidden">
-      <div className="px-margin-mobile md:px-margin-desktop mb-8 text-center md:text-left">
-        <span className="text-[11px] font-bold uppercase text-prius-black/40 tracking-[0.25em]">
-          Socios Estratégicos
+      {/* Contenedor alineado idéntico a las demás secciones */}
+      <div className="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop mb-10">
+        <span className="text-[9px] font-normal uppercase tracking-[0.3em] text-prius-black/40 block mb-1 font-display">
+          Alianzas de Excelencia
         </span>
+        <h2 className="text-2xl md:text-3xl font-normal tracking-tight text-prius-black uppercase font-display leading-none">
+          Socios <span className="text-gold">Estratégicos</span>
+        </h2>
       </div>
+
       <div className="relative w-full overflow-hidden flex">
         {/* Contenedor principal de animación sin gaps externos */}
         <div className="flex shrink-0 animate-scroll grayscale opacity-40">
