@@ -44,22 +44,22 @@ export default function LandingPage() {
         {/* El Hero ya inicia animado directamente para dar feedback inmediato */}
         <Hero />
         
-        <div className="reveal">
+        <div id="partners" className="reveal">
           <Partners />
         </div>
-        <div className="reveal">
+        <div id="servicios" className="reveal">
           <Services />
         </div>
-        <div className="reveal">
+        <div id="eventos" className="reveal">
           <Events />
         </div>
-        <div className="reveal">
+        <div id="galeria" className="reveal">
           <Gallery />
         </div>
-        <div className="reveal">
+        <div id="testimonios" className="reveal">
           <Testimonials />
         </div>
-        <div className="reveal">
+        <div id="contacto" className="reveal">
           <ContactSection />
         </div>
       </main>
