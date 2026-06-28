@@ -110,11 +110,13 @@ export default function Navbar() {
 
   return (
     <>
-      {/* CAPA DE DESENFOQUE FIJA INDEPENDIENTE (Puro blur sin color, 100% apagado en estado inicial) */}
+      {/* CAPA DE DESENFOQUE PROGRESIVO FIJO (Se activa con fade-in fluido de opacidad y filtro solo al hacer scroll) */}
       <div 
         aria-hidden="true" 
-        className={`fixed top-0 left-0 right-0 h-[110px] pointer-events-none z-40 transition-opacity duration-500 backdrop-blur-[16px] ${
-          isScrolled ? 'opacity-100' : 'opacity-0'
+        className={`fixed top-0 left-0 right-0 h-[110px] pointer-events-none z-40 transition-all duration-700 ease-in-out ${
+          isScrolled 
+            ? 'opacity-100 backdrop-blur-[20px]' 
+            : 'opacity-0 backdrop-blur-none'
         }`}
         style={{
           WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 45%, rgba(0,0,0,0) 100%)',
