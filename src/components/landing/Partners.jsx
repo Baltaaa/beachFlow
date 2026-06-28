@@ -11,15 +11,17 @@ export default function Partners() {
   
   return (
     <section className="py-16 bg-white border-b border-hairline overflow-hidden">
-      {/* Contenedor alineado horizontal y verticalmente de manera idéntica a las demás secciones */}
-      <div className="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop mb-10">
-        <span className="text-[9px] font-normal uppercase tracking-[0.3em] text-prius-black/40 block font-display">
-          Socios Estratégicos
-        </span>
+      {/* Envoltura idéntica a las secciones hermanas para lograr alineación pixel-perfect */}
+      <div className="px-margin-mobile md:px-margin-desktop">
+        <div className="max-w-[1440px] mx-auto mb-10">
+          <span className="text-[9px] font-normal uppercase tracking-[0.3em] text-prius-black/40 block font-display">
+            Socios Estratégicos
+          </span>
+        </div>
       </div>
 
+      {/* Track infinito sin márgenes que sobresale al 100% de la pantalla */}
       <div className="relative w-full overflow-hidden flex">
-        {/* Contenedor principal de animación sin gaps externos */}
         <div className="flex shrink-0 animate-scroll grayscale opacity-40">
           
           {/* Track 1 */}
@@ -35,7 +37,7 @@ export default function Partners() {
             ))}
           </div>
 
-          {/* Track 2 (Exactamente idéntico para el loop perfecto) */}
+          {/* Track 2 */}
           <div className="flex items-center shrink-0" aria-hidden="true">
             {repeatedPartners.map((partner, i) => (
               <div key={`t2-${i}`} className="w-28 md:w-44 h-10 md:h-14 flex items-center justify-center shrink-0 mr-16 md:mr-28">
