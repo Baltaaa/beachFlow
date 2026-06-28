@@ -110,19 +110,17 @@ export default function Navbar() {
 
   return (
     <>
-      {/* CAPA DE DESENFOQUE PROGRESIVO FIJO (Se activa con fade-in fluido de opacidad y filtro solo al hacer scroll) */}
-      <div 
-        aria-hidden="true" 
-        className={`fixed top-0 left-0 right-0 h-[110px] pointer-events-none z-40 transition-all duration-700 ease-in-out ${
-          isScrolled 
-            ? 'opacity-100 backdrop-blur-[20px]' 
-            : 'opacity-0 backdrop-blur-none'
-        }`}
-        style={{
-          WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 45%, rgba(0,0,0,0) 100%)',
-          maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 45%, rgba(0,0,0,0) 100%)',
-        }}
-      />
+      {/* CAPA DE DESENFOQUE PROGRESIVO FIJO (Renderizado condicional para evitar halos grises iniciales) */}
+      {isScrolled && (
+        <div 
+          aria-hidden="true" 
+          className="fixed top-0 left-0 right-0 h-[110px] pointer-events-none z-40 backdrop-blur-[20px] animate-premium-fade"
+          style={{
+            WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 45%, rgba(0,0,0,0) 100%)',
+            maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 45%, rgba(0,0,0,0) 100%)',
+          }}
+        />
+      )}
 
       <header 
         className={`fixed z-50 transition-all duration-500 ease-in-out left-0 right-0 mx-auto ${headerBackgroundClass}`}
