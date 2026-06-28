@@ -62,13 +62,19 @@ export default function Navbar() {
     setIsOpen(false)
   }
 
-  // Estilos dinámicos basados en scroll y tema de contraste activo
+  // Estilos dinámicos del HEADER (Siempre con fondo transparente)
   const headerBackgroundClass = !isScrolled
     ? 'top-[28px] w-full max-w-[1952px] px-4 bg-transparent'
-    : activeTheme === 'light'
-      ? 'top-0 bg-white text-prius-black w-full max-w-full px-6 sm:px-8 py-1'
-      : 'top-0 bg-neutral-950 text-white w-full max-w-full px-6 sm:px-8 py-1'
+    : 'top-0 bg-transparent w-full max-w-full px-6 sm:px-8 py-1'
 
+  // Estilos del logo (Se convierte en cápsula/pill al hacer scroll)
+  const logoButtonClass = !isScrolled
+    ? 'bg-transparent px-0'
+    : activeTheme === 'light'
+      ? 'bg-neutral-100 hover:bg-neutral-200 px-3.5 shadow-sm border border-hairline/20'
+      : 'bg-white/10 hover:bg-white/20 px-3.5 border border-white/5'
+
+  // Estilos de los textos de navegación
   const textColorClass = !isScrolled
     ? 'text-white/75 hover:text-gold'
     : activeTheme === 'light'
@@ -81,23 +87,26 @@ export default function Navbar() {
       ? 'text-prius-black/60'
       : 'text-white/60'
 
+  // Cápsula de navegación central
   const navPillBackground = !isScrolled
     ? 'bg-white/15'
     : activeTheme === 'light'
-      ? 'bg-neutral-100 text-prius-black'
-      : 'bg-white/10 text-white'
+      ? 'bg-white text-prius-black shadow-sm border border-hairline/65'
+      : 'bg-white/10 text-white border border-white/5'
 
+  // Cápsula de Selector de Idioma
   const languageButtonClass = !isScrolled
     ? 'bg-white/15 text-white/85 hover:bg-white/20'
     : activeTheme === 'light'
-      ? 'bg-neutral-100 text-prius-black/90 hover:bg-neutral-200'
-      : 'bg-white/10 text-white/85 hover:bg-white/20'
+      ? 'bg-neutral-100 text-prius-black/90 hover:bg-neutral-200 border border-hairline/20'
+      : 'bg-white/10 text-white/85 hover:bg-white/20 border border-white/5'
 
+  // Cápsula de Menú Móvil
   const menuButtonClass = !isScrolled
     ? 'bg-white/15 text-white hover:bg-white/20'
     : activeTheme === 'light'
-      ? 'bg-neutral-100 text-prius-black hover:bg-neutral-200'
-      : 'bg-white/10 text-white hover:bg-white/20'
+      ? 'bg-neutral-100 text-prius-black hover:bg-neutral-200 border border-hairline/20'
+      : 'bg-white/10 text-white hover:bg-white/20 border border-white/5'
 
   return (
     <header 
@@ -116,19 +125,21 @@ export default function Navbar() {
         isScrolled ? 'h-16' : 'h-20'
       }`}>
         
-        {/* LEFT: Logo interactivo (La P dorada oficial de Prius en todos los estados) */}
-        <button 
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
-          className="flex items-center cursor-pointer justify-self-start transition-all duration-500 hover:opacity-90"
-        >
-          <img 
-            src="/favicon-512x512.png" 
-            alt="Prius Monograma" 
-            className={`w-auto object-contain transition-all duration-500 ${
-              isScrolled ? 'h-[32px] md:h-[36px]' : 'h-[38px] md:h-[44px]'
-            }`}
-          />
-        </button>
+        {/* LEFT: Logo interactivo (La P dorada en cápsula minimalista) */}
+        <div className="justify-self-start flex items-center">
+          <button 
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
+            className={`inline-flex h-9 items-center justify-center rounded-full transition-all duration-500 cursor-pointer ${logoButtonClass}`}
+          >
+            <img 
+              src="/favicon-512x512.png" 
+              alt="Prius Monograma" 
+              className={`w-auto object-contain transition-all duration-500 ${
+                isScrolled ? 'h-[20px] md:h-[22px]' : 'h-[38px] md:h-[44px]'
+              }`}
+            />
+          </button>
+        </div>
 
         {/* CENTER: Menú de navegación dinámico */}
         <nav className={`flex items-center rounded-full transition-all duration-500 hidden h-9 justify-self-center p-1 sm:flex ${navPillBackground}`}>
@@ -175,7 +186,7 @@ export default function Navbar() {
 
           <button 
             onClick={() => scrollToSection('contacto')}
-            className="h-9 cursor-pointer items-center justify-center whitespace-nowrap rounded-full px-4 text-[10px] font-bold hidden sm:inline-flex uppercase tracking-wider transition-all duration-500 bg-gold text-prius-black hover:bg-gold-hover"
+            className="h-9 cursor-pointer items-center justify-center whitespace-nowrap rounded-full px-4 text-[10px] font-bold hidden sm:inline-flex uppercase tracking-wider transition-all duration-500 bg-gold text-prius-black hover:bg-gold-hover shadow-sm"
           >
             COTIZAR ESTADÍA
           </button>
