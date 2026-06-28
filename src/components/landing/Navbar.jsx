@@ -116,13 +116,13 @@ export default function Navbar() {
         isScrolled ? 'h-16' : 'h-20'
       }`}>
         
-        {/* LEFT: Logo interactivo (La P sola de Prius en todos los estados) */}
+        {/* LEFT: Logo interactivo (La P dorada oficial de Prius en todos los estados) */}
         <button 
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
           className="flex items-center cursor-pointer justify-self-start transition-all duration-500 hover:opacity-90"
         >
           <img 
-            src="/icon.svg" 
+            src="/favicon-512x512.png" 
             alt="Prius Monograma" 
             className={`w-auto object-contain transition-all duration-500 ${
               isScrolled ? 'h-[32px] md:h-[36px]' : 'h-[38px] md:h-[44px]'
