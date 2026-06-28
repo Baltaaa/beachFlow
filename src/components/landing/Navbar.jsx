@@ -116,24 +116,18 @@ export default function Navbar() {
         isScrolled ? 'h-16' : 'h-20'
       }`}>
         
-        {/* LEFT: Logo interactivo (Texto completo arriba, P amarilla en scroll) */}
+        {/* LEFT: Logo interactivo (La P sola de Prius en todos los estados) */}
         <button 
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
           className="flex items-center cursor-pointer justify-self-start transition-all duration-500 hover:opacity-90"
         >
-          {isScrolled ? (
-            <img 
-              src="/icon.svg" 
-              alt="Prius Monograma" 
-              className="h-[32px] md:h-[38px] w-auto object-contain transition-all duration-500"
-            />
-          ) : (
-            <img 
-              src="/images/prius-logo-white.png" 
-              alt="Prius Playa Grande" 
-              className="h-[48px] md:h-[54px] w-auto object-contain transition-all duration-500"
-            />
-          )}
+          <img 
+            src="/icon.svg" 
+            alt="Prius Monograma" 
+            className={`w-auto object-contain transition-all duration-500 ${
+              isScrolled ? 'h-[32px] md:h-[36px]' : 'h-[38px] md:h-[44px]'
+            }`}
+          />
         </button>
 
         {/* CENTER: Menú de navegación dinámico */}
