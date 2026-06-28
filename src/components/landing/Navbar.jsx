@@ -108,29 +108,29 @@ export default function Navbar() {
       ? 'bg-neutral-100 text-prius-black hover:bg-neutral-200 border border-hairline/20'
       : 'bg-white/10 text-white hover:bg-white/20 border border-white/5'
 
-  // Gradiente sutil de fondo para potenciar contraste según el tema
+  // Incrementamos la opacidad base de la cobertura para bloquear textos de fondo
   const blurGradientBg = activeTheme === 'light'
-    ? 'from-white/70 via-white/35 to-transparent'
-    : 'from-black/70 via-black/35 to-transparent'
+    ? 'from-white/95 via-white/60 to-transparent'
+    : 'from-black/95 via-black/60 to-transparent'
 
   return (
     <header 
       className={`fixed z-50 transition-all duration-500 ease-in-out left-0 right-0 mx-auto ${headerBackgroundClass}`}
     >
-      {/* CAPA DE DESENFOQUE DEGRADADO (Gradient Blur con máscara CSS) */}
+      {/* CAPA DE DESENFOQUE DEGRADADO PREMIUM (Intensidad x2 y fade ultra-suave de 5 paradas) */}
       <div 
         aria-hidden="true" 
-        className={`absolute inset-0 -z-20 h-28 pointer-events-none transition-all duration-500 bg-gradient-to-b ${blurGradientBg} backdrop-blur-[12px]`}
+        className={`absolute inset-0 -z-20 h-[140px] pointer-events-none transition-all duration-500 bg-gradient-to-b ${blurGradientBg} backdrop-blur-[24px]`}
         style={{
-          WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0) 100%)',
-          maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0) 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 20%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.2) 80%, rgba(0,0,0,0) 100%)',
+          maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 20%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.2) 80%, rgba(0,0,0,0) 100%)',
         }}
       />
       
-      {/* Sutil gradiente oscuro inicial para el Hero en tope de página */}
+      {/* Sutil gradiente oscuro inicial para el Hero en el tope de la página */}
       <div 
         aria-hidden="true" 
-        className={`pointer-events-none absolute inset-x-0 top-0 -z-10 h-28 bg-gradient-to-b from-black/30 to-transparent transition-opacity duration-500 ${
+        className={`pointer-events-none absolute inset-x-0 top-0 -z-10 h-32 bg-gradient-to-b from-black/40 via-black/10 to-transparent transition-opacity duration-500 ${
           isScrolled ? 'opacity-0' : 'opacity-100'
         }`}
       />
