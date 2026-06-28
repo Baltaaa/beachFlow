@@ -109,12 +109,14 @@ export default function Navbar() {
       : 'bg-white/10 text-white hover:bg-white/20 border border-white/5'
 
   return (
-    <>
-      {/* CAPA DE DESENFOQUE PROGRESIVO FIJO (Renderizado condicional para evitar halos grises iniciales) */}
+    <header 
+      className={`fixed z-50 transition-all duration-500 ease-in-out left-0 right-0 mx-auto ${headerBackgroundClass}`}
+    >
+      {/* CAPA DE DESENFOQUE PROGRESIVO FIJO (Ahora absolute dentro del header, adaptándose perfectamente a sus límites) */}
       {isScrolled && (
         <div 
           aria-hidden="true" 
-          className="fixed top-0 left-0 right-0 h-[110px] pointer-events-none z-40 backdrop-blur-[20px] animate-premium-fade"
+          className="absolute inset-x-0 top-0 -z-20 h-[110px] pointer-events-none backdrop-blur-[20px] animate-premium-fade"
           style={{
             WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 45%, rgba(0,0,0,0) 100%)',
             maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 45%, rgba(0,0,0,0) 100%)',
@@ -122,113 +124,109 @@ export default function Navbar() {
         />
       )}
 
-      <header 
-        className={`fixed z-50 transition-all duration-500 ease-in-out left-0 right-0 mx-auto ${headerBackgroundClass}`}
-      >
-        {/* Sutil gradiente oscuro inicial para el Hero en el tope de la página */}
-        <div 
-          aria-hidden="true" 
-          className={`pointer-events-none absolute inset-x-0 top-0 -z-10 h-32 bg-gradient-to-b from-black/30 to-transparent transition-opacity duration-500 ${
-            isScrolled ? 'opacity-0' : 'opacity-100'
-          }`}
-        />
+      {/* Sutil gradiente oscuro inicial para el Hero en el tope de la página */}
+      <div 
+        aria-hidden="true" 
+        className={`pointer-events-none absolute inset-x-0 top-0 -z-10 h-32 bg-gradient-to-b from-black/30 to-transparent transition-opacity duration-500 ${
+          isScrolled ? 'opacity-0' : 'opacity-100'
+        }`}
+      />
+      
+      {/* Contenedor interno */}
+      <div className={`mx-auto w-full px-6 sm:px-8 max-w-[1040px] flex items-center justify-between sm:grid sm:grid-cols-[1fr_auto_1fr] transition-all duration-500 ${
+        isScrolled ? 'h-16' : 'h-20'
+      }`}>
         
-        {/* Contenedor interno */}
-        <div className={`mx-auto w-full px-6 sm:px-8 max-w-[1040px] flex items-center justify-between sm:grid sm:grid-cols-[1fr_auto_1fr] transition-all duration-500 ${
-          isScrolled ? 'h-16' : 'h-20'
-        }`}>
-          
-          {/* LEFT: Logo interactivo (La P dorada en cápsula minimalista) */}
-          <div className="justify-self-start flex items-center">
-            <button 
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
-              className={`inline-flex h-9 items-center justify-center rounded-full transition-all duration-500 cursor-pointer ${logoButtonClass}`}
-            >
-              <img 
-                src="/favicon-512x512.png" 
-                alt="Prius Monograma" 
-                className={`w-auto object-contain transition-all duration-500 ${
-                  isScrolled ? 'h-[20px] md:h-[22px]' : 'h-[38px] md:h-[44px]'
-                }`}
-              />
-            </button>
-          </div>
-
-          {/* CENTER: Menú de navegación dinámico */}
-          <nav className={`flex items-center rounded-full transition-all duration-500 hidden h-9 justify-self-center p-1 sm:flex ${navPillBackground}`}>
-            <button
-              onClick={() => scrollToSection('servicios')}
-              className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[10px] font-medium tracking-wider transition-all uppercase cursor-pointer ${textColorClass}`}
-            >
-              <LayoutGrid size={11} className={textIconColor} /> Servicios
-            </button>
-            <button
-              onClick={() => scrollToSection('eventos')}
-              className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[10px] font-medium tracking-wider transition-all uppercase cursor-pointer ${textColorClass}`}
-            >
-              <Calendar size={11} className={textIconColor} /> Eventos
-            </button>
-            <button
-              onClick={() => scrollToSection('contacto')}
-              className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[10px] font-medium tracking-wider transition-all uppercase cursor-pointer ${textColorClass}`}
-            >
-              <HelpIcon size={11} className={textIconColor} /> Consultas
-            </button>
-          </nav>
-
-          {/* RIGHT: Selector de Idioma + CTA Principal */}
-          <div className="flex items-center gap-2 justify-self-end">
-            <div className="relative hidden sm:block">
-              <button 
-                type="button" 
-                className={`inline-flex h-9 items-center gap-1.5 rounded-full px-3 text-[10px] font-medium transition-all duration-500 cursor-pointer ${languageButtonClass}`}
-              >
-                <span className="text-[12px] leading-none">🇦🇷</span>
-                <span className="uppercase">es</span>
-              </button>
-            </div>
-            
-            {/* Botón de Menú Móvil */}
-            <button 
-              onClick={() => setIsOpen(!isOpen)} 
-              className={`flex items-center rounded-full transition-all duration-500 size-9 shrink-0 justify-center sm:hidden cursor-pointer ${menuButtonClass}`}
-              aria-label="Menu"
-            >
-              {isOpen ? <X size={15} /> : <Menu size={15} />}
-            </button>
-
-            <button 
-              onClick={() => scrollToSection('contacto')}
-              className="h-9 cursor-pointer items-center justify-center whitespace-nowrap rounded-full px-4 text-[10px] font-bold hidden sm:inline-flex uppercase tracking-wider transition-all duration-500 bg-gold text-prius-black hover:bg-gold-hover shadow-sm"
-            >
-              COTIZAR ESTADÍA
-            </button>
-          </div>
+        {/* LEFT: Logo interactivo (La P dorada en cápsula minimalista) */}
+        <div className="justify-self-start flex items-center">
+          <button 
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
+            className={`inline-flex h-9 items-center justify-center rounded-full transition-all duration-500 cursor-pointer ${logoButtonClass}`}
+          >
+            <img 
+              src="/favicon-512x512.png" 
+              alt="Prius Monograma" 
+              className={`w-auto object-contain transition-all duration-500 ${
+                isScrolled ? 'h-[20px] md:h-[22px]' : 'h-[38px] md:h-[44px]'
+              }`}
+            />
+          </button>
         </div>
 
-        {/* Menú Móvil Desplegable */}
-        {isOpen && (
-          <div className={`absolute left-6 right-6 border border-hairline rounded-2xl py-6 px-6 sm:hidden flex flex-col gap-5 animate-premium-fade z-40 transition-all duration-500 bg-white/95 backdrop-blur-xl text-black ${
-            isScrolled ? 'top-[56px]' : 'top-[64px]'
-          }`}>
-            {['servicios', 'eventos', 'galeria', 'contacto'].map((item) => (
-              <button
-                key={item}
-                onClick={() => scrollToSection(item)}
-                className="text-left text-xs font-semibold tracking-widest uppercase py-1 transition-colors duration-300 font-display text-black/90 hover:text-gold"
-              >
-                {item}
-              </button>
-            ))}
+        {/* CENTER: Menú de navegación dinámico */}
+        <nav className={`flex items-center rounded-full transition-all duration-500 hidden h-9 justify-self-center p-1 sm:flex ${navPillBackground}`}>
+          <button
+            onClick={() => scrollToSection('servicios')}
+            className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[10px] font-medium tracking-wider transition-all uppercase cursor-pointer ${textColorClass}`}
+          >
+            <LayoutGrid size={11} className={textIconColor} /> Servicios
+          </button>
+          <button
+            onClick={() => scrollToSection('eventos')}
+            className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[10px] font-medium tracking-wider transition-all uppercase cursor-pointer ${textColorClass}`}
+          >
+            <Calendar size={11} className={textIconColor} /> Eventos
+          </button>
+          <button
+            onClick={() => scrollToSection('contacto')}
+            className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[10px] font-medium tracking-wider transition-all uppercase cursor-pointer ${textColorClass}`}
+          >
+            <HelpIcon size={11} className={textIconColor} /> Consultas
+          </button>
+        </nav>
+
+        {/* RIGHT: Selector de Idioma + CTA Principal */}
+        <div className="flex items-center gap-2 justify-self-end">
+          <div className="relative hidden sm:block">
             <button 
-              onClick={() => scrollToSection('contacto')}
-              className="w-full py-3 rounded-full text-xs font-bold uppercase tracking-widest text-center mt-2 transition-all cursor-pointer bg-gold text-prius-black hover:bg-gold-hover"
+              type="button" 
+              className={`inline-flex h-9 items-center gap-1.5 rounded-full px-3 text-[10px] font-medium transition-all duration-500 cursor-pointer ${languageButtonClass}`}
             >
-              COTIZAR ESTADÍA
+              <span className="text-[12px] leading-none">🇦🇷</span>
+              <span className="uppercase">es</span>
             </button>
           </div>
-        )}
-      </header>
-    </>
+          
+          {/* Botón de Menú Móvil */}
+          <button 
+            onClick={() => setIsOpen(!isOpen)} 
+            className={`flex items-center rounded-full transition-all duration-500 size-9 shrink-0 justify-center sm:hidden cursor-pointer ${menuButtonClass}`}
+            aria-label="Menu"
+          >
+            {isOpen ? <X size={15} /> : <Menu size={15} />}
+          </button>
+
+          <button 
+            onClick={() => scrollToSection('contacto')}
+            className="h-9 cursor-pointer items-center justify-center whitespace-nowrap rounded-full px-4 text-[10px] font-bold hidden sm:inline-flex uppercase tracking-wider transition-all duration-500 bg-gold text-prius-black hover:bg-gold-hover shadow-sm"
+          >
+            COTIZAR ESTADÍA
+          </button>
+        </div>
+      </div>
+
+      {/* Menú Móvil Desplegable */}
+      {isOpen && (
+        <div className={`absolute left-6 right-6 border border-hairline rounded-2xl py-6 px-6 sm:hidden flex flex-col gap-5 animate-premium-fade z-40 transition-all duration-500 bg-white/95 backdrop-blur-xl text-black ${
+          isScrolled ? 'top-[56px]' : 'top-[64px]'
+        }`}>
+          {['servicios', 'eventos', 'galeria', 'contacto'].map((item) => (
+            <button
+              key={item}
+              onClick={() => scrollToSection(item)}
+              className="text-left text-xs font-semibold tracking-widest uppercase py-1 transition-colors duration-300 font-display text-black/90 hover:text-gold"
+            >
+              {item}
+            </button>
+          ))}
+          <button 
+            onClick={() => scrollToSection('contacto')}
+            className="w-full py-3 rounded-full text-xs font-bold uppercase tracking-widest text-center mt-2 transition-all cursor-pointer bg-gold text-prius-black hover:bg-gold-hover"
+          >
+            COTIZAR ESTADÍA
+          </button>
+        </div>
+      )}
+    </header>
   )
 }
