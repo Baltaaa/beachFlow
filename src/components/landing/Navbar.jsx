@@ -108,26 +108,23 @@ export default function Navbar() {
       ? 'bg-neutral-100 text-prius-black hover:bg-neutral-200 border border-hairline/20'
       : 'bg-white/10 text-white hover:bg-white/20 border border-white/5'
 
-  // Incrementamos la opacidad base de la cobertura para bloquear textos de fondo
-  const blurGradientBg = activeTheme === 'light'
-    ? 'from-white/95 via-white/60 to-transparent'
-    : 'from-black/95 via-black/60 to-transparent'
-
   return (
     <header 
       className={`fixed z-50 transition-all duration-500 ease-in-out left-0 right-0 mx-auto ${headerBackgroundClass}`}
     >
-      {/* CAPA DE DESENFOQUE DEGRADADO PREMIUM (Intensidad x2 y fade ultra-suave de 5 paradas) */}
+      {/* CAPA DE DESENFOQUE DEGRADADO PREMIUM (Puro blur transparente, desvanecido y activo solo en scroll) */}
       <div 
         aria-hidden="true" 
-        className={`absolute inset-0 -z-20 h-[140px] pointer-events-none transition-all duration-500 bg-gradient-to-b ${blurGradientBg} backdrop-blur-[24px]`}
+        className={`absolute inset-x-0 top-0 -z-20 h-[140px] pointer-events-none transition-opacity duration-500 bg-transparent backdrop-blur-[24px] ${
+          isScrolled ? 'opacity-100' : 'opacity-0'
+        }`}
         style={{
           WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 20%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.2) 80%, rgba(0,0,0,0) 100%)',
           maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 20%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.2) 80%, rgba(0,0,0,0) 100%)',
         }}
       />
       
-      {/* Sutil gradiente oscuro inicial para el Hero en el tope de la página */}
+      {/* Sutil gradiente oscuro inicial en el Hero (solo para mejorar el contraste del texto inicial sobre el cielo del Hero) */}
       <div 
         aria-hidden="true" 
         className={`pointer-events-none absolute inset-x-0 top-0 -z-10 h-32 bg-gradient-to-b from-black/40 via-black/10 to-transparent transition-opacity duration-500 ${
