@@ -11,14 +11,11 @@ export default function Partners() {
   
   return (
     <section className="py-16 bg-white border-b border-hairline overflow-hidden">
-      {/* Contenedor alineado idéntico a las demás secciones */}
+      {/* Contenedor alineado horizontal y verticalmente de manera idéntica a las demás secciones */}
       <div className="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop mb-10">
-        <span className="text-[9px] font-normal uppercase tracking-[0.3em] text-prius-black/40 block mb-1 font-display">
-          Alianzas de Excelencia
+        <span className="text-[9px] font-normal uppercase tracking-[0.3em] text-prius-black/40 block font-display">
+          Socios Estratégicos
         </span>
-        <h2 className="text-2xl md:text-3xl font-normal tracking-tight text-prius-black uppercase font-display leading-none">
-          Socios <span className="text-gold">Estratégicos</span>
-        </h2>
       </div>
 
       <div className="relative w-full overflow-hidden flex">
