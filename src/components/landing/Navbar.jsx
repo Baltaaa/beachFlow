@@ -67,12 +67,8 @@ export default function Navbar() {
     ? 'top-[28px] w-full max-w-[1952px] px-4'
     : 'top-0 w-full max-w-full px-6 sm:px-8 py-1'
 
-  // Estilos del logo (Se convierte en cápsula/pill al hacer scroll)
-  const logoButtonClass = !isScrolled
-    ? 'bg-transparent px-0'
-    : activeTheme === 'light'
-      ? 'bg-neutral-100 hover:bg-neutral-200 px-3.5 shadow-sm border border-hairline/20'
-      : 'bg-white/10 hover:bg-white/20 px-3.5 border border-white/5'
+  // Estilos del logo (Siempre transparente, sin bordes ni sombras)
+  const logoButtonClass = 'bg-transparent px-0'
 
   // Estilos de los textos de navegación
   const textColorClass = !isScrolled
@@ -150,7 +146,7 @@ export default function Navbar() {
                 src="/favicon-512x512.png" 
                 alt="Prius Monograma" 
                 className={`w-auto object-contain transition-all duration-500 ${
-                  isScrolled ? 'h-[20px] md:h-[22px]' : 'h-[38px] md:h-[44px]'
+                  isScrolled ? 'h-[32px] md:h-[36px]' : 'h-[38px] md:h-[44px]'
                 }`}
               />
             </button>
