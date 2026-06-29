@@ -146,7 +146,7 @@ export default function Navbar() {
                 src="/favicon-512x512.png" 
                 alt="Prius Monograma" 
                 className={`w-auto object-contain transition-all duration-500 ${
-                  isScrolled ? 'h-[32px] md:h-[36px]' : 'h-[38px] md:h-[44px]'
+                  isScrolled ? 'h-[34px] md:h-[38px]' : 'h-[44px] md:h-[50px]'
                 }`}
               />
             </button>

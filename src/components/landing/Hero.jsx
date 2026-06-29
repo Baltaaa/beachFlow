@@ -1,4 +1,4 @@
-import { ArrowRight, Sparkles } from 'lucide-react'
+import { ArrowRight, Sparkles, Check } from 'lucide-react'
 
 export default function Hero() {
   const scrollToSection = (id) => {
@@ -25,24 +25,25 @@ export default function Hero() {
           {/* Sutil overlay de mezcla */}
           <div className="absolute inset-0 bg-white/[0.05] mix-blend-overlay" />
           {/* Degradado optimizado: más oscuro arriba para el texto sobre el cielo, y suave hacia abajo */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/40 to-black/60" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/45 to-black/65" />
         </div>
 
         {/* SECCIÓN CENTRAL: Subida usando mb-auto para que se posicione sobre el cielo */}
         <div className="mx-auto w-full px-6 sm:px-8 max-w-[1040px] relative z-10 pt-28 sm:pt-36 mb-auto">
           
           {/* Badges horizontales - Ocultos en mobile/tablet, visibles en desktop */}
-          <div className="hidden lg:flex flex-wrap gap-2 mb-6">
-            <span className="inline-flex select-none items-center whitespace-nowrap rounded-full bg-white/15 px-3.5 py-2 text-[11px] sm:text-[0.8125rem] font-medium text-white/85 backdrop-blur-md">
+          <div className="hidden lg:flex flex-wrap gap-3 mb-6">
+            <span className="inline-flex select-none items-center gap-1.5 whitespace-nowrap rounded-full border border-gold/30 bg-white/10 px-4 py-2 text-[11px] sm:text-[0.8125rem] font-medium text-white backdrop-blur-md">
+              <Check size={12} className="text-gold" strokeWidth={3} />
               Reserva sin cargo
             </span>
-            <span className="inline-flex select-none items-center whitespace-nowrap rounded-full bg-white/15 px-3.5 py-2 text-[11px] sm:text-[0.8125rem] font-medium text-white/85 backdrop-blur-md">
+            <span className="inline-flex select-none items-center whitespace-nowrap rounded-full border border-white/10 bg-white/10 px-4 py-2 text-[11px] sm:text-[0.8125rem] font-medium text-white/90 backdrop-blur-md">
               Temporada 2026/2027
             </span>
           </div>
 
-          {/* Grilla principal */}
-          <div className="mt-4 grid grid-cols-1 gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
+          {/* Grilla principal alineada a la base (items-end) para un balance perfecto */}
+          <div className="mt-4 grid grid-cols-1 gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
             
             {/* Columna Izquierda: Titular */}
             <div>
@@ -54,21 +55,21 @@ export default function Hero() {
             </div>
 
             {/* Columna Derecha: Descripción y botones */}
-            <div>
-              <p className="max-w-[44ch] text-sm sm:text-base md:text-[1.15rem] leading-[1.5] font-light tracking-wide text-white/90 drop-shadow-sm">
+            <div className="flex flex-col justify-end">
+              <p className="max-w-[44ch] text-sm sm:text-base md:text-[1.1rem] leading-[1.5] font-light tracking-wide text-white/95 drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)]">
                 Un refugio exclusivo en Playa Grande. Costa, silencio y servicio impecable — diseñado al detalle para su estadía ideal.
               </p>
               
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                 <button 
                   onClick={() => scrollToSection('contacto')}
-                  className="inline-flex h-9 w-full sm:w-auto cursor-pointer items-center justify-center rounded-full bg-gold px-5 text-[10px] font-bold uppercase tracking-wider text-prius-black transition-colors hover:bg-gold-hover"
+                  className="inline-flex h-9 w-full sm:w-auto cursor-pointer items-center justify-center rounded-full bg-gold px-6 text-[10px] font-bold uppercase tracking-wider text-prius-black transition-colors hover:bg-gold-hover shadow-md"
                 >
                   Reservas
                 </button>
                 <button 
                   onClick={() => scrollToSection('servicios')}
-                  className="inline-flex h-9 w-full sm:w-auto cursor-pointer items-center justify-center rounded-full border border-white/30 bg-white/10 px-4 text-[10px] font-bold uppercase tracking-wider text-white backdrop-blur-md transition-colors hover:bg-white/20"
+                  className="inline-flex h-9 w-full sm:w-auto cursor-pointer items-center justify-center rounded-full border border-white/40 bg-transparent px-5 text-[10px] font-bold uppercase tracking-wider text-white transition-all hover:bg-white/10 hover:border-white/60"
                 >
                   Ver servicios
                 </button>
