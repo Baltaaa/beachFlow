@@ -106,7 +106,7 @@ export default function Navbar() {
 
   return (
     <>
-      {/* CAPA DE DESENFOQUE PROGRESIVO FIJO ULTRA-INTENSO CON GRADIENTE #13263D */}
+      {/* CAPA DE DESENFOQUE PROGRESIVO FIJO ULTRA-INTENSO CON GRADIENTE #14110E */}
       <div 
         aria-hidden="true" 
         className={`fixed top-0 left-0 right-0 h-[130px] pointer-events-none z-40 transition-all duration-700 ease-in-out ${
@@ -115,7 +115,7 @@ export default function Navbar() {
             : 'opacity-0 backdrop-blur-none invisible'
         }`}
         style={{
-          background: 'linear-gradient(to bottom, rgba(19, 38, 61, 0.45) 0%, rgba(19, 38, 61, 0) 100%)',
+          background: 'linear-gradient(to bottom, rgba(20, 17, 14, 0.45) 0%, rgba(20, 17, 14, 0) 100%)',
           WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 40%, rgba(0,0,0,0.4) 75%, rgba(0,0,0,0) 100%)',
           maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 40%, rgba(0,0,0,0.4) 75%, rgba(0,0,0,0) 100%)',
         }}
