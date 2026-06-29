@@ -106,17 +106,17 @@ export default function Navbar() {
 
   return (
     <>
-      {/* CAPA DE DESENFOQUE PROGRESIVO FIJO (Siempre en top-0, invisible al inicio para evitar halos grises) */}
+      {/* CAPA DE DESENFOQUE PROGRESIVO FIJO ULTRA-INTENSO (Sin color, solo difuminado puro) */}
       <div 
         aria-hidden="true" 
-        className={`fixed top-0 left-0 right-0 h-[110px] pointer-events-none z-40 transition-all duration-700 ease-in-out ${
+        className={`fixed top-0 left-0 right-0 h-[130px] pointer-events-none z-40 transition-all duration-700 ease-in-out ${
           isScrolled 
-            ? 'opacity-100 backdrop-blur-[20px]' 
+            ? 'opacity-100 backdrop-blur-[40px]' 
             : 'opacity-0 backdrop-blur-none invisible'
         }`}
         style={{
-          WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 45%, rgba(0,0,0,0) 100%)',
-          maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 45%, rgba(0,0,0,0) 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 40%, rgba(0,0,0,0.4) 75%, rgba(0,0,0,0) 100%)',
+          maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 40%, rgba(0,0,0,0.4) 75%, rgba(0,0,0,0) 100%)',
         }}
       />
 
