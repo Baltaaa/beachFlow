@@ -115,7 +115,7 @@ export default function Navbar() {
             : 'opacity-0 backdrop-blur-none invisible'
         }`}
         style={{
-          background: 'linear-gradient(to bottom, rgba(19, 38, 61, 0.10) 0%, rgba(19, 38, 61, 0) 100%)',
+          background: 'linear-gradient(to bottom, rgba(19, 38, 61, 0.45) 0%, rgba(19, 38, 61, 0) 100%)',
           WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 40%, rgba(0,0,0,0.4) 75%, rgba(0,0,0,0) 100%)',
           maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 40%, rgba(0,0,0,0.4) 75%, rgba(0,0,0,0) 100%)',
         }}
