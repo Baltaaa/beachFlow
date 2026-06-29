@@ -15,10 +15,7 @@ const ASUNTO_OPTIONS = [
   "Otra consulta",
 ];
 
-const N8N_WEBHOOK_URL = 
-  (typeof process !== 'undefined' && process.env && process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL) || 
-  (import.meta.env && import.meta.env.VITE_N8N_WEBHOOK_URL) || 
-  "";
+const N8N_WEBHOOK_URL = import.meta.env.VITE_N8N_WEBHOOK_URL ?? "";
 
 export default function ContactSection() {
   const [form, setForm] = useState({
@@ -75,7 +72,7 @@ export default function ContactSection() {
     };
     try {
       if (!N8N_WEBHOOK_URL) {
-        throw new Error("Webhook URL no configurada. Definí NEXT_PUBLIC_N8N_WEBHOOK_URL en .env.");
+        throw new Error("Webhook URL no configurada. Definí VITE_N8N_WEBHOOK_URL en .env.");
       }
       const res = await fetch(N8N_WEBHOOK_URL, {
         method: "POST",
