@@ -57,7 +57,8 @@ export default function Hero() {
             {/* Columna Derecha: Descripción y botones */}
             <div className="flex flex-col justify-end">
               <p className="max-w-[44ch] text-sm sm:text-base md:text-[1.1rem] leading-[1.5] font-light tracking-wide text-white/95 drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)]">
-                Un refugio exclusivo en Playa Grande. Costa, silencio y servicio impecable — diseñado al detalle para su estadía ideal.
+                Nuestro lugar en Playa Grande, para que disfrutes el verano.<br />
+                Prius, donde el primero, sos vos!
               </p>
               
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
