@@ -84,32 +84,30 @@ export default function Gallery() {
           </p>
         </div>
 
-        {/* Filtros de Categoría Minimalistas */}
-        <div className="flex overflow-x-auto gap-2 pb-6 mb-8 scrollbar-none border-b border-hairline/60">
-          {CATEGORIES.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => {
-                setActiveCategory(cat)
-                setScrollProgress(0)
-                if (sliderRef.current) sliderRef.current.scrollLeft = 0
-              }}
-              className={`px-4 py-1.5 rounded-full text-[10px] uppercase tracking-wider font-medium transition-all shrink-0 cursor-pointer ${
-                activeCategory === cat
-                  ? 'bg-gold text-prius-black border border-gold'
-                  : 'bg-transparent text-prius-black/55 border border-hairline hover:border-prius-black/30 hover:text-prius-black'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
+        {/* Filtros de Categoría Minimalistas + Controles de Navegación */}
+        <div className="flex items-center justify-between border-b border-hairline/60 pb-6 mb-8">
+          <div className="flex overflow-x-auto gap-2 scrollbar-none">
+            {CATEGORIES.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => {
+                  setActiveCategory(cat)
+                  setScrollProgress(0)
+                  if (sliderRef.current) sliderRef.current.scrollLeft = 0
+                }}
+                className={`px-4 py-1.5 rounded-full text-[10px] uppercase tracking-wider font-medium transition-all shrink-0 cursor-pointer ${
+                  activeCategory === cat
+                    ? 'bg-gold text-prius-black border border-gold'
+                    : 'bg-transparent text-prius-black/55 border border-hairline hover:border-prius-black/30 hover:text-prius-black'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
 
-        {/* CONTENEDOR DE GALERÍA DE DOBLE FLUJO */}
-        <div className="relative">
-          
           {/* Controles de navegación para Desktop */}
-          <div className="hidden md:flex absolute -top-16 right-0 gap-1.5 z-10">
+          <div className="hidden md:flex gap-1.5 shrink-0">
             <button 
               onClick={() => scrollSlider('left')}
               className="p-2 bg-white border border-hairline rounded-full hover:border-gold hover:bg-prius-background transition-colors cursor-pointer"
@@ -125,7 +123,11 @@ export default function Gallery() {
               <ChevronRight size={14} className="text-prius-black" />
             </button>
           </div>
+        </div>
 
+        {/* CONTENEDOR DE GALERÍA DE DOBLE FLUJO */}
+        <div className="relative">
+          
           {/* Carrusel Horizontal (Mobile: Arrastre libre táctil, Desktop: Desplazamiento fino) */}
           <div 
             ref={sliderRef}
