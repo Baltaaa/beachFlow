@@ -84,30 +84,32 @@ export default function Gallery() {
           </p>
         </div>
 
-        {/* Filtros de Categoría + Botones de Navegación Alineados */}
-        <div className="flex items-center justify-between pb-6 mb-8 border-b border-hairline/60">
-          <div className="flex overflow-x-auto gap-2 scrollbar-none pr-4">
-            {CATEGORIES.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => {
-                  setActiveCategory(cat)
-                  setScrollProgress(0)
-                  if (sliderRef.current) sliderRef.current.scrollLeft = 0
-                }}
-                className={`px-4 py-1.5 rounded-full text-[10px] uppercase tracking-wider font-medium transition-all shrink-0 cursor-pointer ${
-                  activeCategory === cat
-                    ? 'bg-gold text-prius-black border border-gold'
-                    : 'bg-transparent text-prius-black/55 border border-hairline hover:border-prius-black/30 hover:text-prius-black'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
+        {/* Filtros de Categoría Minimalistas */}
+        <div className="flex overflow-x-auto gap-2 pb-6 mb-8 scrollbar-none border-b border-hairline/60">
+          {CATEGORIES.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => {
+                setActiveCategory(cat)
+                setScrollProgress(0)
+                if (sliderRef.current) sliderRef.current.scrollLeft = 0
+              }}
+              className={`px-4 py-1.5 rounded-full text-[10px] uppercase tracking-wider font-medium transition-all shrink-0 cursor-pointer ${
+                activeCategory === cat
+                  ? 'bg-gold text-prius-black border border-gold'
+                  : 'bg-transparent text-prius-black/55 border border-hairline hover:border-prius-black/30 hover:text-prius-black'
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
 
-          {/* Controles de navegación para Desktop alineados a la derecha */}
-          <div className="hidden md:flex gap-1.5 shrink-0">
+        {/* CONTENEDOR DE GALERÍA DE DOBLE FLUJO */}
+        <div className="relative">
+          
+          {/* Controles de navegación para Desktop */}
+          <div className="hidden md:flex absolute -top-16 right-0 gap-1.5 z-10">
             <button 
               onClick={() => scrollSlider('left')}
               className="p-2 bg-white border border-hairline rounded-full hover:border-gold hover:bg-prius-background transition-colors cursor-pointer"
@@ -123,11 +125,8 @@ export default function Gallery() {
               <ChevronRight size={14} className="text-prius-black" />
             </button>
           </div>
-        </div>
 
-        {/* CONTENEDOR DE GALERÍA */}
-        <div className="relative">
-          {/* Carrusel Horizontal */}
+          {/* Carrusel Horizontal (Mobile: Arrastre libre táctil, Desktop: Desplazamiento fino) */}
           <div 
             ref={sliderRef}
             onScroll={handleScroll}
@@ -139,7 +138,7 @@ export default function Gallery() {
                 onClick={() => handleOpen(img)}
                 className="w-[260px] md:w-[280px] shrink-0 snap-start group cursor-pointer"
               >
-                {/* Contenedor de Imagen */}
+                {/* Contenedor de Imagen de Proporción Elegante (2:3 o similar) */}
                 <div className="relative aspect-[4/5] overflow-hidden rounded-lg border border-hairline group-hover:border-gold transition-premium bg-prius-background">
                   <img 
                     alt={img.title} 
@@ -157,7 +156,7 @@ export default function Gallery() {
                   </span>
                 </div>
 
-                {/* Textos inferiores */}
+                {/* Textos inferiores tipo catálogo */}
                 <div className="mt-3 px-1">
                   <h4 className="text-xs font-medium text-prius-black uppercase tracking-tight font-display">
                     {img.title}
