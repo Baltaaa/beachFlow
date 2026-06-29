@@ -56,7 +56,7 @@ export default function Hero() {
 
             {/* Columna Derecha: Descripción y botones */}
             <div className="flex flex-col justify-end">
-              <p className="max-w-[44ch] text-sm sm:text-base md:text-[1.1rem] leading-[1.5] font-light tracking-wide text-white/95 drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)]">
+              <p className="max-w-[44ch] text-sm sm:text-base md:text-[1.1rem] leading-[1.5] font-light tracking-wide text-white/95 drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)] text-balance">
                 Nuestro lugar en Playa Grande, para que disfrutes el verano.<br />
                 Prius, donde el primero, sos vos!
               </p>
