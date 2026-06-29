@@ -106,7 +106,7 @@ export default function Footer() {
           <div className="flex items-center gap-1 font-light tracking-wider">
             <span>developed by</span>
             <a 
-              href="https://www.instagram.com/baltazar.grasso" 
+              href="https://www.instagram.com/baltabruschetti" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-gold font-normal tracking-widest uppercase text-[11px] hover:underline transition-all font-display lowercase"
