@@ -124,17 +124,17 @@ export default function Navbar() {
         }}
       />
 
+      {/* Sutil gradiente oscuro inicial para el Hero (Ahora FIJO en top-0 para que comience en el borde superior absoluto) */}
+      <div 
+        aria-hidden="true" 
+        className={`pointer-events-none fixed inset-x-0 top-0 z-40 h-32 bg-gradient-to-b from-black/40 to-transparent transition-all duration-500 ${
+          isScrolled ? 'opacity-0 invisible' : 'opacity-100'
+        }`}
+      />
+
       <header 
         className={`fixed z-50 transition-all duration-500 ease-in-out left-0 right-0 mx-auto ${headerBackgroundClass}`}
       >
-        {/* Sutil gradiente oscuro inicial para el Hero en el tope de la página */}
-        <div 
-          aria-hidden="true" 
-          className={`pointer-events-none absolute inset-x-0 top-0 -z-10 h-32 bg-gradient-to-b from-black/30 to-transparent transition-opacity duration-500 ${
-            isScrolled ? 'opacity-0' : 'opacity-100'
-          }`}
-        />
-        
         {/* Contenedor interno */}
         <div className={`mx-auto w-full px-6 sm:px-8 max-w-[1040px] flex items-center justify-between sm:grid sm:grid-cols-[1fr_auto_1fr] transition-all duration-500 ${
           isScrolled ? 'h-16' : 'h-20'
