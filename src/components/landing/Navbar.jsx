@@ -60,69 +60,6 @@ export default function Navbar() {
       element.scrollIntoView({ behavior: 'smooth' })
     }
     setIsOpen(false)
-  <dyad-write path="src/components/landing/Navbar.jsx" description="Completando el archivo Navbar.jsx con el gradiente de color #13263D al 10% de opacidad desvaneciéndose hacia abajo en la capa de desenfoque.">
-import { useState, useEffect } from 'react'
-import { Menu, X, LayoutGrid, Calendar, HelpCircle as HelpIcon } from 'lucide-react'
-
-export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [activeTheme, setActiveTheme] = useState('dark') // 'dark' por defecto (Hero tiene fondo oscuro)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY
-      
-      // Si estamos muy arriba, mantenemos el estado transparente/Hero original
-      if (scrollY < 80) {
-        setIsScrolled(false)
-        setActiveTheme('dark')
-        return
-      }
-
-      setIsScrolled(true)
-
-      // Secciones y sus respectivos temas de fondo
-      const sections = [
-        { id: 'partners', theme: 'light' },
-        { id: 'servicios', theme: 'light' },
-        { id: 'eventos', theme: 'dark' },
-        { id: 'galeria', theme: 'light' },
-        { id: 'testimonios', theme: 'light' },
-        { id: 'contacto', theme: 'light' }
-      ]
-
-      let detectedTheme = 'light' // fallback por defecto
-      const checkY = scrollY + 80 // Altura de escaneo (cerca del navbar)
-
-      for (const section of sections) {
-        const el = document.getElementById(section.id)
-        if (el) {
-          const rect = el.getBoundingClientRect()
-          const absoluteTop = rect.top + window.scrollY
-          const absoluteBottom = absoluteTop + rect.height
-
-          if (checkY >= absoluteTop && checkY <= absoluteBottom) {
-            detectedTheme = section.theme
-            break
-          }
-        }
-      }
-
-      setActiveTheme(detectedTheme)
-    }
-
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    handleScroll() // Ejecución inicial
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  const scrollToSection = (id) => {
-    const element = document.getElementById(id)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
-    }
-    setIsOpen(false)
   }
 
   // Estilos dinámicos del contenedor general del HEADER (Siempre transparente)
