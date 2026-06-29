@@ -1,4 +1,4 @@
-import { ArrowUp, Instagram, MapPin, Mail, Phone, Heart } from 'lucide-react'
+import { ArrowUp, Instagram, MapPin, Mail, Phone } from 'lucide-react'
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -102,12 +102,17 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Crédito: Developed by Balta */}
-          <div className="flex items-center gap-1.5 font-light tracking-wider hover:text-white transition-colors duration-300">
+          {/* Crédito: Developed by balta (en minúsculas, dorado, sin fondo ni bordes, con redirección a Instagram) */}
+          <div className="flex items-center gap-1 font-light tracking-wider">
             <span>developed by</span>
-            <span className="text-gold font-normal tracking-widest uppercase text-[11px] bg-gold/10 px-3 py-1 rounded-full border border-gold/20 font-display">
-              Balta
-            </span>
+            <a 
+              href="https://www.instagram.com/baltazar.grasso" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-gold font-normal tracking-widest uppercase text-[11px] hover:underline transition-all font-display lowercase"
+            >
+              balta
+            </a>
           </div>
 
           {/* Botón Volver Arriba */}
