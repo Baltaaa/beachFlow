@@ -45,19 +45,19 @@ export default function Hero() {
           {/* Grilla principal alineada a la base (items-end) para un balance perfecto */}
           <div className="mt-4 grid grid-cols-1 gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
             
-            {/* Columna Izquierda: Titular */}
+            {/* Columna Izquierda: Titular original restaurado */}
             <div>
               <h1 className="text-[28px] sm:text-[38px] md:text-[48px] lg:text-[52px] xl:text-[58px] font-bold leading-[1.05] tracking-[-0.03em] uppercase font-display text-white select-none text-balance drop-shadow-sm">
-                <span className="text-white/65">CELEBRÁ EN</span> <br />
-                <span className="text-white/65">LA MEJOR ESQUINA.</span> <br />
-                <span className="text-gold">EVENTOS PRIUS.</span>
+                <span className="text-white/65">TU DESCANSO</span> <br />
+                <span className="text-white/65">EN LA COSTA.</span> <br />
+                <span className="text-gold">EN PRIUS.</span>
               </h1>
             </div>
 
-            {/* Columna Derecha: Descripción y botones */}
+            {/* Columna Derecha: Descripción original restaurada y botones actuales */}
             <div className="flex flex-col justify-end">
               <p className="max-w-[44ch] text-sm sm:text-base md:text-[1.1rem] leading-[1.5] font-light tracking-wide text-white/95 drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)] text-balance">
-                El icónico parador de Playa Grande abre las puertas de su renovado espacio exclusivo para eventos privados. Diseñado para momentos inolvidables frente al mar.
+                Nuestro lugar en Playa Grande, para que disfrutes el verano. Prius, donde el primero, sos vos!
               </p>
               
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
