@@ -50,19 +50,19 @@ export default function Navbar() {
 
   return (
     <>
-      {/* CAPA DE DESENFOQUE PROGRESIVO (GLASSMORPHISM) CON GRADIENTE AZUL MARINO VIVO */}
+      {/* CAPA DE DESENFOQUE PROGRESIVO EXTENDIDO (180px) CON GRADIENTE AZUL MARINO SUAVE */}
       <div 
         aria-hidden="true" 
-        className={`fixed top-0 left-0 right-0 h-[110px] pointer-events-none z-40 transition-all duration-700 ease-in-out ${
+        className={`fixed top-0 left-0 right-0 h-[180px] pointer-events-none z-40 transition-all duration-700 ease-in-out ${
           isScrolled 
             ? 'opacity-100' 
             : 'opacity-0 invisible'
         }`}
         style={{
-          // Gradiente multi-parada para un difuminado perfecto y natural
-          background: 'linear-gradient(to bottom, rgba(16, 37, 70, 0.55) 0%, rgba(16, 37, 70, 0.35) 45%, rgba(16, 37, 70, 0.12) 75%, rgba(16, 37, 70, 0) 100%)',
-          WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.98) 40%, rgba(0,0,0,0.4) 75%, rgba(0,0,0,0) 100%)',
-          maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.98) 40%, rgba(0,0,0,0.4) 75%, rgba(0,0,0,0) 100%)',
+          // Gradiente extendido con más paradas intermedias para un desvanecimiento ultra-suave
+          background: 'linear-gradient(to bottom, rgba(16, 37, 70, 0.55) 0%, rgba(16, 37, 70, 0.4) 30%, rgba(16, 37, 70, 0.2) 60%, rgba(16, 37, 70, 0.05) 85%, rgba(16, 37, 70, 0) 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 40%, rgba(0,0,0,0.3) 75%, rgba(0,0,0,0) 100%)',
+          maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 40%, rgba(0,0,0,0.3) 75%, rgba(0,0,0,0) 100%)',
           backdropFilter: isScrolled ? 'blur(64px)' : 'none',
           WebkitBackdropFilter: isScrolled ? 'blur(64px)' : 'none',
         }}
