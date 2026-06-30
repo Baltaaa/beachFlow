@@ -4,49 +4,15 @@ import { Menu, X, LayoutGrid, Calendar, HelpCircle as HelpIcon } from 'lucide-re
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
-  const [activeTheme, setActiveTheme] = useState('dark') // 'dark' por defecto (Hero tiene fondo oscuro)
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY
-      
-      // Si estamos muy arriba, mantenemos el estado transparente/Hero original
-      if (scrollY < 80) {
+      if (scrollY < 50) {
         setIsScrolled(false)
-        setActiveTheme('dark')
-        return
+      } else {
+        setIsScrolled(true)
       }
-
-      setIsScrolled(true)
-
-      // Secciones y sus respectivos temas de fondo
-      const sections = [
-        { id: 'partners', theme: 'light' },
-        { id: 'servicios', theme: 'light' },
-        { id: 'eventos', theme: 'dark' },
-        { id: 'galeria', theme: 'light' },
-        { id: 'testimonios', theme: 'light' },
-        { id: 'contacto', theme: 'light' }
-      ]
-
-      let detectedTheme = 'light' // fallback por defecto
-      const checkY = scrollY + 80 // Altura de escaneo (cerca del navbar)
-
-      for (const section of sections) {
-        const el = document.getElementById(section.id)
-        if (el) {
-          const rect = el.getBoundingClientRect()
-          const absoluteTop = rect.top + window.scrollY
-          const absoluteBottom = absoluteTop + rect.height
-
-          if (checkY >= absoluteTop && checkY <= absoluteBottom) {
-            detectedTheme = section.theme
-            break
-          }
-        }
-      }
-
-      setActiveTheme(detectedTheme)
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
@@ -62,69 +28,48 @@ export default function Navbar() {
     setIsOpen(false)
   }
 
-  // Estilos dinámicos del contenedor general del HEADER (Siempre transparente)
+  // Estilos dinámicos del contenedor general del HEADER
   const headerBackgroundClass = !isScrolled
     ? 'top-[28px] w-full max-w-[1952px] px-4'
     : 'top-0 w-full max-w-full px-6 sm:px-8 py-1'
 
-  // Estilos del logo (Siempre transparente, sin bordes ni sombras)
-  const logoButtonClass = 'bg-transparent px-0'
+  // Estilos de los textos de navegación (Optimizados para contrastar con el vidrio marino)
+  const textColorClass = 'text-white/85 hover:text-gold transition-colors duration-300'
+  const textIconColor = 'text-white/60'
 
-  // Estilos de los textos de navegación
-  const textColorClass = !isScrolled
-    ? 'text-white/75 hover:text-gold'
-    : activeTheme === 'light'
-      ? 'text-prius-black/75 hover:text-gold'
-      : 'text-white/75 hover:text-gold'
-
-  const textIconColor = !isScrolled
-    ? 'text-white/60'
-    : activeTheme === 'light'
-      ? 'text-prius-black/60'
-      : 'text-white/60'
-
-  // Cápsula de navegación central
+  // Cápsula de navegación central (Estilo Glassmorphism Premium)
   const navPillBackground = !isScrolled
-    ? 'bg-white/15'
-    : activeTheme === 'light'
-      ? 'bg-white text-prius-black shadow-sm border border-hairline/65'
-      : 'bg-white/10 text-white border border-white/5'
+    ? 'bg-white/15 border border-white/5 backdrop-blur-md'
+    : 'bg-white/10 text-white border border-white/10 backdrop-blur-md'
 
   // Cápsula de Selector de Idioma
-  const languageButtonClass = !isScrolled
-    ? 'bg-white/15 text-white/85 hover:bg-white/20'
-    : activeTheme === 'light'
-      ? 'bg-neutral-100 text-prius-black/90 hover:bg-neutral-200 border border-hairline/20'
-      : 'bg-white/10 text-white/85 hover:bg-white/20 border border-white/5'
+  const languageButtonClass = 'bg-white/10 text-white/85 hover:bg-white/20 border border-white/5 backdrop-blur-md'
 
   // Cápsula de Menú Móvil
-  const menuButtonClass = !isScrolled
-    ? 'bg-white/15 text-white hover:bg-white/20'
-    : activeTheme === 'light'
-      ? 'bg-neutral-100 text-prius-black hover:bg-neutral-200 border border-hairline/20'
-      : 'bg-white/10 text-white hover:bg-white/20 border border-white/5'
+  const menuButtonClass = 'bg-white/10 text-white hover:bg-white/20 border border-white/5 backdrop-blur-md'
 
   return (
     <>
-      {/* CAPA DE DESENFOQUE PROGRESIVO FIJO ULTRA-INTENSO CON GRADIENTE AZUL MARINO */}
+      {/* CAPA DE DESENFOQUE PROGRESIVO (GLASSMORPHISM) CON GRADIENTE AZUL MARINO VIVO */}
       <div 
         aria-hidden="true" 
-        className={`fixed top-0 left-0 right-0 h-[100px] pointer-events-none z-40 transition-all duration-700 ease-in-out ${
+        className={`fixed top-0 left-0 right-0 h-[110px] pointer-events-none z-40 transition-all duration-700 ease-in-out ${
           isScrolled 
             ? 'opacity-100 backdrop-blur-[40px]' 
             : 'opacity-0 backdrop-blur-none invisible'
         }`}
         style={{
-          background: 'linear-gradient(to bottom, rgba(29, 54, 88, 0.25) 0%, rgba(29, 54, 88, 0) 70%)',
-          WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 30%, rgba(0,0,0,0.4) 65%, rgba(0,0,0,0) 100%)',
-          maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 30%, rgba(0,0,0,0.4) 65%, rgba(0,0,0,0) 100%)',
+          // Gradiente multi-parada para un difuminado perfecto y natural
+          background: 'linear-gradient(to bottom, rgba(16, 37, 70, 0.55) 0%, rgba(16, 37, 70, 0.35) 45%, rgba(16, 37, 70, 0.12) 75%, rgba(16, 37, 70, 0) 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 35%, rgba(0,0,0,0.45) 70%, rgba(0,0,0,0) 100%)',
+          maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 35%, rgba(0,0,0,0.45) 70%, rgba(0,0,0,0) 100%)',
         }}
       />
 
-      {/* Sutil gradiente oscuro inicial para el Hero (Ahora FIJO en top-0 para que comience en el borde superior absoluto) */}
+      {/* Sutil gradiente oscuro inicial para el Hero */}
       <div 
         aria-hidden="true" 
-        className={`pointer-events-none fixed inset-x-0 top-0 z-40 h-32 bg-gradient-to-b from-black/40 to-transparent transition-all duration-500 ${
+        className={`pointer-events-none fixed inset-x-0 top-0 z-40 h-32 bg-gradient-to-b from-black/50 to-transparent transition-all duration-500 ${
           isScrolled ? 'opacity-0 invisible' : 'opacity-100'
         }`}
       />
@@ -137,11 +82,11 @@ export default function Navbar() {
           isScrolled ? 'h-16' : 'h-20'
         }`}>
           
-          {/* LEFT: Logo interactivo (La P dorada en cápsula minimalista) */}
+          {/* LEFT: Logo interactivo */}
           <div className="justify-self-start flex items-center">
             <button 
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
-              className={`inline-flex h-9 items-center justify-center rounded-full transition-all duration-500 cursor-pointer ${logoButtonClass}`}
+              className="bg-transparent px-0 inline-flex h-9 items-center justify-center rounded-full transition-all duration-500 cursor-pointer"
             >
               <img 
                 src="/favicon-512x512.png" 
@@ -157,19 +102,19 @@ export default function Navbar() {
           <nav className={`flex items-center rounded-full transition-all duration-500 hidden h-9 justify-self-center p-1 sm:flex ${navPillBackground}`}>
             <button
               onClick={() => scrollToSection('servicios')}
-              className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[10px] font-medium tracking-wider transition-all uppercase cursor-pointer ${textColorClass}`}
+              className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[10px] font-medium tracking-wider uppercase cursor-pointer ${textColorClass}`}
             >
               <LayoutGrid size={11} className={textIconColor} /> Servicios
             </button>
             <button
               onClick={() => scrollToSection('eventos')}
-              className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[10px] font-medium tracking-wider transition-all uppercase cursor-pointer ${textColorClass}`}
+              className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[10px] font-medium tracking-wider uppercase cursor-pointer ${textColorClass}`}
             >
               <Calendar size={11} className={textIconColor} /> Eventos
             </button>
             <button
               onClick={() => scrollToSection('contacto')}
-              className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[10px] font-medium tracking-wider transition-all uppercase cursor-pointer ${textColorClass}`}
+              className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[10px] font-medium tracking-wider uppercase cursor-pointer ${textColorClass}`}
             >
               <HelpIcon size={11} className={textIconColor} /> Consultas
             </button>
@@ -207,14 +152,14 @@ export default function Navbar() {
 
         {/* Menú Móvil Desplegable */}
         {isOpen && (
-          <div className={`absolute left-6 right-6 border border-hairline rounded-2xl py-6 px-6 sm:hidden flex flex-col gap-5 animate-premium-fade z-40 transition-all duration-500 bg-white/95 backdrop-blur-xl text-black ${
+          <div className={`absolute left-6 right-6 border border-white/10 rounded-2xl py-6 px-6 sm:hidden flex flex-col gap-5 animate-premium-fade z-40 transition-all duration-500 bg-neutral-950/95 backdrop-blur-xl text-white ${
             isScrolled ? 'top-[56px]' : 'top-[64px]'
           }`}>
             {['servicios', 'eventos', 'galeria', 'contacto'].map((item) => (
               <button
                 key={item}
                 onClick={() => scrollToSection(item)}
-                className="text-left text-xs font-semibold tracking-widest uppercase py-1 transition-colors duration-300 font-display text-black/90 hover:text-gold"
+                className="text-left text-xs font-semibold tracking-widest uppercase py-1 transition-colors duration-300 font-display text-white/90 hover:text-gold"
               >
                 {item}
               </button>
