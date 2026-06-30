@@ -65,13 +65,13 @@ export default function Hero() {
                   onClick={() => scrollToSection('eventos')}
                   className="inline-flex h-9 w-full sm:w-auto cursor-pointer items-center justify-center rounded-full bg-gold px-6 text-[10px] font-bold uppercase tracking-wider text-prius-black transition-colors hover:bg-gold-hover shadow-md"
                 >
-                  Ver salón de eventos
+                  VER SALÓN DE EVENTOS
                 </button>
                 <button 
                   onClick={() => scrollToSection('servicios')}
                   className="inline-flex h-9 w-full sm:w-auto cursor-pointer items-center justify-center rounded-full border border-white/40 bg-transparent px-5 text-[10px] font-bold uppercase tracking-wider text-white transition-all hover:bg-white/10 hover:border-white/60"
                 >
-                  Servicios del balneario
+                  SERVICIOS DEL BALNEARIO
                 </button>
               </div>
             </div>
