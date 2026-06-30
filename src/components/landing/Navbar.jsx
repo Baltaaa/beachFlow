@@ -109,15 +109,15 @@ export default function Navbar() {
       {/* CAPA DE DESENFOQUE PROGRESIVO FIJO ULTRA-INTENSO CON GRADIENTE DORADO PRIUS */}
       <div 
         aria-hidden="true" 
-        className={`fixed top-0 left-0 right-0 h-[130px] pointer-events-none z-40 transition-all duration-700 ease-in-out ${
+        className={`fixed top-0 left-0 right-0 h-[100px] pointer-events-none z-40 transition-all duration-700 ease-in-out ${
           isScrolled 
-            ? 'opacity-100 backdrop-blur-[28px]' 
+            ? 'opacity-100 backdrop-blur-[40px]' 
             : 'opacity-0 backdrop-blur-none invisible'
         }`}
         style={{
-          background: 'linear-gradient(to bottom, rgba(242, 201, 81, 0.25) 0%, rgba(242, 201, 81, 0) 100%)',
-          WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 40%, rgba(0,0,0,0.4) 75%, rgba(0,0,0,0) 100%)',
-          maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 40%, rgba(0,0,0,0.4) 75%, rgba(0,0,0,0) 100%)',
+          background: 'linear-gradient(to bottom, rgba(242, 201, 81, 0.25) 0%, rgba(242, 201, 81, 0) 70%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 30%, rgba(0,0,0,0.4) 65%, rgba(0,0,0,0) 100%)',
+          maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 30%, rgba(0,0,0,0.4) 65%, rgba(0,0,0,0) 100%)',
         }}
       />
 
