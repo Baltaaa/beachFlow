@@ -26,6 +26,22 @@ export default function Gallery() {
   
   const sliderRef = useRef(null)
 
+  // Bloquear scroll del body cuando el modal está abierto
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden'
+      document.body.style.paddingRight = '0px'
+    } else {
+      document.body.style.overflow = ''
+      document.body.style.paddingRight = ''
+    }
+    
+    return () => {
+      document.body.style.overflow = ''
+      document.body.style.paddingRight = ''
+    }
+  }, [isOpen])
+
   // Filtrar imágenes según categoría seleccionada
   const filteredImages = galleryImages.filter(img => 
     activeCategory === "Todo" || img.category === activeCategory
@@ -51,18 +67,14 @@ export default function Gallery() {
 
   const handleOpen = (img) => {
     setActiveImage(img)
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        setIsOpen(true)
-      })
-    })
+    setIsOpen(true)
   }
 
   const handleClose = () => {
     setIsOpen(false)
     setTimeout(() => {
       setActiveImage(null)
-    }, 400)
+    }, 300)
   }
 
   return (
@@ -182,10 +194,10 @@ export default function Gallery() {
         </div>
       </div>
 
-      {/* Lightbox Modal Refinado */}
+      {/* Lightbox Modal Fijo - Fixed positioning con z-index bajo el header */}
       {activeImage && (
         <div 
-          className={`fixed inset-0 bg-prius-black/95 z-50 flex items-center justify-center p-4 backdrop-blur-md transition-opacity duration-400 ease-out ${
+          className={`fixed inset-0 bg-prius-black/95 z-[45] flex items-center justify-center p-4 backdrop-blur-md transition-opacity duration-300 ease-out ${
             isOpen ? 'opacity-100' : 'opacity-0'
           }`}
           onClick={handleClose}
@@ -193,14 +205,14 @@ export default function Gallery() {
         >
           <button 
             onClick={handleClose}
-            className={`absolute top-6 right-6 p-2.5 bg-white/10 hover:bg-white/20 text-white rounded-full border border-white/10 transition-all duration-400 ease-out cursor-pointer ${
+            className={`absolute top-6 right-6 p-2.5 bg-white/10 hover:bg-white/20 text-white rounded-full border border-white/10 transition-all duration-300 ease-out cursor-pointer ${
               isOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-75'
             }`}
           >
             <X size={18} />
           </button>
           <div 
-            className={`max-w-3xl w-full max-h-[80vh] flex flex-col items-center transition-all duration-400 cubic-bezier(0.16, 1, 0.3, 1) ${
+            className={`max-w-3xl w-full max-h-[80vh] flex flex-col items-center transition-all duration-300 cubic-bezier(0.16, 1, 0.3, 1) ${
               isOpen ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-95'
             }`}
             onClick={e => e.stopPropagation()}

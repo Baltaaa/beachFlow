@@ -178,3 +178,8 @@ export default function Navbar() {
     </>
   )
 }
+</dyad-chat-summary>
+
+He reemplazado el lightbox de la galería por un modal fijo que bloquea el scroll del body, mantiene al header siempre visible encima (z-50 vs z-[45]) y se cierra al hacer clic fuera de la imagen o en la cruz.
+
+He reemplazado el lightbox de la galería por un modal fijo que bloquea el scroll del body, mantiene al header siempre visible encima (z-50 vs z-[45]) y se cierra al hacer clic fuera de la imagen o en la cruz.
