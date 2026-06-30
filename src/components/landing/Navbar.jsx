@@ -33,20 +33,18 @@ export default function Navbar() {
     ? 'top-[28px] w-full max-w-[1952px] px-4'
     : 'top-0 w-full max-w-full px-6 sm:px-8 py-1'
 
-  // Estilos de los textos de navegación (Optimizados para contrastar con el vidrio marino)
-  const textColorClass = 'text-white/85 hover:text-gold transition-colors duration-300'
-  const textIconColor = 'text-white/60'
+  // Estilos de los textos de navegación (Invertidos a gris oscuro de alto contraste con hover dorado)
+  const textColorClass = 'text-neutral-800 hover:text-gold transition-colors duration-300'
+  const textIconColor = 'text-neutral-500'
 
-  // Cápsula de navegación central (Estilo Glassmorphism Premium)
-  const navPillBackground = !isScrolled
-    ? 'bg-white/15 border border-white/5 backdrop-blur-md'
-    : 'bg-white/10 text-white border border-white/10 backdrop-blur-md'
+  // Cápsula de navegación central (Fondo blanco semi-translúcido premium)
+  const navPillBackground = 'bg-white/90 border border-neutral-200/40 backdrop-blur-md shadow-sm'
 
-  // Cápsula de Selector de Idioma
-  const languageButtonClass = 'bg-white/10 text-white/85 hover:bg-white/20 border border-white/5 backdrop-blur-md'
+  // Cápsula de Selector de Idioma (Fondo blanco con texto gris oscuro)
+  const languageButtonClass = 'bg-white/90 text-neutral-800 hover:bg-white border border-neutral-200/40 backdrop-blur-md shadow-sm'
 
-  // Cápsula de Menú Móvil
-  const menuButtonClass = 'bg-white/10 text-white hover:bg-white/20 border border-white/5 backdrop-blur-md'
+  // Cápsula de Menú Móvil (Adaptada a la misma estética blanca)
+  const menuButtonClass = 'bg-white/90 text-neutral-800 hover:bg-white border border-neutral-200/40 backdrop-blur-md shadow-sm'
 
   return (
     <>
@@ -104,19 +102,19 @@ export default function Navbar() {
           <nav className={`flex items-center rounded-full transition-all duration-500 hidden h-9 justify-self-center p-1 sm:flex ${navPillBackground}`}>
             <button
               onClick={() => scrollToSection('servicios')}
-              className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[10px] font-medium tracking-wider uppercase cursor-pointer ${textColorClass}`}
+              className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[10px] font-semibold tracking-wider uppercase cursor-pointer ${textColorClass}`}
             >
               <LayoutGrid size={11} className={textIconColor} /> Servicios
             </button>
             <button
               onClick={() => scrollToSection('eventos')}
-              className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[10px] font-medium tracking-wider uppercase cursor-pointer ${textColorClass}`}
+              className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[10px] font-semibold tracking-wider uppercase cursor-pointer ${textColorClass}`}
             >
               <Calendar size={11} className={textIconColor} /> Eventos
             </button>
             <button
               onClick={() => scrollToSection('contacto')}
-              className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[10px] font-medium tracking-wider uppercase cursor-pointer ${textColorClass}`}
+              className={`flex items-center gap-1.5 rounded-full px-3.5 py-1 text-[10px] font-semibold tracking-wider uppercase cursor-pointer ${textColorClass}`}
             >
               <HelpIcon size={11} className={textIconColor} /> Consultas
             </button>
@@ -127,7 +125,7 @@ export default function Navbar() {
             <div className="relative hidden sm:block">
               <button 
                 type="button" 
-                className={`inline-flex h-9 items-center gap-1.5 rounded-full px-3 text-[10px] font-medium transition-all duration-500 cursor-pointer ${languageButtonClass}`}
+                className={`inline-flex h-9 items-center gap-1.5 rounded-full px-3 text-[10px] font-semibold transition-all duration-500 cursor-pointer ${languageButtonClass}`}
               >
                 <span className="text-[12px] leading-none">🇦🇷</span>
                 <span className="uppercase">es</span>
