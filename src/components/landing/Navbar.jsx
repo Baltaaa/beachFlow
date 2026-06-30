@@ -63,8 +63,8 @@ export default function Navbar() {
           background: 'linear-gradient(to bottom, rgba(15, 15, 15, 0.5) 0%, rgba(15, 15, 15, 0.35) 30%, rgba(15, 15, 15, 0.15) 60%, rgba(15, 15, 15, 0.02) 85%, rgba(15, 15, 15, 0) 100%)',
           WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 40%, rgba(0,0,0,0.3) 75%, rgba(0,0,0,0) 100%)',
           maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 40%, rgba(0,0,0,0.3) 75%, rgba(0,0,0,0) 100%)',
-          backdropFilter: isScrolled ? 'blur(120px)' : 'none',
-          WebkitBackdropFilter: isScrolled ? 'blur(120px)' : 'none',
+          backdropFilter: isScrolled ? 'blur(300px)' : 'none',
+          WebkitBackdropFilter: isScrolled ? 'blur(300px)' : 'none',
         }}
       />
 
