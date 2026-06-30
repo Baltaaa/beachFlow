@@ -1,111 +1,166 @@
-import { Phone, ArrowRight } from 'lucide-react'
+import { ArrowRight, Phone } from 'lucide-react'
 
 export default function Events() {
   return (
-    <section className="py-20 px-margin-mobile md:px-margin-desktop bg-[#F5F5F3] text-prius-black relative overflow-hidden" id="eventos">
-      {/* Elemento decorativo de fondo sutil */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gold/10 rounded-full blur-[120px] pointer-events-none" />
-      
-      <div className="max-w-[1440px] mx-auto">
+    <section className="py-28 px-margin-mobile md:px-margin-desktop bg-white text-prius-black border-t border-hairline" id="eventos">
+      <div className="max-w-[1140px] mx-auto">
         
-        {/* Estructura Bento Grid Principal */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        {/* Encabezado Editorial Estilo Lookbook */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+          <div className="max-w-xl">
+            <h2 className="text-[44px] md:text-[56px] font-bold tracking-tight leading-none text-prius-black font-display mb-4">
+              El salón<span className="text-gold">.</span>
+            </h2>
+            <p className="text-prius-black/60 text-sm md:text-base font-light leading-relaxed max-w-md">
+              La mítica esquina de Playa Grande se transforma. Un espacio premium totalmente privado, climatizado y disponible exclusivamente bajo reserva previa.
+            </p>
+          </div>
+          <div>
+            <a 
+              href="https://wa.me/542235765482" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-xs font-medium text-prius-black hover:text-gold transition-colors uppercase tracking-wider font-display"
+            >
+              Ver disponibilidad 
+              <ArrowRight size={14} className="text-gold" />
+            </a>
+          </div>
+        </div>
+
+        {/* Grilla Asimétrica Principal */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
-          {/* COLUMNA IZQUIERDA (Ancho: 5/12) */}
-          <div className="lg:col-span-5 flex flex-col gap-4">
-            
-            {/* Bloque de Texto (Top-Left) - Sin bordes ni fondo, integrado como titular */}
-            <div className="flex flex-col justify-center min-h-[220px] py-2">
-              <span className="text-[9px] font-normal uppercase tracking-[0.25em] text-gold mb-3 block font-display">
-                Eventos sociales y corporativos a medida
-              </span>
-              <h2 className="text-2xl md:text-3xl font-normal uppercase tracking-tight leading-tight mb-3 font-display text-prius-black">
-                Tu espacio para eventos en <span className="text-gold">Prius</span>
-              </h2>
-              <p className="text-prius-black/60 text-xs leading-relaxed mb-6 font-light">
-                La mítica esquina de Playa Grande se transforma. Lo que antes fue el icónico espacio de Antares, hoy renace como un salón de eventos premium totalmente privado y disponible exclusivamente bajo reserva previa.
+          {/* COLUMNA IZQUIERDA: El Espacio Destacado (Ancho: 7/12) */}
+          <div className="lg:col-span-7 flex flex-col gap-6">
+            <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl border border-hairline bg-prius-background group">
+              <img 
+                src="/images/event1.webp" 
+                alt="Salón de Eventos Prius" 
+                className="w-full h-full object-cover group-hover:scale-[1.02] transition-premium-slow"
+              />
+              {/* Badges flotantes minimalistas */}
+              <div className="absolute bottom-4 left-4 flex gap-2">
+                <span className="bg-white/90 backdrop-blur-md text-prius-black text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full border border-hairline">
+                  Exclusivo
+                </span>
+                <span className="bg-white/90 backdrop-blur-md text-prius-black text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full border border-hairline">
+                  Climatizado
+                </span>
+              </div>
+            </div>
+
+            <div className="px-1">
+              <h3 className="text-xl md:text-2xl font-bold tracking-tight text-prius-black font-display mb-3">
+                ¿Qué es Prius Eventos?
+              </h3>
+              <p className="text-prius-black/60 text-xs md:text-sm font-light leading-relaxed mb-6 max-w-xl">
+                Lo que antes fue el icónico espacio de Antares, hoy renace como un salón de eventos de alta gama frente al mar. Diseñado con una arquitectura minimalista, acústica controlada y vistas privilegiadas para que tu celebración sea única.
               </p>
               <a 
                 href="https://wa.me/542235765482" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-[10px] font-medium text-gold hover:text-prius-black transition-colors uppercase tracking-widest text-left font-display"
+                className="inline-flex items-center gap-2 text-xs font-bold text-prius-black hover:text-gold transition-colors uppercase tracking-widest font-display"
               >
-                Consultar fechas disponibles <ArrowRight size={12} />
+                Reservar fecha <ArrowRight size={12} className="text-gold" />
               </a>
             </div>
-
-            {/* Tarjeta Grande (Bottom-Left) */}
-            <div className="relative overflow-hidden rounded-lg border border-hairline group aspect-[16/10] lg:h-[260px] bg-white">
-              <img 
-                src="/images/event1.webp" 
-                alt="Nuevo espacio de eventos Prius" 
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-              />
-              {/* Overlay de texto integrado y minimalista */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-5">
-                <span className="text-[8px] font-normal uppercase tracking-widest text-gold mb-0.5 font-display">Salón Principal</span>
-                <h4 className="text-xs font-extralight uppercase tracking-tight font-display text-white">Nuevo Espacio Climatizado</h4>
-              </div>
-            </div>
-
           </div>
 
-          {/* COLUMNA DERECHA (Ancho: 7/12) */}
-          <div className="lg:col-span-7 flex flex-col gap-4">
+          {/* COLUMNA DERECHA: Feed de Experiencias (Ancho: 5/12) */}
+          <div className="lg:col-span-5 flex flex-col">
             
-            {/* Tarjeta Ancha (Top-Right) */}
-            <div className="relative overflow-hidden rounded-lg border border-hairline group h-[200px] bg-white">
-              <img 
-                src="/images/event2.webp" 
-                alt="Cumpleaños, fiestas de 15, casamientos y corporativos" 
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-              />
-              {/* Overlay de texto integrado y minimalista */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-5">
-                <span className="text-[8px] font-normal uppercase tracking-widest text-gold mb-0.5 font-display">Celebraciones</span>
-                <h4 className="text-xs font-extralight uppercase tracking-tight font-display text-white">Cumpleaños, Fiestas de 15 y Casamientos</h4>
+            {/* Item 1 */}
+            <div className="flex gap-5 pb-6 mb-6 border-b border-hairline group">
+              <div className="w-24 h-24 shrink-0 overflow-hidden rounded-xl border border-hairline bg-prius-background">
+                <img 
+                  src="/images/event2.webp" 
+                  alt="Casamientos y Fiestas de 15" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-premium"
+                />
+              </div>
+              <div className="flex flex-col justify-center">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span className="text-[9px] font-bold uppercase tracking-wider text-gold font-display">Sociales</span>
+                  <span className="text-[9px] text-prius-black/40 font-light">Día & Noche</span>
+                </div>
+                <h4 className="text-sm md:text-base font-bold text-prius-black leading-snug mb-1 font-display">
+                  Casamientos y Fiestas de 15 frente al mar
+                </h4>
+                <p className="text-[11px] text-prius-black/50 font-light line-clamp-2">
+                  Celebraciones mágicas con el Atlántico como testigo y un servicio gastronómico de primer nivel.
+                </p>
               </div>
             </div>
 
-            {/* Fila de Dos Tarjetas Medianas (Bottom-Right) */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              
-              {/* Tarjeta Mediana 1 */}
-              <div className="relative overflow-hidden rounded-lg border border-hairline group h-[220px] bg-white">
+            {/* Item 2 */}
+            <div className="flex gap-5 pb-6 mb-6 border-b border-hairline group">
+              <div className="w-24 h-24 shrink-0 overflow-hidden rounded-xl border border-hairline bg-prius-background">
                 <img 
                   src="/images/event3.webp" 
-                  alt="De día o de noche, celebra como siempre soñaste" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  alt="Eventos Corporativos" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-premium"
                 />
-                {/* Overlay de texto integrado y minimalista */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-5">
-                  <span className="text-[8px] font-normal uppercase tracking-widest text-gold mb-0.5 font-display">Experiencias</span>
-                  <h4 className="text-xs font-extralight uppercase tracking-tight font-display text-white">Celebraciones de Día y Noche</h4>
-                </div>
               </div>
+              <div className="flex flex-col justify-center">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span className="text-[9px] font-bold uppercase tracking-wider text-gold font-display">Corporativos</span>
+                  <span className="text-[9px] text-prius-black/40 font-light">A medida</span>
+                </div>
+                <h4 className="text-sm md:text-base font-bold text-prius-black leading-snug mb-1 font-display">
+                  Lanzamientos, cenas y jornadas de trabajo
+                </h4>
+                <p className="text-[11px] text-prius-black/50 font-light line-clamp-2">
+                  El entorno ideal para potenciar tu marca, realizar conferencias o agasajar a tus clientes.
+                </p>
+              </div>
+            </div>
 
-              {/* Tarjeta Mediana 2 */}
-              <div className="relative overflow-hidden rounded-lg border border-hairline group h-[220px] bg-white">
+            {/* Item 3 */}
+            <div className="flex gap-5 pb-6 mb-6 border-b border-hairline group">
+              <div className="w-24 h-24 shrink-0 overflow-hidden rounded-xl border border-hairline bg-prius-background">
                 <img 
                   src="/images/event4.webp" 
-                  alt="Contáctanos al 223 5765 482" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  alt="Cumpleaños y Aniversarios" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-premium"
                 />
-                {/* Overlay de texto integrado y minimalista */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-5">
-                  <span className="text-[8px] font-normal uppercase tracking-widest text-gold mb-0.5 font-display">Contacto Directo</span>
-                  <a 
-                    href="https://wa.me/542235765482" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-xs font-extralight uppercase tracking-tight flex items-center gap-1.5 text-white hover:text-gold transition-colors font-display"
-                  >
-                    <Phone size={12} className="text-gold" /> 223 5765 482
-                  </a>
-                </div>
               </div>
+              <div className="flex flex-col justify-center">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span className="text-[9px] font-bold uppercase tracking-wider text-gold font-display">Celebraciones</span>
+                  <span className="text-[9px] text-prius-black/40 font-light">Privado</span>
+                </div>
+                <h4 className="text-sm md:text-base font-bold text-prius-black leading-snug mb-1 font-display">
+                  Cumpleaños y aniversarios íntimos
+                </h4>
+                <p className="text-[11px] text-prius-black/50 font-light line-clamp-2">
+                  Festejá tus momentos especiales en un ambiente reservado con la mejor coctelería de la costa.
+                </p>
+              </div>
+            </div>
 
+            {/* CTA de Contacto Directo */}
+            <div className="mt-2 p-5 bg-prius-background rounded-xl border border-hairline flex items-center justify-between gap-4">
+              <div>
+                <span className="text-[8px] font-bold uppercase tracking-widest text-prius-black/40 block mb-0.5 font-display">Contacto Directo</span>
+                <a 
+                  href="https://wa.me/542235765482" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-xs font-bold text-prius-black hover:text-gold transition-colors flex items-center gap-1.5 font-display"
+                >
+                  <Phone size={12} className="text-gold" /> 223 5765 482
+                </a>
+              </div>
+              <a 
+                href="https://wa.me/542235765482" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="bg-gold hover:bg-gold-hover text-prius-black text-[10px] font-bold uppercase tracking-wider px-4 py-2.5 rounded-full transition-colors font-display"
+              >
+                Consultar
+              </a>
             </div>
 
           </div>
