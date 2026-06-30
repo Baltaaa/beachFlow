@@ -55,14 +55,16 @@ export default function Navbar() {
         aria-hidden="true" 
         className={`fixed top-0 left-0 right-0 h-[110px] pointer-events-none z-40 transition-all duration-700 ease-in-out ${
           isScrolled 
-            ? 'opacity-100 backdrop-blur-[40px]' 
-            : 'opacity-0 backdrop-blur-none invisible'
+            ? 'opacity-100' 
+            : 'opacity-0 invisible'
         }`}
         style={{
           // Gradiente multi-parada para un difuminado perfecto y natural
           background: 'linear-gradient(to bottom, rgba(16, 37, 70, 0.55) 0%, rgba(16, 37, 70, 0.35) 45%, rgba(16, 37, 70, 0.12) 75%, rgba(16, 37, 70, 0) 100%)',
-          WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 35%, rgba(0,0,0,0.45) 70%, rgba(0,0,0,0) 100%)',
-          maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 35%, rgba(0,0,0,0.45) 70%, rgba(0,0,0,0) 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.98) 40%, rgba(0,0,0,0.4) 75%, rgba(0,0,0,0) 100%)',
+          maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.98) 40%, rgba(0,0,0,0.4) 75%, rgba(0,0,0,0) 100%)',
+          backdropFilter: isScrolled ? 'blur(64px)' : 'none',
+          WebkitBackdropFilter: isScrolled ? 'blur(64px)' : 'none',
         }}
       />
 
