@@ -1,4 +1,5 @@
 import { Umbrella, Shield, Waves, Heart, Sparkles, ArrowRight } from 'lucide-react'
+import HeicImage from '../ui/HeicImage'
 
 const services = [
   {
@@ -71,7 +72,7 @@ export default function Services() {
             >
               {/* Contenedor de Imagen Pequeña y Fija */}
               <div className="relative h-32 overflow-hidden bg-prius-background border-b border-hairline">
-                <img 
+                <HeicImage 
                   src={s.img} 
                   alt={s.title} 
                   className="w-full h-full object-cover group-hover:scale-102 transition-premium-slow" 

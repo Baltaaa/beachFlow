@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { Maximize2, X, ChevronLeft, ChevronRight } from 'lucide-react'
+import HeicImage from '../ui/HeicImage'
 
 const CATEGORIES = ["Todo", "Instalaciones", "Gastronomía", "Wellness", "Eventos"]
 
@@ -143,7 +144,7 @@ export default function Gallery() {
               >
                 {/* Contenedor de Imagen de Proporción Elegante (2:3 o similar) */}
                 <div className="relative aspect-[4/5] overflow-hidden rounded-lg border border-hairline group-hover:border-gold transition-premium bg-prius-background">
-                  <img 
+                  <HeicImage 
                     alt={img.title} 
                     className="w-full h-full object-cover group-hover:scale-[1.03] transition-premium-slow" 
                     src={img.src} 
@@ -207,7 +208,7 @@ export default function Gallery() {
             onClick={e => e.stopPropagation()}
             style={{ willChange: 'transform, opacity' }}
           >
-            <img 
+            <HeicImage 
               src={activeImage.src} 
               alt={activeImage.title} 
               className="max-w-full max-h-[70vh] object-contain rounded-lg border border-white/10"
