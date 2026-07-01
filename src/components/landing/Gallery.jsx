@@ -4,15 +4,16 @@ import { Maximize2, X, ChevronLeft, ChevronRight } from 'lucide-react'
 const CATEGORIES = ["Todo", "Instalaciones", "Gastronomía", "Wellness", "Eventos"]
 
 const galleryImages = [
-  { num: 8, title: "Carpas Premium", category: "Instalaciones", desc: "Espacios de sombra con diseño nórdico" },
-  { num: 4, title: "Atardecer en la Costa", category: "Instalaciones", desc: "Vistas panorámicas hacia Playa Grande" },
-  { num: 7, title: "Piscina Infinita", category: "Instalaciones", desc: "Espejo de agua frente al mar" },
-  { num: 3, title: "Spa & Relax", category: "Wellness", desc: "Tratamientos de bienestar y masajes" },
-  { num: 11, title: "Gastronomía de Mar", category: "Gastronomía", desc: "Sabores frescos y coctelería de autor" },
-  { num: 12, title: "Espacios de Sombra", category: "Instalaciones", desc: "Zonas de descanso exclusivas" },
-  { num: 13, title: "Atención Premium", category: "Momentos", desc: "Servicio personalizado en carpa" },
-  { num: 14, title: "Eventos Privados", category: "Eventos", desc: "La mítica esquina totalmente renovada" },
-  { src: '/images/carpas-amigos.webp', title: "Experiencia Prius", category: "Momentos", desc: "Momentos únicos con amigos" },
+  { src: "/images/gallery_1390530.jpg", title: "Instalaciones Prius", category: "Instalaciones", desc: "Espacios modernos y confortables" },
+  { src: "/images/gallery_1400339.jpg", title: "Vestuarios & Duchas", category: "Instalaciones", desc: "Higiene y confort de primer nivel" },
+  { src: "/images/gallery_1400343.jpg", title: "Lockers de Seguridad", category: "Instalaciones", desc: "Tranquilidad absoluta para tus pertenencias" },
+  { src: "/images/gallery_1400377.jpg", title: "Espacio Cambiador Bebés", category: "Wellness", desc: "Comodidad pensada para toda la familia" },
+  { src: "/images/gallery_1400401.jpg", title: "Duchas Privadas", category: "Instalaciones", desc: "Instalaciones impecables y renovadas" },
+  { src: "/images/gallery_1400459.jpg", title: "Baños de Diseño", category: "Instalaciones", desc: "Estética minimalista y pulcritud" },
+  { src: "/images/gallery_IMG_1832.heic", title: "Atardecer en Prius", category: "Instalaciones", desc: "La magia de Playa Grande al caer el sol" },
+  { src: "/images/gallery_IMG_1852.heic", title: "Vista Panorámica", category: "Instalaciones", desc: "El parador desde una perspectiva única" },
+  { src: "/images/gallery_prius_55.jpg", title: "Día de Playa", category: "Instalaciones", desc: "Disfrutando en familia bajo la sombra" },
+  { src: '/images/carpas-amigos.webp', title: "Experiencia Prius", category: "Instalaciones", desc: "Momentos únicos con amigos" },
   { src: '/images/gastronomia-1.webp', title: "Platos Seleccionados", category: "Gastronomía", desc: "Ingredientes locales de alta calidad" },
   { src: '/images/gastronomia-2.webp', title: "Coctelería Beach Front", category: "Gastronomía", desc: "Tragos diseñados para la tarde" },
   { src: '/images/pareja-playa.webp', title: "Relax Solárium", category: "Wellness", desc: "Desconexión absoluta frente al Atlántico" }
@@ -145,7 +146,7 @@ export default function Gallery() {
                   <img 
                     alt={img.title} 
                     className="w-full h-full object-cover group-hover:scale-[1.03] transition-premium-slow" 
-                    src={img.src || `/images/prius${img.num}.webp`} 
+                    src={img.src} 
                   />
                   {/* Overlay táctil minimalista */}
                   <div className="absolute top-3 right-3 bg-white/80 backdrop-blur-md p-2 rounded-full border border-hairline opacity-0 group-hover:opacity-100 transition-premium">
@@ -207,7 +208,7 @@ export default function Gallery() {
             style={{ willChange: 'transform, opacity' }}
           >
             <img 
-              src={activeImage.src || `/images/prius${activeImage.num}.webp`} 
+              src={activeImage.src} 
               alt={activeImage.title} 
               className="max-w-full max-h-[70vh] object-contain rounded-lg border border-white/10"
             />

@@ -6,14 +6,14 @@ const services = [
     subtitle: "Santuario de sombra",
     desc: "Refugio privado de diseño nórdico frente al Atlántico. Equipado con reposeras ergonómicas de alta gama y atención personalizada de carperos.",
     icon: Umbrella,
-    img: "/images/prius6.webp"
+    img: "/images/carpasYsombriService.heic"
   },
   {
     title: "Pileta & Solárium",
     subtitle: "Horizonte infinito",
     desc: "Espejo de agua diseñado para fundirse con el mar. Solárium de madera noble con servicio de coctelería premium.",
     icon: Waves,
-    img: "/images/prius4.webp"
+    img: "/images/piletaService.heic"
   },
   {
     title: "Masajes & Wellness",
@@ -27,7 +27,7 @@ const services = [
     subtitle: "Privacidad resguardada",
     desc: "Vestuarios de diseño minimalista, duchas con control térmico y lockers de alta seguridad para su total tranquilidad.",
     icon: Shield,
-    img: "/images/prius2.webp"
+    img: "/images/cabinas.jpg"
   },
   {
     title: "Recreación & Club",
@@ -58,7 +58,7 @@ export default function Services() {
             </h2>
           </div>
           <p className="text-prius-black/60 text-xs max-w-xs leading-relaxed">
-            Minimalismo estructural and confort absoluto diseñado al detalle para una experiencia costera única.
+            Minimalismo estructural y confort absoluto diseñado al detalle para una experiencia costera única.
           </p>
         </div>
 
