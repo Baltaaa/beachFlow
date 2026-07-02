@@ -15,9 +15,9 @@ export default function Hero() {
         <div className="absolute inset-0 z-0 select-none pointer-events-none">
           <picture className="absolute inset-0 w-full h-full">
             <source media="(max-width: 768px)" srcSet="/images/bg-mobile.webp" />
-            <source srcSet="/images/bg-desktop.webp" />
+            <source srcSet="/images/playa-grande-aerea.webp" />
             <img 
-              src="/images/bg-desktop.webp" 
+              src="/images/playa-grande-aerea.webp" 
               alt="Experiencia Prius Playa Grande" 
               className="w-full h-full object-cover object-top"
             />
