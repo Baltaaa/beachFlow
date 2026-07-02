@@ -1,5 +1,4 @@
 import { Umbrella, Shield, Waves, Heart, Sparkles, ArrowRight } from 'lucide-react'
-import HeicImage from '../ui/HeicImage'
 
 const services = [
   {
@@ -7,14 +6,14 @@ const services = [
     subtitle: "Santuario de sombra",
     desc: "Refugio privado de diseño nórdico frente al Atlántico. Equipado con reposeras ergonómicas de alta gama y atención personalizada de carperos.",
     icon: Umbrella,
-    img: "/images/carpasYsombriService.heic"
+    img: "/images/carpasYsombriService.webp"
   },
   {
     title: "Pileta & Solárium",
     subtitle: "Horizonte infinito",
     desc: "Espejo de agua diseñado para fundirse con el mar. Solárium de madera noble con servicio de coctelería premium.",
     icon: Waves,
-    img: "/images/piletaService.heic"
+    img: "/images/piletaService.webp"
   },
   {
     title: "Masajes & Wellness",
@@ -72,7 +71,7 @@ export default function Services() {
             >
               {/* Contenedor de Imagen Pequeña y Fija */}
               <div className="relative h-32 overflow-hidden bg-prius-background border-b border-hairline">
-                <HeicImage 
+                <img 
                   src={s.img} 
                   alt={s.title} 
                   className="w-full h-full object-cover group-hover:scale-102 transition-premium-slow" 
