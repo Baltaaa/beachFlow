@@ -15,7 +15,7 @@ const services = [
     desc: "Espejo de agua diseñado para fundirse con el mar. Solárium de madera noble con servicio de coctelería premium.",
     icon: Waves,
     img: "/images/piletaService.webp",
-    position: "object-center" // Cambiado a centrado para un mejor encuadre
+    position: "object-[center_65%]" // Ajuste fino para mostrar la pileta y parte del fondo del balneario
   },
   {
     title: "Masajes & Wellness",
