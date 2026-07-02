@@ -4,7 +4,7 @@ import { Maximize2, X, ChevronLeft, ChevronRight } from 'lucide-react'
 const CATEGORIES = ["Todo", "Instalaciones", "Gastronomía", "Wellness", "Eventos"]
 
 const galleryImages = [
-  { src: "/images/gallery_1390530.jpg", title: "Instalaciones Prius", category: "Instalaciones", desc: "Espacios modernos y confortables" },
+  { src: "/images/gallery_1400325.webp", title: "Instalaciones Prius", category: "Instalaciones", desc: "Espacios modernos y confortables" },
   { src: "/images/gallery_1400392.webp", title: "Vestuarios & Duchas", category: "Instalaciones", desc: "Higiene y confort de primer nivel" },
   { src: "/images/gallery_1400343.jpg", title: "Lockers de Seguridad", category: "Instalaciones", desc: "Tranquilidad absoluta para tus pertenencias" },
   { src: "/images/gallery_1400377.jpg", title: "Espacio Cambiador Bebés", category: "Wellness", desc: "Comodidad pensada para toda la familia" },
