@@ -1,23 +1,40 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, Phone, MapPin, Check, ChevronDown } from "lucide-react";
+import { 
+  Mail, 
+  Phone, 
+  MapPin, 
+  Check, 
+  ChevronLeft, 
+  ChevronRight,
+  Umbrella, 
+  Waves, 
+  Heart, 
+  Shield, 
+  Briefcase, 
+  Gift, 
+  Sparkles, 
+  Award, 
+  HelpCircle 
+} from "lucide-react";
 
 const ASUNTO_OPTIONS = [
-  "Reserva de carpas / sombrillas",
-  "Pileta & solárium",
-  "Masajes & wellness",
-  "Cabinas & lockers",
-  "Evento corporativo",
-  "Cumpleaños / fiesta de 15",
-  "Casamiento",
-  "Prius Club",
-  "Otra consulta",
+  { id: "Reserva de carpas / sombrillas", label: "Carpas & Sombrillas", icon: Umbrella, desc: "Reserva de sombra en Playa Grande" },
+  { id: "Pileta & solárium", label: "Pileta & Solárium", icon: Waves, desc: "Acceso al espejo de agua y relax" },
+  { id: "Masajes & wellness", label: "Masajes & Wellness", icon: Heart, desc: "Sesiones de relajación y masajes" },
+  { id: "Cabinas & lockers", label: "Cabinas & Lockers", icon: Shield, desc: "Vestuarios y seguridad privada" },
+  { id: "Evento corporativo", label: "Evento Corporativo", icon: Briefcase, desc: "Lanzamientos y cenas de empresa" },
+  { id: "Cumpleaños / fiesta de 15", label: "Cumpleaños / Fiestas", icon: Gift, desc: "Celebraciones sociales privadas" },
+  { id: "Casamiento", label: "Casamientos", icon: Sparkles, desc: "Bodas exclusivas frente al mar" },
+  { id: "Prius Club", label: "Prius Club", icon: Award, desc: "Membresías y beneficios exclusivos" },
+  { id: "Otra consulta", label: "Otra Consulta", icon: HelpCircle, desc: "Consultas generales al equipo" },
 ];
 
 const N8N_WEBHOOK_URL = import.meta.env.VITE_N8N_WEBHOOK_URL ?? "";
 
 export default function ContactSection() {
+  const [step, setStep] = useState(1);
   const [form, setForm] = useState({
     nombre: "",
     telefono: "",
@@ -30,22 +47,36 @@ export default function ContactSection() {
   const [errorMsg, setErrorMsg] = useState("");
   const [fieldErrors, setFieldErrors] = useState({});
 
-  function validate() {
+  function validateStep(currentStep) {
     const errors = {};
-    if (!form.nombre.trim()) errors.nombre = "El nombre es obligatorio.";
-    if (!form.telefono.trim()) {
-      errors.telefono = "El teléfono es obligatorio.";
-    } else if (!/^\+?[\d\s\-()]{7,20}$/.test(form.telefono.trim())) {
-      errors.telefono = "Formato de teléfono no válido.";
+    if (currentStep === 1) {
+      if (!form.asunto) {
+        errors.asunto = "Por favor, seleccioná una opción para continuar.";
+      }
+    } else if (currentStep === 2) {
+      if (!form.nombre.trim()) errors.nombre = "El nombre es obligatorio.";
+      if (!form.telefono.trim()) {
+        errors.telefono = "El teléfono es obligatorio.";
+      } else if (!/^\+?[\d\s\-()]{7,20}$/.test(form.telefono.trim())) {
+        errors.telefono = "Formato de teléfono no válido.";
+      }
+      if (!form.email.trim()) {
+        errors.email = "El email es obligatorio.";
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
+        errors.email = "El email no es válido.";
+      }
     }
-    if (!form.email.trim()) {
-      errors.email = "El email es obligatorio.";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
-      errors.email = "El email no es válido.";
-    }
-    if (!form.asunto) errors.asunto = "Seleccioná un asunto.";
     setFieldErrors(errors);
     return Object.keys(errors).length === 0;
+  }
+
+  function handleSelectAsunto(asuntoId) {
+    setForm((prev) => ({ ...prev, asunto: asuntoId }));
+    setFieldErrors((prev) => ({ ...prev, asunto: undefined }));
+    // Avanzar automáticamente al paso 2 tras seleccionar el asunto
+    setTimeout(() => {
+      setStep(2);
+    }, 300);
   }
 
   function handleChange(e) {
@@ -56,9 +87,19 @@ export default function ContactSection() {
     }
   }
 
+  function handleNext() {
+    if (validateStep(step)) {
+      setStep((prev) => prev + 1);
+    }
+  }
+
+  function handlePrev() {
+    setStep((prev) => prev - 1);
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
-    if (!validate()) return;
+    if (!validateStep(2)) return;
     setStatus("loading");
     setErrorMsg("");
     const payload = {
@@ -82,6 +123,7 @@ export default function ContactSection() {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       setStatus("success");
       setForm({ nombre: "", telefono: "", email: "", asunto: "", mensaje: "" });
+      setStep(1);
     } catch (err) {
       console.error("Error enviando lead:", err);
       setStatus("error");
@@ -94,33 +136,31 @@ export default function ContactSection() {
   }
 
   return (
-    <section id="contacto" className="bg-white py-16 px-margin-mobile md:px-margin-desktop border-t border-hairline">
-      {/* Contenedor principal con un ancho máximo más compacto (max-w-[1040px]) */}
-      <div className="max-w-[1040px] mx-auto">
+    <section id="contacto" className="bg-white py-20 px-margin-mobile md:px-margin-desktop border-t border-hairline">
+      <div className="max-w-[1140px] mx-auto">
         
         {/* Encabezado Coherente & Compacto */}
-        <div className="mb-8">
+        <div className="mb-12 text-center md:text-left">
           <span className="text-[9px] font-normal uppercase tracking-[0.3em] text-prius-black/40 block mb-1 font-display">
-            Reservas & Consultas
+            Cotizador & Reservas
           </span>
-          <h2 className="text-2xl md:text-3xl font-normal tracking-tight text-prius-black uppercase font-display leading-none">
-            Contactate con <span className="text-gold">Nuestro Equipo</span>
+          <h2 className="text-3xl md:text-4xl font-normal tracking-tight text-prius-black uppercase font-display leading-none">
+            Diseñá tu <span className="text-gold">Experiencia</span>
           </h2>
         </div>
 
         {/* Estructura Bento Compacta con Altura Ajustada */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-0 border border-hairline rounded-xl overflow-hidden bg-white">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 border border-hairline rounded-2xl overflow-hidden bg-white">
           
-          {/* Bloque Izquierdo: Compacto con Imagen de Trasfondo y Overlay Oscuro */}
-          <div className="md:col-span-5 relative text-white p-6 md:p-8 flex flex-col justify-between border-b md:border-b-0 md:border-r border-hairline/10 overflow-hidden min-h-[340px] md:min-h-auto">
+          {/* Bloque Izquierdo: Información de Contacto y Estética */}
+          <div className="lg:col-span-4 relative text-white p-8 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-hairline/10 overflow-hidden min-h-[320px] lg:min-h-[580px]">
             {/* Imagen de Fondo */}
             <div className="absolute inset-0 z-0">
               <img 
                 src="/images/bg-desktop.webp" 
                 alt="Fondo Costa Prius" 
-                className="w-full h-full object-cover grayscale opacity-45"
+                className="w-full h-full object-cover grayscale opacity-40"
               />
-              {/* Overlay oscuro y degradado para excelente contraste de lectura */}
               <div className="absolute inset-0 bg-gradient-to-b from-neutral-950/95 via-neutral-900/90 to-neutral-950/95" />
             </div>
 
@@ -129,49 +169,49 @@ export default function ContactSection() {
               <span className="text-[8px] font-normal uppercase tracking-widest text-gold mb-1 block font-display">
                 Atención Exclusiva
               </span>
-              <h3 className="text-lg md:text-xl font-light uppercase tracking-tight leading-snug mb-3 font-display">
+              <h3 className="text-xl md:text-2xl font-light uppercase tracking-tight leading-snug mb-4 font-display">
                 Su próximo descanso<br />comienza acá
               </h3>
-              <p className="text-white/60 text-[11px] leading-relaxed font-light max-w-xs">
-                Complete el formulario y reciba asesoramiento personalizado para diseñar la estadía que busca en Playa Grande.
+              <p className="text-white/60 text-xs leading-relaxed font-light max-w-xs">
+                Completá nuestro asistente interactivo paso a paso para recibir una propuesta personalizada y adaptada a tus preferencias.
               </p>
             </div>
 
-            {/* Datos de Contacto más Compactos */}
+            {/* Datos de Contacto */}
             <div className="mt-8 pt-6 border-t border-white/10 space-y-4 relative z-10">
               <div className="flex items-center gap-3">
-                <div className="p-1.5 bg-white/5 rounded-full border border-white/10 text-gold shrink-0">
-                  <Phone size={11} />
+                <div className="p-2 bg-white/5 rounded-full border border-white/10 text-gold shrink-0">
+                  <Phone size={12} />
                 </div>
                 <div>
-                  <p className="text-[7px] font-normal uppercase tracking-widest text-white/40 leading-none mb-0.5">WhatsApp</p>
+                  <p className="text-[8px] font-normal uppercase tracking-widest text-white/40 leading-none mb-0.5">WhatsApp</p>
                   <a href="https://wa.me/542235765482" target="_blank" rel="noopener noreferrer"
-                    className="text-[11px] font-light text-white hover:text-gold transition-colors tracking-wide">
+                    className="text-xs font-light text-white hover:text-gold transition-colors tracking-wide">
                     +54 223 576 5482
                   </a>
                 </div>
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="p-1.5 bg-white/5 rounded-full border border-white/10 text-gold shrink-0">
-                  <Mail size={11} />
+                <div className="p-2 bg-white/5 rounded-full border border-white/10 text-gold shrink-0">
+                  <Mail size={12} />
                 </div>
                 <div>
-                  <p className="text-[7px] font-normal uppercase tracking-widest text-white/40 leading-none mb-0.5">Email</p>
+                  <p className="text-[8px] font-normal uppercase tracking-widest text-white/40 leading-none mb-0.5">Email</p>
                   <a href="mailto:info@priusplayagrande.com"
-                    className="text-[11px] font-light text-white hover:text-gold transition-colors tracking-wide">
+                    className="text-xs font-light text-white hover:text-gold transition-colors tracking-wide">
                     info@priusplayagrande.com
                   </a>
                 </div>
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="p-1.5 bg-white/5 rounded-full border border-white/10 text-gold shrink-0">
-                  <MapPin size={11} />
+                <div className="p-2 bg-white/5 rounded-full border border-white/10 text-gold shrink-0">
+                  <MapPin size={12} />
                 </div>
                 <div>
-                  <p className="text-[7px] font-normal uppercase tracking-widest text-white/40 leading-none mb-0.5">Ubicación</p>
-                  <p className="text-[11px] font-light text-white/90 tracking-wide leading-relaxed">
+                  <p className="text-[8px] font-normal uppercase tracking-widest text-white/40 leading-none mb-0.5">Ubicación</p>
+                  <p className="text-xs font-light text-white/90 tracking-wide leading-relaxed">
                     Balneario 7, Playa Grande, Mar del Plata
                   </p>
                 </div>
@@ -179,87 +219,255 @@ export default function ContactSection() {
             </div>
           </div>
 
-          {/* Bloque Derecho: Formulario Estructurado y Ajustado (Compacto) */}
-          <div className="md:col-span-7 p-6 md:p-8 bg-neutral-50/50 flex flex-col justify-center">
-            {status === "success" ? (
-              <div className="h-full flex flex-col items-center justify-center text-center py-6 animate-premium-fade">
-                <div className="w-10 h-10 rounded-full bg-gold/10 border border-gold/20 flex items-center justify-center mb-3 text-gold">
-                  <Check size={16} strokeWidth={2.5} />
+          {/* Bloque Derecho: Formulario Interactivo Step-by-Step */}
+          <div className="lg:col-span-8 p-6 md:p-10 bg-neutral-50/30 flex flex-col justify-between min-h-[500px] lg:min-h-[580px]">
+            
+            {/* Barra de Progreso Minimalista */}
+            {status !== "success" && (
+              <div className="mb-8">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-[9px] font-bold uppercase tracking-wider text-prius-black/40 font-display">
+                    Paso {step} de 3
+                  </span>
+                  <span className="text-[9px] font-bold uppercase tracking-wider text-gold font-display">
+                    {step === 1 ? "Selección de Servicio" : step === 2 ? "Datos Personales" : "Confirmación"}
+                  </span>
                 </div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-prius-black mb-1 font-display">
-                  Solicitud Recibida
-                </h4>
-                <p className="text-prius-black/60 text-[11px] max-w-[240px] leading-relaxed font-light">
-                  Nos pondremos en contacto a la brevedad a través de WhatsApp. ¡Muchas gracias!
-                </p>
-                <button 
-                  onClick={() => setStatus("idle")}
-                  className="mt-4 text-[8px] font-bold tracking-widest uppercase text-gold hover:text-prius-black transition-colors font-display"
-                >
-                  Enviar otra consulta →
-                </button>
-              </div>
-            ) : (
-              <div className="space-y-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <Field label="Nombre completo" error={fieldErrors.nombre}>
-                    <input type="text" name="nombre" value={form.nombre} onChange={handleChange}
-                      placeholder="Ej. Juan Pérez" className={inputClass(!!fieldErrors.nombre)} />
-                  </Field>
-                  <Field label="Teléfono / WhatsApp" error={fieldErrors.telefono}>
-                    <input type="tel" name="telefono" value={form.telefono} onChange={handleChange}
-                      placeholder="+54 223 000 0000" className={inputClass(!!fieldErrors.telefono)} />
-                  </Field>
+                <div className="w-full h-[2px] bg-hairline rounded-full overflow-hidden">
+                  <div 
+                    className="h-full bg-gold transition-all duration-500 rounded-full"
+                    style={{ width: `${(step / 3) * 100}%` }}
+                  />
                 </div>
-
-                <Field label="Correo electrónico" error={fieldErrors.email}>
-                  <input type="email" name="email" value={form.email} onChange={handleChange}
-                    placeholder="ejemplo@mail.com" className={inputClass(!!fieldErrors.email)} />
-                </Field>
-
-                <Field label="Asunto de interés" error={fieldErrors.asunto}>
-                  <div className="relative">
-                    <select name="asunto" value={form.asunto} onChange={handleChange}
-                      className={`${inputClass(!!fieldErrors.asunto)} appearance-none pr-8 cursor-pointer ${form.asunto === "" ? "text-prius-black/35" : "text-prius-black"}`}>
-                      <option value="" disabled>Seleccioná una opción…</option>
-                      {ASUNTO_OPTIONS.map((opt) => (
-                        <option key={opt} value={opt} className="text-prius-black">{opt}</option>
-                      ))}
-                    </select>
-                    <ChevronDown className="pointer-events-none absolute right-1 top-1/2 -translate-y-1/2 w-3 h-3 text-prius-black/40" />
-                  </div>
-                </Field>
-
-                <Field label="Mensaje (opcional)">
-                  <textarea name="mensaje" value={form.mensaje} onChange={handleChange} rows={1}
-                    placeholder="Fechas de interés, cantidad de personas, etc..."
-                    className={`${inputClass(false)} resize-none`} />
-                </Field>
-
-                {status === "error" && (
-                  <div className="bg-red-50 border border-red-100 text-red-700 rounded-md p-2.5 text-[10px] leading-relaxed">
-                    <span>{errorMsg}</span>
-                  </div>
-                )}
-
-                {/* Botón Compacto Estilo Nav / Hero */}
-                <button 
-                  onClick={handleSubmit} 
-                  disabled={status === "loading"}
-                  className="w-full h-9 cursor-pointer items-center justify-center whitespace-nowrap rounded-full px-5 text-[10px] font-bold uppercase tracking-wider transition-all duration-300 bg-gold text-prius-black hover:bg-gold-hover disabled:opacity-60 disabled:cursor-not-allowed flex gap-2"
-                >
-                  {status === "loading" ? (
-                    <>
-                      <svg className="w-3 h-3 animate-spin text-prius-black" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
-                      </svg>
-                      Enviando...
-                    </>
-                  ) : "Enviar Solicitud"}
-                </button>
               </div>
             )}
+
+            {/* Contenido de los Pasos */}
+            <div className="flex-1 flex flex-col justify-center">
+              {status === "success" ? (
+                <div className="flex flex-col items-center justify-center text-center py-12 animate-premium-fade">
+                  <div className="w-14 h-14 rounded-full bg-gold/10 border border-gold/20 flex items-center justify-center mb-4 text-gold">
+                    <Check size={24} strokeWidth={2.5} />
+                  </div>
+                  <h4 className="text-lg font-bold uppercase tracking-wider text-prius-black mb-2 font-display">
+                    ¡Solicitud Recibida!
+                  </h4>
+                  <p className="text-prius-black/60 text-xs max-w-sm leading-relaxed font-light mb-6">
+                    Tu consulta ha sido procesada con éxito. Un asesor de nuestro equipo se pondrá en contacto con vos a la brevedad a través de WhatsApp o correo electrónico.
+                  </p>
+                  <button 
+                    onClick={() => {
+                      setStatus("idle");
+                      setStep(1);
+                    }}
+                    className="text-[10px] font-bold tracking-widest uppercase text-gold hover:text-prius-black transition-colors font-display"
+                  >
+                    Realizar otra consulta →
+                  </button>
+                </div>
+              ) : (
+                <div className="animate-premium-fade">
+                  
+                  {/* PASO 1: Selección de Servicio */}
+                  {step === 1 && (
+                    <div className="space-y-6">
+                      <div className="text-center md:text-left">
+                        <h3 className="text-base font-bold uppercase tracking-wider text-prius-black font-display mb-1">
+                          ¿Qué servicio te interesa cotizar?
+                        </h3>
+                        <p className="text-prius-black/50 text-xs font-light">
+                          Seleccioná una de las opciones para personalizar tu experiencia.
+                        </p>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 max-h-[320px] overflow-y-auto pr-1 scrollbar-thin">
+                        {ASUNTO_OPTIONS.map((opt) => {
+                          const IconComponent = opt.icon;
+                          const isSelected = form.asunto === opt.id;
+                          return (
+                            <button
+                              key={opt.id}
+                              type="button"
+                              onClick={() => handleSelectAsunto(opt.id)}
+                              className={`p-4 rounded-xl border text-left transition-all duration-300 flex flex-col justify-between gap-4 cursor-pointer ${
+                                isSelected
+                                  ? "border-gold bg-gold/5 text-prius-black"
+                                  : "border-hairline bg-white hover:border-prius-black/30 text-prius-black/70"
+                              }`}
+                            >
+                              <div className={`p-2 rounded-lg w-fit ${isSelected ? "bg-gold/20 text-gold" : "bg-neutral-100 text-prius-black/60"}`}>
+                                <IconComponent size={16} />
+                              </div>
+                              <div>
+                                <h4 className="text-xs font-bold uppercase tracking-tight font-display leading-tight">
+                                  {opt.label}
+                                </h4>
+                                <p className="text-[10px] text-prius-black/40 font-light mt-0.5 leading-tight">
+                                  {opt.desc}
+                                </p>
+                              </div>
+                            </button>
+                          );
+                        })}
+                      </div>
+                      {fieldErrors.asunto && (
+                        <p className="text-xs text-red-500 text-center md:text-left font-light">
+                          {fieldErrors.asunto}
+                        </p>
+                      )}
+                    </div>
+                  )}
+
+                  {/* PASO 2: Datos Personales */}
+                  {step === 2 && (
+                    <div className="space-y-5">
+                      <div className="text-center md:text-left">
+                        <h3 className="text-base font-bold uppercase tracking-wider text-prius-black font-display mb-1">
+                          Tus datos de contacto
+                        </h3>
+                        <p className="text-prius-black/50 text-xs font-light">
+                          Completá tus datos para que podamos enviarte la cotización.
+                        </p>
+                      </div>
+
+                      <div className="space-y-4">
+                        <Field label="Nombre completo" error={fieldErrors.nombre}>
+                          <input 
+                            type="text" 
+                            name="nombre" 
+                            value={form.nombre} 
+                            onChange={handleChange}
+                            placeholder="Ej. Juan Pérez" 
+                            className={inputClass(!!fieldErrors.nombre)} 
+                          />
+                        </Field>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          <Field label="Teléfono / WhatsApp" error={fieldErrors.telefono}>
+                            <input 
+                              type="tel" 
+                              name="telefono" 
+                              value={form.telefono} 
+                              onChange={handleChange}
+                              placeholder="Ej. +54 223 576 5482" 
+                              className={inputClass(!!fieldErrors.telefono)} 
+                            />
+                          </Field>
+                          <Field label="Correo electrónico" error={fieldErrors.email}>
+                            <input 
+                              type="email" 
+                              name="email" 
+                              value={form.email} 
+                              onChange={handleChange}
+                              placeholder="ejemplo@mail.com" 
+                              className={inputClass(!!fieldErrors.email)} 
+                            />
+                          </Field>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* PASO 3: Confirmación & Mensaje */}
+                  {step === 3 && (
+                    <div className="space-y-5">
+                      <div className="text-center md:text-left">
+                        <h3 className="text-base font-bold uppercase tracking-wider text-prius-black font-display mb-1">
+                          Detalles adicionales
+                        </h3>
+                        <p className="text-prius-black/50 text-xs font-light">
+                          Agregá cualquier detalle o requerimiento especial para tu reserva.
+                        </p>
+                      </div>
+
+                      <div className="space-y-4">
+                        {/* Resumen de Selección */}
+                        <div className="p-4 rounded-xl border border-hairline bg-white space-y-2">
+                          <span className="text-[8px] font-bold uppercase tracking-wider text-gold font-display">Resumen de solicitud</span>
+                          <div className="grid grid-cols-2 gap-2 text-[11px]">
+                            <div>
+                              <p className="text-prius-black/40 font-light">Servicio:</p>
+                              <p className="font-bold text-prius-black uppercase font-display">{form.asunto}</p>
+                            </div>
+                            <div>
+                              <p className="text-prius-black/40 font-light">Contacto:</p>
+                              <p className="font-medium text-prius-black">{form.nombre}</p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <Field label="Mensaje o aclaración (opcional)">
+                          <textarea 
+                            name="mensaje" 
+                            value={form.mensaje} 
+                            onChange={handleChange} 
+                            rows={3}
+                            placeholder="Fechas de interés, cantidad de personas, etc..."
+                            className={`${inputClass(false)} resize-none`} 
+                          />
+                        </Field>
+                      </div>
+
+                      {status === "error" && (
+                        <div className="bg-red-50 border border-red-100 text-red-700 rounded-md p-3 text-xs leading-relaxed">
+                          <span>{errorMsg}</span>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                </div>
+              )}
+            </div>
+
+            {/* Botones de Navegación */}
+            {status !== "success" && (
+              <div className="flex justify-between items-center pt-6 border-t border-hairline mt-8">
+                {step > 1 ? (
+                  <button
+                    type="button"
+                    onClick={handlePrev}
+                    className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-prius-black/60 hover:text-prius-black transition-colors font-display cursor-pointer"
+                  >
+                    <ChevronLeft size={14} /> Volver
+                  </button>
+                ) : (
+                  <div />
+                )}
+
+                {step < 3 ? (
+                  <button
+                    type="button"
+                    onClick={handleNext}
+                    className="inline-flex h-9 items-center justify-center rounded-full bg-gold px-6 text-[10px] font-bold uppercase tracking-wider text-prius-black hover:bg-gold-hover transition-colors font-display cursor-pointer gap-1.5"
+                  >
+                    Siguiente <ChevronRight size={14} />
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={handleSubmit}
+                    disabled={status === "loading"}
+                    className="inline-flex h-9 items-center justify-center rounded-full bg-gold px-6 text-[10px] font-bold uppercase tracking-wider text-prius-black hover:bg-gold-hover disabled:opacity-60 disabled:cursor-not-allowed transition-colors font-display cursor-pointer gap-1.5"
+                  >
+                    {status === "loading" ? (
+                      <>
+                        <svg className="w-3 h-3 animate-spin text-prius-black" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+                        </svg>
+                        Enviando...
+                      </>
+                    ) : (
+                      <>
+                        Enviar Solicitud <Check size={14} />
+                      </>
+                    )}
+                  </button>
+                )}
+              </div>
+            )}
+
           </div>
         </div>
       </div>
@@ -269,11 +477,11 @@ export default function ContactSection() {
 
 function Field({ label, error, children }) {
   return (
-    <div className="flex flex-col gap-0.5">
-      <label className="text-[7.5px] tracking-wider text-prius-black/50 uppercase font-bold font-display">{label}</label>
+    <div className="flex flex-col gap-1">
+      <label className="text-[8px] tracking-wider text-prius-black/50 uppercase font-bold font-display">{label}</label>
       {children}
       {error && (
-        <p className="text-[9px] text-red-500 mt-0.5 font-light">
+        <p className="text-[10px] text-red-500 mt-0.5 font-light">
           {error}
         </p>
       )}
@@ -283,7 +491,7 @@ function Field({ label, error, children }) {
 
 function inputClass(hasError) {
   return [
-    "w-full px-0.5 py-1.5 bg-transparent border-b text-[11px] text-prius-black placeholder-prius-black/30 font-light",
+    "w-full px-1 py-2 bg-transparent border-b text-xs text-prius-black placeholder-prius-black/30 font-light",
     "focus:outline-none focus:border-gold transition-colors duration-300",
     hasError ? "border-red-400" : "border-hairline",
   ].join(" ");
