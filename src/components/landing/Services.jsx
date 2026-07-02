@@ -15,7 +15,7 @@ const services = [
     desc: "Espejo de agua diseñado para fundirse con el mar. Solárium de madera noble con servicio de coctelería premium.",
     icon: Waves,
     img: "/images/piletaService.webp",
-    position: "object-bottom" // Forzamos la alineación al fondo para mostrar la pileta
+    position: "object-center" // Cambiado a centrado para un mejor encuadre
   },
   {
     title: "Masajes & Wellness",
@@ -63,7 +63,7 @@ export default function Services() {
             </h2>
           </div>
           <p className="text-prius-black/60 text-xs max-w-xs leading-relaxed">
-            Minimalismo estructural y confort absoluto diseñado al detalle para una experiencia costera única.
+            Minimalismo estructural and confort absoluto diseñado al detalle para una experiencia costera única.
           </p>
         </div>
 
