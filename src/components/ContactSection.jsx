@@ -9,25 +9,19 @@ import {
   ChevronLeft, 
   ChevronRight,
   Umbrella, 
-  Waves, 
-  Heart, 
   Shield, 
   Briefcase, 
   Gift, 
   Sparkles, 
-  Award, 
   HelpCircle 
 } from "lucide-react";
 
 const ASUNTO_OPTIONS = [
   { id: "Reserva de carpas / sombrillas", label: "Carpas & Sombrillas", icon: Umbrella, desc: "Reserva de sombra en Playa Grande" },
-  { id: "Pileta & solárium", label: "Pileta & Solárium", icon: Waves, desc: "Acceso al espejo de agua y relax" },
-  { id: "Masajes & wellness", label: "Masajes & Wellness", icon: Heart, desc: "Sesiones de relajación y masajes" },
   { id: "Cabinas & lockers", label: "Cabinas & Lockers", icon: Shield, desc: "Vestuarios y seguridad privada" },
   { id: "Evento corporativo", label: "Evento Corporativo", icon: Briefcase, desc: "Lanzamientos y cenas de empresa" },
   { id: "Cumpleaños / fiesta de 15", label: "Cumpleaños / Fiestas", icon: Gift, desc: "Celebraciones sociales privadas" },
   { id: "Casamiento", label: "Casamientos", icon: Sparkles, desc: "Bodas exclusivas frente al mar" },
-  { id: "Prius Club", label: "Prius Club", icon: Award, desc: "Membresías y beneficios exclusivos" },
   { id: "Otra consulta", label: "Otra Consulta", icon: HelpCircle, desc: "Consultas generales al equipo" },
 ];
 
@@ -153,7 +147,7 @@ export default function ContactSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 border border-hairline rounded-2xl overflow-hidden bg-white">
           
           {/* Bloque Izquierdo: Información de Contacto y Estética */}
-          <div className="lg:col-span-4 relative text-white p-8 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-hairline/10 overflow-hidden min-h-[320px] lg:min-h-[580px]">
+          <div className="lg:col-span-4 relative text-white p-8 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-hairline/10 overflow-hidden min-h-[320px] lg:min-h-[520px]">
             {/* Imagen de Fondo */}
             <div className="absolute inset-0 z-0">
               <img 
@@ -220,11 +214,11 @@ export default function ContactSection() {
           </div>
 
           {/* Bloque Derecho: Formulario Interactivo Step-by-Step */}
-          <div className="lg:col-span-8 p-6 md:p-10 bg-neutral-50/30 flex flex-col justify-between min-h-[500px] lg:min-h-[580px]">
+          <div className="lg:col-span-8 p-6 md:p-8 bg-neutral-50/30 flex flex-col justify-between min-h-[450px] lg:min-h-[520px]">
             
             {/* Barra de Progreso Minimalista */}
             {status !== "success" && (
-              <div className="mb-8">
+              <div className="mb-6">
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-[9px] font-bold uppercase tracking-wider text-prius-black/40 font-display">
                     Paso {step} de 3
@@ -245,7 +239,7 @@ export default function ContactSection() {
             {/* Contenido de los Pasos */}
             <div className="flex-1 flex flex-col justify-center">
               {status === "success" ? (
-                <div className="flex flex-col items-center justify-center text-center py-12 animate-premium-fade">
+                <div className="flex flex-col items-center justify-center text-center py-8 animate-premium-fade">
                   <div className="w-14 h-14 rounded-full bg-gold/10 border border-gold/20 flex items-center justify-center mb-4 text-gold">
                     <Check size={24} strokeWidth={2.5} />
                   </div>
@@ -270,9 +264,9 @@ export default function ContactSection() {
                   
                   {/* PASO 1: Selección de Servicio */}
                   {step === 1 && (
-                    <div className="space-y-6">
+                    <div className="space-y-5">
                       <div className="text-center md:text-left">
-                        <h3 className="text-base font-bold uppercase tracking-wider text-prius-black font-display mb-1">
+                        <h3 className="text-sm md:text-base font-bold uppercase tracking-wider text-prius-black font-display mb-1">
                           ¿Qué servicio te interesa cotizar?
                         </h3>
                         <p className="text-prius-black/50 text-xs font-light">
@@ -280,7 +274,8 @@ export default function ContactSection() {
                         </p>
                       </div>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 max-h-[320px] overflow-y-auto pr-1 scrollbar-thin">
+                      {/* Grid de opciones optimizado sin scroll interno */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                         {ASUNTO_OPTIONS.map((opt) => {
                           const IconComponent = opt.icon;
                           const isSelected = form.asunto === opt.id;
@@ -289,22 +284,25 @@ export default function ContactSection() {
                               key={opt.id}
                               type="button"
                               onClick={() => handleSelectAsunto(opt.id)}
-                              className={`p-4 rounded-xl border text-left transition-all duration-300 flex flex-col justify-between gap-4 cursor-pointer ${
+                              className={`p-3 rounded-xl border text-left transition-all duration-300 flex items-center justify-between gap-3 cursor-pointer w-full ${
                                 isSelected
                                   ? "border-gold bg-gold/5 text-prius-black"
                                   : "border-hairline bg-white hover:border-prius-black/30 text-prius-black/70"
                               }`}
                             >
-                              <div className={`p-2 rounded-lg w-fit ${isSelected ? "bg-gold/20 text-gold" : "bg-neutral-100 text-prius-black/60"}`}>
-                                <IconComponent size={16} />
-                              </div>
-                              <div>
-                                <h4 className="text-xs font-bold uppercase tracking-tight font-display leading-tight">
+                              {/* Textos: En mobile solo título, en desktop título + descripción */}
+                              <div className="flex-1 min-w-0">
+                                <h4 className="text-xs font-bold uppercase tracking-tight font-display leading-tight truncate">
                                   {opt.label}
                                 </h4>
-                                <p className="text-[10px] text-prius-black/40 font-light mt-0.5 leading-tight">
+                                <p className="hidden sm:block text-[10px] text-prius-black/40 font-light mt-0.5 leading-tight truncate">
                                   {opt.desc}
                                 </p>
+                              </div>
+                              
+                              {/* Icono al final */}
+                              <div className={`p-1.5 rounded-lg shrink-0 ${isSelected ? "bg-gold/20 text-gold" : "bg-neutral-100 text-prius-black/60"}`}>
+                                <IconComponent size={14} />
                               </div>
                             </button>
                           );
@@ -322,7 +320,7 @@ export default function ContactSection() {
                   {step === 2 && (
                     <div className="space-y-5">
                       <div className="text-center md:text-left">
-                        <h3 className="text-base font-bold uppercase tracking-wider text-prius-black font-display mb-1">
+                        <h3 className="text-sm md:text-base font-bold uppercase tracking-wider text-prius-black font-display mb-1">
                           Tus datos de contacto
                         </h3>
                         <p className="text-prius-black/50 text-xs font-light">
@@ -372,7 +370,7 @@ export default function ContactSection() {
                   {step === 3 && (
                     <div className="space-y-5">
                       <div className="text-center md:text-left">
-                        <h3 className="text-base font-bold uppercase tracking-wider text-prius-black font-display mb-1">
+                        <h3 className="text-sm md:text-base font-bold uppercase tracking-wider text-prius-black font-display mb-1">
                           Detalles adicionales
                         </h3>
                         <p className="text-prius-black/50 text-xs font-light">
@@ -422,7 +420,7 @@ export default function ContactSection() {
 
             {/* Botones de Navegación */}
             {status !== "success" && (
-              <div className="flex justify-between items-center pt-6 border-t border-hairline mt-8">
+              <div className="flex justify-between items-center pt-4 border-t border-hairline mt-6">
                 {step > 1 ? (
                   <button
                     type="button"
