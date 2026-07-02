@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect } from 'react'
-import { Maximize2, X, ChevronLeft, ChevronRight } from 'lucide-react'
+import { useState, useRef } from 'react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 const CATEGORIES = ["Todo", "Instalaciones", "Gastronomía", "Wellness", "Eventos"]
 
@@ -24,8 +24,6 @@ const galleryImages = [
 
 export default function Gallery() {
   const [activeCategory, setActiveCategory] = useState("Todo")
-  const [activeImage, setActiveImage] = useState(null)
-  const [isOpen, setIsOpen] = useState(false)
   const [scrollProgress, setScrollProgress] = useState(0)
   
   const sliderRef = useRef(null)
@@ -51,22 +49,6 @@ export default function Gallery() {
       const scrollAmount = direction === 'left' ? -300 : 300
       sliderRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' })
     }
-  }
-
-  const handleOpen = (img) => {
-    setActiveImage(img)
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        setIsOpen(true)
-      })
-    })
-  }
-
-  const handleClose = () => {
-    setIsOpen(false)
-    setTimeout(() => {
-      setActiveImage(null)
-    }, 400)
   }
 
   return (
@@ -141,8 +123,7 @@ export default function Gallery() {
             {filteredImages.map((img, idx) => (
               <div 
                 key={idx}
-                onClick={() => handleOpen(img)}
-                className="w-[260px] md:w-[280px] shrink-0 snap-start group cursor-pointer"
+                className="w-[260px] md:w-[280px] shrink-0 snap-start group"
               >
                 {/* Contenedor de Imagen de Proporción Elegante (2:3 o similar) */}
                 <div className="relative aspect-[4/5] overflow-hidden rounded-lg border border-hairline group-hover:border-gold transition-premium bg-prius-background">
@@ -151,10 +132,6 @@ export default function Gallery() {
                     className="w-full h-full object-cover group-hover:scale-[1.03] transition-premium-slow" 
                     src={img.src} 
                   />
-                  {/* Overlay táctil minimalista */}
-                  <div className="absolute top-3 right-3 bg-white/80 backdrop-blur-md p-2 rounded-full border border-hairline opacity-0 group-hover:opacity-100 transition-premium">
-                    <Maximize2 size={10} className="text-prius-black" />
-                  </div>
                   
                   {/* Categoría pequeña en la esquina */}
                   <span className="absolute bottom-3 left-3 bg-neutral-950/70 backdrop-blur-md px-2.5 py-1 rounded-sm text-[8px] uppercase tracking-wider text-gold font-display">
@@ -185,50 +162,6 @@ export default function Gallery() {
 
         </div>
       </div>
-
-      {/* Lightbox Modal Refinado */}
-      {activeImage && (
-        <div 
-          className={`fixed inset-0 bg-prius-black/95 z-50 flex items-center justify-center p-4 backdrop-blur-md transition-opacity duration-400 ease-out ${
-            isOpen ? 'opacity-100' : 'opacity-0'
-          }`}
-          onClick={handleClose}
-          style={{ willChange: 'opacity' }}
-        >
-          <button 
-            onClick={handleClose}
-            className={`absolute top-6 right-6 p-2.5 bg-white/10 hover:bg-white/20 text-white rounded-full border border-white/10 transition-all duration-400 ease-out cursor-pointer ${
-              isOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-75'
-            }`}
-          >
-            <X size={18} />
-          </button>
-          <div 
-            className={`max-w-3xl w-full max-h-[80vh] flex flex-col items-center transition-all duration-400 cubic-bezier(0.16, 1, 0.3, 1) ${
-              isOpen ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-4 scale-95'
-            }`}
-            onClick={e => e.stopPropagation()}
-            style={{ willChange: 'transform, opacity' }}
-          >
-            <img 
-              src={activeImage.src} 
-              alt={activeImage.title} 
-              className="max-w-full max-h-[70vh] object-contain rounded-lg border border-white/10"
-            />
-            <div className="text-center mt-5">
-              <span className="text-[9px] font-normal uppercase tracking-widest text-gold font-display">
-                {activeImage.category}
-              </span>
-              <h3 className="text-white text-base font-extralight uppercase tracking-tight mt-0.5 font-display">
-                {activeImage.title}
-              </h3>
-              <p className="text-white/60 text-[11px] font-light mt-1">
-                {activeImage.desc}
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   )
 }
