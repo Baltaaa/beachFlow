@@ -7,12 +7,12 @@ export default function Footer() {
 
   return (
     <footer className="bg-neutral-950 text-white relative overflow-hidden border-t border-white/5 pt-28 pb-12">
-      {/* Imagen de fondo clásica como overlay sutil */}
+      {/* Imagen de fondo clásica como overlay sutil con opacidad incrementada */}
       <div className="absolute inset-0 z-0 select-none pointer-events-none">
         <img 
           src="/images/bg-footer.webp" 
           alt="Fondo Costa" 
-          className="w-full h-full object-cover opacity-15 grayscale"
+          className="w-full h-full object-cover opacity-35 grayscale"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/80 to-neutral-950" />
       </div>
@@ -20,11 +20,6 @@ export default function Footer() {
       {/* Elementos decorativos abstractos de fondo */}
       <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-gold/5 rounded-full blur-[140px] pointer-events-none z-10" />
       <div className="absolute bottom-0 right-10 w-[400px] h-[400px] bg-white/5 rounded-full blur-[100px] pointer-events-none z-10" />
-
-      {/* Marca de agua tipográfica gigante de fondo al estilo de alta costura */}
-      <div className="absolute bottom-16 left-1/2 -translate-x-1/2 select-none pointer-events-none opacity-[0.02] text-[18vw] font-bold tracking-widest text-white leading-none font-display uppercase z-10">
-        PRIUS
-      </div>
 
       <div className="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop relative z-20">
         
