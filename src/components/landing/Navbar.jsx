@@ -42,9 +42,9 @@ export default function Navbar() {
     setIsOpen(false)
   }
 
-  // Estilos dinámicos del contenedor general del HEADER
+  // Estilos dinámicos del contenedor general del HEADER (Ajustado top-[32px] para mantener el espaciado original)
   const headerBackgroundClass = !isScrolled
-    ? 'top-[20px] w-full max-w-[1952px] px-4'
+    ? 'top-[32px] w-full max-w-[1952px] px-4'
     : 'top-0 w-full max-w-full px-4 sm:px-6 py-1'
 
   // Estilos de los textos de navegación (Claros al inicio, oscuros al hacer scroll)
