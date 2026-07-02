@@ -2,23 +2,19 @@ import { useState, useEffect } from 'react'
 import { 
   Menu, 
   X, 
-  Home, 
   Handshake, 
   LayoutGrid, 
   Calendar, 
   Image, 
-  MessageSquare, 
-  Phone 
+  MessageSquare 
 } from 'lucide-react'
 
 const SECTIONS = [
-  { id: 'inicio', label: 'Inicio', icon: Home },
   { id: 'partners', label: 'Socios', icon: Handshake },
   { id: 'servicios', label: 'Servicios', icon: LayoutGrid },
   { id: 'eventos', label: 'Eventos', icon: Calendar },
   { id: 'galeria', label: 'Galería', icon: Image },
   { id: 'testimonios', label: 'Opiniones', icon: MessageSquare },
-  { id: 'contacto', label: 'Contacto', icon: Phone },
 ]
 
 export default function Navbar() {
@@ -41,13 +37,9 @@ export default function Navbar() {
   }, [])
 
   const scrollToSection = (id) => {
-    if (id === 'inicio') {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    } else {
-      const element = document.getElementById(id)
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' })
-      }
+    const element = document.getElementById(id)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
     }
     setIsOpen(false)
   }
