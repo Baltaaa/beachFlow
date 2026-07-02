@@ -102,7 +102,7 @@ export default function Navbar() {
         className={`fixed z-50 transition-all duration-500 ease-in-out left-0 right-0 mx-auto ${headerBackgroundClass}`}
       >
         {/* Contenedor interno alineado pixel-perfect con el Hero (max-w-[1040px] px-6 sm:px-8) */}
-        <div className={`mx-auto w-full px-6 sm:px-8 max-w-[1040px] flex items-center justify-between lg:grid lg:grid-cols-[auto_1fr_auto] gap-4 transition-all duration-500 ${
+        <div className={`mx-auto w-full px-6 sm:px-8 max-w-[1040px] relative flex items-center justify-between gap-4 transition-all duration-500 ${
           isScrolled ? 'h-14' : 'h-[72px]'
         }`}>
           
@@ -122,8 +122,8 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* CENTER: Menú de navegación dinámico (Oculto en mobile/tablet, visible en desktop) */}
-          <nav className={`hidden lg:flex items-center rounded-full transition-all duration-500 h-9 justify-self-center p-0.5 ${navPillBackground}`}>
+          {/* CENTER: Menú de navegación dinámico perfectamente centrado en el eje de la pantalla */}
+          <nav className={`hidden lg:flex items-center rounded-full transition-all duration-500 h-9 p-0.5 absolute left-1/2 -translate-x-1/2 ${navPillBackground}`}>
             {SECTIONS.map((sec) => {
               const Icon = sec.icon;
               return (
