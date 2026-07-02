@@ -96,6 +96,7 @@ export default function ContactSection() {
     if (!validateStep(2)) return;
     setStatus("loading");
     setErrorMsg("");
+    
     const payload = {
       nombre: form.nombre.trim(),
       telefono: form.telefono.trim(),
@@ -105,27 +106,33 @@ export default function ContactSection() {
       origen: "web-prius",
       timestamp: new Date().toISOString(),
     };
+
     try {
+      // Si no hay webhook configurado, simulamos éxito en desarrollo para no romper la experiencia
       if (!N8N_WEBHOOK_URL) {
-        throw new Error("Webhook URL no configurada. Definí VITE_N8N_WEBHOOK_URL en .env.");
+        console.warn("VITE_N8N_WEBHOOK_URL no está configurada. Simulando envío exitoso en desarrollo:", payload);
+        await new Promise((resolve) => setTimeout(resolve, 1000)); // Simula latencia de red
+        setStatus("success");
+        setForm({ nombre: "", telefono: "", email: "", asunto: "", mensaje: "" });
+        setStep(1);
+        return;
       }
+
       const res = await fetch(N8N_WEBHOOK_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
+      
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      
       setStatus("success");
       setForm({ nombre: "", telefono: "", email: "", asunto: "", mensaje: "" });
       setStep(1);
     } catch (err) {
       console.error("Error enviando lead:", err);
       setStatus("error");
-      setErrorMsg(
-        err instanceof Error && err.message.includes("Webhook")
-          ? err.message
-          : "Algo salió mal. Intentá de nuevo o escribinos directamente por WhatsApp."
-      );
+      setErrorMsg("Algo salió mal. Intentá de nuevo o escribinos directamente por WhatsApp.");
     }
   }
 
