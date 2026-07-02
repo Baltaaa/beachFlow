@@ -105,7 +105,7 @@ export default function Events() {
             <div className="flex gap-5 pb-6 mb-6 border-b border-white/10 group">
               <div className="w-24 h-24 shrink-0 overflow-hidden rounded-xl border border-white/10 bg-white/5">
                 <img 
-                  src="/images/event3.webp" 
+                  src="/images/event1.webp" 
                   alt="Eventos Corporativos" 
                   className="w-full h-full object-cover group-hover:scale-105 transition-premium"
                 />
