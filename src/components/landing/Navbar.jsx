@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { 
   Menu, 
   X, 
-  Handshake, 
   LayoutGrid, 
   Calendar, 
   Image, 
@@ -10,7 +9,6 @@ import {
 } from 'lucide-react'
 
 const SECTIONS = [
-  { id: 'partners', label: 'Socios', icon: Handshake },
   { id: 'servicios', label: 'Servicios', icon: LayoutGrid },
   { id: 'eventos', label: 'Eventos', icon: Calendar },
   { id: 'galeria', label: 'Galería', icon: Image },
@@ -103,9 +101,9 @@ export default function Navbar() {
       <header 
         className={`fixed z-50 transition-all duration-500 ease-in-out left-0 right-0 mx-auto ${headerBackgroundClass}`}
       >
-        {/* Contenedor interno */}
-        <div className={`mx-auto w-full px-4 sm:px-6 max-w-[1200px] flex items-center justify-between lg:grid lg:grid-cols-[auto_1fr_auto] gap-4 transition-all duration-500 ${
-          isScrolled ? 'h-14' : 'h-18'
+        {/* Contenedor interno alineado pixel-perfect con el Hero (max-w-[1040px] px-6 sm:px-8) */}
+        <div className={`mx-auto w-full px-6 sm:px-8 max-w-[1040px] flex items-center justify-between lg:grid lg:grid-cols-[auto_1fr_auto] gap-4 transition-all duration-500 ${
+          isScrolled ? 'h-14' : 'h-[72px]'
         }`}>
           
           {/* LEFT: Logo interactivo */}
