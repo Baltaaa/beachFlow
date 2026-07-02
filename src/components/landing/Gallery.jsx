@@ -16,7 +16,10 @@ const galleryImages = [
   { src: '/images/carpas-amigos.webp', title: "Experiencia Prius", category: "Instalaciones", desc: "Momentos únicos con amigos" },
   { src: '/images/gastronomia-1.webp', title: "Platos Seleccionados", category: "Gastronomía", desc: "Ingredientes locales de alta calidad" },
   { src: '/images/gastronomia-2.webp', title: "Coctelería Beach Front", category: "Gastronomía", desc: "Tragos diseñados para la tarde" },
-  { src: '/images/pareja-playa.webp', title: "Relax Solárium", category: "Wellness", desc: "Desconexión absoluta frente al Atlántico" }
+  { src: '/images/pareja-playa.webp', title: "Relax Solárium", category: "Wellness", desc: "Desconexión absoluta frente al Atlántico" },
+  { src: '/images/event1.webp', title: "Salón de Eventos", category: "Eventos", desc: "Espacio premium totalmente climatizado" },
+  { src: '/images/event2.webp', title: "Celebraciones Sociales", category: "Eventos", desc: "Casamientos y fiestas de 15 frente al mar" },
+  { src: '/images/event4.webp', title: "Coctelería & Barra", category: "Eventos", desc: "La mejor barra para tus eventos privados" }
 ]
 
 export default function Gallery() {
