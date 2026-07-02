@@ -14,7 +14,7 @@ export default function Hero() {
         {/* Imagen de fondo alineada al tope (object-top) para mostrar más cielo arriba */}
         <div className="absolute inset-0 z-0 select-none pointer-events-none">
           <picture className="absolute inset-0 w-full h-full">
-            <source media="(max-width: 768px)" srcSet="/images/prius_imagen_home.jpg" />
+            <source media="(max-width: 768px)" srcSet="/images/bg-mobile.webp" />
             <source srcSet="/images/prius_imagen_home.jpg" />
             <img 
               src="/images/prius_imagen_home.jpg" 
