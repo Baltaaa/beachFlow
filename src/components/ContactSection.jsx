@@ -199,9 +199,9 @@ export default function ContactSection() {
                 </div>
                 <div>
                   <p className="text-[8px] font-normal uppercase tracking-widest text-white/40 leading-none mb-0.5">Email</p>
-                  <a href="mailto:info@priusplayagrande.com"
+                  <a href="mailto:reservas@priusplayagrande.com.ar"
                     className="text-xs font-light text-white hover:text-gold transition-colors tracking-wide">
-                    info@priusplayagrande.com
+                    reservas@priusplayagrande.com.ar
                   </a>
                 </div>
               </div>

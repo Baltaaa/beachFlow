@@ -85,8 +85,8 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-3 pt-2">
                 <Mail size={15} className="text-gold shrink-0" />
-                <a href="mailto:info@priusplayagrande.com" className="text-sm text-white/70 hover:text-gold transition-colors font-light">
-                  info@priusplayagrande.com
+                <a href="mailto:reservas@priusplayagrande.com.ar" className="text-sm text-white/70 hover:text-gold transition-colors font-light">
+                  reservas@priusplayagrande.com.ar
                 </a>
               </div>
             </div>
