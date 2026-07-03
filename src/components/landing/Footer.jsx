@@ -6,25 +6,29 @@ export default function Footer() {
   }
 
   return (
-    <footer className="bg-neutral-950 text-white relative overflow-hidden border-t border-white/5 pt-28 pb-12">
+    <footer className="bg-neutral-950 text-white relative overflow-hidden border-t border-white/5 min-h-screen flex flex-col justify-between pt-24 pb-12">
       {/* Imagen de fondo clásica como overlay sutil con opacidad incrementada */}
       <div className="absolute inset-0 z-0 select-none pointer-events-none">
         <img 
           src="/images/bg-footer.webp" 
           alt="Fondo Costa" 
-          className="w-full h-full object-cover opacity-35 grayscale"
+          className="w-full h-full object-cover opacity-60 grayscale"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/80 to-neutral-950" />
+        {/* Sutil overlay de mezcla idéntico al Hero */}
+        <div className="absolute inset-0 bg-white/[0.05] mix-blend-overlay" />
+        {/* Degradado optimizado similar al Hero para mantener legibilidad y visibilidad */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/40 to-black/80" />
       </div>
 
       {/* Elementos decorativos abstractos de fondo */}
       <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-gold/5 rounded-full blur-[140px] pointer-events-none z-10" />
       <div className="absolute bottom-0 right-10 w-[400px] h-[400px] bg-white/5 rounded-full blur-[100px] pointer-events-none z-10" />
 
-      <div className="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop relative z-20">
+      {/* Contenedor de contenido principal centrado verticalmente */}
+      <div className="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop relative z-20 w-full my-auto flex flex-col justify-center">
         
         {/* Fila Principal de Navegación y Datos */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8 pb-20 border-b border-white/10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8 pb-16 border-b border-white/10">
           
           {/* Columna de Marca (Ancho 5/12) */}
           <div className="lg:col-span-5 flex flex-col justify-between min-h-[220px]">
@@ -99,40 +103,41 @@ export default function Footer() {
 
         </div>
 
-        {/* Fila de Derechos, Firma y Volver Arriba */}
-        <div className="pt-12 flex flex-col md:flex-row justify-between items-center gap-8 text-white/40 text-xs">
-          <div>
-            <p className="font-light tracking-wide text-center md:text-left">
-              © 2026 Prius Playa Grande. Todos los derechos reservados.
-            </p>
-          </div>
+      </div>
 
-          {/* Crédito: Developed by balta (en minúsculas, dorado, sin fondo ni bordes, con redirección a Instagram) */}
-          <div className="flex items-center gap-1 font-light tracking-wider">
-            <span>developed by</span>
-            <a 
-              href="https://www.instagram.com/baltabruschetti" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-gold font-normal tracking-widest uppercase text-[11px] hover:underline transition-all font-display lowercase"
-            >
-              balta
-            </a>
-          </div>
-
-          {/* Botón Volver Arriba */}
-          <div>
-            <button 
-              onClick={scrollToTop}
-              className="flex items-center gap-2 text-[10px] uppercase tracking-widest font-bold text-white/70 hover:text-gold transition-premium font-display group bg-white/5 border border-white/10 hover:border-gold/30 px-4 py-2.5 rounded-full"
-            >
-              Volver arriba 
-              <ArrowUp size={12} className="transform group-hover:-translate-y-0.5 transition-transform" />
-            </button>
-          </div>
+      {/* Fila de Derechos, Firma y Volver Arriba en la base */}
+      <div className="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop relative z-20 w-full pt-8 flex flex-col md:flex-row justify-between items-center gap-8 text-white/40 text-xs">
+        <div>
+          <p className="font-light tracking-wide text-center md:text-left">
+            © 2026 Prius Playa Grande. Todos los derechos reservados.
+          </p>
         </div>
 
+        {/* Crédito: Developed by balta */}
+        <div className="flex items-center gap-1 font-light tracking-wider">
+          <span>developed by</span>
+          <a 
+            href="https://www.instagram.com/baltabruschetti" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-gold font-normal tracking-widest uppercase text-[11px] hover:underline transition-all font-display lowercase"
+          >
+            balta
+          </a>
+        </div>
+
+        {/* Botón Volver Arriba */}
+        <div>
+          <button 
+            onClick={scrollToTop}
+            className="flex items-center gap-2 text-[10px] uppercase tracking-widest font-bold text-white/70 hover:text-gold transition-premium font-display group bg-white/5 border border-white/10 hover:border-gold/30 px-4 py-2.5 rounded-full"
+          >
+            Volver arriba 
+            <ArrowUp size={12} className="transform group-hover:-translate-y-0.5 transition-transform" />
+          </button>
+        </div>
       </div>
+
     </footer>
   )
 }
