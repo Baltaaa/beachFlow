@@ -62,16 +62,16 @@ export default function Hero() {
               
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                 <button 
-                  onClick={() => scrollToSection('eventos')}
+                  onClick={() => scrollToSection('servicios')}
                   className="inline-flex h-9 w-full sm:w-auto cursor-pointer items-center justify-center rounded-full bg-gold px-6 text-[10px] font-bold uppercase tracking-wider text-prius-black transition-colors hover:bg-gold-hover shadow-md"
                 >
-                  VER SALÓN DE EVENTOS
+                  VER BALNEARIO
                 </button>
                 <button 
-                  onClick={() => scrollToSection('servicios')}
+                  onClick={() => scrollToSection('eventos')}
                   className="inline-flex h-9 w-full sm:w-auto cursor-pointer items-center justify-center rounded-full border border-white/40 bg-transparent px-5 text-[10px] font-bold uppercase tracking-wider text-white transition-all hover:bg-white/10 hover:border-white/60"
                 >
-                  VER BALNEARIO
+                  VER SALÓN DE EVENTOS
                 </button>
               </div>
             </div>
