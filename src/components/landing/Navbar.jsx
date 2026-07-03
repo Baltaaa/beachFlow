@@ -9,7 +9,7 @@ import {
 } from 'lucide-react'
 
 const SECTIONS = [
-  { id: 'servicios', label: 'Servicios', icon: LayoutGrid },
+  { id: 'servicios', label: 'Playa', icon: LayoutGrid },
   { id: 'eventos', label: 'Eventos', icon: Calendar },
   { id: 'galeria', label: 'Galería', icon: Image },
   { id: 'testimonios', label: 'Opiniones', icon: MessageSquare },
@@ -162,9 +162,9 @@ export default function Navbar() {
 
             <button 
               onClick={() => scrollToSection('contacto')}
-              className="h-9 cursor-pointer items-center justify-center whitespace-nowrap rounded-full px-4 text-[10px] font-bold hidden sm:inline-flex uppercase tracking-wider transition-all duration-500 bg-gold text-prius-black hover:bg-gold-hover shadow-sm"
+              className="h-9 cursor-pointer items-center justify-center whitespace-nowrap rounded-full px-5 text-[10px] font-bold hidden sm:inline-flex uppercase tracking-wider transition-all duration-500 bg-gold text-prius-black hover:bg-gold-hover shadow-sm"
             >
-              COTIZAR ESTADÍA
+              RESERVÁ
             </button>
           </div>
         </div>
@@ -191,7 +191,7 @@ export default function Navbar() {
               onClick={() => scrollToSection('contacto')}
               className="w-full py-3 rounded-full text-xs font-bold uppercase tracking-widest text-center mt-2 transition-all cursor-pointer bg-gold text-prius-black hover:bg-gold-hover"
             >
-              COTIZAR ESTADÍA
+              RESERVÁ
             </button>
           </div>
         )}
