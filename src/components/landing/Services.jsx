@@ -57,64 +57,64 @@ export default function Services() {
   }
 
   return (
-    <section className="py-16 px-margin-mobile md:px-margin-desktop bg-prius-background border-t border-hairline" id="servicios">
+    <section className="py-16 md:py-28 px-margin-mobile md:px-margin-desktop bg-prius-background border-t border-hairline" id="servicios">
       <div className="max-w-[1440px] mx-auto">
         
         {/* Encabezado ultra-elegante y compacto */}
-        <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div className="mb-10 md:mb-16 flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div className="max-w-xl">
-            <span className="text-[9px] font-normal uppercase tracking-[0.3em] text-prius-black/40 block mb-1 font-display">
+            <span className="text-[9px] md:text-[11px] font-normal uppercase tracking-[0.3em] text-prius-black/40 block mb-1 font-display">
               Estilo de Vida Prius
             </span>
-            <h2 className="text-2xl md:text-3xl font-normal tracking-tight text-prius-black uppercase font-display leading-none">
+            <h2 className="text-2xl md:text-4xl font-normal tracking-tight text-prius-black uppercase font-display leading-none">
               Servicios de <span className="text-gold">Exclusividad</span> Absoluta
             </h2>
           </div>
-          <p className="text-prius-black/60 text-xs max-w-xs leading-relaxed">
-            Minimalismo estructural and confort absoluto diseñado al detalle para una experiencia costera única.
+          <p className="text-prius-black/60 text-xs md:text-sm max-w-xs leading-relaxed">
+            Minimalismo estructural y confort absoluto diseñado al detalle para una experiencia costera única.
           </p>
         </div>
 
-        {/* Grid Uniforme y Ultra-Compacto */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        {/* Grid Uniforme y Escalado en Desktop */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 lg:gap-6">
           {services.map((s, i) => (
             <div 
               key={i} 
               className="bg-white border border-hairline rounded-lg overflow-hidden flex flex-col justify-between group hover:border-gold transition-premium"
             >
-              {/* Contenedor de Imagen Pequeña y Fija */}
-              <div className="relative h-32 overflow-hidden bg-prius-background border-b border-hairline">
+              {/* Contenedor de Imagen - Escalado de h-32 a lg:h-64 en desktop */}
+              <div className="relative h-32 lg:h-64 overflow-hidden bg-prius-background border-b border-hairline">
                 <img 
                   src={s.img} 
                   alt={s.title} 
                   className={`w-full h-full object-cover ${s.position || 'object-center'} group-hover:scale-102 transition-premium-slow`} 
                 />
-                <div className="absolute top-2.5 right-2.5 bg-white/90 backdrop-blur-md p-1.5 rounded-full border border-hairline z-10">
-                  <s.icon className="w-3.5 h-3.5 text-prius-black" strokeWidth={1.5} />
+                <div className="absolute top-2.5 right-2.5 bg-white/90 backdrop-blur-md p-1.5 lg:p-2 rounded-full border border-hairline z-10">
+                  <s.icon className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-prius-black" strokeWidth={1.5} />
                 </div>
               </div>
 
-              {/* Textos y Acción */}
-              <div className="p-4 flex flex-col justify-between flex-1 bg-white">
+              {/* Textos y Acción - Padding y tamaños escalados en desktop */}
+              <div className="p-4 lg:p-6 flex flex-col justify-between flex-1 bg-white">
                 <div>
-                  <span className="text-[8px] font-normal uppercase tracking-wider text-gold block mb-0.5 font-display">
+                  <span className="text-[8px] lg:text-[10px] font-normal uppercase tracking-wider text-gold block mb-1 font-display">
                     {s.subtitle}
                   </span>
-                  <h3 className="text-sm font-extralight uppercase tracking-tight mb-1.5 text-prius-black font-display">
+                  <h3 className="text-sm lg:text-lg font-extralight uppercase tracking-tight mb-2 text-prius-black font-display">
                     {s.title}
                   </h3>
-                  <p className="text-prius-black/60 text-[11px] leading-relaxed mb-4 font-light line-clamp-3">
+                  <p className="text-prius-black/60 text-[11px] lg:text-xs leading-relaxed mb-6 font-light line-clamp-3 lg:line-clamp-4">
                     {s.desc}
                   </p>
                 </div>
 
-                <div className="pt-2 border-t border-hairline">
+                <div className="pt-3 border-t border-hairline">
                   <button 
                     onClick={scrollToContact}
-                    className="text-[8px] font-extralight text-prius-black hover:text-gold transition-colors uppercase tracking-widest text-left flex items-center gap-1 group/btn font-display"
+                    className="text-[8px] lg:text-[10px] font-extralight text-prius-black hover:text-gold transition-colors uppercase tracking-widest text-left flex items-center gap-1 group/btn font-display cursor-pointer"
                   >
                     Consultar 
-                    <ArrowRight size={8} className="transform group-hover/btn:translate-x-0.5 transition-transform" />
+                    <ArrowRight size={10} className="transform group-hover/btn:translate-x-0.5 transition-transform" />
                   </button>
                 </div>
               </div>
