@@ -37,7 +37,12 @@ export default function Navbar() {
   const scrollToSection = (id) => {
     const element = document.getElementById(id)
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY
+      const offsetPosition = elementPosition - 110 // Offset de 110px para dejar aire debajo del header
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      })
     }
     setIsOpen(false)
   }

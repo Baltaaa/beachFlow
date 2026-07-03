@@ -2,7 +2,15 @@ import { ArrowRight, Sparkles, Check } from 'lucide-react'
 
 export default function Hero() {
   const scrollToSection = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+    const element = document.getElementById(id)
+    if (element) {
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY
+      const offsetPosition = elementPosition - 110 // Offset de 110px para dejar aire debajo del header
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      })
+    }
   }
 
   return (

@@ -45,7 +45,15 @@ const services = [
 
 export default function Services() {
   const scrollToContact = () => {
-    document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' })
+    const element = document.getElementById('contacto')
+    if (element) {
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY
+      const offsetPosition = elementPosition - 110 // Offset de 110px para dejar aire debajo del header
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      })
+    }
   }
 
   return (
