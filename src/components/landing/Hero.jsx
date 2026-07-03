@@ -57,7 +57,7 @@ export default function Hero() {
             {/* Columna Derecha: Descripción original restaurada y botones actuales */}
             <div className="flex flex-col justify-end">
               <p className="max-w-[44ch] text-sm sm:text-base md:text-[1.1rem] leading-[1.5] font-light tracking-wide text-white/95 drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)] text-balance">
-                Nuestro lugar en Playa Grande, para que disfrutes el verano. Prius, donde el primero, sos vos!
+                Tu lugar en Playa Grande para que disfrutes el verano.<br />Prius, donde el primero, sos vos!
               </p>
               
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
@@ -71,7 +71,7 @@ export default function Hero() {
                   onClick={() => scrollToSection('servicios')}
                   className="inline-flex h-9 w-full sm:w-auto cursor-pointer items-center justify-center rounded-full border border-white/40 bg-transparent px-5 text-[10px] font-bold uppercase tracking-wider text-white transition-all hover:bg-white/10 hover:border-white/60"
                 >
-                  SERVICIOS DEL BALNEARIO
+                  VER BALNEARIO
                 </button>
               </div>
             </div>
