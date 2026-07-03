@@ -73,20 +73,20 @@ export default function Navbar() {
 
   return (
     <>
-      {/* CAPA DE DESENFOQUE PROGRESIVO EXTENDIDO (180px) CON GRADIENTE NEUTRO OSCURO SUAVE */}
+      {/* CAPA DE DESENFOQUE PROGRESIVO COMPACTO (90px) CON GRADIENTE NEUTRO OSCURO SUAVE */}
       <div 
         aria-hidden="true" 
-        className={`fixed top-0 left-0 right-0 h-[180px] pointer-events-none z-40 transition-all duration-700 ease-in-out ${
+        className={`fixed top-0 left-0 right-0 h-[90px] pointer-events-none z-40 transition-all duration-700 ease-in-out ${
           isScrolled 
             ? 'opacity-100' 
             : 'opacity-0 invisible'
         }`}
         style={{
-          background: 'linear-gradient(to bottom, rgba(15, 15, 15, 0.5) 0%, rgba(15, 15, 15, 0.35) 30%, rgba(15, 15, 15, 0.15) 60%, rgba(15, 15, 15, 0.02) 85%, rgba(15, 15, 15, 0) 100%)',
-          WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 40%, rgba(0,0,0,0.3) 75%, rgba(0,0,0,0) 100%)',
-          maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 40%, rgba(0,0,0,0.3) 75%, rgba(0,0,0,0) 100%)',
-          backdropFilter: isScrolled ? 'blur(300px)' : 'none',
-          WebkitBackdropFilter: isScrolled ? 'blur(300px)' : 'none',
+          background: 'linear-gradient(to bottom, rgba(15, 15, 15, 0.5) 0%, rgba(15, 15, 15, 0.3) 40%, rgba(15, 15, 15, 0.1) 70%, rgba(15, 15, 15, 0) 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0) 100%)',
+          maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0) 100%)',
+          backdropFilter: isScrolled ? 'blur(20px)' : 'none',
+          WebkitBackdropFilter: isScrolled ? 'blur(20px)' : 'none',
         }}
       />
 
