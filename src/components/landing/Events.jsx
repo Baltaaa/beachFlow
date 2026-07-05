@@ -2,23 +2,24 @@ import { ArrowRight, Phone, Sparkles } from 'lucide-react'
 
 export default function Events() {
   return (
-    <section className="py-28 px-margin-mobile md:px-margin-desktop bg-neutral-950 text-white relative overflow-hidden border-t border-white/5" id="eventos">
-      {/* Sutiles destellos de luz de fondo para dar profundidad (estilo Hero) */}
-      <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-gold/5 rounded-full blur-[120px] pointer-events-none" />
+    <section className="py-28 px-margin-mobile md:px-margin-desktop bg-[#0A3C47] text-white relative overflow-hidden border-t border-white/5" id="eventos">
+      {/* Sutiles destellos de luz marina para dar profundidad de océano */}
+      <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-beach-aqua/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 left-10 w-[400px] h-[400px] bg-gold/5 rounded-full blur-[100px] pointer-events-none" />
       
       <div className="max-w-[1140px] mx-auto relative z-10">
         
         {/* Encabezado Editorial Alineado */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
           <div className="max-w-xl">
-            <span className="inline-flex items-center gap-1.5 bg-white/5 border border-white/10 px-3.5 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-wider text-gold mb-4 backdrop-blur-md">
+            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/20 px-3.5 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-wider text-gold mb-4 backdrop-blur-md">
               <Sparkles size={10} className="text-gold" />
               Espacio Exclusivo Renovado
             </span>
             <h2 className="text-[44px] md:text-[56px] font-bold tracking-tight leading-none text-white font-display uppercase">
               El salón<span className="text-gold">.</span>
             </h2>
-            <p className="text-white/60 text-sm md:text-base font-light leading-relaxed max-w-md mt-4">
+            <p className="text-white/80 text-sm md:text-base font-light leading-relaxed max-w-md mt-4">
               La mítica esquina de Playa Grande se transforma. Un espacio premium totalmente privado, climatizado y disponible exclusivamente bajo reserva previa.
             </p>
           </div>
@@ -40,18 +41,18 @@ export default function Events() {
           
           {/* COLUMNA IZQUIERDA: El Espacio Destacado (Ancho: 7/12) */}
           <div className="lg:col-span-7 flex flex-col gap-6">
-            <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl border border-white/10 bg-white/5 group">
+            <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl border border-white/15 bg-white/5 group">
               <img 
                 src="/images/event1.webp" 
                 alt="Salón de Eventos Prius" 
                 className="w-full h-full object-cover group-hover:scale-[1.02] transition-premium-slow"
               />
-              {/* Badges flotantes en Glassmorphism (idénticos al Hero) */}
+              {/* Badges flotantes en Glassmorphism sobre fondo turquesa */}
               <div className="absolute bottom-4 left-4 flex gap-2">
-                <span className="bg-black/60 backdrop-blur-md text-white text-[9px] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full border border-white/10">
+                <span className="bg-[#0A3C47]/80 backdrop-blur-md text-white text-[9px] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full border border-white/15">
                   Exclusivo
                 </span>
-                <span className="bg-black/60 backdrop-blur-md text-white text-[9px] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full border border-white/10">
+                <span className="bg-[#0A3C47]/80 backdrop-blur-md text-white text-[9px] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full border border-white/15">
                   Climatizado
                 </span>
               </div>
@@ -61,7 +62,7 @@ export default function Events() {
               <h3 className="text-xl md:text-2xl font-bold tracking-tight text-white font-display mb-3 uppercase">
                 ¿Qué es Prius Eventos?
               </h3>
-              <p className="text-white/60 text-xs md:text-sm font-light leading-relaxed mb-6 max-w-xl">
+              <p className="text-white/75 text-xs md:text-sm font-light leading-relaxed mb-6 max-w-xl">
                 Lo que antes fue el icónico espacio de Antares, hoy renace como un salón de eventos de alta gama frente al mar. Diseñado con una arquitectura minimalista, acústica controlada y vistas privilegiadas para que tu celebración sea única.
               </p>
               <a 
@@ -79,8 +80,8 @@ export default function Events() {
           <div className="lg:col-span-5 flex flex-col">
             
             {/* Item 1 */}
-            <div className="flex gap-5 pb-6 mb-6 border-b border-white/10 group">
-              <div className="w-24 h-24 shrink-0 overflow-hidden rounded-xl border border-white/10 bg-white/5">
+            <div className="flex gap-5 pb-6 mb-6 border-b border-white/15 group">
+              <div className="w-24 h-24 shrink-0 overflow-hidden rounded-xl border border-white/15 bg-white/5">
                 <img 
                   src="/images/event2.webp" 
                   alt="Casamientos y Fiestas de 15" 
@@ -90,20 +91,20 @@ export default function Events() {
               <div className="flex flex-col justify-center">
                 <div className="flex items-center gap-2 mb-1.5">
                   <span className="text-[9px] font-bold uppercase tracking-wider text-gold font-display">Sociales</span>
-                  <span className="text-[9px] text-white/40 font-light">Día & Noche</span>
+                  <span className="text-[9px] text-white/50 font-light font-display">Día & Noche</span>
                 </div>
                 <h4 className="text-sm md:text-base font-bold text-white leading-snug mb-1 font-display uppercase">
                   Casamientos y Fiestas de 15
                 </h4>
-                <p className="text-[11px] text-white/50 font-light line-clamp-2">
+                <p className="text-[11px] text-white/70 font-light line-clamp-2">
                   Celebraciones mágicas con el Atlántico como testigo y un servicio gastronómico de primer nivel.
                 </p>
               </div>
             </div>
 
             {/* Item 2 */}
-            <div className="flex gap-5 pb-6 mb-6 border-b border-white/10 group">
-              <div className="w-24 h-24 shrink-0 overflow-hidden rounded-xl border border-white/10 bg-white/5">
+            <div className="flex gap-5 pb-6 mb-6 border-b border-white/15 group">
+              <div className="w-24 h-24 shrink-0 overflow-hidden rounded-xl border border-white/15 bg-white/5">
                 <img 
                   src="/images/event1.webp" 
                   alt="Eventos Corporativos" 
@@ -113,20 +114,20 @@ export default function Events() {
               <div className="flex flex-col justify-center">
                 <div className="flex items-center gap-2 mb-1.5">
                   <span className="text-[9px] font-bold uppercase tracking-wider text-gold font-display">Corporativos</span>
-                  <span className="text-[9px] text-white/40 font-light">A medida</span>
+                  <span className="text-[9px] text-white/50 font-light font-display">A medida</span>
                 </div>
                 <h4 className="text-sm md:text-base font-bold text-white leading-snug mb-1 font-display uppercase">
                   Lanzamientos y Cenas
                 </h4>
-                <p className="text-[11px] text-white/50 font-light line-clamp-2">
+                <p className="text-[11px] text-white/70 font-light line-clamp-2">
                   El entorno ideal para potenciar tu marca, realizar conferencias o agasajar a tus clientes.
                 </p>
               </div>
             </div>
 
             {/* Item 3 */}
-            <div className="flex gap-5 pb-6 mb-6 border-b border-white/10 group">
-              <div className="w-24 h-24 shrink-0 overflow-hidden rounded-xl border border-white/10 bg-white/5">
+            <div className="flex gap-5 pb-6 mb-6 border-b border-white/15 group">
+              <div className="w-24 h-24 shrink-0 overflow-hidden rounded-xl border border-white/15 bg-white/5">
                 <img 
                   src="/images/event4.webp" 
                   alt="Cumpleaños y Aniversarios" 
@@ -136,21 +137,21 @@ export default function Events() {
               <div className="flex flex-col justify-center">
                 <div className="flex items-center gap-2 mb-1.5">
                   <span className="text-[9px] font-bold uppercase tracking-wider text-gold font-display">Celebraciones</span>
-                  <span className="text-[9px] text-white/40 font-light">Privado</span>
+                  <span className="text-[9px] text-white/50 font-light font-display">Privado</span>
                 </div>
                 <h4 className="text-sm md:text-base font-bold text-white leading-snug mb-1 font-display uppercase">
                   Cumpleaños y Aniversarios
                 </h4>
-                <p className="text-[11px] text-white/50 font-light line-clamp-2">
+                <p className="text-[11px] text-white/70 font-light line-clamp-2">
                   Festejá tus momentos especiales en un ambiente reservado con la mejor coctelería de la costa.
                 </p>
               </div>
             </div>
 
-            {/* CTA de Contacto Directo en Glassmorphism */}
-            <div className="mt-2 p-5 bg-white/5 rounded-xl border border-white/10 flex items-center justify-between gap-4 backdrop-blur-md">
+            {/* CTA de Contacto Directo en Glassmorphism sobre turquesa */}
+            <div className="mt-2 p-5 bg-white/10 rounded-xl border border-white/15 flex items-center justify-between gap-4 backdrop-blur-md">
               <div>
-                <span className="text-[8px] font-bold uppercase tracking-widest text-white/40 block mb-0.5 font-display">Contacto Directo</span>
+                <span className="text-[8px] font-bold uppercase tracking-widest text-white/50 block mb-0.5 font-display">Contacto Directo</span>
                 <a 
                   href="https://wa.me/542235765482" 
                   target="_blank" 
