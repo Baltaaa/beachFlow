@@ -53,11 +53,11 @@ export default function Hero() {
           {/* Grilla principal alineada a la base (items-end) para un balance perfecto */}
           <div className="mt-4 grid grid-cols-1 gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
             
-            {/* Columna Izquierda: Titular original restaurado */}
+            {/* Columna Izquierda: Titular original restaurado con cambio solicitado */}
             <div>
               <h1 className="text-[28px] sm:text-[38px] md:text-[48px] lg:text-[52px] xl:text-[58px] font-bold leading-[1.05] tracking-[-0.03em] uppercase font-display text-white select-none text-balance drop-shadow-sm">
                 <span className="text-white/65">TU DESCANSO</span> <br />
-                <span className="text-white/65">EN LA COSTA.</span> <br />
+                <span className="text-white/65">EN LA PLAYA.</span> <br />
                 <span className="text-gold">EN PRIUS.</span>
               </h1>
             </div>
