@@ -4,7 +4,6 @@ import Hero from '../components/landing/Hero'
 import Partners from '../components/landing/Partners'
 import Services from '../components/landing/Services'
 import Events from '../components/landing/Events'
-import Gallery from '../components/landing/Gallery'
 import Testimonials from '../components/landing/Testimonials'
 import ContactSection from '../components/ContactSection'
 import Footer from '../components/landing/Footer'
@@ -52,9 +51,6 @@ export default function LandingPage() {
         </div>
         <div id="eventos" className="reveal">
           <Events />
-        </div>
-        <div id="galeria" className="reveal">
-          <Gallery />
         </div>
         <div id="testimonios" className="reveal">
           <Testimonials />

@@ -73,9 +73,8 @@ export default function Footer() {
             </span>
             <div className="flex flex-col gap-3.5">
               <a href="#" className="text-sm text-white/70 hover:text-gold transition-colors font-light">Inicio</a>
-              <a href="#servicios" className="text-sm text-white/70 hover:text-gold transition-colors font-light">Servicios</a>
+              <a href="#servicios" className="text-sm text-white/70 hover:text-gold transition-colors font-light">Playa & Servicios</a>
               <a href="#eventos" className="text-sm text-white/70 hover:text-gold transition-colors font-light">Eventos Privados</a>
-              <a href="#galeria" className="text-sm text-white/70 hover:text-gold transition-colors font-light">Galería Visual</a>
               <a href="#contacto" className="text-sm text-white/70 hover:text-gold transition-colors font-light">Contacto</a>
             </div>
           </div>
