@@ -6,8 +6,10 @@ const CATEGORIES = [
   "Coworking", 
   "Carpas & Sombrillas", 
   "Pileta & Solárium", 
-  "Masajes & Wellness", 
-  "Cabinas & Lockers", 
+  "Gastronomía",
+  "Wellness", 
+  "Instalaciones", 
+  "Eventos",
   "Recreación & Club"
 ]
 
@@ -33,19 +35,33 @@ const unifiedImages = [
   { src: "/images/pareja-playa.webp", title: "Relax Junto a la Pileta", category: "Pileta & Solárium", desc: "Desconexión total y ambiente sofisticado a metros del mar." },
   { src: "/images/prius10.webp", title: "Pool Bar Service", category: "Pileta & Solárium", desc: "Tragos de autor y coctelería fresca directo a tu camastro." },
 
-  // MASAJES & WELLNESS (5 imágenes)
-  { src: "/images/prius3.webp", title: "Oasis de Relajación", category: "Masajes & Wellness", desc: "Gabinete privado con masajes descontracturantes y relajantes con terapeutas certificados." },
-  { src: "/images/prius4.webp", title: "Terapias de Mar", category: "Masajes & Wellness", desc: "Tratamientos corporales y faciales con aromaterapia y esencias naturales." },
-  { src: "/images/prius6.webp", title: "Espacio de Meditación", category: "Masajes & Wellness", desc: "Un rincón de paz diseñado para armonizar cuerpo y mente." },
-  { src: "/images/prius5.webp", title: "Sesiones de Estiramiento", category: "Masajes & Wellness", desc: "Clases personalizadas orientadas a la flexibilidad y bienestar físico." },
-  { src: "/images/gallery_IMG_1832.webp", title: "Atardecer Consciente", category: "Masajes & Wellness", desc: "Prácticas guiadas al final del día para reconectar con el entorno." },
+  // GASTRONOMÍA (5 imágenes)
+  { src: "/images/gastronomia-1.webp", title: "Sabores de Costa", category: "Gastronomía", desc: "Gastronomía gourmet frente al mar con ingredientes frescos del Atlántico." },
+  { src: "/images/gastronomia-2.webp", title: "Cocktails de Autor", category: "Gastronomía", desc: "Tragos exclusivos y coctelería premium diseñados por destacados bartenders." },
+  { src: "/images/prius12.webp", title: "Cafetería Premium", category: "Gastronomía", desc: "Café de especialidad y pastelería artesanal para arrancar el día de la mejor manera." },
+  { src: "/images/prius10.webp", title: "Bistró de Playa", category: "Gastronomía", desc: "Almuerzos ligeros, ensaladas de estación y mariscos seleccionados." },
+  { src: "/images/prius9.webp", title: "Sunset Dining", category: "Gastronomía", desc: "Disfrutá de una experiencia culinaria única contemplando la caída del sol." },
 
-  // CABINAS & LOCKERS (5 imágenes)
-  { src: "/images/cabinas.jpg", title: "Vestuarios Privados", category: "Cabinas & Lockers", desc: "Cabinas individuales diseñadas para garantizar máxima higiene y comodidad." },
-  { src: "/images/gallery_IMG_1852.webp", title: "Duchas con Control Térmico", category: "Cabinas & Lockers", desc: "Agua a temperatura ideal en instalaciones modernas y confortables." },
-  { src: "/images/prius11.webp", title: "Lockers Digitales", category: "Cabinas & Lockers", desc: "Cajas de seguridad privadas de alta tecnología para tus pertenencias." },
-  { src: "/images/prius1.webp", title: "Cuidado de Objetos", category: "Cabinas & Lockers", desc: "Personal dedicado y monitoreo constante para una tranquilidad absoluta." },
-  { src: "/images/prius2.webp", title: "Espacios de Tocador", category: "Cabinas & Lockers", desc: "Espejos con iluminación profesional y secadores de pelo de uso libre." },
+  // WELLNESS (5 imágenes)
+  { src: "/images/prius3.webp", title: "Oasis de Relajación", category: "Wellness", desc: "Gabinete privado con masajes descontracturantes y relajantes con terapeutas certificados." },
+  { src: "/images/prius4.webp", title: "Terapias de Mar", category: "Wellness", desc: "Tratamientos corporales y faciales con aromaterapia y esencias naturales." },
+  { src: "/images/prius6.webp", title: "Espacio de Meditación", category: "Wellness", desc: "Un rincón de paz diseñado para armonizar cuerpo y mente." },
+  { src: "/images/prius11.webp", title: "ESPACIO CAMBIADOR BEBÉS", category: "Wellness", desc: "Comodidad pensada para toda la familia en áreas totalmente dedicadas." },
+  { src: "/images/gallery_IMG_1832.webp", title: "Atardecer Consciente", category: "Wellness", desc: "Prácticas guiadas al final del día para reconectar con el entorno." },
+
+  // INSTALACIONES (5 imágenes tal cual se pedía en el screenshot del cliente)
+  { src: "/images/gallery_IMG_1832.webp", title: "INSTALACIONES PRIUS", category: "Instalaciones", desc: "Espacios modernos y confortables." },
+  { src: "/images/gallery_IMG_1852.webp", title: "VESTUARIOS & DUCHAS", category: "Instalaciones", desc: "Higiene y confort de primer nivel." },
+  { src: "/images/cabinas.jpg", title: "LOCKERS DE SEGURIDAD", category: "Instalaciones", desc: "Tranquilidad absoluta para tus pertenencias." },
+  { src: "/images/prius1.webp", title: "DUCHAS PRIVADAS", category: "Instalaciones", desc: "Instalaciones impecables y renovadas." },
+  { src: "/images/prius2.webp", title: "Espacios de Tocador", category: "Instalaciones", desc: "Espejos con iluminación profesional y secadores de pelo de uso libre." },
+
+  // EVENTOS (5 imágenes)
+  { src: "/images/event1.webp", title: "Lanzamientos y Cenas", category: "Eventos", desc: "El entorno ideal para potenciar tu marca o agasajar a tus clientes." },
+  { src: "/images/event2.webp", title: "Casamientos y Fiestas de 15", category: "Eventos", desc: "Celebraciones mágicas con el Atlántico como testigo y un servicio premium." },
+  { src: "/images/event4.webp", title: "Cumpleaños y Aniversarios", category: "Eventos", desc: "Festejá tus momentos especiales en un ambiente completamente reservado." },
+  { src: "/images/prius14.webp", title: "Eventos Corporativos", category: "Eventos", desc: "Salón climatizado y equipado con tecnología de última generación para conferencias." },
+  { src: "/images/prius13.webp", title: "Celebraciones Exclusivas", category: "Eventos", desc: "Un espacio único que se adapta perfectamente al estilo de tu evento." },
 
   // RECREACIÓN & CLUB (5 imágenes)
   { src: "/images/prius5.webp", title: "Yoga al Amanecer", category: "Recreación & Club", desc: "Clases de yoga sobre la arena para comenzar el día con energía renovada." },
