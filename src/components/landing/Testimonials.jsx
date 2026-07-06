@@ -76,8 +76,8 @@ export default function Testimonials() {
   }
 
   return (
-    <section className="py-28 px-margin-mobile md:px-margin-desktop bg-prius-background">
-      <div className="max-w-[1440px] mx-auto">
+    <section className="min-h-screen flex flex-col justify-center py-20 px-margin-mobile md:px-margin-desktop bg-prius-background border-t border-hairline">
+      <div className="max-w-[1440px] mx-auto w-full">
         
         {/* Encabezado */}
         <div className="text-center mb-16">

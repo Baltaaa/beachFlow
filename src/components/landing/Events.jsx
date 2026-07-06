@@ -2,18 +2,18 @@ import { ArrowRight, Phone, Sparkles } from 'lucide-react'
 
 export default function Events() {
   return (
-    <section className="py-28 px-margin-mobile md:px-margin-desktop bg-[#0A3C47] text-white relative overflow-hidden border-t border-white/5" id="eventos">
+    <section className="min-h-screen flex flex-col justify-center py-20 px-margin-mobile md:px-margin-desktop bg-[#0A3C47] text-white relative overflow-hidden border-t border-white/5" id="eventos">
       {/* Sutiles destellos de luz marina para dar profundidad de océano */}
       <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-beach-aqua/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 left-10 w-[400px] h-[400px] bg-gold/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-0 left-10 w-[400px] h-[400px] bg-gold/5 rounded-full blur-[100px] pointer-events-none z-0" />
       
-      <div className="max-w-[1140px] mx-auto relative z-10">
+      <div className="max-w-[1140px] mx-auto relative z-10 w-full">
         
         {/* Encabezado Editorial Alineado */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
           <div className="max-w-xl">
             <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/20 px-3.5 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-wider text-gold mb-4 backdrop-blur-md">
-              <Sparkles size={10} className="text-gold" />
+              <Sparkles size={10} className="text-gold" strokeWidth={2.5} />
               Espacio Exclusivo Renovado
             </span>
             <h2 className="text-[44px] md:text-[56px] font-bold tracking-tight leading-none text-white font-display uppercase">
@@ -158,14 +158,14 @@ export default function Events() {
                   rel="noopener noreferrer"
                   className="text-xs font-bold text-white hover:text-gold transition-colors flex items-center gap-1.5 font-display"
                 >
-                  <Phone size={12} className="text-gold" /> 223 5765 482
+                  <Phone size={12} className="text-gold" /> 223 576 5482
                 </a>
               </div>
               <a 
                 href="https://wa.me/542235765482" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="bg-gold hover:bg-gold-hover text-prius-black text-[10px] font-bold uppercase tracking-wider px-5 py-2.5 rounded-full transition-colors font-display shadow-md"
+                className="bg-gold hover:bg-gold-hover text-prius-black text-[10px] font-bold uppercase tracking-wider px-5 py-2.5 rounded-full transition-colors font-display shadow-md animate-premium-fade"
               >
                 Consultar
               </a>

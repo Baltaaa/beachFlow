@@ -111,8 +111,8 @@ export default function Services() {
   }
 
   return (
-    <section className="py-20 px-margin-mobile md:px-margin-desktop bg-prius-background border-t border-hairline" id="servicios">
-      <div className="max-w-[1440px] mx-auto">
+    <section className="min-h-screen flex flex-col justify-center py-20 px-margin-mobile md:px-margin-desktop bg-prius-background border-t border-hairline" id="servicios">
+      <div className="max-w-[1440px] mx-auto w-full">
         
         {/* Encabezado Principal de Servicios */}
         <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
@@ -125,7 +125,7 @@ export default function Services() {
             </h2>
           </div>
           <p className="text-prius-black/60 text-xs md:text-sm max-w-xs leading-relaxed">
-            Minimalismo estructural y confort absoluto diseñado al detalle para una experiencia de playa incomparable.
+            Minimalismo estructural and confort absoluto diseñado al detalle para una experiencia de playa incomparable.
           </p>
         </div>
 

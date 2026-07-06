@@ -137,8 +137,8 @@ export default function ContactSection() {
   }
 
   return (
-    <section id="contacto" className="bg-white py-20 px-margin-mobile md:px-margin-desktop border-t border-hairline">
-      <div className="max-w-[1140px] mx-auto">
+    <section id="contacto" className="min-h-screen flex flex-col justify-center bg-white py-20 px-margin-mobile md:px-margin-desktop border-t border-hairline">
+      <div className="max-w-[1140px] mx-auto w-full">
         
         {/* Encabezado Coherente & Compacto */}
         <div className="mb-12 text-center md:text-left">

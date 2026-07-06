@@ -14,10 +14,10 @@ export default function Hero() {
   }
 
   return (
-    <section className="relative w-full bg-white flex flex-col justify-end p-4">
+    <section className="relative w-full bg-white flex flex-col justify-end p-4 min-h-screen">
       
-      {/* Contenedor principal con altura responsiva ajustada a 85vh */}
-      <div className="relative mx-auto flex min-h-[85vh] w-full max-w-[1920px] flex-col overflow-hidden rounded-[28px]">
+      {/* Contenedor principal con altura responsiva ajustada al 100% del alto del viewport */}
+      <div className="relative mx-auto flex min-h-[calc(100vh-2rem)] w-full max-w-[1920px] flex-col overflow-hidden rounded-[28px]">
         
         {/* Imagen de fondo alineada al tope (object-top) para mostrar más cielo arriba */}
         <div className="absolute inset-0 z-0 select-none pointer-events-none">
