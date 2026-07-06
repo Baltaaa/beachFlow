@@ -8,7 +8,7 @@ import {
 } from 'lucide-react'
 
 const SECTIONS = [
-  { id: 'servicios', label: 'Playa & Galería', icon: LayoutGrid },
+  { id: 'servicios', label: 'Playa', icon: LayoutGrid },
   { id: 'eventos', label: 'Eventos', icon: Calendar },
   { id: 'testimonios', label: 'Opiniones', icon: MessageSquare },
 ]
