@@ -173,11 +173,12 @@ export default function Services() {
         {/* CONTENEDOR DE GALERÍA DE DOBLE FLUJO */}
         <div className="relative">
           
-          {/* Carrusel Horizontal */}
+          {/* Carrusel Horizontal con animación de entrada suave al cambiar de categoría */}
           <div 
+            key={activeCategory}
             ref={sliderRef}
             onScroll={handleScroll}
-            className="flex gap-5 overflow-x-auto pb-4 scroll-smooth snap-x snap-mandatory scrollbar-none md:snap-none"
+            className="flex gap-5 overflow-x-auto pb-4 scroll-smooth snap-x snap-mandatory scrollbar-none md:snap-none animate-[premiumFadeIn_0.4s_ease-out_forwards]"
           >
             {filteredImages.map((img, idx) => (
               <div 
