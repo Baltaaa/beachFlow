@@ -26,7 +26,7 @@ export default function Events() {
   ]
 
   return (
-    <section className="min-h-screen flex flex-col justify-center py-20 px-margin-mobile md:px-margin-desktop text-white relative overflow-hidden border-t border-white/5 bg-[#69bad1]" id="eventos">
+    <section className="min-h-screen flex flex-col justify-center py-20 px-margin-mobile md:px-margin-desktop text-white relative overflow-hidden bg-gradient-to-b from-[#F9F9F9] via-[#69bad1] to-[#F9F9F9]" id="eventos">
       
       {/* Sutiles destellos de luz minimalistas */}
       <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-white/10 rounded-full blur-[140px] pointer-events-none" />
