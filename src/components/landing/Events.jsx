@@ -28,23 +28,23 @@ export default function Events() {
   return (
     <section className="min-h-screen flex flex-col justify-center py-20 px-margin-mobile md:px-margin-desktop text-white relative overflow-hidden border-t border-white/5" id="eventos">
       
-      {/* CAPA DE FONDO ESTILO HERO CON PLAYA GRANDE OPTIMIZED */}
+      {/* CAPA DE FONDO EN COLORES VIVOS Y MAR TURQUESA */}
       <div className="absolute inset-0 z-0 select-none pointer-events-none">
         <img 
           src="/images/Playa_Grande-4-optimized.webp" 
-          alt="Playa Grande Atardecer" 
-          className="w-full h-full object-cover object-center grayscale opacity-45"
+          alt="Playa Grande Mar Turquesa" 
+          className="w-full h-full object-cover object-center opacity-85 transition-all duration-700"
         />
-        {/* Sutil overlay de mezcla */}
-        <div className="absolute inset-0 bg-white/[0.03] mix-blend-overlay" />
-        {/* Degradado premium idéntico al Hero para legibilidad perfecta */}
-        <div className="absolute inset-0 bg-gradient-to-b from-neutral-950/80 via-neutral-950/45 to-neutral-950/85" />
+        {/* Sutil tinte turquesa translúcido para potenciar el color del océano */}
+        <div className="absolute inset-0 bg-cyan-950/10 mix-blend-color-multiply" />
+        {/* Degradado premium optimizado para conservar la intensidad de los colores vivos del fondo y garantizar legibilidad perfecta del texto */}
+        <div className="absolute inset-0 bg-gradient-to-b from-neutral-950/70 via-transparent to-neutral-950/80" />
       </div>
 
       <div className="max-w-[1140px] mx-auto relative z-10 w-full flex flex-col gap-12">
         
         {/* HERO PRINCIPAL CENTRADO DE EVENTOS */}
-        <div className="relative w-full aspect-[21/9] rounded-2xl overflow-hidden border border-white/15 bg-neutral-950/40 group flex flex-col justify-center items-center text-center p-6 sm:p-12">
+        <div className="relative w-full aspect-[21/9] rounded-2xl overflow-hidden border border-white/20 bg-neutral-950/50 backdrop-blur-md group flex flex-col justify-center items-center text-center p-6 sm:p-12">
           {/* Imagen de fondo del Hero de Eventos */}
           <div className="absolute inset-0 z-0">
             <img 
@@ -76,7 +76,7 @@ export default function Events() {
           {eventTypes.map((event, idx) => (
             <div 
               key={idx}
-              className="bg-white/5 border border-white/10 rounded-xl overflow-hidden group hover:border-gold/30 transition-premium flex flex-col h-full"
+              className="bg-neutral-950/60 backdrop-blur-md border border-white/15 rounded-xl overflow-hidden group hover:border-gold/40 transition-premium flex flex-col h-full"
             >
               {/* Contenedor de Imagen */}
               <div className="relative aspect-[16/10] overflow-hidden bg-neutral-950/30 border-b border-white/10">
@@ -111,7 +111,7 @@ export default function Events() {
         </div>
 
         {/* CTA DE CONTACTO DIRECTO INTEGRADO AL PIE */}
-        <div className="p-5 bg-white/5 rounded-xl border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 backdrop-blur-md">
+        <div className="p-5 bg-neutral-950/60 rounded-xl border border-white/15 flex flex-col sm:flex-row items-center justify-between gap-4 backdrop-blur-md">
           <div className="flex flex-col sm:flex-row items-center gap-3 text-center sm:text-left">
             <div className="p-2.5 bg-white/10 rounded-full border border-white/10 text-gold">
               <Phone size={14} />
