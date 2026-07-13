@@ -49,7 +49,7 @@ const unifiedImages = [
   { src: "/images/prius11.webp", title: "ESPACIO CAMBIADOR BEBÉS", category: "Wellness", desc: "Comodidad pensada para toda la familia en áreas totalmente dedicadas." },
   { src: "/images/gallery_IMG_1832.webp", title: "Atardecer Consciente", category: "Wellness", desc: "Prácticas guiadas al final del día para reconectar con el entorno." },
 
-  // INSTALACIONES (5 imágenes tal cual se pedía en el screenshot del cliente)
+  // INSTALACIONES (5 imágenes)
   { src: "/images/gallery_IMG_1832.webp", title: "INSTALACIONES PRIUS", category: "Instalaciones", desc: "Espacios modernos y confortables." },
   { src: "/images/gallery_IMG_1852.webp", title: "VESTUARIOS & DUCHAS", category: "Instalaciones", desc: "Higiene y confort de primer nivel." },
   { src: "/images/cabinas.jpg", title: "LOCKERS DE SEGURIDAD", category: "Instalaciones", desc: "Tranquilidad absoluta para tus pertenencias." },
@@ -111,40 +111,26 @@ export default function Services() {
   }
 
   return (
-    <section className="min-h-screen flex flex-col justify-center py-20 px-margin-mobile md:px-margin-desktop bg-neutral-950 text-white relative overflow-hidden border-t border-white/5" id="servicios">
-      
-      {/* CAPA DE FONDO ESTILO HERO */}
-      <div className="absolute inset-0 z-0 select-none pointer-events-none">
-        <img 
-          src="/images/Playa_Grande-4-optimized.webp" 
-          alt="Costa Playa Grande" 
-          className="w-full h-full object-cover object-center grayscale opacity-45"
-        />
-        {/* Sutil overlay de mezcla */}
-        <div className="absolute inset-0 bg-white/[0.03] mix-blend-overlay" />
-        {/* Degradado premium idéntico al Hero para legibilidad del contenido blanco */}
-        <div className="absolute inset-0 bg-gradient-to-b from-neutral-950/80 via-neutral-950/45 to-neutral-950/85" />
-      </div>
-
+    <section className="min-h-screen flex flex-col justify-center py-20 px-margin-mobile md:px-margin-desktop bg-prius-background border-t border-hairline" id="servicios">
       <div className="max-w-[1440px] mx-auto w-full relative z-10">
         
         {/* Encabezado Principal de Servicios */}
         <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="max-w-xl">
-            <span className="text-[9px] md:text-[11px] font-normal uppercase tracking-[0.3em] text-white/50 block mb-1 font-display">
+            <span className="text-[9px] md:text-[11px] font-normal uppercase tracking-[0.3em] text-prius-black/40 block mb-1 font-display">
               Estilo de Vida Prius
             </span>
-            <h2 className="text-2xl md:text-4xl font-normal tracking-tight text-white uppercase font-display leading-none">
+            <h2 className="text-2xl md:text-4xl font-normal tracking-tight text-prius-black uppercase font-display leading-none">
               Servicios de <span className="text-gold">Exclusividad</span> Absoluta
             </h2>
           </div>
-          <p className="text-white/70 text-xs md:text-sm max-w-xs leading-relaxed font-light">
+          <p className="text-prius-black/60 text-xs md:text-sm max-w-xs leading-relaxed font-light">
             Minimalismo estructural y confort absoluto diseñado al detalle para una experiencia de playa incomparable.
           </p>
         </div>
 
         {/* Filtros de Categoría Minimalistas + Controles de Navegación */}
-        <div className="flex items-center justify-between border-b border-white/10 pb-6 mb-8">
+        <div className="flex items-center justify-between border-b border-hairline/60 pb-6 mb-8">
           <div className="flex overflow-x-auto gap-2 scrollbar-none pb-2 md:pb-0">
             {CATEGORIES.map((cat) => (
               <button
@@ -157,7 +143,7 @@ export default function Services() {
                 className={`px-4 py-1.5 rounded-full text-[10px] uppercase tracking-wider font-medium transition-all shrink-0 cursor-pointer ${
                   activeCategory === cat
                     ? 'bg-gold text-prius-black border border-gold'
-                    : 'bg-white/5 text-white/70 border border-white/10 hover:border-white/30 hover:text-white'
+                    : 'bg-transparent text-prius-black/55 border border-hairline hover:border-prius-black/30 hover:text-prius-black'
                 }`}
               >
                 {cat}
@@ -169,17 +155,17 @@ export default function Services() {
           <div className="hidden md:flex gap-1.5 shrink-0">
             <button 
               onClick={() => scrollSlider('left')}
-              className="p-2 bg-white/5 border border-white/10 rounded-full hover:border-gold hover:bg-white/10 transition-colors cursor-pointer"
+              className="p-2 bg-white border border-hairline rounded-full hover:border-gold hover:bg-prius-background transition-colors cursor-pointer"
               aria-label="Anterior"
             >
-              <ChevronLeft size={14} className="text-white" />
+              <ChevronLeft size={14} className="text-prius-black" />
             </button>
             <button 
               onClick={() => scrollSlider('right')}
-              className="p-2 bg-white/5 border border-white/10 rounded-full hover:border-gold hover:bg-white/10 transition-colors cursor-pointer"
+              className="p-2 bg-white border border-hairline rounded-full hover:border-gold hover:bg-prius-background transition-colors cursor-pointer"
               aria-label="Siguiente"
             >
-              <ChevronRight size={14} className="text-white" />
+              <ChevronRight size={14} className="text-prius-black" />
             </button>
           </div>
         </div>
@@ -197,10 +183,10 @@ export default function Services() {
             {filteredImages.map((img, idx) => (
               <div 
                 key={idx}
-                className="w-[280px] md:w-[320px] shrink-0 snap-start group bg-neutral-900/60 backdrop-blur-md border border-white/10 rounded-xl overflow-hidden flex flex-col justify-between hover:border-gold/50 transition-premium"
+                className="w-[280px] md:w-[320px] shrink-0 snap-start group bg-white border border-hairline rounded-xl overflow-hidden flex flex-col justify-between hover:border-gold transition-premium"
               >
                 {/* Contenedor de Imagen de Proporción Elegante */}
-                <div className="relative aspect-[4/3] overflow-hidden bg-neutral-950/80 border-b border-white/5">
+                <div className="relative aspect-[4/3] overflow-hidden bg-prius-background border-b border-hairline">
                   <img 
                     alt={img.title} 
                     className="w-full h-full object-cover group-hover:scale-[1.03] transition-premium-slow" 
@@ -208,7 +194,7 @@ export default function Services() {
                   />
                   
                   {/* Categoría pequeña en la esquina */}
-                  <span className="absolute bottom-3 left-3 bg-neutral-950/80 backdrop-blur-md px-2.5 py-1 rounded-sm text-[8px] uppercase tracking-wider text-gold font-display">
+                  <span className="absolute bottom-3 left-3 bg-neutral-950/70 backdrop-blur-md px-2.5 py-1 rounded-sm text-[8px] uppercase tracking-wider text-gold font-display">
                     {img.category}
                   </span>
                 </div>
@@ -216,21 +202,21 @@ export default function Services() {
                 {/* Contenido inferior tipo tarjeta */}
                 <div className="p-5 flex flex-col justify-between flex-1">
                   <div>
-                    <h4 className="text-xs font-bold text-white uppercase tracking-tight font-display mb-1.5">
+                    <h4 className="text-xs font-bold text-prius-black uppercase tracking-tight font-display mb-1.5">
                       {img.title}
                     </h4>
-                    <p className="text-[11px] text-white/60 leading-relaxed font-light mb-4 min-h-[50px] line-clamp-3">
+                    <p className="text-[11px] text-prius-black/60 leading-relaxed font-light mb-4 min-h-[50px] line-clamp-3">
                       {img.desc}
                     </p>
                   </div>
 
-                  <div className="pt-3 border-t border-white/5 flex items-center justify-between">
+                  <div className="pt-3 border-t border-hairline flex items-center justify-between">
                     <button 
                       onClick={scrollToContact}
-                      className="text-[9px] font-medium text-white hover:text-gold transition-colors uppercase tracking-widest text-left flex items-center gap-1 group/btn font-display cursor-pointer"
+                      className="text-[9px] font-medium text-prius-black hover:text-gold transition-colors uppercase tracking-widest text-left flex items-center gap-1 group/btn font-display cursor-pointer"
                     >
                       Reservar lugar 
-                      <ArrowRight size={10} className="transform group-hover/btn:translate-x-0.5 transition-transform text-gold" />
+                      <ArrowRight size={10} className="transform group-hover/btn:translate-x-0.5 transition-transform" />
                     </button>
                   </div>
                 </div>
@@ -239,7 +225,7 @@ export default function Services() {
           </div>
 
           {/* Barra de Progreso Minimalista (Mobile) */}
-          <div className="w-24 h-[2px] bg-white/10 mx-auto mt-6 relative rounded-full overflow-hidden md:hidden">
+          <div className="w-24 h-[2px] bg-hairline mx-auto mt-6 relative rounded-full overflow-hidden md:hidden">
             <div 
               className="absolute left-0 top-0 h-full bg-gold transition-all duration-300 rounded-full"
               style={{ width: `${Math.max(10, scrollProgress)}%` }}

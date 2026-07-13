@@ -26,11 +26,21 @@ export default function Events() {
   ]
 
   return (
-    <section className="min-h-screen flex flex-col justify-center py-20 px-margin-mobile md:px-margin-desktop bg-[#0A3C47] text-white relative overflow-hidden border-t border-white/5" id="eventos">
-      {/* Sutiles destellos de luz marina para dar profundidad de océano */}
-      <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-beach-aqua/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 left-10 w-[400px] h-[400px] bg-gold/5 rounded-full blur-[100px] pointer-events-none z-0" />
+    <section className="min-h-screen flex flex-col justify-center py-20 px-margin-mobile md:px-margin-desktop text-white relative overflow-hidden border-t border-white/5" id="eventos">
       
+      {/* CAPA DE FONDO ESTILO HERO CON PLAYA GRANDE OPTIMIZED */}
+      <div className="absolute inset-0 z-0 select-none pointer-events-none">
+        <img 
+          src="/images/Playa_Grande-4-optimized.webp" 
+          alt="Playa Grande Atardecer" 
+          className="w-full h-full object-cover object-center grayscale opacity-45"
+        />
+        {/* Sutil overlay de mezcla */}
+        <div className="absolute inset-0 bg-white/[0.03] mix-blend-overlay" />
+        {/* Degradado premium idéntico al Hero para legibilidad perfecta */}
+        <div className="absolute inset-0 bg-gradient-to-b from-neutral-950/80 via-neutral-950/45 to-neutral-950/85" />
+      </div>
+
       <div className="max-w-[1140px] mx-auto relative z-10 w-full flex flex-col gap-12">
         
         {/* HERO PRINCIPAL CENTRADO DE EVENTOS */}
@@ -76,7 +86,7 @@ export default function Events() {
                   className="w-full h-full object-cover group-hover:scale-105 transition-premium"
                 />
                 <div className="absolute top-3 left-3 flex gap-1.5">
-                  <span className="bg-[#0A3C47]/80 backdrop-blur-sm text-white text-[8px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border border-white/15">
+                  <span className="bg-neutral-950/80 backdrop-blur-sm text-white text-[8px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border border-white/15">
                     {event.badge}
                   </span>
                 </div>
