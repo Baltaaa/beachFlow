@@ -26,8 +26,20 @@ export default function Events() {
   ]
 
   return (
-    <section className="min-h-screen flex flex-col justify-center py-20 px-margin-mobile md:px-margin-desktop text-white relative overflow-hidden bg-gradient-to-b from-[#F9F9F9] via-[#69bad1] to-[#69bad1]" id="eventos">
+    <section className="min-h-screen flex flex-col justify-center py-20 px-margin-mobile md:px-margin-desktop text-white relative overflow-hidden bg-[#69bad1]" id="eventos">
       
+      {/* Imagen de Fondo de Mar con Overlay Turquesa y Conexión Superior Suave */}
+      <div className="absolute inset-0 z-0 select-none pointer-events-none">
+        <img 
+          src="/images/playa-grande-aerea.webp" 
+          alt="Fondo Mar Prius" 
+          className="w-full h-full object-cover opacity-50 grayscale brightness-90"
+        />
+        {/* Overlay turquesa con mezcla de color y degradado desde el gris de la sección superior */}
+        <div className="absolute inset-0 bg-[#69bad1] mix-blend-color" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#F9F9F9] via-[#69bad1]/90 to-[#69bad1]" />
+      </div>
+
       {/* Sutiles destellos de luz minimalistas */}
       <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-white/10 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute bottom-0 left-10 w-[400px] h-[400px] bg-white/5 rounded-full blur-[100px] pointer-events-none z-0" />
