@@ -234,7 +234,7 @@ export default function Services() {
 
       {selectedImage && (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-neutral-950/45 backdrop-blur-[16px] animate-premium-fade"
+          className="fixed inset-0 z-[999] flex items-center justify-center p-4 bg-neutral-950/55 backdrop-blur-[18px] animate-premium-fade"
           onClick={() => setSelectedImage(null)}
         >
           <div
