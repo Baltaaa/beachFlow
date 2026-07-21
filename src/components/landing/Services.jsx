@@ -102,18 +102,6 @@ export default function Services() {
     }
   }
 
-  const scrollToContact = () => {
-    const element = document.getElementById('contacto')
-    if (element) {
-      const elementPosition = element.getBoundingClientRect().top + window.scrollY
-      const offsetPosition = elementPosition - 110
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      })
-    }
-  }
-
   return (
     <section className="min-h-screen flex flex-col justify-center py-20 px-margin-mobile md:px-margin-desktop bg-prius-background border-t border-hairline" id="servicios">
       <div className="max-w-[1440px] mx-auto w-full relative z-10">
@@ -246,7 +234,7 @@ export default function Services() {
 
       {selectedImage && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-950/45 backdrop-blur-[16px] animate-premium-fade"
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-neutral-950/45 backdrop-blur-[16px] animate-premium-fade"
           onClick={() => setSelectedImage(null)}
         >
           <div
@@ -284,24 +272,6 @@ export default function Services() {
                 <p className="text-xs md:text-sm text-prius-black/70 leading-relaxed font-light">
                   {selectedImage.desc}
                 </p>
-              </div>
-
-              <div className="pt-8 border-t border-hairline mt-8 space-y-4">
-                <button
-                  onClick={() => {
-                    setSelectedImage(null)
-                    scrollToContact()
-                  }}
-                  className="w-full inline-flex h-11 cursor-pointer items-center justify-center rounded-full bg-gold text-prius-black text-[10px] font-bold uppercase tracking-wider hover:bg-gold-hover transition-colors"
-                >
-                  RESERVAR ESTE LUGAR
-                </button>
-                <button
-                  onClick={() => setSelectedImage(null)}
-                  className="w-full inline-flex h-11 cursor-pointer items-center justify-center rounded-full border border-hairline bg-transparent text-prius-black text-[10px] font-bold uppercase tracking-wider hover:bg-prius-background transition-all"
-                >
-                  VOLVER A LA GALERÍA
-                </button>
               </div>
             </div>
           </div>
