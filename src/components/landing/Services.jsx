@@ -167,7 +167,7 @@ export default function Services() {
             </h2>
           </div>
           <p className="text-prius-black/60 text-xs md:text-sm max-w-xs leading-relaxed font-light">
-            Minimalismo estructural y confort absoluto diseñado al detalle para una experiencia de playa incomparable.
+            Minimalismo estructural and confort absoluto diseñado al detalle para una experiencia de playa incomparable.
           </p>
         </div>
 
@@ -253,12 +253,9 @@ export default function Services() {
 
                 <div className="p-5 flex flex-col justify-between flex-1">
                   <div>
-                    <h4 className="text-xs font-bold text-prius-black uppercase tracking-tight font-display mb-1.5">
+                    <h4 className="text-xs font-bold text-prius-black uppercase tracking-tight font-display mb-3">
                       {img.title}
                     </h4>
-                    <p className="text-[11px] text-prius-black/60 leading-relaxed font-light mb-4 min-h-[50px] line-clamp-3">
-                      {img.desc}
-                    </p>
                   </div>
 
                   <div className="pt-3 border-t border-hairline flex items-center justify-between">
