@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { ChevronLeft, ChevronRight, ArrowRight, Maximize2, X } from 'lucide-react'
 
 const CATEGORIES = [
@@ -62,6 +63,57 @@ const unifiedImages = [
   { src: "/images/prius14.webp", title: "Torneos de Playa", category: "Recreación & Club", desc: "Actividades deportivas grupales que fomentan la diversión y camaradería." },
   { src: "/images/gallery_IMG_1832.webp", title: "Caminatas Guiadas", category: "Recreación & Club", desc: "Recorridos costeros para disfrutar del paisaje y el aire de mar." },
 ]
+
+function ImageModal({ selectedImage, onClose }) {
+  if (!selectedImage) return null
+
+  return createPortal(
+    <div
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-neutral-950/55 backdrop-blur-[18px] animate-premium-fade"
+      onClick={onClose}
+    >
+      <div
+        className="relative w-full max-w-[900px] bg-white rounded-2xl overflow-hidden border border-hairline flex flex-col md:flex-row shadow-2xl animate-premium-slide max-h-[90vh]"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 z-10 p-2.5 bg-neutral-950/85 hover:bg-gold hover:text-prius-black text-white rounded-full border border-white/15 transition-all duration-300 cursor-pointer"
+          aria-label="Cerrar"
+        >
+          <X size={16} />
+        </button>
+
+        <div className="w-full md:w-3/5 bg-neutral-100 relative min-h-[250px] md:min-h-[450px]">
+          <img
+            src={selectedImage.src}
+            alt={selectedImage.title}
+            className="w-full h-full object-cover absolute inset-0"
+          />
+          <span className="absolute bottom-4 left-4 bg-neutral-950/80 backdrop-blur-md px-3 py-1 rounded-sm text-[9px] uppercase tracking-wider text-gold font-display border border-white/10">
+            {selectedImage.category}
+          </span>
+        </div>
+
+        <div className="w-full md:w-2/5 p-8 flex flex-col justify-between bg-white overflow-y-auto max-h-[350px] md:max-h-full">
+          <div className="space-y-4">
+            <span className="text-[9px] font-bold uppercase tracking-widest text-gold font-display block">
+              Experiencia Prius
+            </span>
+            <h3 className="text-xl md:text-2xl font-bold uppercase tracking-tight text-prius-black font-display leading-tight">
+              {selectedImage.title}
+            </h3>
+            <div className="h-[1px] bg-hairline w-12" />
+            <p className="text-xs md:text-sm text-prius-black/70 leading-relaxed font-light">
+              {selectedImage.desc}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>,
+    document.body
+  )
+}
 
 export default function Services() {
   const [activeCategory, setActiveCategory] = useState("Todo")
@@ -232,51 +284,7 @@ export default function Services() {
         </div>
       </div>
 
-      {selectedImage && (
-        <div
-          className="fixed inset-0 z-[999] flex items-center justify-center p-4 bg-neutral-950/55 backdrop-blur-[18px] animate-premium-fade"
-          onClick={() => setSelectedImage(null)}
-        >
-          <div
-            className="relative w-full max-w-[900px] bg-white rounded-2xl overflow-hidden border border-hairline flex flex-col md:flex-row shadow-2xl animate-premium-slide max-h-[90vh]"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              onClick={() => setSelectedImage(null)}
-              className="absolute top-4 right-4 z-10 p-2.5 bg-neutral-950/85 hover:bg-gold hover:text-prius-black text-white rounded-full border border-white/15 transition-all duration-300 cursor-pointer"
-              aria-label="Cerrar"
-            >
-              <X size={16} />
-            </button>
-
-            <div className="w-full md:w-3/5 bg-neutral-100 relative min-h-[250px] md:min-h-[450px]">
-              <img
-                src={selectedImage.src}
-                alt={selectedImage.title}
-                className="w-full h-full object-cover absolute inset-0"
-              />
-              <span className="absolute bottom-4 left-4 bg-neutral-950/80 backdrop-blur-md px-3 py-1 rounded-sm text-[9px] uppercase tracking-wider text-gold font-display border border-white/10">
-                {selectedImage.category}
-              </span>
-            </div>
-
-            <div className="w-full md:w-2/5 p-8 flex flex-col justify-between bg-white overflow-y-auto max-h-[350px] md:max-h-full">
-              <div className="space-y-4">
-                <span className="text-[9px] font-bold uppercase tracking-widest text-gold font-display block">
-                  Experiencia Prius
-                </span>
-                <h3 className="text-xl md:text-2xl font-bold uppercase tracking-tight text-prius-black font-display leading-tight">
-                  {selectedImage.title}
-                </h3>
-                <div className="h-[1px] bg-hairline w-12" />
-                <p className="text-xs md:text-sm text-prius-black/70 leading-relaxed font-light">
-                  {selectedImage.desc}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      <ImageModal selectedImage={selectedImage} onClose={() => setSelectedImage(null)} />
     </section>
   )
 }
