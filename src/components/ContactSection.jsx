@@ -137,8 +137,14 @@ export default function ContactSection() {
   }
 
   return (
-    <section id="contacto" className="min-h-screen flex flex-col justify-center bg-white py-20 px-margin-mobile md:px-margin-desktop border-t border-hairline">
-      <div className="max-w-[1140px] mx-auto w-full">
+    <section id="contacto" className="min-h-screen flex flex-col justify-center bg-gradient-to-b from-prius-background via-gold/[0.09] to-white py-20 px-margin-mobile md:px-margin-desktop relative overflow-hidden">
+      
+      {/* Esferas de luz dorada difuminadas para lograr el efecto fade degrade premium */}
+      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-gold/18 rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-gold/15 rounded-full blur-[180px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-gold/[0.12] rounded-full blur-[140px] pointer-events-none" />
+
+      <div className="max-w-[1140px] mx-auto w-full relative z-10">
         
         {/* Encabezado Coherente & Compacto */}
         <div className="mb-12 text-center md:text-left">
