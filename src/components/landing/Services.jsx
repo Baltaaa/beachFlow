@@ -17,9 +17,8 @@ const CATEGORIES = [
 const unifiedImages = [
   // --- COWORKING ---
   { src: "/images/coworking-deck.jpg", title: "Deck Principal", category: "Coworking", desc: "Espacio de trabajo al aire libre sobre deck de madera noble, ideal para inspirarse frente al mar." },
-  { src: "/images/prius13.webp", title: "Seaside Workbox", category: "Coworking", desc: "Escritorios ergonómicos con vista panorámica y conectividad de alta velocidad." },
-  { src: "/images/coworking-sala-1.jpg", title: "Sala de Reuniones", category: "Coworking", desc: "Espacio privado vidriado para conferencias y llamadas con aislamiento acústico." },
-  { src: "/images/prius3.webp", title: "Oasis de Relajación Coworking", category: "Coworking", desc: "Un rincón de paz y desconexión dentro del área de coworking para recargar energías entre tareas." },
+  { src: "/images/coworking-sala-1.jpg", title: "Conexión estable para reuniones", category: "Coworking", desc: "Espacio privado vidriado para conferencias y llamadas con aislamiento acústico." },
+  { src: "/images/prius3.webp", title: "Espacio de Cowork", category: "Coworking", desc: "Un rincón de paz y desconexión dentro del área de coworking para recargar energías entre tareas." },
 
   // --- CARPAS & SOMBRILLAS ---
   { src: "/images/carpasYsombriService.webp", title: "Santuario de Sombra", category: "Carpas & Sombrillas", desc: "Estructuras de madera premium con lona náutica de máxima protección UV." },
@@ -67,11 +66,11 @@ const unifiedImages = [
   { src: "/images/event2.webp", title: "Casamientos y Fiestas de 15", category: "Eventos", desc: "Celebraciones mágicas con el Atlántico como testigo y un servicio premium." },
 
   // --- RECREACIÓN & CLUB ---
+  { src: "/images/prius5.webp", title: "Espacio de Recreación para Niños", category: "Recreación & Club", desc: "Un sector especialmente diseñado para que los más chicos se diviertan con juegos y actividades recreativas sobre la arena." },
   { src: "/images/recreacion-metegol.jpg", title: "Metegol en la Arena", category: "Recreación & Club", desc: "Diversión clásica frente al mar con torneos de metegol para disfrutar en familia." },
   { src: "/images/recreacion-talleres.jpg", title: "Talleres de Arte", category: "Recreación & Club", desc: "Espacio creativo para niños con talleres de collares, pulseras y manualidades guiadas." },
   { src: "/images/recreacion-jenga.jpg", title: "Jenga Gigante", category: "Recreación & Club", desc: "Desafíos de destreza y risas aseguradas con nuestro jenga gigante en la playa." },
   { src: "/images/recreacion-surf.jpg", title: "Surf", category: "Recreación & Club", desc: "Disfrutá de las mejores olas de Playa Grande con tablas de surf de primer nivel." },
-  { src: "/images/prius5.webp", title: "Yoga al Amanecer", category: "Recreación & Club", desc: "Clases de yoga sobre la arena para comenzar el día con energía renovada." },
 ]
 
 function ImageModal({ selectedImage, onClose }) {
