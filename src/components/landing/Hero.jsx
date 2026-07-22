@@ -71,7 +71,7 @@ export default function Hero() {
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                 <button 
                   onClick={() => scrollToSection('servicios')}
-                  className="inline-flex h-9 w-full sm:w-auto cursor-pointer items-center justify-center rounded-full bg-gold px-6 text-[10px] font-bold uppercase tracking-wider text-white transition-colors hover:bg-gold-hover shadow-md"
+                  className="inline-flex h-9 w-full sm:w-auto cursor-pointer items-center justify-center rounded-full bg-gold px-6 text-[10px] font-bold uppercase tracking-wider text-prius-black transition-colors hover:bg-gold-hover shadow-md"
                 >
                   VER BALNEARIO
                 </button>
