@@ -26,7 +26,7 @@ export default function Events() {
   ]
 
   return (
-    <section className="min-h-screen flex flex-col justify-center py-20 px-margin-mobile md:px-margin-desktop bg-gradient-to-b from-white via-gold/[0.04] to-white relative overflow-hidden border-t border-hairline" id="eventos">
+    <section className="min-h-screen flex flex-col justify-center py-20 px-margin-mobile md:px-margin-desktop bg-gradient-to-b from-prius-background via-gold/[0.03] to-white relative overflow-hidden" id="eventos">
       
       {/* Esferas de luz dorada difuminadas para lograr el efecto fade degrade premium */}
       <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-gold/10 rounded-full blur-[160px] pointer-events-none" />
