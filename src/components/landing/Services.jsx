@@ -18,15 +18,17 @@ const unifiedImages = [
   // --- COWORKING ---
   { src: "/images/coworking-deck.jpg", title: "Deck Principal", category: "Coworking", desc: "Espacio de trabajo al aire libre sobre deck de madera noble, ideal para inspirarse frente al mar." },
   { src: "/images/prius13.webp", title: "Seaside Workbox", category: "Coworking", desc: "Escritorios ergonómicos con vista panorámica y conectividad de alta velocidad." },
-  { src: "/images/prius14.webp", title: "Sala de Reuniones", category: "Coworking", desc: "Espacio privado vidriado para conferencias y llamadas con aislamiento acústico." },
-  { src: "/images/prius11.webp", title: "Conexión Ininterrumpida", category: "Coworking", desc: "Internet de fibra simétrica para nómadas digitales que eligen trabajar frente al mar." },
+  { src: "/images/coworking-sala-1.jpg", title: "Sala de Reuniones", category: "Coworking", desc: "Espacio privado vidriado para conferencias y llamadas con aislamiento acústico." },
   { src: "/images/prius3.webp", title: "Oasis de Relajación Coworking", category: "Coworking", desc: "Un rincón de paz y desconexión dentro del área de coworking para recargar energías entre tareas." },
 
   // --- CARPAS & SOMBRILLAS ---
   { src: "/images/carpasYsombriService.webp", title: "Santuario de Sombra", category: "Carpas & Sombrillas", desc: "Estructuras de madera premium con lona náutica de máxima protección UV." },
   { src: "/images/carpas-amigos.webp", title: "Living Familiar", category: "Carpas & Sombrillas", desc: "Espacios amplios y cómodos para disfrutar con la mejor compañía." },
-  { src: "/images/prius1.webp", title: "Servicio de Carperos", category: "Carpas & Sombrillas", desc: "Atención personalizada directamente en tu sombra para mayor comodidad." },
-  { src: "/images/prius2.webp", title: "Reposeras Ergonómicas", category: "Carpas & Sombrillas", desc: "Mobiliario exterior de alta gama diseñado para un descanso absoluto." },
+  { src: "/images/carpas-carperos-3.jpg", title: "Servicio de Carperos", category: "Carpas & Sombrillas", desc: "Atención personalizada directamente en tu sombra para mayor comodidad." },
+  { src: "/images/carpas-reposeras-2.jpg", title: "Reposeras Ergonómicas", category: "Carpas & Sombrillas", desc: "Mobiliario exterior de alta gama diseñado para un descanso absoluto." },
+  { src: "/images/carpas-sombrillas-4.jpg", title: "Sombrillas Exclusivas", category: "Carpas & Sombrillas", desc: "Sombrillas premium con amplio espacio de sombra y atención personalizada." },
+  { src: "/images/carpas-sombrillas-5.jpg", title: "Espacio de Sombrillas", category: "Carpas & Sombrillas", desc: "Disfrutá de la brisa marina en nuestro sector exclusivo de sombrillas." },
+  { src: "/images/carpas-pasillo-6.jpg", title: "Pasillos de Carpas", category: "Carpas & Sombrillas", desc: "Pasillos limpios, amplios y perfectamente mantenidos para un tránsito cómodo." },
 
   // --- PILETA & SOLÁRIUM ---
   { src: "/images/piletaService.webp", title: "Espejo de Agua", category: "Pileta & Solárium", desc: "Piscina climatizada que se funde visualmente con el horizonte costero." },
@@ -45,16 +47,17 @@ const unifiedImages = [
   // --- WELLNESS ---
   { src: "/images/wellness-masajes.jpg", title: "Masajes Terapéuticos", category: "Wellness", desc: "Sesiones de masajes descontracturantes y relajantes a cargo de la kinesiologa Pilar Ferrando para renovar cuerpo y mente." },
   { src: "/images/wellness-aquadance.jpg", title: "Aqua Dance", category: "Wellness", desc: "Clases dinámicas y divertidas de aqua dance en nuestra piscina climatizada para todas las edades." },
-  { src: "/images/wellness-yoga.jpg", title: "Yoga Grupal", category: "Wellness", desc: "Prácticas de yoga grupales sobre la arena para conectar con la respiración y el sonido del mar." },
-  { src: "/images/prius4.webp", title: "Terapias de Mar", category: "Wellness", desc: "Tratamientos corporales y faciales con aromaterapia y esencias naturales." },
-  { src: "/images/prius6.webp", title: "Espacio de Meditación", category: "Wellness", desc: "Un rincón de paz diseñado para armonizar cuerpo y mente." },
+  { src: "/images/wellness-yoga.jpg", title: "Yoga Grupal", category: "Wellness", desc: "Prácticas de yoga grupales sobre la arena para conectar con la respiración y el sonido del mar.", position: "object-bottom" },
   { src: "/images/wellness-relax-arena.jpg", title: "Oasis de Relajación", category: "Wellness", desc: "Descanso absoluto en cómodas reposeras sobre la arena, disfrutando de la brisa marina y el sol." },
 
   // --- INSTALACIONES ---
   { src: "/images/instalaciones-paseo.jpg", title: "Paseo Playa Grande", category: "Instalaciones", desc: "Ubicación privilegiada en el corazón del paseo de Playa Grande, integrando diseño moderno y naturaleza costera." },
   { src: "/images/instalaciones-solarium.jpg", title: "Solárium & Pileta", category: "Instalaciones", desc: "Espectacular vista panorámica desde nuestro solárium de madera noble equipado con camastros y piscina climatizada." },
-  { src: "/images/cabinas.jpg", title: "Lockers de Seguridad", category: "Instalaciones", desc: "Tranquilidad absoluta para tus pertenencias con lockers privados y vestuarios de primer nivel." },
+  { src: "/images/instalaciones-lockers-7.jpg", title: "Lockers de Seguridad", category: "Instalaciones", desc: "Tranquilidad absoluta para tus pertenencias con lockers privados y vestuarios de primer nivel." },
   { src: "/images/gallery_1400392.webp", title: "Vestuarios & Duchas", category: "Instalaciones", desc: "Higiene, confort y privacidad en instalaciones totalmente renovadas." },
+  { src: "/images/instalaciones-bebes-8.jpg", title: "Espacio para Bebés", category: "Instalaciones", desc: "Cambiador y espacio adaptado para la comodidad de los más pequeños y sus familias." },
+  { src: "/images/instalaciones-banos-9.jpg", title: "Baños Renovados", category: "Instalaciones", desc: "Baños modernos, limpios y equipados con todo lo necesario para tu comodidad." },
+  { src: "/images/cabinas.jpg", title: "Cabinas", category: "Instalaciones", desc: "Cabinas privadas y vestuarios exclusivos para cambiarse con total comodidad." },
 
   // --- EVENTOS ---
   { src: "/images/eventos-salon-noche.png", title: "Salón de Eventos Nocturno", category: "Eventos", desc: "La mítica esquina de Playa Grande iluminada de noche, lista para albergar las celebraciones más exclusivas frente al mar." },
@@ -67,7 +70,7 @@ const unifiedImages = [
   { src: "/images/recreacion-metegol.jpg", title: "Metegol en la Arena", category: "Recreación & Club", desc: "Diversión clásica frente al mar con torneos de metegol para disfrutar en familia." },
   { src: "/images/recreacion-talleres.jpg", title: "Talleres de Arte", category: "Recreación & Club", desc: "Espacio creativo para niños con talleres de collares, pulseras y manualidades guiadas." },
   { src: "/images/recreacion-jenga.jpg", title: "Jenga Gigante", category: "Recreación & Club", desc: "Desafíos de destreza y risas aseguradas con nuestro jenga gigante en la playa." },
-  { src: "/images/recreacion-surf.jpg", title: "Clases de Surf", category: "Recreación & Club", desc: "Aprendé y perfeccioná tu técnica de surf en las mejores olas de Playa Grande con instructores calificados." },
+  { src: "/images/recreacion-surf.jpg", title: "Surf", category: "Recreación & Club", desc: "Disfrutá de las mejores olas de Playa Grande con tablas de surf de primer nivel." },
   { src: "/images/prius5.webp", title: "Yoga al Amanecer", category: "Recreación & Club", desc: "Clases de yoga sobre la arena para comenzar el día con energía renovada." },
 ]
 
@@ -95,7 +98,7 @@ function ImageModal({ selectedImage, onClose }) {
           <img
             src={selectedImage.src}
             alt={selectedImage.title}
-            className="w-full h-full object-cover absolute inset-0"
+            className={`w-full h-full object-cover absolute inset-0 ${selectedImage.position || 'object-center'}`}
           />
           <span className="absolute bottom-4 left-4 bg-neutral-950/80 backdrop-blur-md px-3 py-1 rounded-sm text-[9px] uppercase tracking-wider text-gold font-display border border-white/10">
             {selectedImage.category}
@@ -238,7 +241,7 @@ export default function Services() {
                 >
                   <img
                     alt={img.title}
-                    className="w-full h-full object-cover group-hover:scale-[1.03] transition-premium-slow"
+                    className={`w-full h-full object-cover group-hover:scale-[1.03] transition-premium-slow ${img.position || 'object-center'}`}
                     src={img.src}
                   />
 
