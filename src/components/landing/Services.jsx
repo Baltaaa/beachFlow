@@ -78,11 +78,11 @@ function ImageModal({ selectedImage, onClose }) {
 
   return createPortal(
     <div
-      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-neutral-950/55 backdrop-blur-[18px] animate-premium-fade"
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-neutral-950/75 backdrop-blur-[18px] animate-premium-fade"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-[900px] bg-white rounded-2xl overflow-hidden border border-hairline flex flex-col md:flex-row shadow-2xl animate-premium-slide max-h-[90vh]"
+        className="relative w-full max-w-[1200px] md:w-[92vw] bg-white rounded-2xl overflow-hidden border border-hairline flex flex-col md:flex-row shadow-2xl animate-premium-slide max-h-[92vh]"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -93,19 +93,21 @@ function ImageModal({ selectedImage, onClose }) {
           <X size={16} />
         </button>
 
-        <div className="w-full md:w-3/5 bg-neutral-100 relative min-h-[250px] md:min-h-[450px]">
+        {/* Contenedor de Imagen: 70% de ancho en desktop, fondo oscuro para resaltar la foto completa */}
+        <div className="w-full md:w-[70%] bg-neutral-950 relative min-h-[300px] md:min-h-[550px] lg:min-h-[650px] flex items-center justify-center">
           <img
             src={selectedImage.src}
             alt={selectedImage.title}
-            className={`w-full h-full object-cover absolute inset-0 ${selectedImage.position || 'object-center'}`}
+            className="w-full h-full object-contain max-h-[50vh] md:max-h-[85vh]"
           />
           <span className="absolute bottom-4 left-4 bg-neutral-950/80 backdrop-blur-md px-3 py-1 rounded-sm text-[9px] uppercase tracking-wider text-gold font-display border border-white/10">
             {selectedImage.category}
           </span>
         </div>
 
-        <div className="w-full md:w-2/5 p-8 flex flex-col justify-between bg-white overflow-y-auto max-h-[350px] md:max-h-full">
-          <div className="space-y-4">
+        {/* Contenedor de Texto: 30% de ancho en desktop */}
+        <div className="w-full md:w-[30%] p-8 flex flex-col justify-between bg-white overflow-y-auto max-h-[300px] md:max-h-full border-t md:border-t-0 md:border-l border-hairline">
+          <div className="space-y-4 my-auto">
             <span className="text-[9px] font-bold uppercase tracking-widest text-gold font-display block">
               Experiencia Prius
             </span>
