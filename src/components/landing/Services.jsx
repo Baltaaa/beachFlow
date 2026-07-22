@@ -53,7 +53,7 @@ const unifiedImages = [
   { src: "/images/instalaciones-paseo.jpg", title: "Paseo Playa Grande", category: "Instalaciones", desc: "Ubicación privilegiada en el corazón del paseo de Playa Grande, integrando diseño moderno y naturaleza costera." },
   { src: "/images/instalaciones-solarium.jpg", title: "Solárium & Pileta", category: "Instalaciones", desc: "Espectacular vista panorámica desde nuestro solárium de madera noble equipado con camastros y piscina climatizada." },
   { src: "/images/instalaciones-lockers-7.jpg", title: "Lockers de Seguridad", category: "Instalaciones", desc: "Tranquilidad absoluta para tus pertenencias con lockers privados y vestuarios de primer nivel." },
-  { src: "/images/gallery_1400392.webp", title: "Vestuarios & Duchas", category: "Instalaciones", desc: "Higiene, confort y privacidad en instalaciones totalmente renovadas." },
+  { src: "/images/gallery_1400392.webp", title: "Vestuarios & Duchas", category: "Instalaciones", desc: "Higiene, confort and privacidad en instalaciones totalmente renovadas." },
   { src: "/images/instalaciones-bebes-8.jpg", title: "Espacio para Bebés", category: "Instalaciones", desc: "Cambiador y espacio adaptado para la comodidad de los más pequeños y sus familias." },
   { src: "/images/instalaciones-banos-9.jpg", title: "Baños Renovados", category: "Instalaciones", desc: "Baños modernos, limpios y equipados con todo lo necesario para tu comodidad." },
   { src: "/images/cabinas.jpg", title: "Cabinas", category: "Instalaciones", desc: "Cabinas privadas y vestuarios exclusivos para cambiarse con total comodidad." },
@@ -62,7 +62,7 @@ const unifiedImages = [
   { src: "/images/eventos-salon-noche.png", title: "Salón de Eventos Nocturno", category: "Eventos", desc: "La mítica esquina de Playa Grande iluminada de noche, lista para albergar las celebraciones más exclusivas frente al mar." },
   { src: "/images/eventos-cumpleanos.jpg", title: "Celebraciones Privadas", category: "Eventos", desc: "Cumpleaños y eventos sociales en un ambiente festivo, con excelente barra de tragos y diseño interior de vanguardia." },
   { src: "/images/eventos-fiesta.jpg", title: "Música en Vivo & Fiestas", category: "Eventos", desc: "Eventos nocturnos con bandas en vivo, iluminación profesional y una atmósfera inigualable frente al Atlántico." },
-  { src: "/images/event1.webp", title: "Lanzamientos y Cenas", category: "Eventos", desc: "El entorno ideal para potenciar tu marca o agasajar a tus clientes." },
+  { src: "/images/event1.png", title: "Lanzamientos y Cenas", category: "Eventos", desc: "El entorno ideal para potenciar tu marca o agasajar a tus clientes." },
   { src: "/images/event2.webp", title: "Casamientos y Fiestas de 15", category: "Eventos", desc: "Celebraciones mágicas con el Atlántico como testigo y un servicio premium." },
 
   // --- RECREACIÓN & CLUB ---
@@ -208,7 +208,7 @@ export default function Services() {
             </h2>
           </div>
           <p className="text-prius-black/60 text-xs md:text-sm max-w-xs leading-relaxed font-light">
-            Minimalismo estructural y confort absoluto diseñado al detalle para una experiencia de playa incomparable.
+            Minimalismo estructural and confort absoluto diseñado al detalle para una experiencia de playa incomparable.
           </p>
         </div>
 

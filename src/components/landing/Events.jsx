@@ -10,7 +10,7 @@ export default function Events() {
       desc: "Celebraciones mágicas con el Atlántico como testigo y un servicio gastronómico de primer nivel."
     },
     {
-      img: "/images/event1.webp",
+      img: "/images/event1.png",
       badge: "Corporativos",
       time: "A medida",
       title: "Lanzamientos y Cenas",
@@ -26,11 +26,12 @@ export default function Events() {
   ]
 
   return (
-    <section className="min-h-screen flex flex-col justify-center py-20 px-margin-mobile md:px-margin-desktop bg-white relative overflow-hidden border-t border-hairline" id="eventos">
+    <section className="min-h-screen flex flex-col justify-center py-20 px-margin-mobile md:px-margin-desktop bg-gradient-to-b from-white via-gold/[0.04] to-white relative overflow-hidden border-t border-hairline" id="eventos">
       
-      {/* Sutiles destellos de luz dorada de fondo para el contraste de marca */}
-      <div className="absolute top-1/4 right-1/4 w-[600px] h-[600px] bg-gold/5 rounded-full blur-[150px] pointer-events-none" />
-      <div className="absolute bottom-1/4 left-10 w-[500px] h-[500px] bg-gold/5 rounded-full blur-[130px] pointer-events-none" />
+      {/* Esferas de luz dorada difuminadas para lograr el efecto fade degrade premium */}
+      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-gold/10 rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-gold/10 rounded-full blur-[180px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-gold/[0.06] rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-[1140px] mx-auto relative z-10 w-full flex flex-col gap-12">
         
@@ -49,7 +50,7 @@ export default function Events() {
           {/* Imagen de fondo del Hero de Eventos */}
           <div className="absolute inset-0 z-0">
             <img 
-              src="/images/event1.webp" 
+              src="/images/event1.png" 
               alt="Salón de Eventos Prius" 
               className="w-full h-full object-cover group-hover:scale-[1.01] transition-premium-slow opacity-50"
             />
