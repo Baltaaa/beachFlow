@@ -15,52 +15,52 @@ const CATEGORIES = [
 ]
 
 const unifiedImages = [
+  // --- COWORKING ---
   { src: "/images/prius13.webp", title: "Seaside Workbox", category: "Coworking", desc: "Escritorios ergonómicos con vista panorámica y conectividad de alta velocidad." },
   { src: "/images/prius14.webp", title: "Sala de Reuniones", category: "Coworking", desc: "Espacio privado vidriado para conferencias y llamadas con aislamiento acústico." },
   { src: "/images/prius11.webp", title: "Conexión Ininterrumpida", category: "Coworking", desc: "Internet de fibra simétrica para nómadas digitales que eligen trabajar frente al mar." },
-  { src: "/images/prius12.webp", title: "Coffee & Work", category: "Coworking", desc: "Servicio de cafetería de especialidad directo a tu puesto de trabajo." },
-  { src: "/images/prius9.webp", title: "Outdoor Lounge", category: "Coworking", desc: "Terrazas preparadas para trabajar al aire libre bajo la brisa marina." },
 
+  // --- CARPAS & SOMBRILLAS ---
   { src: "/images/carpasYsombriService.webp", title: "Santuario de Sombra", category: "Carpas & Sombrillas", desc: "Estructuras de madera premium con lona náutica de máxima protección UV." },
   { src: "/images/carpas-amigos.webp", title: "Living Familiar", category: "Carpas & Sombrillas", desc: "Espacios amplios y cómodos para disfrutar con la mejor compañía." },
   { src: "/images/prius1.webp", title: "Servicio de Carperos", category: "Carpas & Sombrillas", desc: "Atención personalizada directamente en tu sombra para mayor comodidad." },
   { src: "/images/prius2.webp", title: "Reposeras Ergonómicas", category: "Carpas & Sombrillas", desc: "Mobiliario exterior de alta gama diseñado para un descanso absoluto." },
-  { src: "/images/playa-grande-aerea.webp", title: "Exclusividad en Arena", category: "Carpas & Sombrillas", desc: "El sector más codiciado de Playa Grande con un diseño estructural único." },
 
+  // --- PILETA & SOLÁRIUM ---
   { src: "/images/piletaService.webp", title: "Espejo de Agua", category: "Pileta & Solárium", desc: "Piscina climatizada que se funde visualmente con el horizonte costero." },
   { src: "/images/prius7.webp", title: "Deck de Madera Noble", category: "Pileta & Solárium", desc: "Solárium exclusivo equipado con camastros acolchados premium." },
   { src: "/images/prius8.webp", title: "Atardeceres Climatizados", category: "Pileta & Solárium", desc: "Disfrutá del agua templada mientras contemplás la caída del sol." },
   { src: "/images/pareja-playa.webp", title: "Relax Junto a la Pileta", category: "Pileta & Solárium", desc: "Desconexión total y ambiente sofisticado a metros del mar." },
-  { src: "/images/prius10.webp", title: "Pool Bar Service", category: "Pileta & Solárium", desc: "Tragos de autor y coctelería fresca directo a tu camastro." },
 
+  // --- GASTRONOMÍA ---
+  { src: "/images/gastronomia-platos.png", title: "Platos Seleccionados", category: "Gastronomía", desc: "Exquisita propuesta gastronómica con ensaladas frescas, ingredientes premium y platos de estación servidos frente al mar." },
+  { src: "/images/gastronomia-amigos.jpg", title: "Momentos Compartidos", category: "Gastronomía", desc: "Disfrutá de un almuerzo distendido con amigos, tragos frescos y la mejor energía de Playa Grande." },
+  { src: "/images/gastronomia-charla.jpg", title: "Tardes de Encuentro", category: "Gastronomía", desc: "Charlas inolvidables acompañadas de cervezas artesanales y una vista inigualable de la costa." },
+  { src: "/images/gastronomia-barra.jpg", title: "Barra de Encuentros", category: "Gastronomía", desc: "Un espacio de barra dinámico y moderno para disfrutar de cafetería de especialidad y coctelería de autor." },
   { src: "/images/gastronomia-1.webp", title: "Sabores de Costa", category: "Gastronomía", desc: "Gastronomía gourmet frente al mar con ingredientes frescos del Atlántico." },
   { src: "/images/gastronomia-2.webp", title: "Cocktails de Autor", category: "Gastronomía", desc: "Tragos exclusivos y coctelería premium diseñados por destacados bartenders." },
-  { src: "/images/prius12.webp", title: "Cafetería Premium", category: "Gastronomía", desc: "Café de especialidad y pastelería artesanal para arrancar el día de la mejor manera." },
-  { src: "/images/prius10.webp", title: "Bistró de Playa", category: "Gastronomía", desc: "Almuerzos ligeros, ensaladas de estación y mariscos seleccionados." },
-  { src: "/images/prius9.webp", title: "Sunset Dining", category: "Gastronomía", desc: "Disfrutá de una experiencia culinaria única contemplando la caída del sol." },
 
+  // --- WELLNESS ---
+  { src: "/images/wellness-masajes.jpg", title: "Masajes Terapéuticos", category: "Wellness", desc: "Sesiones de masajes descontracturantes y relajantes a cargo de la kinesiologa Pilar Ferrando para renovar cuerpo y mente." },
   { src: "/images/prius3.webp", title: "Oasis de Relajación", category: "Wellness", desc: "Gabinete privado con masajes descontracturantes y relajantes con terapeutas certificados." },
   { src: "/images/prius4.webp", title: "Terapias de Mar", category: "Wellness", desc: "Tratamientos corporales y faciales con aromaterapia y esencias naturales." },
   { src: "/images/prius6.webp", title: "Espacio de Meditación", category: "Wellness", desc: "Un rincón de paz diseñado para armonizar cuerpo y mente." },
-  { src: "/images/prius11.webp", title: "ESPACIO CAMBIADOR BEBÉS", category: "Wellness", desc: "Comodidad pensada para toda la familia en áreas totalmente dedicadas." },
-  { src: "/images/gallery_IMG_1832.webp", title: "Atardecer Consciente", category: "Wellness", desc: "Prácticas guiadas al final del día para reconectar con el entorno." },
 
-  { src: "/images/gallery_1400325.webp", title: "INSTALACIONES PRIUS", category: "Instalaciones", desc: "Espacios modernos y confortables." },
-  { src: "/images/gallery_1400392.webp", title: "VESTUARIOS & DUCHAS", category: "Instalaciones", desc: "Higiene y confort de primer nivel." },
-  { src: "/images/cabinas.jpg", title: "LOCKERS DE SEGURIDAD", category: "Instalaciones", desc: "Tranquilidad absoluta para tus pertenencias." },
-  { src: "/images/prius1.webp", title: "DUCHAS PRIVADAS", category: "Instalaciones", desc: "Instalaciones impecables y renovadas." },
-  { src: "/images/prius2.webp", title: "Espacios de Tocador", category: "Instalaciones", desc: "Espejos con iluminación profesional y secadores de pelo de uso libre." },
+  // --- INSTALACIONES ---
+  { src: "/images/instalaciones-paseo.jpg", title: "Paseo Playa Grande", category: "Instalaciones", desc: "Ubicación privilegiada en el corazón del paseo de Playa Grande, integrando diseño moderno y naturaleza costera." },
+  { src: "/images/instalaciones-solarium.jpg", title: "Solárium & Pileta", category: "Instalaciones", desc: "Espectacular vista panorámica desde nuestro solárium de madera noble equipado con camastros y piscina climatizada." },
+  { src: "/images/cabinas.jpg", title: "Lockers de Seguridad", category: "Instalaciones", desc: "Tranquilidad absoluta para tus pertenencias con lockers privados y vestuarios de primer nivel." },
+  { src: "/images/gallery_1400392.webp", title: "Vestuarios & Duchas", category: "Instalaciones", desc: "Higiene, confort y privacidad en instalaciones totalmente renovadas." },
 
+  // --- EVENTOS ---
+  { src: "/images/eventos-salon-noche.png", title: "Salón de Eventos Nocturno", category: "Eventos", desc: "La mítica esquina de Playa Grande iluminada de noche, lista para albergar las celebraciones más exclusivas frente al mar." },
+  { src: "/images/eventos-cumpleanos.jpg", title: "Celebraciones Privadas", category: "Eventos", desc: "Cumpleaños y eventos sociales en un ambiente festivo, con excelente barra de tragos y diseño interior de vanguardia." },
+  { src: "/images/eventos-fiesta.jpg", title: "Música en Vivo & Fiestas", category: "Eventos", desc: "Eventos nocturnos con bandas en vivo, iluminación profesional y una atmósfera inigualable frente al Atlántico." },
   { src: "/images/event1.webp", title: "Lanzamientos y Cenas", category: "Eventos", desc: "El entorno ideal para potenciar tu marca o agasajar a tus clientes." },
   { src: "/images/event2.webp", title: "Casamientos y Fiestas de 15", category: "Eventos", desc: "Celebraciones mágicas con el Atlántico como testigo y un servicio premium." },
-  { src: "/images/event4.webp", title: "Cumpleaños y Aniversarios", category: "Eventos", desc: "Festejá tus momentos especiales en un ambiente completamente reservado." },
-  { src: "/images/prius14.webp", title: "Eventos Corporativos", category: "Eventos", desc: "Salón climatizado y equipado con tecnología de última generación para conferencias." },
-  { src: "/images/prius13.webp", title: "Celebraciones Exclusivas", category: "Eventos", desc: "Un espacio único que se adapta perfectamente al estilo de tu evento." },
 
+  // --- RECREACIÓN & CLUB ---
   { src: "/images/prius5.webp", title: "Yoga al Amanecer", category: "Recreación & Club", desc: "Clases de yoga sobre la arena para comenzar el día con energía renovada." },
-  { src: "/images/prius6.webp", title: "Clínicas de Surf", category: "Recreación & Club", desc: "Instrucción y práctica en las mejores olas de Playa Grande con profesionales." },
-  { src: "/images/prius13.webp", title: "Club de Niños", category: "Recreación & Club", desc: "Talleres lúdicos y actividades recreativas coordinadas para los más chicos." },
-  { src: "/images/prius14.webp", title: "Torneos de Playa", category: "Recreación & Club", desc: "Actividades deportivas grupales que fomentan la diversión y camaradería." },
   { src: "/images/gallery_IMG_1832.webp", title: "Caminatas Guiadas", category: "Recreación & Club", desc: "Recorridos costeros para disfrutar del paisaje y el aire de mar." },
 ]
 
@@ -253,12 +253,9 @@ export default function Services() {
 
                 <div className="p-5 flex flex-col justify-between flex-1">
                   <div>
-                    <h4 className="text-xs font-bold text-prius-black uppercase tracking-tight font-display mb-1.5">
+                    <h4 className="text-xs font-bold text-prius-black uppercase tracking-tight font-display mb-3">
                       {img.title}
                     </h4>
-                    <p className="text-[11px] text-prius-black/60 leading-relaxed font-light mb-4 min-h-[50px] line-clamp-3">
-                      {img.desc}
-                    </p>
                   </div>
 
                   <div className="pt-3 border-t border-hairline flex items-center justify-between">
