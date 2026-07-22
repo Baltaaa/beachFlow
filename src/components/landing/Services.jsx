@@ -17,7 +17,7 @@ const CATEGORIES = [
 const unifiedImages = [
   // --- COWORKING ---
   { src: "/images/coworking-deck.jpg", title: "Deck Principal", category: "Coworking", desc: "Espacio de trabajo al aire libre sobre deck de madera noble, ideal para inspirarse frente al mar." },
-  { src: "/images/coworking-sala-1.jpg", title: "Conexión estable para reuniones", category: "Coworking", desc: "Espacio privado vidriado para conferencias y llamadas con aislamiento acústico." },
+  { src: "/images/coworking-sala-1.jpg", title: "Conexión estable para reuniones", category: "Coworking", desc: "Espacio privado vidriado para conerencias y llamadas con aislamiento acústico." },
   { src: "/images/prius3.webp", title: "Espacio de Cowork", category: "Coworking", desc: "Un rincón de paz y desconexión dentro del área de coworking para recargar energías entre tareas." },
 
   // --- CARPAS & SOMBRILLAS ---
@@ -93,8 +93,8 @@ function ImageModal({ selectedImage, onClose }) {
           <X size={16} />
         </button>
 
-        {/* Contenedor de Imagen: 70% de ancho en desktop, fondo oscuro para resaltar la foto completa */}
-        <div className="w-full md:w-[70%] bg-neutral-950 relative min-h-[300px] md:min-h-[550px] lg:min-h-[650px] flex items-center justify-center">
+        {/* Contenedor de Imagen: 70% de ancho en desktop, fondo blanco para integrarse de forma minimalista */}
+        <div className="w-full md:w-[70%] bg-white relative min-h-[300px] md:min-h-[550px] lg:min-h-[650px] flex items-center justify-center">
           <img
             src={selectedImage.src}
             alt={selectedImage.title}
