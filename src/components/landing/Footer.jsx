@@ -25,11 +25,11 @@ export default function Footer() {
       <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-gold/10 rounded-full blur-[140px] pointer-events-none z-10" />
       <div className="absolute bottom-1/4 right-10 w-[400px] h-[400px] bg-white/5 rounded-full blur-[100px] pointer-events-none z-10" />
 
-      {/* Contenedor de contenido principal */}
-      <div className="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop relative z-20 w-full flex-1 flex flex-col justify-between gap-8">
+      {/* Contenedor de contenido principal alineado al fondo */}
+      <div className="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop relative z-20 w-full flex-1 flex flex-col justify-end gap-6">
         
-        {/* Tarjeta Principal de Información (Vidrio Esmerilado) centrada verticalmente */}
-        <div className="my-auto w-full">
+        {/* Tarjeta Principal de Información (Vidrio Esmerilado) apoyada sobre la base */}
+        <div className="w-full">
           <div className="bg-neutral-950/75 backdrop-blur-xl border border-white/10 rounded-3xl p-8 md:p-12 shadow-2xl">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
               
