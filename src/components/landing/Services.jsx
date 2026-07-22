@@ -73,6 +73,36 @@ const unifiedImages = [
   { src: "/images/recreacion-surf.jpg", title: "Surf", category: "Recreación & Club", desc: "Disfrutá de las mejores olas de Playa Grande con tablas de surf de primer nivel." },
 ]
 
+// Definimos los títulos prioritarios en el orden exacto solicitado
+const PRIORITY_TITLES = [
+  "Deck Principal",
+  "Reposeras Ergonómicas",
+  "Solárium & Pileta",
+  "Sabores de Costa",
+  "Lanzamientos y Cenas"
+]
+
+// Extraemos los elementos prioritarios
+const priorityItems = PRIORITY_TITLES.map(title => 
+  unifiedImages.find(img => img.title === title)
+).filter(Boolean)
+
+// Filtramos el resto de las imágenes
+const remainingItems = unifiedImages.filter(img => 
+  !PRIORITY_TITLES.includes(img.title)
+)
+
+// Mezclamos el resto de las imágenes de forma determinista para que no queden agrupadas por categoría
+const mixedRemaining = [...remainingItems].sort((a, b) => {
+  // Usamos un hash simple basado en el título y descripción para lograr una mezcla fija y atractiva
+  const hashA = (a.title.charCodeAt(0) || 0) + (a.desc.length % 7)
+  const hashB = (b.title.charCodeAt(0) || 0) + (b.desc.length % 7)
+  return hashA - hashB
+})
+
+// Combinamos las prioritarias al inicio con el resto mezclado
+const todoImages = [...priorityItems, ...mixedRemaining]
+
 function ImageModal({ selectedImage, onClose }) {
   if (!selectedImage) return null
 
@@ -133,9 +163,9 @@ export default function Services() {
 
   const sliderRef = useRef(null)
 
-  const filteredImages = unifiedImages.filter(
-    (img) => activeCategory === "Todo" || img.category === activeCategory
-  )
+  const filteredImages = activeCategory === "Todo"
+    ? todoImages
+    : unifiedImages.filter((img) => img.category === activeCategory)
 
   useEffect(() => {
     if (selectedImage) {
