@@ -71,7 +71,7 @@ export default function Hero() {
               <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                 <button 
                   onClick={() => scrollToSection('servicios')}
-                  className="inline-flex h-9 w-full sm:w-auto cursor-pointer items-center justify-center rounded-full bg-gold px-6 text-[10px] font-bold uppercase tracking-wider text-prius-black transition-colors hover:bg-gold-hover shadow-md"
+                  className="inline-flex h-9 w-full sm:w-auto cursor-pointer items-center justify-center rounded-full bg-gold px-6 text-[10px] font-bold uppercase tracking-wider text-white transition-colors hover:bg-gold-hover shadow-md"
                 >
                   VER BALNEARIO
                 </button>
@@ -94,8 +94,8 @@ export default function Hero() {
               onClick={() => scrollToSection('eventos')}
               className="group mx-auto flex w-fit max-w-full items-center gap-2 rounded-full border border-white/20 bg-white/10 py-1 pl-1 pr-2.5 backdrop-blur-md transition-colors hover:border-white/40 hover:bg-white/20 sm:py-1.5 sm:pl-1.5 sm:pr-4 cursor-pointer"
             >
-              <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-gold px-2 py-0.5 text-[10px] sm:text-[0.6875rem] font-bold text-prius-black sm:gap-1.5 sm:px-2.5 sm:py-1">
-                <Sparkles size={10} className="text-prius-black shrink-0 sm:w-[11px] sm:h-[11px]" strokeWidth={2.2} />
+              <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-gold px-2 py-0.5 text-[10px] sm:text-[0.6875rem] font-bold text-white sm:gap-1.5 sm:px-2.5 sm:py-1">
+                <Sparkles size={10} className="text-white shrink-0 sm:w-[11px] sm:h-[11px]" strokeWidth={2.2} />
                 Nuevo
               </span>
               

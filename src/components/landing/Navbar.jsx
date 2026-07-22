@@ -119,7 +119,7 @@ export default function Navbar() {
                 src="/images/prius-logo-white.png" 
                 alt="Prius Playa Grande" 
                 className={`w-auto object-contain transition-all duration-500 ${
-                  isScrolled ? 'h-[34px] md:h-[38px] brightness-0' : 'h-[44px] md:h-[52px] brightness-100'
+                  isScrolled ? 'h-[34px] md:h-[38px]' : 'h-[44px] md:h-[52px]'
                 }`}
               />
             </button>
