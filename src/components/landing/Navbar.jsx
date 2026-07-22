@@ -119,7 +119,7 @@ export default function Navbar() {
                 src="/images/prius-logo-white.png" 
                 alt="Prius Playa Grande" 
                 className={`w-auto object-contain transition-all duration-500 ${
-                  isScrolled ? 'h-[24px] md:h-[28px] brightness-0' : 'h-[30px] md:h-[36px] brightness-100'
+                  isScrolled ? 'h-[34px] md:h-[38px] brightness-0' : 'h-[44px] md:h-[52px] brightness-100'
                 }`}
               />
             </button>
@@ -167,7 +167,7 @@ export default function Navbar() {
 
             <button 
               onClick={() => scrollToSection('contacto')}
-              className="h-9 cursor-pointer items-center justify-center whitespace-nowrap rounded-full px-5 text-[10px] font-bold hidden sm:inline-flex uppercase tracking-wider transition-all duration-500 bg-gold text-prius-black hover:bg-gold-hover shadow-sm"
+              className="h-9 cursor-pointer items-center justify-center whitespace-nowrap rounded-full px-5 text-[10px] font-bold hidden sm:inline-flex uppercase tracking-wider transition-all duration-500 bg-gold text-white hover:bg-gold-hover shadow-sm"
             >
               RESERVÁ
             </button>
@@ -207,7 +207,7 @@ export default function Navbar() {
 
             <button 
               onClick={() => scrollToSection('contacto')}
-              className="w-full py-3 rounded-full text-xs font-bold uppercase tracking-widest text-center transition-all cursor-pointer bg-gold text-prius-black hover:bg-gold-hover"
+              className="w-full py-3 rounded-full text-xs font-bold uppercase tracking-widest text-center transition-all cursor-pointer bg-gold text-white hover:bg-gold-hover"
             >
               RESERVÁ
             </button>
