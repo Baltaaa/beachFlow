@@ -93,12 +93,12 @@ function ImageModal({ selectedImage, onClose }) {
           <X size={16} />
         </button>
 
-        {/* Contenedor de Imagen: 70% de ancho en desktop, fondo blanco para integrarse de forma minimalista */}
-        <div className="w-full md:w-[70%] bg-white relative min-h-[300px] md:min-h-[550px] lg:min-h-[650px] flex items-center justify-center">
+        {/* Contenedor de Imagen: 70% de ancho en desktop, fondo blanco con imagen sombreada */}
+        <div className="w-full md:w-[70%] bg-white relative min-h-[300px] md:min-h-[550px] lg:min-h-[650px] flex items-center justify-center p-6 md:p-10">
           <img
             src={selectedImage.src}
             alt={selectedImage.title}
-            className="w-full h-full object-contain max-h-[50vh] md:max-h-[85vh]"
+            className="max-w-full max-h-[45vh] md:max-h-[75vh] object-contain shadow-2xl border border-neutral-100 rounded-xl"
           />
           <span className="absolute bottom-4 left-4 bg-neutral-950/80 backdrop-blur-md px-3 py-1 rounded-sm text-[9px] uppercase tracking-wider text-gold font-display border border-white/10">
             {selectedImage.category}
