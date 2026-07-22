@@ -26,12 +26,12 @@ export default function Events() {
   ]
 
   return (
-    <section className="min-h-screen flex flex-col justify-center py-20 px-margin-mobile md:px-margin-desktop bg-gradient-to-b from-prius-background via-gold/[0.03] to-white relative overflow-hidden" id="eventos">
+    <section className="min-h-screen flex flex-col justify-center pt-8 pb-20 px-margin-mobile md:px-margin-desktop bg-gradient-to-b from-prius-background via-gold/[0.09] to-white relative overflow-hidden" id="eventos">
       
       {/* Esferas de luz dorada difuminadas para lograr el efecto fade degrade premium */}
-      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-gold/10 rounded-full blur-[160px] pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-gold/10 rounded-full blur-[180px] pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-gold/[0.06] rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-gold/18 rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-gold/15 rounded-full blur-[180px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-gold/[0.12] rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-[1140px] mx-auto relative z-10 w-full flex flex-col gap-12">
         
