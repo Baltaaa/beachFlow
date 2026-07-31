@@ -121,40 +121,38 @@ function ImageModal({ selectedImage, onClose }) {
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-[1100px] bg-white rounded-2xl overflow-hidden border border-hairline flex flex-col md:flex-row shadow-2xl animate-premium-slide max-h-[90vh] my-auto"
+        className="relative w-full max-w-[1200px] 2xl:max-w-[1500px] bg-white rounded-3xl overflow-hidden border border-hairline flex flex-col md:flex-row shadow-2xl animate-premium-slide max-h-[90vh] my-auto"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 z-20 p-2 bg-neutral-950/80 hover:bg-gold hover:text-prius-black text-white rounded-full border border-white/15 transition-all duration-200 cursor-pointer"
+          className="absolute top-4 right-4 z-20 p-2.5 bg-neutral-950/80 hover:bg-gold hover:text-prius-black text-white rounded-full border border-white/15 transition-all duration-200 cursor-pointer"
           aria-label="Cerrar"
         >
-          <X size={18} />
+          <X size={20} />
         </button>
 
-        {/* Image side */}
-        <div className="w-full md:w-[65%] bg-neutral-900 relative min-h-[260px] max-h-[45vh] md:max-h-[75vh] flex items-center justify-center p-4 md:p-8 shrink-0">
+        <div className="w-full md:w-[65%] bg-neutral-900 relative min-h-[280px] max-h-[45vh] md:max-h-[75vh] flex items-center justify-center p-4 md:p-8 shrink-0">
           <img
             src={selectedImage.src}
             alt={selectedImage.title}
-            className="max-w-full max-h-full object-contain rounded-lg shadow-xl"
+            className="max-w-full max-h-full object-contain rounded-xl shadow-xl"
           />
-          <span className="absolute bottom-3 left-3 bg-neutral-950/80 backdrop-blur-md px-3 py-1 rounded-sm text-[9px] uppercase tracking-wider text-gold font-display border border-gold/30">
+          <span className="absolute bottom-4 left-4 bg-neutral-950/80 backdrop-blur-md px-3.5 py-1.5 rounded-sm text-[10px] 2xl:text-xs uppercase tracking-wider text-gold font-display border border-gold/30">
             {selectedImage.category}
           </span>
         </div>
 
-        {/* Text side */}
-        <div className="w-full md:w-[35%] p-6 md:p-8 flex flex-col justify-between bg-white overflow-y-auto border-t md:border-t-0 md:border-l border-hairline">
+        <div className="w-full md:w-[35%] p-6 md:p-10 flex flex-col justify-between bg-white overflow-y-auto border-t md:border-t-0 md:border-l border-hairline">
           <div className="space-y-4 my-auto">
-            <span className="text-[9px] font-bold uppercase tracking-widest text-gold font-display block">
+            <span className="text-[10px] 2xl:text-xs font-bold uppercase tracking-widest text-gold font-display block">
               Experiencia Prius
             </span>
-            <h3 className="text-lg md:text-2xl font-bold uppercase tracking-tight text-prius-black font-display leading-tight">
+            <h3 className="text-xl md:text-3xl font-bold uppercase tracking-tight text-prius-black font-display leading-tight">
               {selectedImage.title}
             </h3>
-            <div className="h-[1px] bg-gold/40 w-12" />
-            <p className="text-xs md:text-sm text-prius-black/70 leading-relaxed font-light">
+            <div className="h-[2px] bg-gold/40 w-16" />
+            <p className="text-xs md:text-sm 2xl:text-base text-prius-black/70 leading-relaxed font-light">
               {selectedImage.desc}
             </p>
           </div>
@@ -201,33 +199,31 @@ export default function Services() {
 
   const scrollSlider = (direction) => {
     if (sliderRef.current) {
-      const scrollAmount = direction === 'left' ? -340 : 340
+      const scrollAmount = direction === 'left' ? -380 : 380
       sliderRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' })
     }
   }
 
   return (
-    <section className="min-h-screen flex flex-col justify-center py-16 md:py-24 px-margin-mobile md:px-margin-desktop bg-prius-background border-t border-hairline" id="servicios">
-      <div className="max-w-[1920px] mx-auto w-full relative z-10">
+    <section className="min-h-screen flex flex-col justify-center py-16 md:py-24 2xl:py-32 px-margin-mobile md:px-margin-desktop bg-prius-background border-t border-hairline" id="servicios">
+      <div className="max-w-[1920px] 2xl:max-w-[2200px] mx-auto w-full relative z-10">
         
-        {/* Header de Sección */}
-        <div className="max-w-[1440px] mx-auto mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
-          <div className="max-w-xl">
-            <span className="text-[9px] md:text-[11px] font-bold uppercase tracking-[0.3em] text-prius-black/40 block mb-1 font-display">
+        <div className="max-w-[1440px] 2xl:max-w-[1800px] mx-auto mb-10 2xl:mb-14 flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div className="max-w-2xl">
+            <span className="text-[9px] md:text-[11px] 2xl:text-xs font-bold uppercase tracking-[0.3em] text-prius-black/40 block mb-1.5 font-display">
               Estilo de Vida Prius
             </span>
-            <h2 className="text-2xl md:text-4xl font-normal tracking-tight text-prius-black uppercase font-display leading-none">
-              Servicios de <span className="text-gold">Exclusividad</span> Absoluta
+            <h2 className="text-2xl md:text-4xl 2xl:text-5xl 3xl:text-6xl font-normal tracking-tight text-prius-black uppercase font-display leading-none">
+              Servicios de <span className="text-gold font-bold">Exclusividad</span> Absoluta
             </h2>
           </div>
-          <p className="text-prius-black/70 text-xs md:text-sm max-w-xs leading-relaxed font-light">
+          <p className="text-prius-black/70 text-xs md:text-sm 2xl:text-base max-w-sm leading-relaxed font-light">
             Minimalismo estructural y confort absoluto diseñado al detalle para una experiencia de playa incomparable.
           </p>
         </div>
 
-        {/* Barra de Filtros con Íconos + Controles del Carrusel */}
-        <div className="max-w-[1440px] mx-auto flex items-center justify-between border-b border-hairline/60 pb-6 mb-8">
-          <div className="flex overflow-x-auto gap-2 scrollbar-none pb-2 md:pb-0">
+        <div className="max-w-[1440px] 2xl:max-w-[1800px] mx-auto flex items-center justify-between border-b border-hairline/60 pb-6 mb-8">
+          <div className="flex overflow-x-auto gap-2.5 scrollbar-none pb-2 md:pb-0">
             {CATEGORY_ITEMS.map((cat) => {
               const IconComp = cat.icon
               const isSelected = activeCategory === cat.id
@@ -239,97 +235,90 @@ export default function Services() {
                     setScrollProgress(0)
                     if (sliderRef.current) sliderRef.current.scrollLeft = 0
                   }}
-                  className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-[10px] uppercase tracking-wider font-semibold transition-all shrink-0 cursor-pointer ${
+                  className={`flex items-center gap-2 px-4 2xl:px-5 py-2 2xl:py-2.5 rounded-full text-[10px] 2xl:text-xs uppercase tracking-wider font-semibold transition-all shrink-0 cursor-pointer ${
                     isSelected
                       ? 'bg-gold text-prius-black border border-gold shadow-sm'
                       : 'bg-white text-prius-black/70 border border-hairline hover:border-gold/60 hover:text-prius-black hover:bg-gold/5'
                   }`}
                 >
-                  <IconComp size={12} className={isSelected ? 'text-prius-black' : 'text-gold'} />
+                  <IconComp size={13} className={isSelected ? 'text-prius-black' : 'text-gold'} />
                   <span>{cat.label}</span>
                 </button>
               )
             })}
           </div>
 
-          {/* Botones de Navegación del Carrusel con Hover Dorado */}
-          <div className="hidden md:flex gap-2 shrink-0">
+          <div className="hidden md:flex gap-2.5 shrink-0">
             <button
               onClick={() => scrollSlider('left')}
-              className="p-2.5 bg-white border border-hairline rounded-full hover:bg-gold hover:text-prius-black hover:border-gold transition-all duration-200 cursor-pointer shadow-sm text-prius-black"
+              className="p-3 bg-white border border-hairline rounded-full hover:bg-gold hover:text-prius-black hover:border-gold transition-all duration-200 cursor-pointer shadow-sm text-prius-black"
               aria-label="Anterior"
             >
-              <ChevronLeft size={16} />
+              <ChevronLeft size={18} />
             </button>
             <button
               onClick={() => scrollSlider('right')}
-              className="p-2.5 bg-white border border-hairline rounded-full hover:bg-gold hover:text-prius-black hover:border-gold transition-all duration-200 cursor-pointer shadow-sm text-prius-black"
+              className="p-3 bg-white border border-hairline rounded-full hover:bg-gold hover:text-prius-black hover:border-gold transition-all duration-200 cursor-pointer shadow-sm text-prius-black"
               aria-label="Siguiente"
             >
-              <ChevronRight size={16} />
+              <ChevronRight size={18} />
             </button>
           </div>
         </div>
 
-        {/* Carrusel de Cards con Estilo Editorial Luxury */}
-        <div className="relative max-w-[1440px] mx-auto">
+        <div className="relative max-w-[1440px] 2xl:max-w-[1800px] mx-auto">
           <div className="absolute right-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-l from-prius-background to-transparent pointer-events-none z-10" />
 
           <div
             key={activeCategory}
             ref={sliderRef}
             onScroll={handleScroll}
-            className="flex gap-5 overflow-x-auto pb-6 scroll-smooth snap-x snap-mandatory scrollbar-none md:snap-none"
+            className="flex gap-6 overflow-x-auto pb-6 scroll-smooth snap-x snap-mandatory scrollbar-none md:snap-none"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {filteredImages.map((img, idx) => (
               <div
                 key={idx}
                 onClick={() => setSelectedImage(img)}
-                className="group relative w-[280px] sm:w-[320px] h-[380px] md:h-[420px] shrink-0 snap-start bg-neutral-950 border border-hairline rounded-2xl overflow-hidden shadow-md hover:shadow-2xl hover:border-gold/50 transition-all duration-300 cursor-pointer"
+                className="group relative w-[290px] sm:w-[340px] 2xl:w-[400px] h-[400px] md:h-[450px] 2xl:h-[500px] shrink-0 snap-start bg-neutral-950 border border-hairline rounded-2xl 2xl:rounded-3xl overflow-hidden shadow-md hover:shadow-2xl hover:border-gold/50 transition-all duration-300 cursor-pointer"
               >
-                {/* Imagen Interna con Zoom sutil en Hover */}
                 <img
                   alt={img.title}
                   className={`w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out ${img.position || 'object-center'}`}
                   src={img.src}
                 />
 
-                {/* Overlay Oscuro Editorial para Contraste Impecable */}
                 <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/40 to-transparent opacity-90 group-hover:opacity-95 transition-opacity duration-300" />
 
-                {/* Badge Glassmorphism Arriba a la Izquierda */}
                 <div className="absolute top-4 left-4 z-10">
-                  <span className="bg-neutral-950/60 backdrop-blur-md text-gold text-[8px] font-bold uppercase tracking-wider px-3 py-1 rounded-full border border-gold/30">
+                  <span className="bg-neutral-950/60 backdrop-blur-md text-gold text-[8px] 2xl:text-[10px] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full border border-gold/30">
                     {img.category}
                   </span>
                 </div>
 
-                {/* Botón de Expandir Arriba a la Derecha con Hover Dorado */}
                 <button
                   onClick={(e) => {
                     e.stopPropagation()
                     setSelectedImage(img)
                   }}
-                  className="absolute top-4 right-4 z-10 p-2 bg-neutral-950/60 backdrop-blur-md text-white hover:bg-gold hover:text-prius-black rounded-full border border-white/15 transition-all duration-200 cursor-pointer shadow-md"
+                  className="absolute top-4 right-4 z-10 p-2.5 bg-neutral-950/60 backdrop-blur-md text-white hover:bg-gold hover:text-prius-black rounded-full border border-white/15 transition-all duration-200 cursor-pointer shadow-md"
                   title="Ampliar vista"
                 >
-                  <Maximize2 size={12} />
+                  <Maximize2 size={13} />
                 </button>
 
-                {/* Contenido de Texto Superpuesto en el Borde Inferior */}
-                <div className="absolute inset-x-0 bottom-0 p-6 z-10 flex flex-col justify-end">
-                  <h4 className="text-base md:text-lg font-bold text-white uppercase tracking-tight font-display mb-1.5 leading-snug drop-shadow-sm">
+                <div className="absolute inset-x-0 bottom-0 p-6 2xl:p-8 z-10 flex flex-col justify-end">
+                  <h4 className="text-base md:text-lg 2xl:text-xl font-bold text-white uppercase tracking-tight font-display mb-1.5 leading-snug drop-shadow-sm">
                     {img.title}
                   </h4>
-                  <p className="text-xs text-white/75 font-light line-clamp-2 leading-relaxed mb-4 drop-shadow-sm">
+                  <p className="text-xs 2xl:text-sm text-white/75 font-light line-clamp-2 leading-relaxed mb-4 drop-shadow-sm">
                     {img.desc}
                   </p>
 
                   <div className="pt-3 border-t border-white/15 flex items-center justify-between">
-                    <span className="inline-flex items-center gap-1.5 text-[10px] font-bold text-gold uppercase tracking-widest font-display transition-transform duration-300 group-hover:translate-x-1">
+                    <span className="inline-flex items-center gap-1.5 text-[10px] 2xl:text-xs font-bold text-gold uppercase tracking-widest font-display transition-transform duration-300 group-hover:translate-x-1">
                       <span>VER DETALLE</span>
-                      <ArrowRight size={12} />
+                      <ArrowRight size={13} />
                     </span>
                   </div>
                 </div>
@@ -337,9 +326,8 @@ export default function Services() {
             ))}
           </div>
 
-          {/* Indicador de Posición / Dots Sincronizados */}
           <div className="flex justify-center items-center gap-1.5 mt-6">
-            <div className="w-24 h-[2px] bg-hairline relative rounded-full overflow-hidden">
+            <div className="w-28 h-[2px] bg-hairline relative rounded-full overflow-hidden">
               <div
                 className="absolute left-0 top-0 h-full bg-gold transition-all duration-300 rounded-full"
                 style={{ width: `${Math.max(15, scrollProgress)}%` }}
