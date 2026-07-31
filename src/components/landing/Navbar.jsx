@@ -47,7 +47,7 @@ export default function Navbar() {
 
   // Estilos dinámicos del contenedor general del HEADER (Navy oscuro en estado sticky)
   const headerBackgroundClass = !isScrolled
-    ? 'top-[32px] w-full max-w-[1952px] px-4'
+    ? 'top-[20px] sm:top-[32px] w-full max-w-[1952px] px-4'
     : 'top-0 w-full max-w-full px-4 sm:px-6 py-2 bg-neutral-950/85 backdrop-blur-lg border-b border-white/10 shadow-xl'
 
   // Textos e íconos SIEMPRE legibles con colores claros sobre fondo oscuro / hero
@@ -65,29 +65,6 @@ export default function Navbar() {
 
   return (
     <>
-      {/* CAPA DE DESENFOQUE PROGRESIVO OBLIGATORIA */}
-      <div 
-        aria-hidden="true" 
-        className={`fixed top-0 left-0 right-0 h-[90px] pointer-events-none z-40 transition-all duration-700 ease-in-out ${
-          isScrolled 
-            ? 'opacity-100' 
-            : 'opacity-0 invisible'
-        }`}
-        style={{
-          background: 'linear-gradient(to bottom, rgba(10, 10, 12, 0.7) 0%, rgba(10, 10, 12, 0.4) 50%, rgba(10, 10, 12, 0) 100%)',
-          backdropFilter: isScrolled ? 'blur(16px)' : 'none',
-          WebkitBackdropFilter: isScrolled ? 'blur(16px)' : 'none',
-        }}
-      />
-
-      {/* Sutil gradiente oscuro inicial para el Hero */}
-      <div 
-        aria-hidden="true" 
-        className={`pointer-events-none fixed inset-x-0 top-0 z-40 h-32 bg-gradient-to-b from-black/60 to-transparent transition-all duration-500 ${
-          isScrolled ? 'opacity-0 invisible' : 'opacity-100'
-        }`}
-      />
-
       <header 
         className={`fixed z-50 transition-all duration-500 ease-in-out left-0 right-0 mx-auto ${headerBackgroundClass}`}
       >

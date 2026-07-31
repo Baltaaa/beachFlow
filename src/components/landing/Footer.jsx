@@ -9,22 +9,23 @@ export default function Footer() {
     <footer className="w-full bg-neutral-950 text-white relative overflow-hidden">
       
       {/* ========================================================= */}
-      {/* BANDA 1: Foto aérea a ancho completo con botón flotante    */}
+      {/* BANDA 1: Foto aérea ampliada que se funde suavemente     */}
       {/* ========================================================= */}
-      <div className="relative w-full h-[280px] sm:h-[360px] md:h-[420px] overflow-hidden select-none">
+      <div className="relative w-full h-[360px] sm:h-[480px] md:h-[580px] overflow-hidden select-none">
         <img 
           src="/images/bg-footer.webp" 
           alt="Vista Aérea Playa Grande" 
           className="w-full h-full object-cover object-center"
         />
-        {/* Subtle gradient overlay only on the bottom 20% for smooth transition */}
-        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-neutral-950 via-neutral-950/60 to-transparent" />
+        
+        {/* Degradado continuo y progresivo para que la foto se funda con el contenido inferior sin líneas */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-neutral-950/40 to-neutral-950 pointer-events-none" />
 
         {/* Floating Glassmorphism "Volver Arriba" Button */}
-        <div className="absolute bottom-6 right-6 z-20">
+        <div className="absolute bottom-8 right-6 sm:right-12 z-20">
           <button 
             onClick={scrollToTop}
-            className="flex items-center gap-2 text-[10px] uppercase tracking-widest font-bold text-white bg-neutral-950/70 hover:bg-gold hover:text-prius-black border border-white/20 backdrop-blur-md px-5 py-2.5 rounded-full transition-all duration-300 shadow-xl cursor-pointer group"
+            className="flex items-center gap-2 text-[10px] uppercase tracking-widest font-bold text-white bg-neutral-950/70 hover:bg-gold hover:text-prius-black border border-white/20 backdrop-blur-md px-5 py-2.5 rounded-full transition-all duration-300 shadow-2xl cursor-pointer group"
           >
             <span>Volver arriba</span> 
             <ArrowUp size={14} className="transform group-hover:-translate-y-1 transition-transform" />
@@ -33,9 +34,9 @@ export default function Footer() {
       </div>
 
       {/* ========================================================= */}
-      {/* BANDA 2: Fondo sólido Navy (neutral-950) con Grid           */}
+      {/* BANDA 2: Información de Pie de Página (Fondo Navy)        */}
       {/* ========================================================= */}
-      <div className="bg-neutral-950 pt-10 pb-8 px-margin-mobile md:px-margin-desktop border-t border-white/10">
+      <div className="bg-neutral-950 pt-4 pb-10 px-margin-mobile md:px-margin-desktop relative z-10">
         <div className="max-w-[1920px] mx-auto w-full">
           <div className="max-w-[1440px] mx-auto">
             
