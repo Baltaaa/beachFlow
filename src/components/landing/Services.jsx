@@ -17,7 +17,7 @@ const CATEGORIES = [
 const unifiedImages = [
   // --- COWORKING ---
   { src: "/images/coworking-deck.jpg", title: "Deck Principal", category: "Coworking", desc: "Espacio de trabajo al aire libre sobre deck de madera noble, ideal para inspirarse frente al mar." },
-  { src: "/images/coworking-sala-1.jpg", title: "Conexión estable para reuniones", category: "Coworking", desc: "Espacio privado vidriado para conerencias y llamadas con aislamiento acústico." },
+  { src: "/images/coworking-sala-1.jpg", title: "Conexión estable para reuniones", category: "Coworking", desc: "Espacio privado vidriado para conferencias y llamadas con aislamiento acústico." },
   { src: "/images/prius3.webp", title: "Espacio de Cowork", category: "Coworking", desc: "Un rincón de paz y desconexión dentro del área de coworking para recargar energías entre tareas." },
 
   // --- CARPAS & SOMBRILLAS ---
@@ -50,10 +50,10 @@ const unifiedImages = [
   { src: "/images/wellness-relax-arena.jpg", title: "Oasis de Relajación", category: "Wellness", desc: "Descanso absoluto en cómodas reposeras sobre la arena, disfrutando de la brisa marina y el sol." },
 
   // --- INSTALACIONES ---
-  { src: "/images/instalaciones-paseo.jpg", title: "Paseo Playa Grande", category: "Instalaciones", desc: "Ubicación privilegiada en el corazón del paseo de Playa Grande, integrando diseño moderno y naturaleza costera." },
+  { src: "/images/instalaciones-paseo.jpg", title: "Paseo Playa Grande", category: "Instalaciones", desc: "Ubicación privileged en el corazón del paseo de Playa Grande, integrando diseño moderno y naturaleza costera." },
   { src: "/images/instalaciones-solarium.jpg", title: "Solárium & Pileta", category: "Instalaciones", desc: "Espectacular vista panorámica desde nuestro solárium de madera noble equipado con camastros y piscina climatizada." },
   { src: "/images/instalaciones-lockers-7.jpg", title: "Lockers de Seguridad", category: "Instalaciones", desc: "Tranquilidad absoluta para tus pertenencias con lockers privados y vestuarios de primer nivel." },
-  { src: "/images/gallery_1400392.webp", title: "Vestuarios & Duchas", category: "Instalaciones", desc: "Higiene, confort and privacidad en instalaciones totalmente renovadas." },
+  { src: "/images/gallery_1400392.webp", title: "Vestuarios & Duchas", category: "Instalaciones", desc: "Higiene, confort y privacidad en instalaciones totalmente renovadas." },
   { src: "/images/instalaciones-bebes-8.jpg", title: "Espacio para Bebés", category: "Instalaciones", desc: "Cambiador y espacio adaptado para la comodidad de los más pequeños y sus familias." },
   { src: "/images/instalaciones-banos-9.jpg", title: "Baños Renovados", category: "Instalaciones", desc: "Baños modernos, limpios y equipados con todo lo necesario para tu comodidad." },
   { src: "/images/cabinas.jpg", title: "Cabinas", category: "Instalaciones", desc: "Cabinas privadas y vestuarios exclusivos para cambiarse con total comodidad." },
@@ -73,7 +73,6 @@ const unifiedImages = [
   { src: "/images/recreacion-surf.jpg", title: "Surf", category: "Recreación & Club", desc: "Disfrutá de las mejores olas de Playa Grande con tablas de surf de primer nivel." },
 ]
 
-// Definimos los títulos prioritarios en el orden exacto solicitado
 const PRIORITY_TITLES = [
   "Deck Principal",
   "Reposeras Ergonómicas",
@@ -82,25 +81,20 @@ const PRIORITY_TITLES = [
   "Lanzamientos y Cenas"
 ]
 
-// Extraemos los elementos prioritarios
 const priorityItems = PRIORITY_TITLES.map(title => 
   unifiedImages.find(img => img.title === title)
 ).filter(Boolean)
 
-// Filtramos el resto de las imágenes
 const remainingItems = unifiedImages.filter(img => 
   !PRIORITY_TITLES.includes(img.title)
 )
 
-// Mezclamos el resto de las imágenes de forma determinista para que no queden agrupadas por categoría
 const mixedRemaining = [...remainingItems].sort((a, b) => {
-  // Usamos un hash simple basado en el título y descripción para lograr una mezcla fija y atractiva
   const hashA = (a.title.charCodeAt(0) || 0) + (a.desc.length % 7)
   const hashB = (b.title.charCodeAt(0) || 0) + (b.desc.length % 7)
   return hashA - hashB
 })
 
-// Combinamos las prioritarias al inicio con el resto mezclado
 const todoImages = [...priorityItems, ...mixedRemaining]
 
 function ImageModal({ selectedImage, onClose }) {
@@ -108,43 +102,43 @@ function ImageModal({ selectedImage, onClose }) {
 
   return createPortal(
     <div
-      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-neutral-950/75 backdrop-blur-[18px] animate-premium-fade"
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-6 bg-neutral-950/80 backdrop-blur-md animate-premium-fade overflow-y-auto"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-[1200px] md:w-[92vw] bg-white rounded-2xl overflow-hidden border border-hairline flex flex-col md:flex-row shadow-2xl animate-premium-slide max-h-[92vh]"
+        className="relative w-full max-w-[1100px] bg-white rounded-2xl overflow-hidden border border-hairline flex flex-col md:flex-row shadow-2xl animate-premium-slide max-h-[90vh] my-auto"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-10 p-2.5 bg-neutral-950/85 hover:bg-gold hover:text-prius-black text-white rounded-full border border-white/15 transition-all duration-300 cursor-pointer"
+          className="absolute top-3 right-3 z-20 p-2 bg-neutral-950/80 hover:bg-gold hover:text-prius-black text-white rounded-full border border-white/15 transition-all duration-200 cursor-pointer"
           aria-label="Cerrar"
         >
-          <X size={16} />
+          <X size={18} />
         </button>
 
-        {/* Contenedor de Imagen: 70% de ancho en desktop, fondo blanco con imagen sombreada */}
-        <div className="w-full md:w-[70%] bg-white relative min-h-[300px] md:min-h-[550px] lg:min-h-[650px] flex items-center justify-center p-6 md:p-10">
+        {/* Image side */}
+        <div className="w-full md:w-[65%] bg-neutral-900 relative min-h-[260px] max-h-[45vh] md:max-h-[75vh] flex items-center justify-center p-4 md:p-8 shrink-0">
           <img
             src={selectedImage.src}
             alt={selectedImage.title}
-            className="max-w-full max-h-[45vh] md:max-h-[75vh] object-contain shadow-2xl border border-neutral-100 rounded-xl"
+            className="max-w-full max-h-full object-contain rounded-lg shadow-xl"
           />
-          <span className="absolute bottom-4 left-4 bg-neutral-950/80 backdrop-blur-md px-3 py-1 rounded-sm text-[9px] uppercase tracking-wider text-gold font-display border border-white/10">
+          <span className="absolute bottom-3 left-3 bg-neutral-950/80 backdrop-blur-md px-3 py-1 rounded-sm text-[9px] uppercase tracking-wider text-gold font-display border border-white/10">
             {selectedImage.category}
           </span>
         </div>
 
-        {/* Contenedor de Texto: 30% de ancho en desktop */}
-        <div className="w-full md:w-[30%] p-8 flex flex-col justify-between bg-white overflow-y-auto max-h-[300px] md:max-h-full border-t md:border-t-0 md:border-l border-hairline">
+        {/* Text side */}
+        <div className="w-full md:w-[35%] p-6 md:p-8 flex flex-col justify-between bg-white overflow-y-auto border-t md:border-t-0 md:border-l border-hairline">
           <div className="space-y-4 my-auto">
             <span className="text-[9px] font-bold uppercase tracking-widest text-gold font-display block">
               Experiencia Prius
             </span>
-            <h3 className="text-xl md:text-2xl font-bold uppercase tracking-tight text-prius-black font-display leading-tight">
+            <h3 className="text-lg md:text-2xl font-bold uppercase tracking-tight text-prius-black font-display leading-tight">
               {selectedImage.title}
             </h3>
-            <div className="h-[1px] bg-hairline w-12" />
+            <div className="h-[1px] bg-gold/40 w-12" />
             <p className="text-xs md:text-sm text-prius-black/70 leading-relaxed font-light">
               {selectedImage.desc}
             </p>
@@ -196,23 +190,23 @@ export default function Services() {
   }
 
   return (
-    <section className="min-h-screen flex flex-col justify-center py-20 px-margin-mobile md:px-margin-desktop bg-prius-background border-t border-hairline" id="servicios">
-      <div className="max-w-[1440px] mx-auto w-full relative z-10">
-        <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
+    <section className="min-h-screen flex flex-col justify-center py-16 md:py-24 px-margin-mobile md:px-margin-desktop bg-prius-background border-t border-hairline" id="servicios">
+      <div className="max-w-[1920px] mx-auto w-full relative z-10">
+        <div className="max-w-[1440px] mx-auto mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="max-w-xl">
-            <span className="text-[9px] md:text-[11px] font-normal uppercase tracking-[0.3em] text-prius-black/40 block mb-1 font-display">
+            <span className="text-[9px] md:text-[11px] font-bold uppercase tracking-[0.3em] text-prius-black/40 block mb-1 font-display">
               Estilo de Vida Prius
             </span>
             <h2 className="text-2xl md:text-4xl font-normal tracking-tight text-prius-black uppercase font-display leading-none">
               Servicios de <span className="text-gold">Exclusividad</span> Absoluta
             </h2>
           </div>
-          <p className="text-prius-black/60 text-xs md:text-sm max-w-xs leading-relaxed font-light">
-            Minimalismo estructural and confort absoluto diseñado al detalle para una experiencia de playa incomparable.
+          <p className="text-prius-black/70 text-xs md:text-sm max-w-xs leading-relaxed font-light">
+            Minimalismo estructural y confort absoluto diseñado al detalle para una experiencia de playa incomparable.
           </p>
         </div>
 
-        <div className="flex items-center justify-between border-b border-hairline/60 pb-6 mb-8">
+        <div className="max-w-[1440px] mx-auto flex items-center justify-between border-b border-hairline/60 pb-6 mb-8">
           <div className="flex overflow-x-auto gap-2 scrollbar-none pb-2 md:pb-0">
             {CATEGORIES.map((cat) => (
               <button
@@ -222,10 +216,10 @@ export default function Services() {
                   setScrollProgress(0)
                   if (sliderRef.current) sliderRef.current.scrollLeft = 0
                 }}
-                className={`px-4 py-1.5 rounded-full text-[10px] uppercase tracking-wider font-medium transition-all shrink-0 cursor-pointer ${
+                className={`px-4 py-2 rounded-full text-[10px] uppercase tracking-wider font-semibold transition-all shrink-0 cursor-pointer ${
                   activeCategory === cat
-                    ? 'bg-gold text-prius-black border border-gold'
-                    : 'bg-transparent text-prius-black/55 border border-hairline hover:border-prius-black/30 hover:text-prius-black'
+                    ? 'bg-gold text-prius-black border border-gold shadow-sm'
+                    : 'bg-white text-prius-black/60 border border-hairline hover:border-prius-black/30 hover:text-prius-black'
                 }`}
               >
                 {cat}
@@ -233,38 +227,38 @@ export default function Services() {
             ))}
           </div>
 
-          <div className="hidden md:flex gap-1.5 shrink-0">
+          <div className="hidden md:flex gap-2 shrink-0">
             <button
               onClick={() => scrollSlider('left')}
-              className="p-2 bg-white border border-hairline rounded-full hover:border-gold hover:bg-prius-background transition-colors cursor-pointer"
+              className="p-2.5 bg-white border border-hairline rounded-full hover:border-gold hover:bg-gold/10 transition-colors cursor-pointer"
               aria-label="Anterior"
             >
-              <ChevronLeft size={14} className="text-prius-black" />
+              <ChevronLeft size={16} className="text-prius-black" />
             </button>
             <button
               onClick={() => scrollSlider('right')}
-              className="p-2 bg-white border border-hairline rounded-full hover:border-gold hover:bg-prius-background transition-colors cursor-pointer"
+              className="p-2.5 bg-white border border-hairline rounded-full hover:border-gold hover:bg-gold/10 transition-colors cursor-pointer"
               aria-label="Siguiente"
             >
-              <ChevronRight size={14} className="text-prius-black" />
+              <ChevronRight size={16} className="text-prius-black" />
             </button>
           </div>
         </div>
 
-        <div className="relative">
-          <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-prius-background via-prius-background/80 to-transparent pointer-events-none z-10" />
+        <div className="relative max-w-[1440px] mx-auto">
+          <div className="absolute right-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-l from-prius-background to-transparent pointer-events-none z-10" />
 
           <div
             key={activeCategory}
             ref={sliderRef}
             onScroll={handleScroll}
-            className="flex gap-5 overflow-x-auto pb-4 scroll-smooth snap-x snap-mandatory scrollbar-none md:snap-none animate-[premiumFadeIn_0.4s_ease-out_forwards]"
+            className="flex gap-5 overflow-x-auto pb-4 scroll-smooth snap-x snap-mandatory scrollbar-none md:snap-none"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {filteredImages.map((img, idx) => (
               <div
                 key={idx}
-                className="w-[280px] md:w-[320px] shrink-0 snap-start group bg-white border border-hairline rounded-xl overflow-hidden flex flex-col justify-between hover:border-gold transition-premium"
+                className="w-[280px] md:w-[320px] shrink-0 snap-start group bg-white border border-hairline rounded-xl overflow-hidden flex flex-col justify-between hover:border-gold hover:shadow-lg transition-all duration-300"
               >
                 <div
                   onClick={() => setSelectedImage(img)}
@@ -272,7 +266,7 @@ export default function Services() {
                 >
                   <img
                     alt={img.title}
-                    className={`w-full h-full object-cover group-hover:scale-[1.03] transition-premium-slow ${img.position || 'object-center'}`}
+                    className={`w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ${img.position || 'object-center'}`}
                     src={img.src}
                   />
 
@@ -281,31 +275,34 @@ export default function Services() {
                       e.stopPropagation()
                       setSelectedImage(img)
                     }}
-                    className="absolute top-3 right-3 p-2 bg-neutral-950/60 backdrop-blur-md text-white hover:bg-gold hover:text-prius-black rounded-full border border-white/10 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all duration-300 transform md:translate-y-1 md:group-hover:translate-y-0 cursor-pointer"
+                    className="absolute top-3 right-3 p-2 bg-neutral-950/70 backdrop-blur-md text-white hover:bg-gold hover:text-prius-black rounded-full border border-white/10 transition-all duration-300 cursor-pointer"
                     title="Pantalla completa"
                   >
                     <Maximize2 size={12} />
                   </button>
 
-                  <span className="absolute bottom-3 left-3 bg-neutral-950/70 backdrop-blur-md px-2.5 py-1 rounded-sm text-[8px] uppercase tracking-wider text-gold font-display">
+                  <span className="absolute bottom-3 left-3 bg-neutral-950/80 backdrop-blur-md px-2.5 py-1 rounded-sm text-[8px] uppercase tracking-wider text-gold font-display border border-white/10">
                     {img.category}
                   </span>
                 </div>
 
                 <div className="p-5 flex flex-col justify-between flex-1">
                   <div>
-                    <h4 className="text-xs font-bold text-prius-black uppercase tracking-tight font-display mb-3">
+                    <h4 className="text-xs font-bold text-prius-black uppercase tracking-tight font-display mb-2">
                       {img.title}
                     </h4>
+                    <p className="text-[11px] text-prius-black/60 font-light line-clamp-2 leading-relaxed">
+                      {img.desc}
+                    </p>
                   </div>
 
-                  <div className="pt-3 border-t border-hairline flex items-center justify-between">
+                  <div className="pt-4 mt-3 border-t border-hairline flex items-center justify-between">
                     <button
                       onClick={() => setSelectedImage(img)}
-                      className="text-[9px] font-medium text-prius-black hover:text-gold transition-colors uppercase tracking-widest text-left flex items-center gap-1 group/btn font-display cursor-pointer"
+                      className="text-[9px] font-bold text-prius-black hover:text-gold transition-colors uppercase tracking-widest text-left flex items-center gap-1 group/btn font-display cursor-pointer"
                     >
                       Ver Detalle
-                      <ArrowRight size={10} className="transform group-hover/btn:translate-x-0.5 transition-transform" />
+                      <ArrowRight size={10} className="transform group-hover/btn:translate-x-1 transition-transform" />
                     </button>
                   </div>
                 </div>
