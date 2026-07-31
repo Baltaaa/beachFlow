@@ -36,7 +36,7 @@ export default function Navbar() {
     const element = document.getElementById(id)
     if (element) {
       const elementPosition = element.getBoundingClientRect().top + window.scrollY
-      const offsetPosition = elementPosition - 110 // Offset de 110px para dejar aire debajo del header
+      const offsetPosition = elementPosition - 110
       window.scrollTo({
         top: offsetPosition,
         behavior: 'smooth'
@@ -45,38 +45,27 @@ export default function Navbar() {
     setIsOpen(false)
   }
 
-  // Estilos dinámicos del contenedor general del HEADER
+  // Estilos dinámicos del contenedor general del HEADER (Navy oscuro en estado sticky)
   const headerBackgroundClass = !isScrolled
     ? 'top-[32px] w-full max-w-[1952px] px-4'
-    : 'top-0 w-full max-w-full px-4 sm:px-6 py-1'
+    : 'top-0 w-full max-w-full px-4 sm:px-6 py-2 bg-neutral-950/85 backdrop-blur-lg border-b border-white/10 shadow-xl'
 
-  // Estilos de los textos de navegación (Claros al inicio, oscuros al hacer scroll)
-  const textColorClass = !isScrolled
-    ? 'text-white/85 hover:text-gold transition-colors duration-300'
-    : 'text-neutral-800 hover:text-gold transition-colors duration-300'
-
-  const textIconColor = !isScrolled 
-    ? 'text-white/60' 
-    : 'text-neutral-500'
+  // Textos e íconos SIEMPRE legibles con colores claros sobre fondo oscuro / hero
+  const textColorClass = 'text-white/90 hover:text-gold transition-colors duration-300'
+  const textIconColor = 'text-gold'
 
   // Cápsula de navegación central
-  const navPillBackground = !isScrolled
-    ? 'bg-white/10 border border-white/5 backdrop-blur-md'
-    : 'bg-white/90 border border-neutral-200/40 backdrop-blur-md shadow-sm'
+  const navPillBackground = 'bg-white/10 border border-white/15 backdrop-blur-md'
 
   // Cápsula de Contacto / WhatsApp
-  const contactButtonClass = !isScrolled
-    ? 'bg-white/10 text-white/85 hover:bg-white/20 border border-white/5 backdrop-blur-md'
-    : 'bg-white/90 text-neutral-800 hover:bg-white border border-neutral-200/40 backdrop-blur-md shadow-sm'
+  const contactButtonClass = 'bg-white/10 text-white hover:bg-white/20 border border-white/15 backdrop-blur-md'
 
   // Cápsula de Menú Móvil
-  const menuButtonClass = !isScrolled
-    ? 'bg-white/10 text-white hover:bg-white/20 border border-white/5 backdrop-blur-md'
-    : 'bg-white/90 text-neutral-800 hover:bg-white border border-neutral-200/40 backdrop-blur-md shadow-sm'
+  const menuButtonClass = 'bg-white/10 text-white hover:bg-white/20 border border-white/15 backdrop-blur-md'
 
   return (
     <>
-      {/* CAPA DE DESENFOQUE PROGRESIVO COMPACTO (90px) CON GRADIENTE NEUTRO OSCURO SUAVE */}
+      {/* CAPA DE DESENFOQUE PROGRESIVO OBLIGATORIA */}
       <div 
         aria-hidden="true" 
         className={`fixed top-0 left-0 right-0 h-[90px] pointer-events-none z-40 transition-all duration-700 ease-in-out ${
@@ -85,18 +74,16 @@ export default function Navbar() {
             : 'opacity-0 invisible'
         }`}
         style={{
-          background: 'linear-gradient(to bottom, rgba(15, 15, 15, 0.5) 0%, rgba(15, 15, 15, 0.3) 40%, rgba(15, 15, 15, 0.1) 70%, rgba(15, 15, 15, 0) 100%)',
-          WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0) 100%)',
-          maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 50%, rgba(0,0,0,0) 100%)',
-          backdropFilter: isScrolled ? 'blur(20px)' : 'none',
-          WebkitBackdropFilter: isScrolled ? 'blur(20px)' : 'none',
+          background: 'linear-gradient(to bottom, rgba(10, 10, 12, 0.7) 0%, rgba(10, 10, 12, 0.4) 50%, rgba(10, 10, 12, 0) 100%)',
+          backdropFilter: isScrolled ? 'blur(16px)' : 'none',
+          WebkitBackdropFilter: isScrolled ? 'blur(16px)' : 'none',
         }}
       />
 
       {/* Sutil gradiente oscuro inicial para el Hero */}
       <div 
         aria-hidden="true" 
-        className={`pointer-events-none fixed inset-x-0 top-0 z-40 h-32 bg-gradient-to-b from-black/50 to-transparent transition-all duration-500 ${
+        className={`pointer-events-none fixed inset-x-0 top-0 z-40 h-32 bg-gradient-to-b from-black/60 to-transparent transition-all duration-500 ${
           isScrolled ? 'opacity-0 invisible' : 'opacity-100'
         }`}
       />
@@ -104,12 +91,12 @@ export default function Navbar() {
       <header 
         className={`fixed z-50 transition-all duration-500 ease-in-out left-0 right-0 mx-auto ${headerBackgroundClass}`}
       >
-        {/* Contenedor interno alineado con el Hero */}
-        <div className={`mx-auto w-full px-6 sm:px-8 max-w-[1040px] relative flex items-center justify-between gap-4 transition-all duration-500 ${
-          isScrolled ? 'h-14' : 'h-[72px]'
+        {/* Contenedor interno alineado */}
+        <div className={`mx-auto w-full px-4 sm:px-8 max-w-[1140px] relative flex items-center justify-between gap-4 transition-all duration-500 ${
+          isScrolled ? 'h-12 sm:h-14' : 'h-[72px]'
         }`}>
           
-          {/* LEFT: Logo interactivo completo PRIUS PLAYA GRANDE */}
+          {/* LEFT: Logo blanco de Prius siempre nítido y legible */}
           <div className="flex items-center shrink-0">
             <button 
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
@@ -119,7 +106,7 @@ export default function Navbar() {
                 src="/images/prius-logo-white.png" 
                 alt="Prius Playa Grande" 
                 className={`w-auto object-contain transition-all duration-500 ${
-                  isScrolled ? 'h-[38px] md:h-[42px]' : 'h-[48px] md:h-[58px]'
+                  isScrolled ? 'h-[36px] md:h-[40px]' : 'h-[48px] md:h-[58px]'
                 }`}
               />
             </button>
@@ -133,9 +120,9 @@ export default function Navbar() {
                 <button
                   key={sec.id}
                   onClick={() => scrollToSection(sec.id)}
-                  className={`flex items-center gap-1 rounded-full px-2.5 py-1 text-[9px] font-semibold tracking-wider uppercase cursor-pointer transition-all ${textColorClass}`}
+                  className={`flex items-center gap-1.5 rounded-full px-3 py-1 text-[9px] font-semibold tracking-wider uppercase cursor-pointer transition-all ${textColorClass}`}
                 >
-                  <Icon size={10} className={`${textIconColor} shrink-0`} />
+                  <Icon size={11} className={`${textIconColor} shrink-0`} />
                   <span>{sec.label}</span>
                 </button>
               );
@@ -167,7 +154,7 @@ export default function Navbar() {
 
             <button 
               onClick={() => scrollToSection('contacto')}
-              className="h-9 cursor-pointer items-center justify-center whitespace-nowrap rounded-full px-5 text-[10px] font-bold hidden sm:inline-flex uppercase tracking-wider transition-all duration-500 bg-gold text-white hover:bg-gold-hover shadow-sm"
+              className="h-9 cursor-pointer items-center justify-center whitespace-nowrap rounded-full px-5 text-[10px] font-bold hidden sm:inline-flex uppercase tracking-wider transition-all duration-500 bg-gold text-prius-black hover:bg-gold-hover shadow-md font-display"
             >
               RESERVÁ
             </button>
@@ -176,9 +163,7 @@ export default function Navbar() {
 
         {/* Menú Móvil Desplegable */}
         {isOpen && (
-          <div className={`absolute left-6 right-6 border border-white/10 rounded-2xl py-6 px-6 lg:hidden flex flex-col gap-4 animate-premium-fade z-40 transition-all duration-500 bg-neutral-950/95 backdrop-blur-xl text-white ${
-            isScrolled ? 'top-[52px]' : 'top-[60px]'
-          }`}>
+          <div className="absolute left-4 right-4 border border-white/10 rounded-2xl py-6 px-6 lg:hidden flex flex-col gap-4 animate-premium-fade z-40 transition-all duration-500 bg-neutral-950/95 backdrop-blur-xl text-white top-[56px] shadow-2xl">
             {SECTIONS.map((sec) => {
               const Icon = sec.icon;
               return (
@@ -187,7 +172,7 @@ export default function Navbar() {
                   onClick={() => scrollToSection(sec.id)}
                   className="text-left text-xs font-semibold tracking-widest uppercase py-1.5 transition-colors duration-300 font-display text-white/90 hover:text-gold flex items-center gap-2.5"
                 >
-                  <Icon size={13} className="text-gold shrink-0" />
+                  <Icon size={14} className="text-gold shrink-0" />
                   <span>{sec.label}</span>
                 </button>
               );
@@ -207,7 +192,7 @@ export default function Navbar() {
 
             <button 
               onClick={() => scrollToSection('contacto')}
-              className="w-full py-3 rounded-full text-xs font-bold uppercase tracking-widest text-center transition-all cursor-pointer bg-gold text-white hover:bg-gold-hover"
+              className="w-full py-3 rounded-full text-xs font-bold uppercase tracking-widest text-center transition-all cursor-pointer bg-gold text-prius-black hover:bg-gold-hover font-display"
             >
               RESERVÁ
             </button>
