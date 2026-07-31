@@ -45,10 +45,10 @@ export default function Navbar() {
     setIsOpen(false)
   }
 
-  // Estilos dinámicos del contenedor general del HEADER (Navy oscuro en estado sticky)
+  // Estilos dinámicos del contenedor general del HEADER (Navy con degrade suave sin border-bottom)
   const headerBackgroundClass = !isScrolled
     ? 'top-[20px] sm:top-[32px] w-full max-w-[1952px] px-4'
-    : 'top-0 w-full max-w-full px-4 sm:px-6 py-2 bg-neutral-950/85 backdrop-blur-lg border-b border-white/10 shadow-xl'
+    : 'top-0 w-full max-w-full px-4 sm:px-6 pt-2 pb-4 bg-gradient-to-b from-neutral-950/95 via-neutral-950/80 to-transparent backdrop-blur-md'
 
   // Textos e íconos SIEMPRE legibles con colores claros sobre fondo oscuro / hero
   const textColorClass = 'text-white/90 hover:text-gold transition-colors duration-300'
