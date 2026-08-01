@@ -170,7 +170,7 @@ export default function ContactSection() {
           <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8 mt-6">
             <div className="flex items-center gap-2 bg-white/5 border border-white/10 backdrop-blur-md px-4 py-2 rounded-full text-xs text-white/80">
               <Zap size={14} className="text-gold" />
-              <span>Respuesta en <2 Horas</span>
+              <span>Respuesta en menos de 2 horas</span>
             </div>
             <div className="flex items-center gap-2 bg-white/5 border border-white/10 backdrop-blur-md px-4 py-2 rounded-full text-xs text-white/80">
               <Clock size={14} className="text-gold" />
