@@ -18,7 +18,10 @@ export default function Footer() {
           className="w-full h-full object-cover object-center"
         />
         
-        {/* Degradado continuo y progresivo para que la foto se funda con el contenido inferior sin líneas */}
+        {/* Degradado de transición superior desde blanco (sección Contacto) hacia la foto */}
+        <div className="absolute top-0 inset-x-0 h-28 sm:h-40 md:h-52 bg-gradient-to-b from-white via-white/60 to-transparent z-10 pointer-events-none" />
+
+        {/* Degradado de transición inferior hacia el fondo oscuro del footer */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-neutral-950/40 to-neutral-950 pointer-events-none" />
 
         {/* Floating Glassmorphism "Volver Arriba" Button */}
