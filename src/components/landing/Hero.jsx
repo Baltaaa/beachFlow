@@ -1,4 +1,4 @@
-import { ArrowRight, Sparkles, Check, Umbrella, Calendar } from 'lucide-react'
+import { ArrowUpRight, Sparkles, Check } from 'lucide-react'
 
 export default function Hero() {
   const scrollToSection = (id) => {
@@ -54,35 +54,25 @@ export default function Hero() {
                 Tu lugar en Playa Grande para que disfrutes el verano.<br />Prius, donde el primero, sos vos!
               </p>
               
-              {/* Botones de Acción Premium con Glassmorphism */}
-              <div className="mt-7 3xl:mt-10 flex flex-col sm:flex-row gap-3.5">
+              {/* Botones de Acción de Alta Gama Minimalista */}
+              <div className="mt-7 3xl:mt-10 flex flex-col sm:flex-row gap-3">
                 
                 {/* Botón Principal: Ver Balneario */}
                 <button 
                   onClick={() => scrollToSection('servicios')}
-                  className="group relative inline-flex items-center justify-between h-13 sm:h-12 w-full sm:w-auto cursor-pointer rounded-full bg-gold px-6 sm:px-7 text-xs sm:text-[11px] 3xl:text-xs font-bold uppercase tracking-[0.15em] text-prius-black transition-all duration-300 hover:bg-gold-hover hover:shadow-[0_0_25px_rgba(242,202,80,0.4)] active:scale-[0.98] font-display"
+                  className="group inline-flex items-center justify-center gap-3 h-13 sm:h-12 w-full sm:w-auto cursor-pointer rounded-sm bg-gold hover:bg-gold-hover px-8 text-[11px] 3xl:text-xs font-semibold uppercase tracking-[0.2em] text-prius-black transition-all duration-300 shadow-lg active:scale-[0.98] font-display"
                 >
-                  <div className="flex items-center gap-2.5">
-                    <Umbrella size={16} className="text-prius-black shrink-0" />
-                    <span>VER BALNEARIO</span>
-                  </div>
-                  <div className="w-7 h-7 rounded-full bg-prius-black/10 flex items-center justify-center group-hover:translate-x-1 transition-transform shrink-0 ml-3">
-                    <ArrowRight size={14} className="text-prius-black" />
-                  </div>
+                  <span>VER BALNEARIO</span>
+                  <ArrowUpRight size={15} className="text-prius-black transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </button>
 
                 {/* Botón Secundario: Salón de Eventos */}
                 <button 
                   onClick={() => scrollToSection('eventos')}
-                  className="group inline-flex items-center justify-between h-13 sm:h-12 w-full sm:w-auto cursor-pointer rounded-full bg-neutral-950/60 backdrop-blur-md border border-white/25 hover:border-gold/60 px-6 sm:px-7 text-xs sm:text-[11px] 3xl:text-xs font-bold uppercase tracking-[0.15em] text-white transition-all duration-300 hover:bg-neutral-900/80 active:scale-[0.98] font-display"
+                  className="group inline-flex items-center justify-center gap-3 h-13 sm:h-12 w-full sm:w-auto cursor-pointer rounded-sm bg-neutral-950/40 hover:bg-white/10 backdrop-blur-md border border-white/30 hover:border-white/60 px-8 text-[11px] 3xl:text-xs font-semibold uppercase tracking-[0.2em] text-white transition-all duration-300 active:scale-[0.98] font-display"
                 >
-                  <div className="flex items-center gap-2.5">
-                    <Calendar size={16} className="text-gold shrink-0" />
-                    <span>SALÓN DE EVENTOS</span>
-                  </div>
-                  <div className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center group-hover:translate-x-1 transition-transform shrink-0 ml-3">
-                    <ArrowRight size={14} className="text-gold" />
-                  </div>
+                  <span>SALÓN DE EVENTOS</span>
+                  <ArrowUpRight size={15} className="text-gold transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </button>
 
               </div>
@@ -110,7 +100,7 @@ export default function Hero() {
                 Descubrí nuestro exclusivo espacio de eventos privados
               </span>
 
-              <ArrowRight size={14} className="shrink-0 text-white/80 transition-transform duration-300 group-hover:translate-x-1" />
+              <ArrowUpRight size={14} className="shrink-0 text-white/80 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </button>
           </div>
         </div>
