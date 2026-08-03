@@ -11,7 +11,7 @@ export default function Hero() {
   return (
     <section className="relative w-full bg-white flex flex-col justify-end p-2 sm:p-4 min-h-screen">
       
-      <div className="relative mx-auto flex min-h-[calc(100vh-1rem)] sm:min-h-[calc(100vh-2rem)] w-full max-w-[1920px] 3xl:max-w-[2400px] flex-col overflow-hidden rounded-[24px] sm:rounded-[28px] 3xl:rounded-[36px]">
+      <div className="relative mx-auto flex min-h-[calc(100vh-1rem)] sm:min-h-[calc(100vh-2rem)] w-full max-w-[1920px] 3xl:max-w-[2400px] flex-col overflow-hidden rounded-[24px] sm:rounded-[28px] 3xl:rounded-[36px] bg-neutral-900">
         
         <div className="absolute inset-0 z-0 select-none pointer-events-none">
           <picture className="absolute inset-0 w-full h-full">
@@ -20,6 +20,9 @@ export default function Hero() {
             <img 
               src="/images/prius-home-desktop.jpg" 
               alt="Experiencia Prius Playa Grande" 
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
               className="w-full h-full object-cover object-center"
             />
           </picture>
