@@ -140,9 +140,9 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* Modern Mobile Fullscreen Overlay - Solid Dark Background */}
+      {/* Modern Mobile Fullscreen Overlay - Same background style as sticky header */}
       {isOpen && (
-        <div className="fixed inset-0 z-[100] bg-neutral-950 flex flex-col justify-between p-6 sm:p-10 animate-premium-fade lg:hidden overflow-y-auto">
+        <div className="fixed inset-0 z-[100] bg-neutral-950/85 backdrop-blur-md flex flex-col justify-between p-6 sm:p-10 animate-premium-fade lg:hidden overflow-y-auto">
           
           {/* Header en el overlay movil */}
           <div className="flex items-center justify-between pt-2 pb-6 border-b border-white/10 shrink-0">
