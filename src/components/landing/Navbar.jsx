@@ -73,8 +73,8 @@ export default function Navbar() {
       >
         <div className={`mx-auto w-full relative flex items-center justify-between gap-4 transition-all duration-500 rounded-full ${
           isScrolled 
-            ? 'max-w-[1920px] 3xl:max-w-[2400px] lg:max-w-[1140px] 2xl:lg:max-w-[1600px] 3xl:lg:max-w-[1800px] px-4 sm:px-8 lg:px-8 h-[80px] sm:h-[88px] lg:h-12 2xl:lg:h-14 bg-neutral-950/80 lg:bg-neutral-950/85 backdrop-blur-md' 
-            : 'max-w-[1920px] 3xl:max-w-[2400px] px-4 sm:px-8 h-[80px] sm:h-[88px] 2xl:h-[96px]'
+            ? 'max-w-[1920px] 3xl:max-w-[2400px] lg:max-w-[1140px] 2xl:lg:max-w-[1600px] 3xl:lg:max-w-[1800px] px-8 lg:px-8 h-[80px] sm:h-[88px] lg:h-12 2xl:lg:h-14 bg-neutral-950/80 lg:bg-neutral-950/85 backdrop-blur-md' 
+            : 'max-w-[1920px] 3xl:max-w-[2400px] px-8 h-[80px] sm:h-[88px] 2xl:h-[96px]'
         }`}>
           
           {/* Logo - Tamaño constante en Mobile */}
