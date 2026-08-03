@@ -59,8 +59,8 @@ export default function Navbar() {
   }
 
   const headerBackgroundClass = !isScrolled
-    ? 'top-3 sm:top-6 md:top-8 w-full max-w-[1920px] 3xl:max-w-[2400px] px-5 sm:px-10 md:px-14'
-    : 'top-3 sm:top-6 md:top-8 lg:top-0 w-full max-w-[1920px] 3xl:max-w-[2400px] lg:max-w-full px-5 sm:px-10 md:px-14 lg:px-6 lg:py-1'
+    ? 'top-2 sm:top-4 w-full max-w-[1920px] 3xl:max-w-[2400px] px-2 sm:px-4'
+    : 'top-2 sm:top-4 lg:top-0 w-full max-w-[1920px] 3xl:max-w-[2400px] lg:max-w-full px-2 sm:px-4 lg:px-6 lg:py-1'
 
   const navPillBackground = 'bg-white/10 border border-white/15 backdrop-blur-[4px]'
   const contactButtonClass = 'bg-white/10 text-white hover:bg-white/20 border border-white/15 backdrop-blur-[4px]'
@@ -73,8 +73,8 @@ export default function Navbar() {
       >
         <div className={`mx-auto w-full relative flex items-center justify-between gap-4 transition-all duration-500 rounded-full ${
           isScrolled 
-            ? 'max-w-[1920px] 3xl:max-w-[2400px] lg:max-w-[1140px] 2xl:lg:max-w-[1600px] 3xl:lg:max-w-[1800px] px-8 lg:px-8 h-[80px] sm:h-[88px] lg:h-12 2xl:lg:h-14 bg-neutral-950/80 lg:bg-neutral-950/85 backdrop-blur-md' 
-            : 'max-w-[1920px] 3xl:max-w-[2400px] px-8 h-[80px] sm:h-[88px] 2xl:h-[96px]'
+            ? 'max-w-[1920px] 3xl:max-w-[2400px] lg:max-w-[1140px] 2xl:lg:max-w-[1600px] 3xl:lg:max-w-[1800px] px-4 sm:px-8 lg:px-8 h-[80px] sm:h-[88px] lg:h-12 2xl:lg:h-14 bg-neutral-950/80 lg:bg-neutral-950/85 backdrop-blur-md' 
+            : 'max-w-[1920px] 3xl:max-w-[2400px] px-4 sm:px-8 h-[80px] sm:h-[88px] 2xl:h-[96px]'
         }`}>
           
           {/* Logo - Tamaño constante en Mobile */}
