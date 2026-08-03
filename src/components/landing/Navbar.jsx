@@ -59,7 +59,7 @@ export default function Navbar() {
   }
 
   const headerBackgroundClass = !isScrolled
-    ? 'top-[20px] sm:top-[32px] w-full max-w-[1952px] 2xl:max-w-[2200px] px-4'
+    ? 'top-4 sm:top-6 md:top-8 w-full max-w-[1920px] 3xl:max-w-[2400px] px-4 sm:px-8 md:px-12'
     : 'top-0 w-full max-w-full px-4 sm:px-6 py-1 bg-neutral-950/85 backdrop-blur-[4px]'
 
   const textColorClass = 'text-white/90 hover:text-gold transition-colors duration-300'
@@ -74,8 +74,10 @@ export default function Navbar() {
       <header 
         className={`fixed z-50 transition-all duration-500 ease-in-out left-0 right-0 mx-auto ${headerBackgroundClass}`}
       >
-        <div className={`mx-auto w-full px-4 sm:px-8 max-w-[1140px] 2xl:max-w-[1600px] 3xl:max-w-[1800px] relative flex items-center justify-between gap-4 transition-all duration-500 ${
-          isScrolled ? 'h-11 sm:h-12 2xl:h-14' : 'h-[72px] 2xl:h-[84px]'
+        <div className={`mx-auto w-full relative flex items-center justify-between gap-4 transition-all duration-500 ${
+          isScrolled 
+            ? 'max-w-[1140px] 2xl:max-w-[1600px] 3xl:max-w-[1800px] px-4 sm:px-8 h-11 sm:h-12 2xl:h-14' 
+            : 'max-w-[1920px] 3xl:max-w-[2400px] px-2 sm:px-4 md:px-6 h-[72px] 2xl:h-[84px]'
         }`}>
           
           <div className="flex items-center shrink-0">
