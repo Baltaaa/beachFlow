@@ -20,13 +20,13 @@ import {
 const CATEGORY_ITEMS = [
   { id: "Todo", label: "Todo", icon: LayoutGrid },
   { id: "Coworking", label: "Coworking", icon: Briefcase },
-  { id: "Carpas & Sombrillas", label: "Carpas & Sombrillas", icon: Umbrella },
-  { id: "Pileta & Solárium", label: "Pileta & Solárium", icon: Waves },
+  { id: "Carpas & Sombrillas", label: "Carpas & Sombrillas", shortLabel: "Carpas & Sombrillas", icon: Umbrella },
+  { id: "Pileta & Solárium", label: "Pileta & Solárium", shortLabel: "Pileta & Solárium", icon: Waves },
   { id: "Gastronomía", label: "Gastronomía", icon: Utensils },
   { id: "Wellness", label: "Wellness", icon: Sparkles },
   { id: "Instalaciones", label: "Instalaciones", icon: Building2 },
   { id: "Eventos", label: "Eventos", icon: Calendar },
-  { id: "Recreación & Club", label: "Recreación & Club", icon: Gamepad2 },
+  { id: "Recreación & Club", label: "Recreación & Club", shortLabel: "Recreación", icon: Gamepad2 },
 ]
 
 const unifiedImages = [
@@ -222,13 +222,14 @@ export default function Services() {
           </p>
         </div>
 
-        {/* Sección de Categorías con alineación de renglones automáticos sin scroll horizontal */}
-        <div className="max-w-[1440px] 2xl:max-w-[1800px] mx-auto flex flex-col md:flex-row md:items-center justify-between border-b border-hairline/60 pb-6 mb-8 gap-4">
+        {/* Sección de Categorías en una Sola Fila Única sin saltos de línea */}
+        <div className="max-w-[1440px] 2xl:max-w-[1800px] mx-auto flex items-center justify-between border-b border-hairline/60 pb-6 mb-8 gap-4 overflow-hidden">
           
-          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2.5">
+          <div className="flex items-center gap-1.5 lg:gap-2 overflow-x-auto scrollbar-none py-1 w-full lg:w-auto" style={{ scrollbarWidth: 'none' }}>
             {CATEGORY_ITEMS.map((cat) => {
               const IconComp = cat.icon
               const isSelected = activeCategory === cat.id
+              const displayLabel = cat.shortLabel || cat.label
               return (
                 <button
                   key={cat.id}
@@ -237,33 +238,33 @@ export default function Services() {
                     setScrollProgress(0)
                     if (sliderRef.current) sliderRef.current.scrollLeft = 0
                   }}
-                  className={`flex items-center gap-1.5 px-3 sm:px-4 2xl:px-5 py-1.5 sm:py-2 2xl:py-2.5 rounded-full text-[9px] sm:text-[10px] 2xl:text-xs uppercase tracking-wider font-semibold transition-all cursor-pointer ${
+                  className={`flex items-center gap-1.5 px-3 lg:px-3.5 2xl:px-4 py-1.5 lg:py-2 rounded-full text-[9px] xl:text-[10px] 2xl:text-xs uppercase tracking-wider font-bold whitespace-nowrap transition-all cursor-pointer shrink-0 ${
                     isSelected
                       ? 'bg-gold text-prius-black border border-gold shadow-sm'
                       : 'bg-white text-prius-black/70 border border-hairline hover:border-gold/60 hover:text-prius-black hover:bg-gold/5'
                   }`}
                 >
-                  <IconComp size={12} className={isSelected ? 'text-prius-black' : 'text-gold'} />
-                  <span>{cat.label}</span>
+                  <IconComp size={11} className={`shrink-0 ${isSelected ? 'text-prius-black' : 'text-gold'}`} />
+                  <span>{displayLabel}</span>
                 </button>
               )
             })}
           </div>
 
-          <div className="hidden md:flex gap-2.5 shrink-0 self-end md:self-auto">
+          <div className="hidden lg:flex gap-2 shrink-0">
             <button
               onClick={() => scrollSlider('left')}
-              className="p-3 bg-white border border-hairline rounded-full hover:bg-gold hover:text-prius-black hover:border-gold transition-all duration-200 cursor-pointer shadow-sm text-prius-black"
+              className="p-2.5 bg-white border border-hairline rounded-full hover:bg-gold hover:text-prius-black hover:border-gold transition-all duration-200 cursor-pointer shadow-sm text-prius-black"
               aria-label="Anterior"
             >
-              <ChevronLeft size={18} />
+              <ChevronLeft size={16} />
             </button>
             <button
               onClick={() => scrollSlider('right')}
-              className="p-3 bg-white border border-hairline rounded-full hover:bg-gold hover:text-prius-black hover:border-gold transition-all duration-200 cursor-pointer shadow-sm text-prius-black"
+              className="p-2.5 bg-white border border-hairline rounded-full hover:bg-gold hover:text-prius-black hover:border-gold transition-all duration-200 cursor-pointer shadow-sm text-prius-black"
               aria-label="Siguiente"
             >
-              <ChevronRight size={18} />
+              <ChevronRight size={16} />
             </button>
           </div>
 
