@@ -60,10 +60,7 @@ export default function Navbar() {
 
   const headerBackgroundClass = !isScrolled
     ? 'top-3 sm:top-6 md:top-8 w-full max-w-[1920px] 3xl:max-w-[2400px] px-3 sm:px-8 md:px-12'
-    : 'top-0 w-full max-w-full px-4 sm:px-6 py-1 bg-neutral-950/85 backdrop-blur-[4px]'
-
-  const textColorClass = 'text-white/90 hover:text-gold transition-colors duration-300'
-  const textIconColor = 'text-gold'
+    : 'top-3 sm:top-6 md:top-8 lg:top-0 w-full max-w-[1920px] 3xl:max-w-[2400px] lg:max-w-full px-3 sm:px-8 md:px-12 lg:px-6 lg:py-1'
 
   const navPillBackground = 'bg-white/10 border border-white/15 backdrop-blur-[4px]'
   const contactButtonClass = 'bg-white/10 text-white hover:bg-white/20 border border-white/15 backdrop-blur-[4px]'
@@ -74,12 +71,13 @@ export default function Navbar() {
       <header 
         className={`fixed z-50 transition-all duration-500 ease-in-out left-0 right-0 mx-auto ${headerBackgroundClass}`}
       >
-        <div className={`mx-auto w-full relative flex items-center justify-between gap-4 transition-all duration-500 ${
+        <div className={`mx-auto w-full relative flex items-center justify-between gap-4 transition-all duration-500 rounded-full ${
           isScrolled 
-            ? 'max-w-[1140px] 2xl:max-w-[1600px] 3xl:max-w-[1800px] px-4 sm:px-8 h-12 sm:h-13 2xl:h-14' 
+            ? 'max-w-[1920px] 3xl:max-w-[2400px] lg:max-w-[1140px] 2xl:lg:max-w-[1600px] 3xl:lg:max-w-[1800px] px-3 sm:px-6 md:px-8 lg:px-8 h-[80px] sm:h-[88px] lg:h-12 2xl:lg:h-14 bg-neutral-950/80 lg:bg-neutral-950/85 backdrop-blur-md' 
             : 'max-w-[1920px] 3xl:max-w-[2400px] px-3 sm:px-6 md:px-8 h-[80px] sm:h-[88px] 2xl:h-[96px]'
         }`}>
           
+          {/* Logo - Tamaño constante en Mobile */}
           <div className="flex items-center shrink-0">
             <button 
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
@@ -90,13 +88,14 @@ export default function Navbar() {
                 alt="Prius Playa Grande" 
                 className={`w-auto object-contain transition-all duration-500 ${
                   isScrolled 
-                    ? 'h-[34px] sm:h-[38px] md:h-[42px]' 
-                    : 'h-[58px] sm:h-[66px] md:h-[74px]'
+                    ? 'h-[58px] sm:h-[66px] lg:h-[34px] 2xl:lg:h-[42px]' 
+                    : 'h-[58px] sm:h-[66px] 2xl:h-[74px]'
                 }`}
               />
             </button>
           </div>
 
+          {/* Menú Desktop de Secciones */}
           <nav className={`hidden lg:flex items-center rounded-full transition-all duration-500 h-8 2xl:h-9 p-0.5 absolute left-1/2 -translate-x-1/2 ${navPillBackground}`}>
             {SECTIONS.map((sec) => {
               const Icon = sec.icon;
@@ -104,15 +103,16 @@ export default function Navbar() {
                 <button
                   key={sec.id}
                   onClick={() => scrollToSection(sec.id)}
-                  className={`flex items-center gap-1.5 rounded-full px-3 2xl:px-4 py-1 text-[9px] 2xl:text-xs font-semibold tracking-wider uppercase cursor-pointer transition-all ${textColorClass}`}
+                  className="flex items-center gap-1.5 rounded-full px-3 2xl:px-4 py-1 text-[9px] 2xl:text-xs font-semibold tracking-wider uppercase cursor-pointer transition-all text-white/90 hover:text-gold"
                 >
-                  <Icon size={12} className={`${textIconColor} shrink-0`} />
+                  <Icon size={12} className="text-gold shrink-0" />
                   <span>{sec.label}</span>
                 </button>
               );
             })}
           </nav>
 
+          {/* Botones de Acción */}
           <div className="flex items-center gap-2.5 shrink-0 justify-self-end">
             <a 
               href="https://wa.me/542235765482"
@@ -126,6 +126,7 @@ export default function Navbar() {
               <span className="uppercase">Contacto</span>
             </a>
             
+            {/* Botón Menú Mobile - Tamaño constante */}
             <button 
               onClick={() => setIsOpen(!isOpen)} 
               className={`flex items-center rounded-full transition-all duration-500 size-11 sm:size-12 shrink-0 justify-center lg:hidden cursor-pointer ${menuButtonClass}`}
