@@ -65,7 +65,7 @@ const unifiedImages = [
   { src: "/images/wellness-relax-arena.jpg", title: "Oasis de Relajación", category: "Wellness", desc: "Descanso absoluto en cómodas reposeras sobre la arena, disfrutando de la brisa marina y el sol." },
 
   // --- INSTALACIONES ---
-  { src: "/images/instalaciones-paseo.jpg", title: "Paseo Playa Grande", category: "Instalaciones", desc: "Ubicación privilegiada en el corazón del paseo de Playa Grande, integrando diseño moderno y naturaleza costera." },
+  { src: "/images/instalaciones-paseo.jpg", title: "Paseo Playa Grande", category: "Instalaciones", desc: "Ubicación privileged en el corazón del paseo de Playa Grande, integrando diseño moderno y naturaleza costera." },
   { src: "/images/instalaciones-solarium.jpg", title: "Solárium & Pileta", category: "Instalaciones", desc: "Espectacular vista panorámica desde nuestro solárium de madera noble equipado con camastros y piscina climatizada." },
   { src: "/images/instalaciones-lockers-7.jpg", title: "Lockers de Seguridad", category: "Instalaciones", desc: "Tranquilidad absoluta para tus pertenencias con lockers privados y vestuarios de primer nivel." },
   { src: "/images/gallery_1400392.webp", title: "Vestuarios & Duchas", category: "Instalaciones", desc: "Higiene, confort y privacidad en instalaciones totalmente renovadas." },
@@ -222,8 +222,10 @@ export default function Services() {
           </p>
         </div>
 
-        <div className="max-w-[1440px] 2xl:max-w-[1800px] mx-auto flex items-center justify-between border-b border-hairline/60 pb-6 mb-8">
-          <div className="flex overflow-x-auto gap-2.5 scrollbar-none pb-2 md:pb-0">
+        {/* Sección de Categorías con alineación de renglones automáticos sin scroll horizontal */}
+        <div className="max-w-[1440px] 2xl:max-w-[1800px] mx-auto flex flex-col md:flex-row md:items-center justify-between border-b border-hairline/60 pb-6 mb-8 gap-4">
+          
+          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2.5">
             {CATEGORY_ITEMS.map((cat) => {
               const IconComp = cat.icon
               const isSelected = activeCategory === cat.id
@@ -235,20 +237,20 @@ export default function Services() {
                     setScrollProgress(0)
                     if (sliderRef.current) sliderRef.current.scrollLeft = 0
                   }}
-                  className={`flex items-center gap-2 px-4 2xl:px-5 py-2 2xl:py-2.5 rounded-full text-[10px] 2xl:text-xs uppercase tracking-wider font-semibold transition-all shrink-0 cursor-pointer ${
+                  className={`flex items-center gap-1.5 px-3 sm:px-4 2xl:px-5 py-1.5 sm:py-2 2xl:py-2.5 rounded-full text-[9px] sm:text-[10px] 2xl:text-xs uppercase tracking-wider font-semibold transition-all cursor-pointer ${
                     isSelected
                       ? 'bg-gold text-prius-black border border-gold shadow-sm'
                       : 'bg-white text-prius-black/70 border border-hairline hover:border-gold/60 hover:text-prius-black hover:bg-gold/5'
                   }`}
                 >
-                  <IconComp size={13} className={isSelected ? 'text-prius-black' : 'text-gold'} />
+                  <IconComp size={12} className={isSelected ? 'text-prius-black' : 'text-gold'} />
                   <span>{cat.label}</span>
                 </button>
               )
             })}
           </div>
 
-          <div className="hidden md:flex gap-2.5 shrink-0">
+          <div className="hidden md:flex gap-2.5 shrink-0 self-end md:self-auto">
             <button
               onClick={() => scrollSlider('left')}
               className="p-3 bg-white border border-hairline rounded-full hover:bg-gold hover:text-prius-black hover:border-gold transition-all duration-200 cursor-pointer shadow-sm text-prius-black"
@@ -264,6 +266,7 @@ export default function Services() {
               <ChevronRight size={18} />
             </button>
           </div>
+
         </div>
 
         <div className="relative max-w-[1440px] 2xl:max-w-[1800px] mx-auto">
