@@ -54,13 +54,13 @@ export default function Hero() {
                 Tu lugar en Playa Grande para que disfrutes el verano.<br />Prius, donde el primero, sos vos!
               </p>
               
-              {/* Botones de Acción de Alta Gama Minimalista */}
+              {/* Botones de Acción de Alta Gama Redondeados (Píldora) */}
               <div className="mt-7 3xl:mt-10 flex flex-col sm:flex-row gap-3">
                 
                 {/* Botón Principal: Ver Balneario */}
                 <button 
                   onClick={() => scrollToSection('servicios')}
-                  className="group inline-flex items-center justify-center gap-3 h-13 sm:h-12 w-full sm:w-auto cursor-pointer rounded-sm bg-gold hover:bg-gold-hover px-8 text-[11px] 3xl:text-xs font-semibold uppercase tracking-[0.2em] text-prius-black transition-all duration-300 shadow-lg active:scale-[0.98] font-display"
+                  className="group inline-flex items-center justify-center gap-2.5 h-12 3xl:h-14 w-full sm:w-auto cursor-pointer rounded-full bg-gold hover:bg-gold-hover px-7 3xl:px-9 text-[11px] 3xl:text-xs font-bold uppercase tracking-[0.15em] text-prius-black transition-all duration-300 active:scale-[0.98] font-display"
                 >
                   <span>VER BALNEARIO</span>
                   <ArrowUpRight size={15} className="text-prius-black transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -69,7 +69,7 @@ export default function Hero() {
                 {/* Botón Secundario: Salón de Eventos */}
                 <button 
                   onClick={() => scrollToSection('eventos')}
-                  className="group inline-flex items-center justify-center gap-3 h-13 sm:h-12 w-full sm:w-auto cursor-pointer rounded-sm bg-neutral-950/40 hover:bg-white/10 backdrop-blur-md border border-white/30 hover:border-white/60 px-8 text-[11px] 3xl:text-xs font-semibold uppercase tracking-[0.2em] text-white transition-all duration-300 active:scale-[0.98] font-display"
+                  className="group inline-flex items-center justify-center gap-2.5 h-12 3xl:h-14 w-full sm:w-auto cursor-pointer rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 hover:border-white/40 px-7 3xl:px-9 text-[11px] 3xl:text-xs font-bold uppercase tracking-[0.15em] text-white transition-all duration-300 active:scale-[0.98] font-display"
                 >
                   <span>SALÓN DE EVENTOS</span>
                   <ArrowUpRight size={15} className="text-gold transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
