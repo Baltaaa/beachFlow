@@ -1,4 +1,4 @@
-import { ArrowRight, Sparkles, Check } from 'lucide-react'
+import { ArrowRight, Sparkles, Check, Umbrella, Calendar } from 'lucide-react'
 
 export default function Hero() {
   const scrollToSection = (id) => {
@@ -54,19 +54,37 @@ export default function Hero() {
                 Tu lugar en Playa Grande para que disfrutes el verano.<br />Prius, donde el primero, sos vos!
               </p>
               
-              <div className="mt-6 3xl:mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+              {/* Botones de Acción Premium con Glassmorphism */}
+              <div className="mt-7 3xl:mt-10 flex flex-col sm:flex-row gap-3.5">
+                
+                {/* Botón Principal: Ver Balneario */}
                 <button 
                   onClick={() => scrollToSection('servicios')}
-                  className="inline-flex h-11 3xl:h-12 w-full sm:w-auto cursor-pointer items-center justify-center rounded-full bg-gold px-8 3xl:px-10 text-[10px] sm:text-[11px] 3xl:text-xs font-bold uppercase tracking-wider text-prius-black transition-all hover:bg-gold-hover shadow-md"
+                  className="group relative inline-flex items-center justify-between h-13 sm:h-12 w-full sm:w-auto cursor-pointer rounded-full bg-gold px-6 sm:px-7 text-xs sm:text-[11px] 3xl:text-xs font-bold uppercase tracking-[0.15em] text-prius-black transition-all duration-300 hover:bg-gold-hover hover:shadow-[0_0_25px_rgba(242,202,80,0.4)] active:scale-[0.98] font-display"
                 >
-                  VER BALNEARIO
+                  <div className="flex items-center gap-2.5">
+                    <Umbrella size={16} className="text-prius-black shrink-0" />
+                    <span>VER BALNEARIO</span>
+                  </div>
+                  <div className="w-7 h-7 rounded-full bg-prius-black/10 flex items-center justify-center group-hover:translate-x-1 transition-transform shrink-0 ml-3">
+                    <ArrowRight size={14} className="text-prius-black" />
+                  </div>
                 </button>
+
+                {/* Botón Secundario: Salón de Eventos */}
                 <button 
                   onClick={() => scrollToSection('eventos')}
-                  className="inline-flex h-11 3xl:h-12 w-full sm:w-auto cursor-pointer items-center justify-center rounded-full border border-white/40 bg-transparent px-7 3xl:px-9 text-[10px] sm:text-[11px] 3xl:text-xs font-bold uppercase tracking-wider text-white transition-all hover:bg-white/10 hover:border-white/60"
+                  className="group inline-flex items-center justify-between h-13 sm:h-12 w-full sm:w-auto cursor-pointer rounded-full bg-neutral-950/60 backdrop-blur-md border border-white/25 hover:border-gold/60 px-6 sm:px-7 text-xs sm:text-[11px] 3xl:text-xs font-bold uppercase tracking-[0.15em] text-white transition-all duration-300 hover:bg-neutral-900/80 active:scale-[0.98] font-display"
                 >
-                  VER SALÓN DE EVENTOS
+                  <div className="flex items-center gap-2.5">
+                    <Calendar size={16} className="text-gold shrink-0" />
+                    <span>SALÓN DE EVENTOS</span>
+                  </div>
+                  <div className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center group-hover:translate-x-1 transition-transform shrink-0 ml-3">
+                    <ArrowRight size={14} className="text-gold" />
+                  </div>
                 </button>
+
               </div>
             </div>
 
