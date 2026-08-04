@@ -39,7 +39,7 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-white font-sans text-prius-black selection:bg-gold selection:text-prius-black">
       <Navbar />
-      <main className="overflow-hidden">
+      <main className="relative z-20 overflow-x-clip">
         {/* El Hero ya inicia animado directamente para dar feedback inmediato */}
         <Hero />
         
@@ -55,7 +55,7 @@ export default function LandingPage() {
         <div id="testimonios" className="reveal">
           <Testimonials />
         </div>
-        <div id="contacto" className="reveal">
+        <div id="contacto" className="reveal relative z-30">
           <ContactSection />
         </div>
       </main>

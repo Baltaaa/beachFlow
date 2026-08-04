@@ -6,10 +6,10 @@ export default function Footer() {
   }
 
   return (
-    <footer className="w-full bg-neutral-950 text-white relative overflow-hidden">
+    <footer className="w-full bg-neutral-950 text-white relative z-10 overflow-hidden">
       
       {/* ========================================================= */}
-      {/* BANDA 1: Foto aérea ampliada que se funde suavemente     */}
+      {/* BANDA 1: Foto aérea ampliada sobre la que se superpone la tarjeta */}
       {/* ========================================================= */}
       <div className="relative w-full h-[360px] sm:h-[480px] md:h-[580px] overflow-hidden select-none">
         <img 
@@ -18,8 +18,8 @@ export default function Footer() {
           className="w-full h-full object-cover object-center"
         />
         
-        {/* Degradado de transición superior desde blanco (sección Contacto) hacia la foto */}
-        <div className="absolute top-0 inset-x-0 h-28 sm:h-40 md:h-52 bg-gradient-to-b from-white via-white/60 to-transparent z-10 pointer-events-none" />
+        {/* Degradado suave superior para transición impecable */}
+        <div className="absolute top-0 inset-x-0 h-16 sm:h-24 bg-gradient-to-b from-white to-transparent z-10 pointer-events-none" />
 
         {/* Degradado de transición inferior hacia el fondo oscuro del footer */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-neutral-950/40 to-neutral-950 pointer-events-none" />
@@ -39,7 +39,7 @@ export default function Footer() {
       </div>
 
       {/* ========================================================= */}
-      {/* BANDA 2: Información de Pie de Página (Fondo Navy)        */}
+      {/* BANDA 2: Información de Pie de Página (Fondo Oscuro)       */}
       {/* ========================================================= */}
       <div className="bg-neutral-950 pt-4 pb-12 px-4 sm:px-8 relative z-10">
         <div className="mx-auto w-full max-w-[1140px] 2xl:max-w-[1600px] 3xl:max-w-[1800px]">

@@ -138,7 +138,7 @@ export default function ContactSection() {
   }
 
   return (
-    <section id="contacto" className="pt-12 md:pt-16 pb-0 -mb-32 sm:-mb-44 lg:-mb-56 relative z-30 px-margin-mobile md:px-margin-desktop text-prius-black">
+    <section className="pt-12 md:pt-16 pb-0 -mb-28 sm:-mb-40 lg:-mb-52 relative z-30 px-margin-mobile md:px-margin-desktop text-prius-black">
       
       {/* Fondo Fotográfico de sección */}
       <div className="absolute inset-0 z-0 select-none pointer-events-none overflow-hidden">
@@ -179,8 +179,8 @@ export default function ContactSection() {
           </div>
         </div>
 
-        {/* Tarjeta Estructura Bento Flotante con Superposición Profunda y Sombra Premium */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 border border-hairline/80 rounded-3xl overflow-hidden bg-white shadow-[0_25px_60px_-15px_rgba(0,0,0,0.20)] hover:shadow-[0_30px_70px_-12px_rgba(0,0,0,0.25)] transition-all duration-500 relative z-30">
+        {/* Tarjeta Estructura Bento Flotante sobre la Foto del Footer con Sombra Profunda */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 border border-hairline/80 rounded-3xl overflow-hidden bg-white shadow-[0_25px_60px_-15px_rgba(0,0,0,0.30)] hover:shadow-[0_30px_70px_-12px_rgba(0,0,0,0.35)] transition-all duration-500 relative z-30">
           
           {/* Bloque Izquierdo: Información de Contacto */}
           <div className="lg:col-span-4 relative text-prius-black p-6 md:p-8 2xl:p-10 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-hairline bg-neutral-50/90 overflow-hidden min-h-[320px] lg:min-h-[440px]">
