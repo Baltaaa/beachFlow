@@ -64,7 +64,7 @@ export default function Navbar() {
 
   // Clases para el contenedor interno (la barra principal)
   const innerBarClass = isScrolled
-    ? 'max-w-[1200px] h-14 2xl:h-16 bg-neutral-950/80 border-white/10 shadow-2xl backdrop-blur-lg px-6'
+    ? 'max-w-[1200px] h-14 2xl:h-16 bg-neutral-950/85 border-gold/30 shadow-[0_0_20px_rgba(242,202,80,0.18),0_10px_30px_rgba(0,0,0,0.6)] backdrop-blur-lg px-6'
     : 'max-w-[1920px] h-[80px] sm:h-[88px] 2xl:h-[96px] bg-transparent border-transparent px-8'
 
   return (
