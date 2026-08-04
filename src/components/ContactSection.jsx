@@ -138,9 +138,9 @@ export default function ContactSection() {
   }
 
   return (
-    <section id="contacto" className="pt-12 pb-16 md:pt-16 md:pb-24 -mb-20 lg:-mb-32 relative z-20 px-margin-mobile md:px-margin-desktop text-prius-black border-t border-hairline">
+    <section id="contacto" className="pt-12 md:pt-16 pb-0 -mb-32 sm:-mb-44 lg:-mb-56 relative z-30 px-margin-mobile md:px-margin-desktop text-prius-black">
       
-      {/* Fondo Fotográfico */}
+      {/* Fondo Fotográfico de sección */}
       <div className="absolute inset-0 z-0 select-none pointer-events-none overflow-hidden">
         <img 
           src="/images/playa-grande-aerea.webp" 
@@ -164,23 +164,23 @@ export default function ContactSection() {
 
           {/* Badges de Garantía Compactos */}
           <div className="flex flex-wrap justify-center items-center gap-2.5 md:gap-4 mt-4">
-            <div className="flex items-center gap-1.5 bg-white/80 border border-hairline shadow-sm backdrop-blur-md px-3 py-1 rounded-full text-[11px] text-prius-black/80 font-medium">
+            <div className="flex items-center gap-1.5 bg-white/90 border border-hairline shadow-sm backdrop-blur-md px-3.5 py-1.5 rounded-full text-[11px] text-prius-black/80 font-medium">
               <Zap size={12} className="text-gold fill-gold" />
               <span>Respuesta en menos de 2 horas</span>
             </div>
-            <div className="flex items-center gap-1.5 bg-white/80 border border-hairline shadow-sm backdrop-blur-md px-3 py-1 rounded-full text-[11px] text-prius-black/80 font-medium">
+            <div className="flex items-center gap-1.5 bg-white/90 border border-hairline shadow-sm backdrop-blur-md px-3.5 py-1.5 rounded-full text-[11px] text-prius-black/80 font-medium">
               <Clock size={12} className="text-gold" />
               <span>Atención 9:00 a 19:00 hs</span>
             </div>
-            <div className="flex items-center gap-1.5 bg-white/80 border border-hairline shadow-sm backdrop-blur-md px-3 py-1 rounded-full text-[11px] text-prius-black/80 font-medium">
+            <div className="flex items-center gap-1.5 bg-white/90 border border-hairline shadow-sm backdrop-blur-md px-3.5 py-1.5 rounded-full text-[11px] text-prius-black/80 font-medium">
               <Award size={12} className="text-gold" />
               <span>Reserva Directa Sin Intermediarios</span>
             </div>
           </div>
         </div>
 
-        {/* Tarjeta Estructura Bento Clara con Sombra Elevada para Superposición */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 border border-hairline rounded-3xl overflow-hidden bg-white shadow-2xl">
+        {/* Tarjeta Estructura Bento Flotante con Superposición Profunda y Sombra Premium */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 border border-hairline/80 rounded-3xl overflow-hidden bg-white shadow-[0_25px_60px_-15px_rgba(0,0,0,0.20)] hover:shadow-[0_30px_70px_-12px_rgba(0,0,0,0.25)] transition-all duration-500 relative z-30">
           
           {/* Bloque Izquierdo: Información de Contacto */}
           <div className="lg:col-span-4 relative text-prius-black p-6 md:p-8 2xl:p-10 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-hairline bg-neutral-50/90 overflow-hidden min-h-[320px] lg:min-h-[440px]">
@@ -247,7 +247,7 @@ export default function ContactSection() {
             </div>
           </div>
 
-          {/* Bloque Derecho: Formulario Interactivo Paso a Paso (Escala Minificada) */}
+          {/* Bloque Derecho: Formulario Interactivo Paso a Paso */}
           <div className="lg:col-span-8 p-6 md:p-8 2xl:p-10 bg-white flex flex-col justify-between min-h-[420px] lg:min-h-[440px]">
             
             {/* Barra de Progreso */}
