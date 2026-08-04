@@ -57,19 +57,15 @@ export default function Navbar() {
     }, 150)
   }
 
-  // Clases para el contenedor externo (posicionamiento)
+  // Clases para el contenedor externo
   const headerWrapperClass = isScrolled
     ? 'top-4 px-4 sm:px-6 lg:px-8'
     : 'top-2 sm:top-4 px-2 sm:px-4 lg:px-6'
 
-  // Clases para el contenedor interno (estilo de la barra)
+  // Clases para el contenedor interno (la barra principal)
   const innerBarClass = isScrolled
     ? 'max-w-[1200px] h-14 2xl:h-16 bg-neutral-950/80 border-white/10 shadow-2xl backdrop-blur-lg px-6'
     : 'max-w-[1920px] h-[80px] sm:h-[88px] 2xl:h-[96px] bg-transparent border-transparent px-8'
-
-  const navPillBackground = isScrolled
-    ? 'bg-neutral-900/60 border-white/10 backdrop-blur-md'
-    : 'bg-white/10 border-white/15 backdrop-blur-[4px]'
 
   return (
     <>
@@ -78,7 +74,7 @@ export default function Navbar() {
       >
         <div className={`mx-auto relative flex items-center justify-between gap-4 border transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] rounded-full ${innerBarClass}`}>
           
-          {/* Logo - Escala suavemente al scrollear */}
+          {/* Logo */}
           <div className="flex items-center shrink-0">
             <button 
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
@@ -96,17 +92,17 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* Menú Desktop Central */}
-          <nav className={`hidden lg:flex items-center rounded-full transition-all duration-700 h-8 2xl:h-9 p-0.5 border absolute left-1/2 -translate-x-1/2 ${navPillBackground}`}>
+          {/* Menú Desktop Central (Sin fondo, con brillo en hover) */}
+          <nav className="hidden lg:flex items-center gap-2 absolute left-1/2 -translate-x-1/2 transition-all duration-700">
             {SECTIONS.map((sec) => {
               const Icon = sec.icon;
               return (
                 <button
                   key={sec.id}
                   onClick={() => scrollToSection(sec.id)}
-                  className="flex items-center gap-1.5 rounded-full px-3.5 2xl:px-5 py-1 text-[9px] 2xl:text-xs font-semibold tracking-wider uppercase cursor-pointer transition-all text-white/90 hover:text-gold"
+                  className="flex items-center gap-2 px-4 py-2 text-[10px] 2xl:text-xs font-bold tracking-[0.15em] uppercase cursor-pointer transition-all duration-300 text-white/80 hover:text-white hover:drop-shadow-[0_0_8px_rgba(242,202,80,0.6)] group"
                 >
-                  <Icon size={12} className="text-gold shrink-0" />
+                  <Icon size={12} className="text-gold shrink-0 transition-transform duration-300 group-hover:scale-110" />
                   <span>{sec.label}</span>
                 </button>
               );
