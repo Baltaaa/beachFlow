@@ -74,16 +74,16 @@ export default function Navbar() {
       >
         <div className={`mx-auto relative flex items-center justify-between gap-4 border transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] rounded-full ${innerBarClass}`}>
           
-          {/* Logo */}
+          {/* Logo dinámico: Muestra la "P" al scrollear y el logo completo arriba de todo */}
           <div className="flex items-center shrink-0">
             <button 
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
               className="bg-transparent px-0 inline-flex items-center justify-center cursor-pointer"
             >
               <img 
-                src="/images/prius-logo-white.png" 
+                src={isScrolled ? "/images/prius-icon.png" : "/images/prius-logo-white.png"} 
                 alt="Prius Playa Grande" 
-                className={`w-auto object-contain transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                className={`w-auto object-contain transition-all duration-500 ease-out ${
                   isScrolled 
                     ? 'h-[32px] 2xl:h-[38px]' 
                     : 'h-[58px] sm:h-[66px] 2xl:h-[74px]'
