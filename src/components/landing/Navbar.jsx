@@ -6,9 +6,7 @@ import {
   Calendar, 
   MessageSquare,
   ArrowRight,
-  Phone,
-  Instagram,
-  MapPin
+  Phone
 } from 'lucide-react'
 
 const SECTIONS = [
@@ -20,6 +18,7 @@ const SECTIONS = [
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [activeSection, setActiveSection] = useState('')
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,6 +33,37 @@ export default function Navbar() {
     window.addEventListener('scroll', handleScroll, { passive: true })
     handleScroll()
     return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  useEffect(() => {
+    const sectionIds = SECTIONS.map(s => s.id)
+    const observerOptions = {
+      root: null,
+      rootMargin: '-20% 0px -60% 0px',
+      threshold: 0
+    }
+
+    const handleIntersect = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id)
+        }
+      })
+    }
+
+    const observer = new IntersectionObserver(handleIntersect, observerOptions)
+    
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id)
+      if (el) observer.observe(el)
+    })
+
+    return () => {
+      sectionIds.forEach((id) => {
+        const el = document.getElementById(id)
+        if (el) observer.unobserve(el)
+      })
+    }
   }, [])
 
   useEffect(() => {
@@ -92,17 +122,22 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* Menú Desktop Central (Sin fondo, con brillo en hover) */}
+          {/* Menú Desktop Central (Sin fondo, con brillo en hover y estado activo) */}
           <nav className="hidden lg:flex items-center gap-2 absolute left-1/2 -translate-x-1/2 transition-all duration-700">
             {SECTIONS.map((sec) => {
               const Icon = sec.icon;
+              const isActive = activeSection === sec.id;
               return (
                 <button
                   key={sec.id}
                   onClick={() => scrollToSection(sec.id)}
-                  className="flex items-center gap-2 px-4 py-2 text-[10px] 2xl:text-xs font-bold tracking-[0.15em] uppercase cursor-pointer transition-all duration-300 text-white/80 hover:text-white hover:drop-shadow-[0_0_8px_rgba(242,202,80,0.6)] group"
+                  className={`flex items-center gap-2 px-4 py-2 text-[10px] 2xl:text-xs font-bold tracking-[0.15em] uppercase cursor-pointer transition-all duration-300 group ${
+                    isActive 
+                      ? 'text-gold font-extrabold drop-shadow-[0_0_10px_rgba(242,202,80,0.5)]' 
+                      : 'text-white/80 hover:text-white hover:drop-shadow-[0_0_8px_rgba(242,202,80,0.6)]'
+                  }`}
                 >
-                  <Icon size={12} className="text-gold shrink-0 transition-transform duration-300 group-hover:scale-110" />
+                  <Icon size={12} className={`shrink-0 transition-transform duration-300 group-hover:scale-110 ${isActive ? 'text-gold' : 'text-gold/80'}`} />
                   <span>{sec.label}</span>
                 </button>
               );
@@ -171,22 +206,27 @@ export default function Navbar() {
             
             {SECTIONS.map((sec) => {
               const Icon = sec.icon;
+              const isActive = activeSection === sec.id;
               return (
                 <button
                   key={sec.id}
                   onClick={() => scrollToSection(sec.id)}
-                  className="group flex items-center justify-between py-4 px-5 rounded-2xl border border-white/5 bg-white/[0.03] hover:bg-white/[0.08] transition-all cursor-pointer"
+                  className={`group flex items-center justify-between py-4 px-5 rounded-2xl border transition-all cursor-pointer ${
+                    isActive
+                      ? 'border-gold/60 bg-white/[0.12]'
+                      : 'border-white/5 bg-white/[0.03] hover:bg-white/[0.08]'
+                  }`}
                 >
                   <div className="flex items-center gap-4">
                     <span className="text-[10px] font-bold text-gold font-display">{sec.num}</span>
                     <div className="flex items-center gap-3">
-                      <Icon size={16} className="text-gold/60" />
-                      <span className="text-base font-bold uppercase tracking-wider text-white font-display">
+                      <Icon size={16} className={isActive ? 'text-gold' : 'text-gold/60'} />
+                      <span className={`text-base font-bold uppercase tracking-wider font-display ${isActive ? 'text-gold' : 'text-white'}`}>
                         {sec.label}
                       </span>
                     </div>
                   </div>
-                  <ArrowRight size={18} className="text-white/20 group-hover:text-gold transition-all" />
+                  <ArrowRight size={18} className={`transition-all ${isActive ? 'text-gold' : 'text-white/20 group-hover:text-gold'}`} />
                 </button>
               );
             })}
