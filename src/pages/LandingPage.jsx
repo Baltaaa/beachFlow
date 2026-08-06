@@ -41,25 +41,29 @@ export default function LandingPage() {
       <Navbar />
       <main className="relative z-20 overflow-x-clip">
         {/* El Hero ya inicia animado directamente para dar feedback inmediato */}
-        <Hero />
+        <div data-theme="dark">
+          <Hero />
+        </div>
         
-        <div id="partners" className="reveal">
+        <div id="partners" className="reveal" data-theme="light">
           <Partners />
         </div>
-        <div id="servicios" className="reveal">
+        <div id="servicios" className="reveal" data-theme="light">
           <Services />
         </div>
-        <div id="eventos" className="reveal">
+        <div id="eventos" className="reveal" data-theme="dark">
           <Events />
         </div>
-        <div id="testimonios" className="reveal">
+        <div id="testimonios" className="reveal" data-theme="light">
           <Testimonials />
         </div>
-        <div id="contacto" className="reveal relative z-30">
+        <div id="contacto" className="reveal relative z-30" data-theme="light">
           <ContactSection />
         </div>
       </main>
-      <Footer />
+      <div data-theme="dark">
+        <Footer />
+      </div>
     </div>
   )
 }
