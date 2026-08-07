@@ -93,6 +93,13 @@ body {
   animation: premiumFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* Fade corto para transiciones de contenido dentro de una interacción ya
+   abierta (cambio de imagen en un slider/modal) — no debe demorar la
+   respuesta al swipe/click, solo suavizar el corte. */
+.animate-image-fade {
+  animation: premiumFadeIn 0.35s ease-out forwards;
+}
+
 .animate-premium-slide {
   animation: premiumSlideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
