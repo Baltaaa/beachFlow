@@ -61,7 +61,6 @@ const SECTORS = [
       { src: '/images/recreacion-metegol.jpg', title: 'Metegol en la Arena', desc: 'Diversión clásica frente al mar con torneos de metegol para disfrutar en familia.' },
       { src: '/images/recreacion-talleres.jpg', title: 'Talleres de Arte', desc: 'Espacio creativo para niños con talleres de collares, pulseras y manualidades guiadas.' },
       { src: '/images/recreacion-jenga.jpg', title: 'Jenga Gigante', desc: 'Desafíos de destreza y risas aseguradas con nuestro jenga gigante en la playa.' },
-      { src: '/images/recreacion-surf.jpg', title: 'Surf', desc: 'Disfrutá de las mejores olas de Playa Grande con tablas de surf de primer nivel.' },
     ],
   },
   {
@@ -74,6 +73,7 @@ const SECTORS = [
       { src: '/images/wellness-aquadance.jpg', title: 'Aqua Dance', desc: 'Clases dinámicas y divertidas de aqua dance en nuestra piscina climatizada para todas las edades.' },
       { src: '/images/wellness-yoga.jpg', title: 'Yoga Grupal', desc: 'Prácticas de yoga grupales sobre la arena para conectar con la respiración y el sonido del mar.' },
       { src: '/images/wellness-relax-arena.jpg', title: 'Oasis de Relajación', desc: 'Descanso absoluto en cómodas reposeras sobre la arena, disfrutando de la brisa marina y el sol.' },
+      { src: '/images/recreacion-surf.jpg', title: 'Surf', desc: 'Disfrutá de las mejores olas de Playa Grande con tablas de surf de primer nivel.' },
     ],
   },
   {
@@ -105,13 +105,20 @@ const SECTORS = [
     id: 'marcas',
     label: 'Marcas',
     tagline: 'Las marcas que confiaron en Prius Playa Grande.',
-    cover: '/images/logoSancor.svg',
-    lightTile: true,
+    cover: '/images/marca-burger-king.webp',
     images: [
-      { src: '/images/logoBNA.svg', title: 'Banco de la Nación Argentina', desc: 'Activación de marca junto a BNA en el espacio de playa durante la temporada.' },
-      { src: '/images/logoHawk.svg', title: 'Hawk Seguros', desc: 'Alianza estratégica con Hawk Seguros en experiencias exclusivas de socios.' },
-      { src: '/images/logoSancor.svg', title: 'Sancor Seguros', desc: 'Sancor Seguros acompañó jornadas y beneficios especiales para sus clientes.' },
-      { src: '/images/logoMedife.svg', title: 'Medifé', desc: 'Medifé se sumó a nuestras propuestas de bienestar y salud durante el verano.' },
+      { src: '/images/marca-burger-king.webp', title: 'Burger King', desc: 'Activación de marca junto a Burger King, con un arco imponente que recibió a nuestros visitantes en la playa.' },
+      { src: '/images/marca-santa-julia.webp', title: 'Santa Julia', desc: 'Santa Julia brindó con nuestros visitantes en una experiencia de coctelería frente al mar.' },
+      { src: '/images/marca-medife.webp', title: 'Medifé', desc: 'Medifé se sumó a nuestras propuestas de bienestar y salud durante el verano.' },
+      { src: '/images/marca-banco-macro.webp', title: 'Banco Macro', desc: 'Banco Macro acompañó un evento exclusivo junto a la pileta de Prius Playa Grande.' },
+      { src: '/images/marca-dermaglos.webp', title: 'Dermaglós', desc: 'Dermaglós presente con una activación de cuidado solar y juegos para toda la familia.' },
+      { src: '/images/marca-vea.webp', title: 'Vea', desc: 'Vea se sumó con una jornada de actividades y sorpresas para los más chicos en el espacio de playa.' },
+      { src: '/images/marca-cencosud.webp', title: 'Cencosud', desc: 'Activación de la Tarjeta Cencosud junto a Vea, con beneficios exclusivos para nuestros visitantes.' },
+      { src: '/images/marca-hawk-group.webp', title: 'Hawk Group', desc: 'Alianza estratégica con Hawk Group en experiencias exclusivas de socios.' },
+      { src: '/images/marca-antonio-banderas.webp', title: 'Antonio Banderas Fragrances', desc: 'Activación de Antonio Banderas Fragrances, con una experiencia exclusiva de su línea King of Seduction frente al mar.' },
+      { src: '/images/marca-arredo.webp', title: 'Arredo', desc: 'Arredo acompañó la temporada vistiendo a nuestro equipo con su sello de diseño.' },
+      { src: '/images/marca-sancor-seguros.webp', title: 'Sancor Seguros', desc: 'Sancor Seguros acompañó jornadas y beneficios especiales para sus clientes.' },
+      { src: '/images/marca-taragui.webp', title: 'Taragüi', desc: 'Taragüi presente en la playa con una acción de marca y regalos para nuestros visitantes.' },
     ],
   },
 ]
@@ -305,6 +312,9 @@ function MobileModal({ selectedIdx, setSelectedIdx, imageIdx, setImageIdx }) {
 export default function Services() {
   const [selectedIdx, setSelectedIdx] = useState(null)
   const [imageIdx, setImageIdx] = useState(0)
+  const [edges, setEdges] = useState({ atStart: true, atEnd: false })
+  const sliderRef = useRef(null)
+  const edgesRafRef = useRef(null)
 
   const openSector = (i) => {
     setSelectedIdx(i)
@@ -316,11 +326,45 @@ export default function Services() {
     return () => { document.body.style.overflow = '' }
   }, [selectedIdx])
 
+  // Sombras de profundidad en los bordes de la fila de sectores: aparecen
+  // solo cuando hay contenido oculto hacia ese lado, con un pequeño umbral
+  // para no titilar por redondeo de subpíxel.
+  useEffect(() => {
+    const el = sliderRef.current
+    if (!el) return
+
+    const updateEdges = () => {
+      const { scrollLeft, scrollWidth, clientWidth } = el
+      const threshold = 4
+      setEdges({
+        atStart: scrollLeft <= threshold,
+        atEnd: scrollLeft + clientWidth >= scrollWidth - threshold,
+      })
+    }
+
+    const onScroll = () => {
+      if (edgesRafRef.current) return
+      edgesRafRef.current = requestAnimationFrame(() => {
+        edgesRafRef.current = null
+        updateEdges()
+      })
+    }
+
+    updateEdges()
+    el.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', updateEdges)
+    return () => {
+      el.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', updateEdges)
+      if (edgesRafRef.current) cancelAnimationFrame(edgesRafRef.current)
+    }
+  }, [])
+
   return (
-    <section className="min-h-screen flex flex-col justify-center py-16 md:py-24 2xl:py-32 px-margin-mobile md:px-margin-desktop bg-prius-background border-t border-hairline" id="servicios">
+    <section className="min-h-screen flex flex-col justify-center py-16 md:py-24 2xl:py-32 px-margin-mobile md:px-8 bg-prius-background border-t border-hairline" id="servicios">
       <div className="max-w-[1920px] 2xl:max-w-[2200px] mx-auto w-full relative z-10">
 
-        <div className="max-w-[1440px] 2xl:max-w-[1800px] mx-auto mb-10 2xl:mb-14 flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div className="max-w-[1200px] mx-auto md:px-6 mb-10 2xl:mb-14 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="max-w-2xl">
             <span className="text-[9px] md:text-[11px] 2xl:text-xs font-bold uppercase tracking-[0.3em] text-prius-black/40 block mb-1.5 font-display">
               Estilo de Vida Prius
@@ -335,10 +379,18 @@ export default function Services() {
         </div>
 
         {/* --- Desktop / Tablet: fila horizontal de sectores --- */}
-        <div className="hidden md:block relative max-w-[1440px] 2xl:max-w-[1800px] mx-auto">
-          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-prius-background to-transparent pointer-events-none z-10" />
+        <div className="hidden md:block relative max-w-[1200px] mx-auto px-6">
+          <div
+            className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-prius-background to-transparent pointer-events-none z-10 transition-opacity duration-300"
+            style={{ opacity: edges.atStart ? 0 : 1 }}
+          />
+          <div
+            className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-prius-background to-transparent pointer-events-none z-10 transition-opacity duration-300"
+            style={{ opacity: edges.atEnd ? 0 : 1 }}
+          />
 
           <div
+            ref={sliderRef}
             className="flex gap-6 overflow-x-auto pb-6 scroll-smooth scrollbar-none"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >

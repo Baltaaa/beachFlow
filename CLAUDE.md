@@ -129,6 +129,20 @@ Sistema de fidelización dentro de la SPA existente (NO ruta/página separada):
 
 Schema de Supabase y prompt de UI todavía no arrancados.
 
+## ⚠️ Regla permanente: toda imagen nueva se optimiza SIEMPRE
+
+Cada vez que se agreguen imágenes nuevas al proyecto (sin excepción, sea cual sea la
+sección), Claude Code debe por defecto:
+
+1. Convertirlas a **WebP** con `cwebp -q 85`
+2. Nombrarlas en **kebab-case** descriptivo
+3. Nunca dejar el archivo original (JPG/PNG) pesado en `public/images/` — solo el
+   `.webp` optimizado
+4. Confirmar tamaño final antes de commitear (`du -h`) para verificar que no se
+   esté repitiendo el problema de imágenes de 10-20MB+ que tuvo el proyecto
+
+Esto aplica automáticamente sin que haga falta pedirlo en cada prompt puntual.
+
 ## Assets e imágenes
 
 - Optimización con `cwebp`, baseline de calidad **q=85** (q=80 disponible si se necesita
