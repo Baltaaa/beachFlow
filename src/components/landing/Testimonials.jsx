@@ -83,7 +83,7 @@ export default function Testimonials() {
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-full border border-hairline mb-6">
             <img 
-              src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" 
+              src="/images/google-logo.svg" 
               alt="Google Logo" 
               className="w-4 h-4" 
             />
@@ -127,7 +127,7 @@ export default function Testimonials() {
                     </div>
                   </div>
                   <img 
-                    src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" 
+                    src="/images/google-logo.svg" 
                     alt="Google" 
                     className="w-4 h-4 opacity-60" 
                   />
@@ -196,7 +196,7 @@ export default function Testimonials() {
                     </div>
                   </div>
                   <img 
-                    src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" 
+                    src="/images/google-logo.svg" 
                     alt="Google" 
                     className="w-4 h-4 opacity-60" 
                   />

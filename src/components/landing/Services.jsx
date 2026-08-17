@@ -20,10 +20,10 @@ const SECTORS = [
     images: [
       { src: '/images/carpas-amigos.webp', title: 'Living Familiar', desc: 'Espacios amplios y cómodos para disfrutar con la mejor compañía.' },
       { src: '/images/carpasYsombriService.webp', title: 'Carpas Espaciosas', desc: 'Estructuras de madera premium con lona náutica de máxima protección UV.' },
-      { src: '/images/carpas-sombrillas-5.jpg', title: 'Sombrillas Exclusivas', desc: 'Disfrutá de la brisa marina en nuestro sector exclusivo de sombrillas.' },
-      { src: '/images/carpas-sombrillas-4.jpg', title: 'Relax Frente al Mar', desc: 'Con o sin companía, tu espacio de relax esta asegurado' },
-      { src: '/images/carpas-reposeras-2.jpg', title: 'Reposeras Ergonómicas', desc: 'Mobiliario exterior de alta gama diseñado para un descanso absoluto.' },
-      { src: '/images/carpas-pasillo-6.jpg', title: 'Pasillos de Carpas', desc: 'Pasillos limpios, amplios y perfectamente mantenidos para un tránsito cómodo.' },
+      { src: '/images/carpas-sombrillas-5.webp', title: 'Sombrillas Exclusivas', desc: 'Disfrutá de la brisa marina en nuestro sector exclusivo de sombrillas.' },
+      { src: '/images/carpas-sombrillas-4.webp', title: 'Relax Frente al Mar', desc: 'Con o sin companía, tu espacio de relax esta asegurado' },
+      { src: '/images/carpas-reposeras-2.webp', title: 'Reposeras Ergonómicas', desc: 'Mobiliario exterior de alta gama diseñado para un descanso absoluto.' },
+      { src: '/images/carpas-pasillo-6.webp', title: 'Pasillos de Carpas', desc: 'Pasillos limpios, amplios y perfectamente mantenidos para un tránsito cómodo.' },
       { src: '/images/carpas-sombrillas-mar.webp', title: 'Sonrisas frente al Mar', desc: 'Tu lugar donde la vas a pasar bien todo el verano' },
     ],
   },
@@ -31,26 +31,26 @@ const SECTORS = [
     id: 'gastronomia-eventos',
     label: 'Gastronomía & Eventos',
     tagline: 'Gastronomía gourmet y salones para tus celebraciones.',
-    cover: '/images/gastronomia-platos.png',
+    cover: '/images/gastronomia-platos.webp',
     images: [
-      { src: '/images/gastronomia-platos.png', title: 'Platos Seleccionados', desc: 'Exquisita propuesta gastronómica con ensaladas frescas, ingredientes premium y platos de estación servidos frente al mar.' },
+      { src: '/images/gastronomia-platos.webp', title: 'Platos Seleccionados', desc: 'Exquisita propuesta gastronómica con ensaladas frescas, ingredientes premium y platos de estación servidos frente al mar.' },
       { src: '/images/salon-interior-dia.webp', title: 'El Salón de Día', desc: 'Un salón luminoso y con identidad propia, ideal para almorzar en un ambiente relajado frente al mar.' },
-      { src: '/images/gastronomia-amigos.jpg', title: 'Momentos Compartidos', desc: 'Disfrutá de un almuerzo distendido con amigos, tragos frescos y la mejor energía de Playa Grande.' },
-      { src: '/images/gastronomia-barra.jpg', title: 'Barra de tragos', desc: 'Tragos frescos con y sin alcohol servidos con la calidez que caracteriza a nuestro equipo.' },
-      { src: '/images/gastronomia-charla.jpg', title: 'Tardes de Encuentro', desc: 'Charlas inolvidables acompañadas de cervezas artesanales y una vista inigualable de la costa.' },
+      { src: '/images/gastronomia-amigos.webp', title: 'Momentos Compartidos', desc: 'Disfrutá de un almuerzo distendido con amigos, tragos frescos y la mejor energía de Playa Grande.' },
+      { src: '/images/gastronomia-barra.webp', title: 'Barra de tragos', desc: 'Tragos frescos con y sin alcohol servidos con la calidez que caracteriza a nuestro equipo.' },
+      { src: '/images/gastronomia-charla.webp', title: 'Tardes de Encuentro', desc: 'Charlas inolvidables acompañadas de cervezas artesanales y una vista inigualable de la costa.' },
       { src: '/images/salon-barra-tragos.webp', title: 'Atencion personalizada', desc: 'Camareros capacitados para brindarles una excelente experiencia.' },
-      { src: '/images/eventos-fiesta.jpg', title: 'Música en Vivo & Fiestas', desc: 'Eventos nocturnos con bandas en vivo, iluminación profesional y una atmósfera inigualable frente al Atlántico.' },
-      { src: '/images/eventos-cumpleanos.jpg', title: 'Celebraciones Privadas', desc: 'Cumpleaños y eventos sociales en un ambiente festivo, con excelente barra de tragos y diseño interior de vanguardia.' },
-      { src: '/images/eventos-salon-noche.png', title: 'Salón de Eventos Nocturno', desc: 'La mítica esquina de Playa Grande iluminada de noche, lista para albergar las celebraciones más exclusivas frente al mar.' },
+      { src: '/images/eventos-fiesta.webp', title: 'Música en Vivo & Fiestas', desc: 'Eventos nocturnos con bandas en vivo, iluminación profesional y una atmósfera inigualable frente al Atlántico.' },
+      { src: '/images/eventos-cumpleanos.webp', title: 'Celebraciones Privadas', desc: 'Cumpleaños y eventos sociales en un ambiente festivo, con excelente barra de tragos y diseño interior de vanguardia.' },
+      { src: '/images/eventos-salon-noche.webp', title: 'Salón de Eventos Nocturno', desc: 'La mítica esquina de Playa Grande iluminada de noche, lista para albergar las celebraciones más exclusivas frente al mar.' },
     ],
   },
   {
     id: 'pileta',
     label: 'Pileta & Solárium',
     tagline: 'Piscina climatizada y solárium con vista al mar.',
-    cover: '/images/instalaciones-solarium.jpg',
+    cover: '/images/instalaciones-solarium.webp',
     images: [
-      { src: '/images/instalaciones-solarium.jpg', title: 'Solárium & Pileta', desc: 'Espectacular vista panorámica desde nuestro solárium de madera noble equipado con camastros y piscina climatizada.' },
+      { src: '/images/instalaciones-solarium.webp', title: 'Solárium & Pileta', desc: 'Espectacular vista panorámica desde nuestro solárium de madera noble equipado con camastros y piscina climatizada.' },
       { src: '/images/piletaService.webp', title: 'Espejo de Agua', desc: 'Piscina climatizada que se funde visualmente con el horizonte costero.' },
       { src: '/images/prius7.webp', title: 'Deck de Madera Noble', desc: 'Solárium exclusivo equipado con camastros acolchados premium.' },
     ],
@@ -62,32 +62,32 @@ const SECTORS = [
     cover: '/images/prius5.webp',
     images: [
       { src: '/images/prius5.webp', title: 'Espacio de Recreación para Niños', desc: 'Un sector especialmente diseñado para que los más chicos se diviertan con juegos y actividades recreativas sobre la arena.' },
-      { src: '/images/recreacion-metegol.jpg', title: 'Metegol en la Arena', desc: 'Diversión clásica frente al mar con torneos de metegol para disfrutar en familia.' },
-      { src: '/images/recreacion-talleres.jpg', title: 'Talleres de Arte', desc: 'Espacio creativo para niños con talleres de collares, pulseras y manualidades guiadas.' },
-      { src: '/images/recreacion-jenga.jpg', title: 'Jenga Gigante', desc: 'Desafíos de destreza y risas aseguradas con nuestro jenga gigante en la playa.' },
+      { src: '/images/recreacion-metegol.webp', title: 'Metegol en la Arena', desc: 'Diversión clásica frente al mar con torneos de metegol para disfrutar en familia.' },
+      { src: '/images/recreacion-talleres.webp', title: 'Talleres de Arte', desc: 'Espacio creativo para niños con talleres de collares, pulseras y manualidades guiadas.' },
+      { src: '/images/recreacion-jenga.webp', title: 'Jenga Gigante', desc: 'Desafíos de destreza y risas aseguradas con nuestro jenga gigante en la playa.' },
     ],
   },
   {
     id: 'wellness',
     label: 'Wellness',
     tagline: 'Masajes, yoga y bienestar frente al Atlántico.',
-    cover: '/images/wellness-masajes.jpg',
+    cover: '/images/wellness-masajes.webp',
     images: [
-      { src: '/images/wellness-masajes.jpg', title: 'Masajes Terapéuticos', desc: 'Sesiones de masajes descontracturantes y relajantes a cargo de la kinesióloga Pilar Ferrando para renovar cuerpo y mente.' },
-      { src: '/images/wellness-aquadance.jpg', title: 'Aqua Dance', desc: 'Clases dinámicas y divertidas de aqua dance en nuestra piscina climatizada para todas las edades.' },
-      { src: '/images/wellness-yoga.jpg', title: 'Yoga Grupal', desc: 'Prácticas de yoga grupales sobre la arena para conectar con la respiración y el sonido del mar.' },
-      { src: '/images/recreacion-surf.jpg', title: 'Surf', desc: 'Disfrutá de las mejores olas de Playa Grande con tablas de surf de primer nivel.' },
-      { src: '/images/wellness-relax-arena.jpg', title: 'Cerca del mar', desc: 'La brisa de la orilla en buena companía.' },
+      { src: '/images/wellness-masajes.webp', title: 'Masajes Terapéuticos', desc: 'Sesiones de masajes descontracturantes y relajantes a cargo de la kinesióloga Pilar Ferrando para renovar cuerpo y mente.' },
+      { src: '/images/wellness-aquadance.webp', title: 'Aqua Dance', desc: 'Clases dinámicas y divertidas de aqua dance en nuestra piscina climatizada para todas las edades.' },
+      { src: '/images/wellness-yoga.webp', title: 'Yoga Grupal', desc: 'Prácticas de yoga grupales sobre la arena para conectar con la respiración y el sonido del mar.' },
+      { src: '/images/recreacion-surf.webp', title: 'Surf', desc: 'Disfrutá de las mejores olas de Playa Grande con tablas de surf de primer nivel.' },
+      { src: '/images/wellness-relax-arena.webp', title: 'Cerca del mar', desc: 'La brisa de la orilla en buena companía.' },
     ],
   },
   {
     id: 'coworking',
     label: 'Coworking',
     tagline: 'Espacios de trabajo al aire libre frente al mar.',
-    cover: '/images/coworking-deck.jpg',
+    cover: '/images/coworking-deck.webp',
     images: [
-      { src: '/images/coworking-deck.jpg', title: 'Deck Principal', desc: 'Espacio de trabajo al aire libre sobre deck de madera noble, ideal para inspirarse frente al mar.' },
-      { src: '/images/coworking-sala-1.jpg', title: 'Coworking', desc: 'Espacio equipado con wifi y tomacorrientes.' },
+      { src: '/images/coworking-deck.webp', title: 'Deck Principal', desc: 'Espacio de trabajo al aire libre sobre deck de madera noble, ideal para inspirarse frente al mar.' },
+      { src: '/images/coworking-sala-1.webp', title: 'Coworking', desc: 'Espacio equipado con wifi y tomacorrientes.' },
       { src: '/images/prius3.webp', title: 'Coworking', desc: '¿Soñaste tu oficina en la playa?' },
       { src: '/images/prius3.webp', title: 'Coworking', desc: 'Diseño y ambientación para tu mayor confort.' },
     ],
@@ -96,14 +96,14 @@ const SECTORS = [
     id: 'instalaciones',
     label: 'Instalaciones',
     tagline: 'Vestuarios, lockers y espacios renovados.',
-    cover: '/images/instalaciones-paseo.jpg',
+    cover: '/images/instalaciones-paseo.webp',
     images: [
-      { src: '/images/instalaciones-paseo.jpg', title: 'Paseo Playa Grande', desc: 'Ubicación privilegiada en el corazón del paseo de Playa Grande, integrando diseño moderno y naturaleza costera.' },
-      { src: '/images/instalaciones-banos-9.jpg', title: 'Baños Renovados', desc: 'Baños modernos, limpios y equipados con todo lo necesario para tu comodidad.' },
+      { src: '/images/instalaciones-paseo.webp', title: 'Paseo Playa Grande', desc: 'Ubicación privilegiada en el corazón del paseo de Playa Grande, integrando diseño moderno y naturaleza costera.' },
+      { src: '/images/instalaciones-banos-9.webp', title: 'Baños Renovados', desc: 'Baños modernos, limpios y equipados con todo lo necesario para tu comodidad.' },
       { src: '/images/gallery_1400392.webp', title: 'Vestuarios & Duchas', desc: 'Higiene, confort y privacidad en instalaciones totalmente renovadas.' },
-      { src: '/images/cabinas.jpg', title: 'Cabinas', desc: 'Cabinas privadas y vestuarios exclusivos para cambiarse con total comodidad.' },
-      { src: '/images/instalaciones-bebes-8.jpg', title: 'Espacio para Bebés', desc: 'Cambiador y espacio adaptado para la comodidad de los más pequeños y sus familias.' },
-      { src: '/images/instalaciones-lockers-7.jpg', title: 'Lockers de Seguridad', desc: 'Tranquilidad absoluta para tus pertenencias con lockers privados y vestuarios de primer nivel.' },
+      { src: '/images/cabinas.webp', title: 'Cabinas', desc: 'Cabinas privadas y vestuarios exclusivos para cambiarse con total comodidad.' },
+      { src: '/images/instalaciones-bebes-8.webp', title: 'Espacio para Bebés', desc: 'Cambiador y espacio adaptado para la comodidad de los más pequeños y sus familias.' },
+      { src: '/images/instalaciones-lockers-7.webp', title: 'Lockers de Seguridad', desc: 'Tranquilidad absoluta para tus pertenencias con lockers privados y vestuarios de primer nivel.' },
     ],
   },
   {
@@ -410,9 +410,11 @@ export default function Services() {
               Servicios de <span className="text-gold font-bold">Exclusividad</span> Absoluta
             </h2>
           </div>
-          <p className="text-prius-black/70 text-xs md:text-sm 2xl:text-base max-w-sm leading-relaxed font-light">
-            Minimalismo estructural y confort absoluto diseñado al detalle para una experiencia de playa incomparable.
-          </p>
+          <div className='max-w-sm'>
+            <p className="text-prius-black/70 text-xs md:text-sm 2xl:text-base leading-relaxed font-light">
+              Minimalismo estructural y confort absoluto diseñado al detalle para una experiencia de playa incomparable.
+            </p>
+          </div>
         </div>
 
         {/* --- Desktop / Tablet: fila horizontal de sectores --- */}
@@ -473,6 +475,7 @@ export default function Services() {
                 <img
                   alt={sector.label}
                   src={sector.cover}
+                  loading="lazy"
                   className={
                     sector.lightTile
                       ? 'w-full h-full object-contain p-16 box-border bg-white'
@@ -529,6 +532,7 @@ export default function Services() {
                 <img
                   alt={sector.label}
                   src={sector.cover}
+                  loading="lazy"
                   className={
                     sector.lightTile
                       ? 'w-full h-full object-contain p-11 box-border bg-white'

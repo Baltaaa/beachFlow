@@ -190,7 +190,7 @@ export default function Navbar() {
         <div style={mobileDarkLayerStyle} />
         <div style={mobileLightLayerStyle} />
 
-        <div className="relative h-full flex items-center justify-between px-5">
+        <div className="relative h-full flex items-center justify-between px-8">
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className="bg-transparent px-0 inline-flex items-center justify-center cursor-pointer"

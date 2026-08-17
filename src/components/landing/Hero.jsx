@@ -16,12 +16,12 @@ export default function Hero() {
         <div className="absolute inset-0 z-0 select-none pointer-events-none">
           <picture className="absolute inset-0 w-full h-full">
             <source media="(max-width: 768px)" srcSet="/images/bg-mobile.webp" />
-            <source srcSet="/images/prius-home-desktop.jpg" />
+            <source srcSet="/images/prius-home-desktop.webp" />
             <img 
-              src="/images/prius-home-desktop.jpg" 
+              src="/images/prius-home-desktop.webp" 
               alt="Experiencia Prius Playa Grande" 
               loading="eager"
-              fetchpriority="high"
+              fetchPriority="high"
               decoding="async"
               className="w-full h-full object-cover object-center"
             />
@@ -42,7 +42,7 @@ export default function Hero() {
             </span>
           </div>
 
-          <div className="mt-4 grid grid-cols-1 gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
+          <div className="mt-4 grid grid-cols-1 gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
             
             <div>
               <h1 className="text-[32px] sm:text-[42px] md:text-[52px] lg:text-[58px] xl:text-[64px] 3xl:text-[76px] font-bold leading-[1.05] tracking-[-0.03em] uppercase font-display text-white select-none text-balance drop-shadow-sm">
@@ -53,7 +53,7 @@ export default function Hero() {
             </div>
 
             <div className="flex flex-col justify-end">
-              <p className="max-w-[44ch] text-sm sm:text-base md:text-[1.1rem] 3xl:text-[1.35rem] leading-[1.5] font-light tracking-wide text-white/95 drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)] text-balance">
+              <p className="max-w-[44ch] text-sm sm:text-base md:text-[1.1rem] 3xl:text-[1.35rem] leading-[1.5] font-light tracking-wide text-white/95 drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)] text-balance xl:px-3">
                 Tu lugar en Playa Grande para que disfrutes el verano.<br />Prius, donde el primero, sos vos!
               </p>
               
@@ -63,7 +63,7 @@ export default function Hero() {
                 {/* Botón Principal: Ver Balneario */}
                 <button 
                   onClick={() => scrollToSection('servicios')}
-                  className="group inline-flex items-center justify-center gap-2.5 h-12 3xl:h-14 w-full sm:w-auto cursor-pointer rounded-full bg-gold hover:bg-gold-hover px-7 3xl:px-9 text-[11px] 3xl:text-xs font-bold uppercase tracking-[0.15em] text-prius-black transition-all duration-300 active:scale-[0.98] font-display"
+                  className="group inline-flex items-center justify-center gap-2.5 h-12 3xl:h-14 w-full sm:w-auto cursor-pointer rounded-full bg-gold hover:bg-gold-hover px-7 3xl:px-9 text-[9px] xl:text-md 3xl:text-lg font-bold uppercase tracking-[0.15em] text-prius-black transition-all duration-300 active:scale-[0.98] font-display"
                 >
                   <span>VER BALNEARIO</span>
                   <ArrowUpRight size={15} className="text-prius-black transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -72,7 +72,7 @@ export default function Hero() {
                 {/* Botón Secundario: Salón de Eventos */}
                 <button 
                   onClick={() => scrollToSection('eventos')}
-                  className="group inline-flex items-center justify-center gap-2.5 h-12 3xl:h-14 w-full sm:w-auto cursor-pointer rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 hover:border-white/40 px-7 3xl:px-9 text-[11px] 3xl:text-xs font-bold uppercase tracking-[0.15em] text-white transition-all duration-300 active:scale-[0.98] font-display"
+                  className="group inline-flex items-center justify-center gap-2.5 h-12 3xl:h-14 w-full sm:w-auto cursor-pointer rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 hover:border-white/40 px-7 3xl:px-9 text-[9px] xl:text-md 3xl:text-lg font-bold uppercase tracking-[0.15em] text-white transition-all duration-300 active:scale-[0.98] font-display"
                 >
                   <span>SALÓN DE EVENTOS</span>
                   <ArrowUpRight size={15} className="text-gold transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />

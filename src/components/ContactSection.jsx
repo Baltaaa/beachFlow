@@ -138,9 +138,10 @@ export default function ContactSection() {
       
       {/* Fondo Fotográfico de sección */}
       <div className="absolute inset-0 z-0 select-none pointer-events-none overflow-hidden">
-        <img 
-          src="/images/playa-grande-aerea.webp" 
-          alt="Costa Prius Playa Grande" 
+        <img
+          src="/images/playa-grande-aerea.webp"
+          alt="Costa Prius Playa Grande"
+          loading="lazy"
           className="w-full h-full object-cover object-center opacity-10 filter grayscale mix-blend-multiply scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-white via-white/90 to-transparent" />
@@ -181,9 +182,10 @@ export default function ContactSection() {
           {/* Bloque Izquierdo: Información de Contacto */}
           <div className="lg:col-span-4 relative text-prius-black p-6 md:p-8 2xl:p-10 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-hairline bg-neutral-50/90 overflow-hidden min-h-[320px] lg:min-h-[440px]">
             <div className="absolute inset-0 z-0 opacity-90 mix-blend-multiply pointer-events-none">
-              <img 
-                src="/images/prius-home-desktop.jpg" 
-                alt="Costa Prius" 
+              <img
+                src="/images/prius-home-desktop.webp"
+                alt="Costa Prius"
+                loading="lazy"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-b from-neutral-50 via-neutral-50/80 to-neutral-50" />

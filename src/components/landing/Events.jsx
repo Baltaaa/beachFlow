@@ -10,7 +10,7 @@ export default function Events() {
       desc: "Celebraciones mágicas con el Atlántico como testigo y un servicio gastronómico de primer nivel."
     },
     {
-      img: "/images/event1.png",
+      img: "/images/event1.webp",
       badge: "Corporativos",
       time: "A medida",
       title: "Lanzamientos y Cenas",
@@ -54,9 +54,10 @@ export default function Events() {
           <div className="relative w-full min-h-[420px] sm:min-h-[480px] 3xl:min-h-[580px] rounded-3xl 3xl:rounded-[36px] overflow-hidden border border-gold/30 bg-neutral-900 group flex flex-col justify-between p-7 sm:p-12 3xl:p-20 shadow-2xl transition-all duration-500">
             
             <div className="absolute inset-0 z-0 overflow-hidden">
-              <img 
-                src="/images/event1.png" 
-                alt="Salón de Eventos Prius" 
+              <img
+                src="/images/event1.webp"
+                alt="Salón de Eventos Prius"
+                loading="lazy"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80"
               />
               {/* Degradados suaves para asegurar legibilidad manteniendo la fotografía totalmente visible */}
@@ -114,9 +115,10 @@ export default function Events() {
                 className="bg-neutral-900/90 border border-white/10 backdrop-blur-md rounded-2xl 3xl:rounded-3xl overflow-hidden group hover:border-gold/60 hover:shadow-xl hover:shadow-gold/5 transition-all duration-300 flex flex-col justify-between h-full"
               >
                 <div className="relative aspect-[16/10] overflow-hidden bg-neutral-950 border-b border-white/10">
-                  <img 
-                    src={event.img} 
-                    alt={event.title} 
+                  <img
+                    src={event.img}
+                    alt={event.title}
+                    loading="lazy"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90"
                   />
                   <div className="absolute top-3 left-3 flex gap-1.5">

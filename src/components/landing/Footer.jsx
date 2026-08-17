@@ -12,9 +12,10 @@ export default function Footer() {
       {/* BANDA 1: Foto aérea ampliada sobre la que se superpone la tarjeta */}
       {/* ========================================================= */}
       <div className="relative w-full h-[360px] sm:h-[480px] md:h-[580px] overflow-hidden select-none">
-        <img 
-          src="/images/bg-footer.webp" 
-          alt="Vista Aérea Playa Grande" 
+        <img
+          src="/images/bg-footer.webp"
+          alt="Vista Aérea Playa Grande"
+          loading="lazy"
           className="w-full h-full object-cover object-center"
         />
         
