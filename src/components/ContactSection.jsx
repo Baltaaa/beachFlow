@@ -8,11 +8,9 @@ import {
   Check, 
   ChevronLeft, 
   ChevronRight,
-  Umbrella, 
-  Shield, 
-  Briefcase, 
-  Gift, 
-  Sparkles, 
+  Umbrella,
+  Shield,
+  Sparkles,
   HelpCircle,
   Clock,
   Zap,
@@ -22,9 +20,7 @@ import {
 const ASUNTO_OPTIONS = [
   { id: "Reserva de carpas / sombrillas", label: "Carpas & Sombrillas", icon: Umbrella, desc: "Reserva de sombra en Playa Grande" },
   { id: "Cabinas & lockers", label: "Cabinas & Lockers", icon: Shield, desc: "Vestuarios y seguridad privada" },
-  { id: "Evento corporativo", label: "Evento Corporativo", icon: Briefcase, desc: "Lanzamientos y cenas de empresa" },
-  { id: "Cumpleaños / fiesta de 15", label: "Cumpleaños / Fiestas", icon: Gift, desc: "Celebraciones sociales privadas" },
-  { id: "Casamiento", label: "Casamientos", icon: Sparkles, desc: "Bodas exclusivas frente al mar" },
+  { id: "Eventos (corporativo, cumpleaños, casamiento)", label: "Eventos", icon: Sparkles, desc: "Corporativos, cumpleaños, casamientos y más" },
   { id: "Otra consulta", label: "Otra Consulta", icon: HelpCircle, desc: "Consultas generales al equipo" },
 ];
 
@@ -151,12 +147,12 @@ export default function ContactSection() {
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-gold/15 rounded-full blur-[140px]" />
       </div>
 
-      <div className="max-w-[1240px] 2xl:max-w-[1450px] mx-auto w-full relative z-10">
+      <div className="max-w-[1200px] 2xl:max-w-[1200px] mx-auto w-full relative z-10">
         
         {/* Header de Sección Compacto */}
         <div className="mb-8 md:mb-10 text-center">
           <span className="text-[9px] 2xl:text-xs font-bold uppercase tracking-[0.3em] text-prius-black/50 block mb-1 font-display">
-            Cotizador Interactivo & Atención Directa
+            Atención Directa de Nuestro Equipo
           </span>
           <h2 className="text-2xl md:text-3xl 2xl:text-4xl font-normal tracking-tight text-prius-black uppercase font-display leading-tight">
             Diseñá tu <span className="text-gold font-bold">Experiencia</span>
@@ -184,13 +180,13 @@ export default function ContactSection() {
           
           {/* Bloque Izquierdo: Información de Contacto */}
           <div className="lg:col-span-4 relative text-prius-black p-6 md:p-8 2xl:p-10 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-hairline bg-neutral-50/90 overflow-hidden min-h-[320px] lg:min-h-[440px]">
-            <div className="absolute inset-0 z-0 opacity-40 mix-blend-multiply pointer-events-none">
+            <div className="absolute inset-0 z-0 opacity-90 mix-blend-multiply pointer-events-none">
               <img 
                 src="/images/prius-home-desktop.jpg" 
                 alt="Costa Prius" 
-                className="w-full h-full object-cover filter grayscale"
+                className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-b from-neutral-50 via-neutral-50/90 to-neutral-50" />
+              <div className="absolute inset-0 bg-gradient-to-b from-neutral-50 via-neutral-50/80 to-neutral-50" />
             </div>
 
             <div className="relative z-10 space-y-2">
@@ -206,7 +202,7 @@ export default function ContactSection() {
             </div>
 
             {/* Datos de Contacto */}
-            <div className="mt-6 pt-6 border-t border-hairline space-y-4 relative z-10">
+            <div className="mt-6 pt-6 border-t border-gold/40 space-y-4 relative z-10">
               <div className="flex items-center gap-3">
                 <div className="p-2.5 bg-gold/15 rounded-full border border-gold/40 text-prius-black shrink-0">
                   <Phone size={14} className="text-prius-black" />

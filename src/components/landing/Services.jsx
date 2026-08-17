@@ -6,6 +6,7 @@ import {
   ArrowRight,
   Maximize2,
   X,
+  Loader2,
 } from 'lucide-react'
 
 // Cada "sector" agrupa varias fotos bajo un mismo servicio. La card de portada
@@ -18,11 +19,12 @@ const SECTORS = [
     cover: '/images/carpas-amigos.webp',
     images: [
       { src: '/images/carpas-amigos.webp', title: 'Living Familiar', desc: 'Espacios amplios y cómodos para disfrutar con la mejor compañía.' },
+      { src: '/images/carpasYsombriService.webp', title: 'Carpas Espaciosas', desc: 'Estructuras de madera premium con lona náutica de máxima protección UV.' },
+      { src: '/images/carpas-sombrillas-5.jpg', title: 'Sombrillas Exclusivas', desc: 'Disfrutá de la brisa marina en nuestro sector exclusivo de sombrillas.' },
+      { src: '/images/carpas-sombrillas-4.jpg', title: 'Relax Frente al Mar', desc: 'Con o sin companía, tu espacio de relax esta asegurado' },
       { src: '/images/carpas-reposeras-2.jpg', title: 'Reposeras Ergonómicas', desc: 'Mobiliario exterior de alta gama diseñado para un descanso absoluto.' },
-      { src: '/images/carpas-sombrillas-4.jpg', title: 'Sombrillas Exclusivas', desc: 'Sombrillas premium con amplio espacio de sombra y atención personalizada.' },
       { src: '/images/carpas-pasillo-6.jpg', title: 'Pasillos de Carpas', desc: 'Pasillos limpios, amplios y perfectamente mantenidos para un tránsito cómodo.' },
-      { src: '/images/carpas-sombrillas-5.jpg', title: 'Espacio de Sombrillas', desc: 'Disfrutá de la brisa marina en nuestro sector exclusivo de sombrillas.' },
-      { src: '/images/carpasYsombriService.webp', title: 'Santuario de Sombra', desc: 'Estructuras de madera premium con lona náutica de máxima protección UV.' },
+      { src: '/images/carpas-sombrillas-mar.webp', title: 'Sonrisas frente al Mar', desc: 'Tu lugar donde la vas a pasar bien todo el verano' },
     ],
   },
   {
@@ -32,12 +34,14 @@ const SECTORS = [
     cover: '/images/gastronomia-platos.png',
     images: [
       { src: '/images/gastronomia-platos.png', title: 'Platos Seleccionados', desc: 'Exquisita propuesta gastronómica con ensaladas frescas, ingredientes premium y platos de estación servidos frente al mar.' },
+      { src: '/images/salon-interior-dia.webp', title: 'El Salón de Día', desc: 'Un salón luminoso y con identidad propia, ideal para almorzar en un ambiente relajado frente al mar.' },
       { src: '/images/gastronomia-amigos.jpg', title: 'Momentos Compartidos', desc: 'Disfrutá de un almuerzo distendido con amigos, tragos frescos y la mejor energía de Playa Grande.' },
-      { src: '/images/gastronomia-barra.jpg', title: 'Barra de Encuentros', desc: 'Un espacio de barra dinámico y moderno para disfrutar de cafetería de especialidad y coctelería de autor.' },
+      { src: '/images/gastronomia-barra.jpg', title: 'Barra de tragos', desc: 'Tragos frescos con y sin alcohol servidos con la calidez que caracteriza a nuestro equipo.' },
       { src: '/images/gastronomia-charla.jpg', title: 'Tardes de Encuentro', desc: 'Charlas inolvidables acompañadas de cervezas artesanales y una vista inigualable de la costa.' },
-      { src: '/images/eventos-salon-noche.png', title: 'Salón de Eventos Nocturno', desc: 'La mítica esquina de Playa Grande iluminada de noche, lista para albergar las celebraciones más exclusivas frente al mar.' },
+      { src: '/images/salon-barra-tragos.webp', title: 'Atencion personalizada', desc: 'Camareros capacitados para brindarles una excelente experiencia.' },
       { src: '/images/eventos-fiesta.jpg', title: 'Música en Vivo & Fiestas', desc: 'Eventos nocturnos con bandas en vivo, iluminación profesional y una atmósfera inigualable frente al Atlántico.' },
       { src: '/images/eventos-cumpleanos.jpg', title: 'Celebraciones Privadas', desc: 'Cumpleaños y eventos sociales en un ambiente festivo, con excelente barra de tragos y diseño interior de vanguardia.' },
+      { src: '/images/eventos-salon-noche.png', title: 'Salón de Eventos Nocturno', desc: 'La mítica esquina de Playa Grande iluminada de noche, lista para albergar las celebraciones más exclusivas frente al mar.' },
     ],
   },
   {
@@ -72,8 +76,8 @@ const SECTORS = [
       { src: '/images/wellness-masajes.jpg', title: 'Masajes Terapéuticos', desc: 'Sesiones de masajes descontracturantes y relajantes a cargo de la kinesióloga Pilar Ferrando para renovar cuerpo y mente.' },
       { src: '/images/wellness-aquadance.jpg', title: 'Aqua Dance', desc: 'Clases dinámicas y divertidas de aqua dance en nuestra piscina climatizada para todas las edades.' },
       { src: '/images/wellness-yoga.jpg', title: 'Yoga Grupal', desc: 'Prácticas de yoga grupales sobre la arena para conectar con la respiración y el sonido del mar.' },
-      { src: '/images/wellness-relax-arena.jpg', title: 'Oasis de Relajación', desc: 'Descanso absoluto en cómodas reposeras sobre la arena, disfrutando de la brisa marina y el sol.' },
       { src: '/images/recreacion-surf.jpg', title: 'Surf', desc: 'Disfrutá de las mejores olas de Playa Grande con tablas de surf de primer nivel.' },
+      { src: '/images/wellness-relax-arena.jpg', title: 'Cerca del mar', desc: 'La brisa de la orilla en buena companía.' },
     ],
   },
   {
@@ -83,8 +87,9 @@ const SECTORS = [
     cover: '/images/coworking-deck.jpg',
     images: [
       { src: '/images/coworking-deck.jpg', title: 'Deck Principal', desc: 'Espacio de trabajo al aire libre sobre deck de madera noble, ideal para inspirarse frente al mar.' },
-      { src: '/images/coworking-sala-1.jpg', title: 'Conexión estable para reuniones', desc: 'Espacio privado vidriado para conferencias y llamadas con aislamiento acústico.' },
-      { src: '/images/prius3.webp', title: 'Espacio de Cowork', desc: 'Un rincón de paz y desconexión dentro del área de coworking para recargar energías entre tareas.' },
+      { src: '/images/coworking-sala-1.jpg', title: 'Coworking', desc: 'Espacio equipado con wifi y tomacorrientes.' },
+      { src: '/images/prius3.webp', title: 'Coworking', desc: '¿Soñaste tu oficina en la playa?' },
+      { src: '/images/prius3.webp', title: 'Coworking', desc: 'Diseño y ambientación para tu mayor confort.' },
     ],
   },
   {
@@ -94,11 +99,11 @@ const SECTORS = [
     cover: '/images/instalaciones-paseo.jpg',
     images: [
       { src: '/images/instalaciones-paseo.jpg', title: 'Paseo Playa Grande', desc: 'Ubicación privilegiada en el corazón del paseo de Playa Grande, integrando diseño moderno y naturaleza costera.' },
-      { src: '/images/instalaciones-lockers-7.jpg', title: 'Lockers de Seguridad', desc: 'Tranquilidad absoluta para tus pertenencias con lockers privados y vestuarios de primer nivel.' },
-      { src: '/images/gallery_1400392.webp', title: 'Vestuarios & Duchas', desc: 'Higiene, confort y privacidad en instalaciones totalmente renovadas.' },
-      { src: '/images/instalaciones-bebes-8.jpg', title: 'Espacio para Bebés', desc: 'Cambiador y espacio adaptado para la comodidad de los más pequeños y sus familias.' },
       { src: '/images/instalaciones-banos-9.jpg', title: 'Baños Renovados', desc: 'Baños modernos, limpios y equipados con todo lo necesario para tu comodidad.' },
+      { src: '/images/gallery_1400392.webp', title: 'Vestuarios & Duchas', desc: 'Higiene, confort y privacidad en instalaciones totalmente renovadas.' },
       { src: '/images/cabinas.jpg', title: 'Cabinas', desc: 'Cabinas privadas y vestuarios exclusivos para cambiarse con total comodidad.' },
+      { src: '/images/instalaciones-bebes-8.jpg', title: 'Espacio para Bebés', desc: 'Cambiador y espacio adaptado para la comodidad de los más pequeños y sus familias.' },
+      { src: '/images/instalaciones-lockers-7.jpg', title: 'Lockers de Seguridad', desc: 'Tranquilidad absoluta para tus pertenencias con lockers privados y vestuarios de primer nivel.' },
     ],
   },
   {
@@ -139,12 +144,25 @@ function useModalNavigation(selectedIdx, setSelectedIdx, imageIdx, setImageIdx) 
   return { sector, close, next, prev }
 }
 
+// La imagen del modal cambia de golpe si solo se anima al montar: si todavía
+// no terminó de descargar, el fade corre "vacío" y la foto aparece de un
+// salto cuando por fin carga. Este hook trackea el load real por src para
+// mostrar un loader mientras tanto y recién ahí disparar el fade-in.
+function useImageLoaded(src) {
+  const [loaded, setLoaded] = useState(false)
+  useEffect(() => {
+    setLoaded(false)
+  }, [src])
+  return [loaded, () => setLoaded(true)]
+}
+
 // --- Modal Desktop: layout lateral (imagen 65% / info 35%), coherente con el
 // modal previo del sitio pero ahora navega dentro de la galería del sector.
 function DesktopModal({ selectedIdx, setSelectedIdx, imageIdx, setImageIdx }) {
   const { sector, close, next, prev } = useModalNavigation(selectedIdx, setSelectedIdx, imageIdx, setImageIdx)
+  const image = sector?.images[imageIdx]
+  const [loaded, onLoad] = useImageLoaded(image?.src)
   if (!sector) return null
-  const image = sector.images[imageIdx]
 
   return (
     <div
@@ -163,12 +181,21 @@ function DesktopModal({ selectedIdx, setSelectedIdx, imageIdx, setImageIdx }) {
           <X size={20} />
         </button>
 
-        <div className="w-[65%] bg-neutral-900 relative min-h-[280px] max-h-[75vh] flex items-center justify-center p-8 shrink-0">
+        <div className="w-[65%] bg-neutral-900 relative h-[65vh] md:h-[70vh] 2xl:h-[75vh] flex items-center justify-center p-8 shrink-0">
+          <div
+            className="absolute inset-0 flex items-center justify-center pointer-events-none transition-opacity duration-300"
+            style={{ opacity: loaded ? 0 : 1 }}
+          >
+            <Loader2 size={30} className="animate-spin text-white/30" />
+          </div>
+
           <img
             key={image.src}
             src={image.src}
             alt={image.title}
-            className="max-w-full max-h-full object-contain rounded-xl shadow-xl animate-image-fade"
+            onLoad={onLoad}
+            className="max-w-full max-h-full object-contain rounded-xl shadow-xl transition-opacity duration-300 ease-out"
+            style={{ opacity: loaded ? 1 : 0 }}
           />
 
           <button
@@ -230,9 +257,10 @@ function DesktopModal({ selectedIdx, setSelectedIdx, imageIdx, setImageIdx }) {
 function MobileModal({ selectedIdx, setSelectedIdx, imageIdx, setImageIdx }) {
   const { sector, close, next, prev } = useModalNavigation(selectedIdx, setSelectedIdx, imageIdx, setImageIdx)
   const touchX = useRef(0)
+  const image = sector?.images[imageIdx]
+  const [loaded, onLoad] = useImageLoaded(image?.src)
 
   if (!sector) return null
-  const image = sector.images[imageIdx]
 
   const onTouchStart = (e) => { touchX.current = e.touches[0].clientX }
   const onTouchEnd = (e) => {
@@ -248,11 +276,20 @@ function MobileModal({ selectedIdx, setSelectedIdx, imageIdx, setImageIdx }) {
         onTouchEnd={onTouchEnd}
         className="relative w-full flex-1 min-h-0 bg-neutral-900 flex items-center justify-center p-4"
       >
+        <div
+          className="absolute inset-0 flex items-center justify-center pointer-events-none transition-opacity duration-300"
+          style={{ opacity: loaded ? 0 : 1 }}
+        >
+          <Loader2 size={26} className="animate-spin text-white/30" />
+        </div>
+
         <img
           key={image.src}
           src={image.src}
           alt={image.title}
-          className="max-w-full max-h-full object-contain rounded-xl animate-image-fade"
+          onLoad={onLoad}
+          className="max-w-full max-h-full object-contain rounded-xl transition-opacity duration-300 ease-out"
+          style={{ opacity: loaded ? 1 : 0 }}
         />
 
         <button
@@ -369,7 +406,7 @@ export default function Services() {
             <span className="text-[9px] md:text-[11px] 2xl:text-xs font-bold uppercase tracking-[0.3em] text-prius-black/40 block mb-1.5 font-display">
               Estilo de Vida Prius
             </span>
-            <h2 className="text-2xl md:text-4xl 2xl:text-5xl 3xl:text-6xl font-normal tracking-tight text-prius-black uppercase font-display leading-none">
+            <h2 className="text-2xl md:text-4xl 2xl:text-4xl 3xl:text-6xl font-normal tracking-tight text-prius-black uppercase font-display leading-none">
               Servicios de <span className="text-gold font-bold">Exclusividad</span> Absoluta
             </h2>
           </div>
@@ -379,26 +416,59 @@ export default function Services() {
         </div>
 
         {/* --- Desktop / Tablet: fila horizontal de sectores --- */}
-        <div className="hidden md:block relative max-w-[1200px] mx-auto px-6">
+        {/* Ancho fijo a 1200px (igual al header) en vez de max-w-max: así la
+            proporción cards/contenedor es constante en cualquier pantalla y
+            la última card visible queda siempre ~15-20% cortada ("peek"),
+            reforzando que hay más para descubrir deslizando. */}
+        {/* -my-6 compensa el py-6 que le agregamos al scroller de abajo: ese
+            padding vertical le da al box-shadow del hover espacio real donde
+            pintarse antes de toparse con el overflow-y que el navegador
+            fuerza a "auto" en cuanto hay overflow-x:auto (si no, el shadow
+            queda cortado en línea recta). El margen negativo devuelve la fila
+            a su posición visual original sin mover el resto del layout. */}
+        <div className="hidden md:block relative max-w-[1800px] mx-auto -my-10">
+          {/* Franjas de profundidad en dorado Prius en vez de negro sólido:
+              3 paradas (no solo transparent→color) para que el degradé se
+              sienta difuso desde el arranque, sin un "frente" de color duro
+              a mitad de camino como pasa con una rampa lineal de 2 paradas. */}
+          {/* Sombras full-bleed: arrancan del borde real del viewport (no del borde
+    del container de 1800px) para que la sensación de profundidad continúe
+    hasta el borde de la pantalla en vez de cortarse en seco antes de llegar. */}
           <div
-            className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-prius-background to-transparent pointer-events-none z-10 transition-opacity duration-300"
+            className="absolute left-1/2 top-0 bottom-0 w-screen -translate-x-1/2 pointer-events-none z-10 transition-opacity duration-300"
             style={{ opacity: edges.atStart ? 0 : 1 }}
-          />
+          >
+            <div
+              className="absolute left-0 top-0 bottom-0"
+              style={{ width: 'clamp(160px, 14vw, 340px)', background: 'linear-gradient(to left, transparent, rgba(242,202,80,0.09) 45%, rgba(242,202,80,0.32) 100%)' }}
+            />
+          </div>
           <div
-            className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-prius-background to-transparent pointer-events-none z-10 transition-opacity duration-300"
+            className="absolute left-1/2 top-0 bottom-0 w-screen -translate-x-1/2 pointer-events-none z-10 transition-opacity duration-300"
             style={{ opacity: edges.atEnd ? 0 : 1 }}
-          />
+          >
+            <div
+              className="absolute right-0 top-0 bottom-0"
+              style={{ width: 'clamp(160px, 14vw, 340px)', background: 'linear-gradient(to right, transparent, rgba(242,202,80,0.09) 45%, rgba(242,202,80,0.32) 100%)' }}
+            />
+          </div>
+          {/* Flecha: se queda pegada al borde de la fila de cards, no al del viewport */}
+          <div
+            className="absolute right-0 top-0 bottom-0 w-[80px] pointer-events-none z-10 flex items-center justify-end pr-5 transition-opacity duration-300"
+            style={{ opacity: edges.atEnd ? 0 : 1 }}
+          >
+          </div>
 
           <div
             ref={sliderRef}
-            className="flex gap-6 overflow-x-auto pb-6 scroll-smooth scrollbar-none"
+            className="flex gap-6 overflow-x-auto overflow-y-visible py-10 scroll-smooth scrollbar-none"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {SECTORS.map((sector, i) => (
               <div
                 key={sector.id}
                 onClick={() => openSector(i)}
-                className="group relative w-[340px] 2xl:w-[380px] h-[450px] 2xl:h-[480px] shrink-0 bg-neutral-950 border border-hairline rounded-2xl 2xl:rounded-3xl overflow-hidden shadow-md hover:shadow-2xl hover:border-gold/50 transition-all duration-300 cursor-pointer"
+                className="group relative w-[396px] h-[500px] shrink-0 bg-neutral-950 rounded-2xl 2xl:rounded-3xl overflow-hidden shadow-[0_10px_25px_-8px_rgba(0,0,0,0.15)] hover:shadow-[0_20px_60px_-6px_rgba(242,202,80,0.35),0_8px_28px_-4px_rgba(242,202,80,0.25)] hover:border-gold/50 transition-all duration-500 ease-out cursor-pointer"
               >
                 <img
                   alt={sector.label}

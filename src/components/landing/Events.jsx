@@ -38,8 +38,8 @@ export default function Events() {
       <div className="absolute top-10 right-10 w-[500px] h-[500px] bg-gold/15 rounded-full blur-[140px] pointer-events-none z-0" />
       <div className="absolute bottom-10 left-10 w-[600px] h-[600px] bg-gold/10 rounded-full blur-[160px] pointer-events-none z-0" />
 
-      <div className="max-w-[1920px] 3xl:max-w-[2200px] mx-auto w-full relative z-10">
-        <div className="max-w-[1240px] 3xl:max-w-[1800px] mx-auto flex flex-col gap-10 3xl:gap-16">
+      <div className="max-w-[1200px] 3xl:max-w-[1990px] mx-auto w-full relative z-10">
+        <div className="max-w-[1240px] 3xl:max-w-[1200px] mx-auto flex flex-col gap-10 3xl:gap-16">
           
           <div className="text-center md:text-left">
             <span className="text-[9px] md:text-[10px] 3xl:text-xs font-bold uppercase tracking-[0.3em] text-gold block mb-1 font-display">
