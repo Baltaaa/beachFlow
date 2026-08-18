@@ -33,11 +33,11 @@ const SECTORS = [
     tagline: 'Gastronomía gourmet y salones para tus celebraciones.',
     cover: '/images/gastronomia-platos.webp',
     images: [
-      { src: '/images/gastronomia-platos.webp', title: 'Platos Seleccionados', desc: 'Exquisita propuesta gastronómica con ensaladas frescas, ingredientes premium y platos de estación servidos frente al mar.' },
       { src: '/images/salon-interior-dia.webp', title: 'El Salón de Día', desc: 'Un salón luminoso y con identidad propia, ideal para almorzar en un ambiente relajado frente al mar.' },
+      { src: '/images/gastronomia-platos.webp', title: 'Platos Seleccionados', desc: 'Exquisita propuesta gastronómica con ensaladas frescas, ingredientes premium y platos de estación servidos frente al mar.' },
       { src: '/images/gastronomia-amigos.webp', title: 'Momentos Compartidos', desc: 'Disfrutá de un almuerzo distendido con amigos, tragos frescos y la mejor energía de Playa Grande.' },
-      { src: '/images/gastronomia-barra.webp', title: 'Barra de tragos', desc: 'Tragos frescos con y sin alcohol servidos con la calidez que caracteriza a nuestro equipo.' },
       { src: '/images/gastronomia-charla.webp', title: 'Tardes de Encuentro', desc: 'Charlas inolvidables acompañadas de cervezas artesanales y una vista inigualable de la costa.' },
+      { src: '/images/gastronomia-barra.webp', title: 'Barra de tragos', desc: 'Tragos frescos con y sin alcohol servidos con la calidez que caracteriza a nuestro equipo.' },
       { src: '/images/salon-barra-tragos.webp', title: 'Atencion personalizada', desc: 'Camareros capacitados para brindarles una excelente experiencia.' },
       { src: '/images/eventos-fiesta.webp', title: 'Música en Vivo & Fiestas', desc: 'Eventos nocturnos con bandas en vivo, iluminación profesional y una atmósfera inigualable frente al Atlántico.' },
       { src: '/images/eventos-cumpleanos.webp', title: 'Celebraciones Privadas', desc: 'Cumpleaños y eventos sociales en un ambiente festivo, con excelente barra de tragos y diseño interior de vanguardia.' },
@@ -112,17 +112,17 @@ const SECTORS = [
     tagline: 'Las marcas que confiaron en Prius Playa Grande.',
     cover: '/images/marca-burger-king.webp',
     images: [
+      { src: '/images/marca-banco-macro.webp', title: 'Banco Macro', desc: 'Banco Macro acompañó un evento exclusivo junto a la pileta de Prius Playa Grande.' },
+      { src: '/images/marca-hawk-group.webp', title: 'Hawk Group', desc: 'Alianza estratégica con Hawk Group en experiencias exclusivas de socios.' },
+      { src: '/images/marca-sancor-seguros.webp', title: 'Sancor Seguros', desc: 'Sancor Seguros acompañó jornadas y beneficios especiales para sus clientes.' },
+      { src: '/images/marca-medife.webp', title: 'Medifé', desc: 'Medifé se sumó a nuestras propuestas de bienestar y salud durante el verano.' },
+      { src: '/images/marca-dermaglos.webp', title: 'Dermaglós', desc: 'Dermaglós presente con una activación de cuidado solar y juegos para toda la familia.' },
       { src: '/images/marca-burger-king.webp', title: 'Burger King', desc: 'Activación de marca junto a Burger King, con un arco imponente que recibió a nuestros visitantes en la playa.' },
       { src: '/images/marca-santa-julia.webp', title: 'Santa Julia', desc: 'Santa Julia brindó con nuestros visitantes en una experiencia de coctelería frente al mar.' },
-      { src: '/images/marca-medife.webp', title: 'Medifé', desc: 'Medifé se sumó a nuestras propuestas de bienestar y salud durante el verano.' },
-      { src: '/images/marca-banco-macro.webp', title: 'Banco Macro', desc: 'Banco Macro acompañó un evento exclusivo junto a la pileta de Prius Playa Grande.' },
-      { src: '/images/marca-dermaglos.webp', title: 'Dermaglós', desc: 'Dermaglós presente con una activación de cuidado solar y juegos para toda la familia.' },
       { src: '/images/marca-vea.webp', title: 'Vea', desc: 'Vea se sumó con una jornada de actividades y sorpresas para los más chicos en el espacio de playa.' },
       { src: '/images/marca-cencosud.webp', title: 'Cencosud', desc: 'Activación de la Tarjeta Cencosud junto a Vea, con beneficios exclusivos para nuestros visitantes.' },
-      { src: '/images/marca-hawk-group.webp', title: 'Hawk Group', desc: 'Alianza estratégica con Hawk Group en experiencias exclusivas de socios.' },
       { src: '/images/marca-antonio-banderas.webp', title: 'Antonio Banderas Fragrances', desc: 'Activación de Antonio Banderas Fragrances, con una experiencia exclusiva de su línea King of Seduction frente al mar.' },
       { src: '/images/marca-arredo.webp', title: 'Arredo', desc: 'Arredo acompañó la temporada vistiendo a nuestro equipo con su sello de diseño.' },
-      { src: '/images/marca-sancor-seguros.webp', title: 'Sancor Seguros', desc: 'Sancor Seguros acompañó jornadas y beneficios especiales para sus clientes.' },
       { src: '/images/marca-taragui.webp', title: 'Taragüi', desc: 'Taragüi presente en la playa con una acción de marca y regalos para nuestros visitantes.' },
     ],
   },
@@ -375,7 +375,17 @@ export default function Services() {
   }, [selectedIdx])
 
   return (
-    <section className="min-h-screen flex flex-col justify-center py-16 md:py-24 2xl:py-32 px-margin-mobile md:px-8 bg-prius-background border-t border-hairline" id="servicios">
+    <section className="relative min-h-screen flex flex-col justify-center py-16 md:py-24 2xl:py-32 px-margin-mobile md:px-8 bg-prius-background border-t border-hairline" id="servicios">
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: `
+      radial-gradient(ellipse 80% 50% at 90% 0%, rgba(242,202,80,0.5), transparent 90%),
+      radial-gradient(ellipse 100% 60% at 50% 100%, rgba(242,202,80,0.35), transparent 80%)
+    `
+        }}
+      />
+
       <div className="max-w-[1920px] 2xl:max-w-[2200px] mx-auto w-full relative z-10">
 
         <div className="max-w-[1200px] mx-auto md:px-6 mb-10 2xl:mb-14 flex flex-col md:flex-row md:items-end justify-between gap-6">
@@ -398,7 +408,7 @@ export default function Services() {
         <div
           className="hidden md:grid gap-5 mx-auto py-6"
           style={{
-            maxWidth: 1500,
+            maxWidth: 1200,
             gridTemplateColumns: 'repeat(4, 1fr)',
             gridTemplateRows: 'repeat(4, 220px)',
             gridTemplateAreas: '"a a c d" "a a e d" "b b f g" "b b h g"',
@@ -422,7 +432,12 @@ export default function Services() {
                 }
               />
 
-              <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/40 to-transparent opacity-90 group-hover:opacity-95 transition-opacity duration-300" />
+              <div
+                className="absolute inset-0 transition-opacity duration-300"
+                style={{
+                  background: `linear-gradient(to top, rgba(10,10,10,0.97) 0%, rgba(10,10,10,0.9) 22%, rgba(10,10,10,0.62) 45%, transparent ${sector.id === 'carpas' || sector.id === 'gastronomia-eventos' ? 82 : 74}%)`,
+                }}
+              />
 
               <button
                 onClick={(e) => { e.stopPropagation(); openSector(i) }}
