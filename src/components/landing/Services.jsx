@@ -346,12 +346,23 @@ function MobileModal({ selectedIdx, setSelectedIdx, imageIdx, setImageIdx }) {
   )
 }
 
+// Mapeo de cada sector a su celda del bento grid (ver grid-template-areas
+// en los contenedores desktop/mobile más abajo). "a" y "b" son los tiles
+// ancla (2x2), el resto ocupa una sola celda o una franja angosta.
+const SECTOR_AREA = {
+  carpas: 'a',
+  'gastronomia-eventos': 'b',
+  pileta: 'c',
+  wellness: 'd',
+  coworking: 'e',
+  instalaciones: 'f',
+  marcas: 'g',
+  recreacion: 'h',
+}
+
 export default function Services() {
   const [selectedIdx, setSelectedIdx] = useState(null)
   const [imageIdx, setImageIdx] = useState(0)
-  const [edges, setEdges] = useState({ atStart: true, atEnd: false })
-  const sliderRef = useRef(null)
-  const edgesRafRef = useRef(null)
 
   const openSector = (i) => {
     setSelectedIdx(i)
@@ -362,40 +373,6 @@ export default function Services() {
     document.body.style.overflow = selectedIdx !== null ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
   }, [selectedIdx])
-
-  // Sombras de profundidad en los bordes de la fila de sectores: aparecen
-  // solo cuando hay contenido oculto hacia ese lado, con un pequeño umbral
-  // para no titilar por redondeo de subpíxel.
-  useEffect(() => {
-    const el = sliderRef.current
-    if (!el) return
-
-    const updateEdges = () => {
-      const { scrollLeft, scrollWidth, clientWidth } = el
-      const threshold = 4
-      setEdges({
-        atStart: scrollLeft <= threshold,
-        atEnd: scrollLeft + clientWidth >= scrollWidth - threshold,
-      })
-    }
-
-    const onScroll = () => {
-      if (edgesRafRef.current) return
-      edgesRafRef.current = requestAnimationFrame(() => {
-        edgesRafRef.current = null
-        updateEdges()
-      })
-    }
-
-    updateEdges()
-    el.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', updateEdges)
-    return () => {
-      el.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', updateEdges)
-      if (edgesRafRef.current) cancelAnimationFrame(edgesRafRef.current)
-    }
-  }, [])
 
   return (
     <section className="min-h-screen flex flex-col justify-center py-16 md:py-24 2xl:py-32 px-margin-mobile md:px-8 bg-prius-background border-t border-hairline" id="servicios">
@@ -417,155 +394,116 @@ export default function Services() {
           </div>
         </div>
 
-        {/* --- Desktop / Tablet: fila horizontal de sectores --- */}
-        {/* Ancho fijo a 1200px (igual al header) en vez de max-w-max: así la
-            proporción cards/contenedor es constante en cualquier pantalla y
-            la última card visible queda siempre ~15-20% cortada ("peek"),
-            reforzando que hay más para descubrir deslizando. */}
-        {/* -my-6 compensa el py-6 que le agregamos al scroller de abajo: ese
-            padding vertical le da al box-shadow del hover espacio real donde
-            pintarse antes de toparse con el overflow-y que el navegador
-            fuerza a "auto" en cuanto hay overflow-x:auto (si no, el shadow
-            queda cortado en línea recta). El margen negativo devuelve la fila
-            a su posición visual original sin mover el resto del layout. */}
-        <div className="hidden md:block relative max-w-[1800px] mx-auto -my-10">
-          {/* Franjas de profundidad en dorado Prius en vez de negro sólido:
-              3 paradas (no solo transparent→color) para que el degradé se
-              sienta difuso desde el arranque, sin un "frente" de color duro
-              a mitad de camino como pasa con una rampa lineal de 2 paradas. */}
-          {/* Sombras full-bleed: arrancan del borde real del viewport (no del borde
-    del container de 1800px) para que la sensación de profundidad continúe
-    hasta el borde de la pantalla en vez de cortarse en seco antes de llegar. */}
-          <div
-            className="absolute left-1/2 top-0 bottom-0 w-screen -translate-x-1/2 pointer-events-none z-10 transition-opacity duration-300"
-            style={{ opacity: edges.atStart ? 0 : 1 }}
-          >
+        {/* --- Desktop / Tablet: bento grid asimétrico de sectores --- */}
+        <div
+          className="hidden md:grid gap-5 mx-auto py-6"
+          style={{
+            maxWidth: 1500,
+            gridTemplateColumns: 'repeat(4, 1fr)',
+            gridTemplateRows: 'repeat(4, 220px)',
+            gridTemplateAreas: '"a a c d" "a a e d" "b b f g" "b b h g"',
+          }}
+        >
+          {SECTORS.map((sector, i) => (
             <div
-              className="absolute left-0 top-0 bottom-0"
-              style={{ width: 'clamp(160px, 14vw, 340px)', background: 'linear-gradient(to left, transparent, rgba(242,202,80,0.09) 45%, rgba(242,202,80,0.32) 100%)' }}
-            />
-          </div>
-          <div
-            className="absolute left-1/2 top-0 bottom-0 w-screen -translate-x-1/2 pointer-events-none z-10 transition-opacity duration-300"
-            style={{ opacity: edges.atEnd ? 0 : 1 }}
-          >
-            <div
-              className="absolute right-0 top-0 bottom-0"
-              style={{ width: 'clamp(160px, 14vw, 340px)', background: 'linear-gradient(to right, transparent, rgba(242,202,80,0.09) 45%, rgba(242,202,80,0.32) 100%)' }}
-            />
-          </div>
-          {/* Flecha: se queda pegada al borde de la fila de cards, no al del viewport */}
-          <div
-            className="absolute right-0 top-0 bottom-0 w-[80px] pointer-events-none z-10 flex items-center justify-end pr-5 transition-opacity duration-300"
-            style={{ opacity: edges.atEnd ? 0 : 1 }}
-          >
-          </div>
+              key={sector.id}
+              onClick={() => openSector(i)}
+              style={{ gridArea: SECTOR_AREA[sector.id] }}
+              className="group relative w-full h-full bg-neutral-950 rounded-2xl 2xl:rounded-3xl overflow-hidden shadow-[0_10px_25px_-8px_rgba(0,0,0,0.15)] hover:shadow-[0_20px_60px_-6px_rgba(242,202,80,0.35),0_8px_28px_-4px_rgba(242,202,80,0.25)] hover:border-gold/50 transition-all duration-500 ease-out cursor-pointer"
+            >
+              <img
+                alt={sector.label}
+                src={sector.cover}
+                loading="lazy"
+                className={
+                  sector.lightTile
+                    ? 'w-full h-full object-contain p-16 box-border bg-white'
+                    : 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out'
+                }
+              />
 
-          <div
-            ref={sliderRef}
-            className="flex gap-6 overflow-x-auto overflow-y-visible py-10 scroll-smooth scrollbar-none"
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-          >
-            {SECTORS.map((sector, i) => (
-              <div
-                key={sector.id}
-                onClick={() => openSector(i)}
-                className="group relative w-[396px] h-[500px] shrink-0 bg-neutral-950 rounded-2xl 2xl:rounded-3xl overflow-hidden shadow-[0_10px_25px_-8px_rgba(0,0,0,0.15)] hover:shadow-[0_20px_60px_-6px_rgba(242,202,80,0.35),0_8px_28px_-4px_rgba(242,202,80,0.25)] hover:border-gold/50 transition-all duration-500 ease-out cursor-pointer"
+              <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/40 to-transparent opacity-90 group-hover:opacity-95 transition-opacity duration-300" />
+
+              <button
+                onClick={(e) => { e.stopPropagation(); openSector(i) }}
+                className="absolute top-4 right-4 z-10 p-2.5 bg-neutral-950/60 backdrop-blur-md text-white hover:bg-gold hover:text-prius-black rounded-full border border-white/15 transition-all duration-200 cursor-pointer shadow-md"
+                title="Ampliar vista"
               >
-                <img
-                  alt={sector.label}
-                  src={sector.cover}
-                  loading="lazy"
-                  className={
-                    sector.lightTile
-                      ? 'w-full h-full object-contain p-16 box-border bg-white'
-                      : 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out'
-                  }
-                />
+                <Maximize2 size={13} />
+              </button>
 
-                <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/40 to-transparent opacity-90 group-hover:opacity-95 transition-opacity duration-300" />
+              <div className="absolute inset-x-0 bottom-0 p-7 2xl:p-8 z-10 flex flex-col justify-end">
+                <h4 className="text-lg 2xl:text-xl font-bold text-white uppercase tracking-tight font-display mb-1.5 leading-snug drop-shadow-sm">
+                  {sector.label}
+                </h4>
+                <p className="text-xs 2xl:text-sm text-white/75 font-light leading-relaxed mb-4 drop-shadow-sm">
+                  {sector.tagline}
+                </p>
 
-                <button
-                  onClick={(e) => { e.stopPropagation(); openSector(i) }}
-                  className="absolute top-4 right-4 z-10 p-2.5 bg-neutral-950/60 backdrop-blur-md text-white hover:bg-gold hover:text-prius-black rounded-full border border-white/15 transition-all duration-200 cursor-pointer shadow-md"
-                  title="Ampliar vista"
-                >
-                  <Maximize2 size={13} />
-                </button>
-
-                <div className="absolute inset-x-0 bottom-0 p-7 2xl:p-8 z-10 flex flex-col justify-end">
-                  <h4 className="text-lg 2xl:text-xl font-bold text-white uppercase tracking-tight font-display mb-1.5 leading-snug drop-shadow-sm">
-                    {sector.label}
-                  </h4>
-                  <p className="text-xs 2xl:text-sm text-white/75 font-light leading-relaxed mb-4 drop-shadow-sm">
-                    {sector.tagline}
-                  </p>
-
-                  <div className="pt-3 border-t border-white/15 flex items-center justify-between">
-                    <span className="inline-flex items-center gap-1.5 text-[10px] 2xl:text-xs font-bold text-gold uppercase tracking-widest font-display transition-transform duration-300 group-hover:translate-x-1">
-                      <span>VER GALERÍA</span>
-                      <ArrowRight size={13} />
-                    </span>
-                    <span className="text-[10px] text-white/50 font-semibold">{sector.images.length} fotos</span>
-                  </div>
+                <div className="pt-3 border-t border-white/15 flex items-center justify-between">
+                  <span className="inline-flex items-center gap-1.5 text-[10px] 2xl:text-xs font-bold text-gold uppercase tracking-widest font-display transition-transform duration-300 group-hover:translate-x-1">
+                    <span>VER GALERÍA</span>
+                    <ArrowRight size={13} />
+                  </span>
+                  <span className="text-[10px] text-white/50 font-semibold">{sector.images.length} fotos</span>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
 
-        {/* --- Mobile: slider horizontal, una card a la vez con snap --- */}
-        <div className="md:hidden relative -mx-margin-mobile">
-          {/* Sombra derecha: sugiere que hay más sectores para descubrir deslizando */}
-          <div className="absolute right-0 top-0 bottom-2 w-14 bg-gradient-to-l from-prius-background to-transparent pointer-events-none z-10" />
+        {/* --- Mobile/Tablet (<md): bento grid de 2 columnas --- */}
+        <div
+          className="md:hidden grid gap-4"
+          style={{
+            gridTemplateColumns: '1fr 1fr',
+            gridTemplateRows: 'repeat(7, minmax(170px, auto))',
+            gridTemplateAreas: '"a a" "a a" "b c" "d d" "e f" "g g" "h h"',
+          }}
+        >
+          {SECTORS.map((sector, i) => (
+            <div
+              key={sector.id}
+              onClick={() => openSector(i)}
+              style={{ gridArea: SECTOR_AREA[sector.id] }}
+              className="relative w-full h-full rounded-[20px] overflow-hidden bg-neutral-950 shadow-md active:scale-[0.98] transition-transform duration-150 cursor-pointer"
+            >
+              <img
+                alt={sector.label}
+                src={sector.cover}
+                loading="lazy"
+                className={
+                  sector.lightTile
+                    ? 'w-full h-full object-contain p-11 box-border bg-white'
+                    : 'w-full h-full object-cover'
+                }
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/35 to-transparent" />
 
-          <div
-            className="flex gap-4 overflow-x-auto pb-2 snap-x snap-mandatory scrollbar-none px-margin-mobile"
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', scrollPaddingLeft: '20px' }}
-          >
-            {SECTORS.map((sector, i) => (
-              <div
-                key={sector.id}
-                onClick={() => openSector(i)}
-                className="relative w-[78%] h-[400px] shrink-0 snap-start rounded-[20px] overflow-hidden bg-neutral-950 shadow-md active:scale-[0.98] transition-transform duration-150 cursor-pointer"
+              <button
+                onClick={(e) => { e.stopPropagation(); openSector(i) }}
+                className="absolute top-3.5 right-3.5 p-2 bg-neutral-950/60 backdrop-blur-md text-white rounded-full border border-white/15"
               >
-                <img
-                  alt={sector.label}
-                  src={sector.cover}
-                  loading="lazy"
-                  className={
-                    sector.lightTile
-                      ? 'w-full h-full object-contain p-11 box-border bg-white'
-                      : 'w-full h-full object-cover'
-                  }
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/35 to-transparent" />
+                <Maximize2 size={12} />
+              </button>
 
-                <button
-                  onClick={(e) => { e.stopPropagation(); openSector(i) }}
-                  className="absolute top-3.5 right-3.5 p-2 bg-neutral-950/60 backdrop-blur-md text-white rounded-full border border-white/15"
-                >
-                  <Maximize2 size={12} />
-                </button>
-
-                <div className="absolute inset-x-0 bottom-0 p-[18px]">
-                  <h4 className="text-base font-bold text-white uppercase font-display mb-1 leading-tight">
-                    {sector.label}
-                  </h4>
-                  <p className="text-[11.5px] text-white/75 font-light leading-tight mb-2.5">
-                    {sector.tagline}
-                  </p>
-                  <div className="flex items-center justify-between pt-2.5 border-t border-white/15">
-                    <span className="inline-flex items-center gap-1.5 text-[10px] font-bold text-gold uppercase tracking-widest font-display">
-                      <span>VER GALERÍA</span>
-                      <ArrowRight size={11} />
-                    </span>
-                    <span className="text-[9px] text-white/50 font-semibold">{sector.images.length} fotos</span>
-                  </div>
+              <div className="absolute inset-x-0 bottom-0 p-[18px]">
+                <h4 className="text-base font-bold text-white uppercase font-display mb-1 leading-tight">
+                  {sector.label}
+                </h4>
+                <p className="text-[11.5px] text-white/75 font-light leading-tight mb-2.5">
+                  {sector.tagline}
+                </p>
+                <div className="flex items-center justify-between pt-2.5 border-t border-white/15">
+                  <span className="inline-flex items-center gap-1.5 text-[10px] font-bold text-gold uppercase tracking-widest font-display">
+                    <span>VER GALERÍA</span>
+                    <ArrowRight size={11} />
+                  </span>
+                  <span className="text-[9px] text-white/50 font-semibold">{sector.images.length} fotos</span>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
 
