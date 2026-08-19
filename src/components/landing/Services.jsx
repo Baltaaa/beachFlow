@@ -31,14 +31,14 @@ const SECTORS = [
     id: 'gastronomia-eventos',
     label: 'Gastronomía & Eventos',
     tagline: 'Gastronomía gourmet y salones para tus celebraciones.',
-    cover: '/images/gastronomia-platos.webp',
+    cover: '/images/salon-interior-dia.webp',
     images: [
       { src: '/images/salon-interior-dia.webp', title: 'El Salón de Día', desc: 'Un salón luminoso y con identidad propia, ideal para almorzar en un ambiente relajado frente al mar.' },
       { src: '/images/gastronomia-platos.webp', title: 'Platos Seleccionados', desc: 'Exquisita propuesta gastronómica con ensaladas frescas, ingredientes premium y platos de estación servidos frente al mar.' },
       { src: '/images/gastronomia-amigos.webp', title: 'Momentos Compartidos', desc: 'Disfrutá de un almuerzo distendido con amigos, tragos frescos y la mejor energía de Playa Grande.' },
       { src: '/images/gastronomia-charla.webp', title: 'Tardes de Encuentro', desc: 'Charlas inolvidables acompañadas de cervezas artesanales y una vista inigualable de la costa.' },
       { src: '/images/gastronomia-barra.webp', title: 'Barra de tragos', desc: 'Tragos frescos con y sin alcohol servidos con la calidez que caracteriza a nuestro equipo.' },
-      { src: '/images/salon-barra-tragos.webp', title: 'Atencion personalizada', desc: 'Camareros capacitados para brindarles una excelente experiencia.' },
+      { src: '/images/gastronomia-atencion.webp', title: 'Atencion personalizada', desc: 'Camareros capacitados para brindarles una excelente experiencia.' },
       { src: '/images/eventos-fiesta.webp', title: 'Música en Vivo & Fiestas', desc: 'Eventos nocturnos con bandas en vivo, iluminación profesional y una atmósfera inigualable frente al Atlántico.' },
       { src: '/images/eventos-cumpleanos.webp', title: 'Celebraciones Privadas', desc: 'Cumpleaños y eventos sociales en un ambiente festivo, con excelente barra de tragos y diseño interior de vanguardia.' },
       { src: '/images/eventos-salon-noche.webp', title: 'Salón de Eventos Nocturno', desc: 'La mítica esquina de Playa Grande iluminada de noche, lista para albergar las celebraciones más exclusivas frente al mar.' },
@@ -50,9 +50,12 @@ const SECTORS = [
     tagline: 'Piscina climatizada y solárium con vista al mar.',
     cover: '/images/instalaciones-solarium.webp',
     images: [
-      { src: '/images/instalaciones-solarium.webp', title: 'Solárium & Pileta', desc: 'Espectacular vista panorámica desde nuestro solárium de madera noble equipado con camastros y piscina climatizada.' },
+      { src: '/images/instalaciones-solarium.webp', title: 'Solárium & Pileta', desc: 'Espectacular vista panorámica desde nuestro solárium equipado con camastros y piscina climatizada.' },
       { src: '/images/piletaService.webp', title: 'Espejo de Agua', desc: 'Piscina climatizada que se funde visualmente con el horizonte costero.' },
-      { src: '/images/prius7.webp', title: 'Deck de Madera Noble', desc: 'Solárium exclusivo equipado con camastros acolchados premium.' },
+      { src: '/images/prius7.webp', title: 'Deck Exclusivo', desc: 'Solárium exclusivo equipado con camastros acolchados premium.' },
+      { src: '/images/pileta-vista-2.webp', title: 'Vista al Mar', desc: 'Disfrutá de la piscina climatizada con el Atlántico como telón de fondo.' },
+      { src: '/images/pileta-vista-3.webp', title: 'Solárium Panorámico', desc: 'Camastros y espacio de relax con vista abierta al mar.' },
+      { src: '/images/pileta-vista-4.webp', title: 'Piscina Climatizada', desc: 'Nuestra piscina climatizada, lista para disfrutar en cualquier momento del día.' },
     ],
   },
   {
@@ -65,6 +68,7 @@ const SECTORS = [
       { src: '/images/recreacion-metegol.webp', title: 'Metegol en la Arena', desc: 'Diversión clásica frente al mar con torneos de metegol para disfrutar en familia.' },
       { src: '/images/recreacion-talleres.webp', title: 'Talleres de Arte', desc: 'Espacio creativo para niños con talleres de collares, pulseras y manualidades guiadas.' },
       { src: '/images/recreacion-jenga.webp', title: 'Jenga Gigante', desc: 'Desafíos de destreza y risas aseguradas con nuestro jenga gigante en la playa.' },
+      { src: '/images/recreacion-arte-arena.webp', title: 'Diversión sobre la Arena', desc: 'Más juegos y actividades recreativas para que los más chicos disfruten al aire libre.' },
     ],
   },
   {
@@ -88,8 +92,7 @@ const SECTORS = [
     images: [
       { src: '/images/coworking-deck.webp', title: 'Deck Principal', desc: 'Espacio de trabajo al aire libre sobre deck de madera noble, ideal para inspirarse frente al mar.' },
       { src: '/images/coworking-sala-1.webp', title: 'Coworking', desc: 'Espacio equipado con wifi y tomacorrientes.' },
-      { src: '/images/prius3.webp', title: 'Coworking', desc: '¿Soñaste tu oficina en la playa?' },
-      { src: '/images/prius3.webp', title: 'Coworking', desc: 'Diseño y ambientación para tu mayor confort.' },
+      { src: '/images/coworking-oficina.webp', title: 'Coworking', desc: '¿Soñaste tu oficina en la playa?' },
     ],
   },
   {
@@ -110,11 +113,10 @@ const SECTORS = [
     id: 'marcas',
     label: 'Marcas',
     tagline: 'Las marcas que confiaron en Prius Playa Grande.',
-    cover: '/images/marca-burger-king.webp',
+    cover: '/images/marca-banco-macro.webp',
     images: [
       { src: '/images/marca-banco-macro.webp', title: 'Banco Macro', desc: 'Banco Macro acompañó un evento exclusivo junto a la pileta de Prius Playa Grande.' },
-      { src: '/images/marca-hawk-group.webp', title: 'Hawk Group', desc: 'Alianza estratégica con Hawk Group en experiencias exclusivas de socios.' },
-      { src: '/images/marca-sancor-seguros.webp', title: 'Sancor Seguros', desc: 'Sancor Seguros acompañó jornadas y beneficios especiales para sus clientes.' },
+      { src: '/images/marca-hawk-sancor.webp', title: 'Hawk Group & Sancor Seguros', desc: 'Alianza estratégica con Hawk Group y Sancor Seguros en experiencias y beneficios exclusivos para sus socios y clientes.' },
       { src: '/images/marca-medife.webp', title: 'Medifé', desc: 'Medifé se sumó a nuestras propuestas de bienestar y salud durante el verano.' },
       { src: '/images/marca-dermaglos.webp', title: 'Dermaglós', desc: 'Dermaglós presente con una activación de cuidado solar y juegos para toda la familia.' },
       { src: '/images/marca-burger-king.webp', title: 'Burger King', desc: 'Activación de marca junto a Burger King, con un arco imponente que recibió a nuestros visitantes en la playa.' },
