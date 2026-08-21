@@ -469,9 +469,56 @@ export default function Services() {
           ))}
         </div>
 
-        {/* --- Mobile/Tablet (<md): bento grid de 2 columnas --- */}
+        {/* --- Mobile chico (<sm): 1 columna, cards compactas tipo banner --- */}
+        <div className="sm:hidden grid gap-3">
+          {SECTORS.map((sector, i) => (
+            <div
+              key={sector.id}
+              onClick={() => openSector(i)}
+              style={{ height: 176 }}
+              className="relative w-full rounded-[16px] overflow-hidden bg-neutral-950 shadow-md active:scale-[0.98] transition-transform duration-150 cursor-pointer"
+            >
+              <img
+                alt={sector.label}
+                src={sector.cover}
+                loading="lazy"
+                className={
+                  sector.lightTile
+                    ? 'w-full h-full object-contain p-8 box-border bg-white'
+                    : 'w-full h-full object-cover'
+                }
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/40 to-transparent" />
+
+              <button
+                onClick={(e) => { e.stopPropagation(); openSector(i) }}
+                className="absolute top-2.5 right-2.5 z-10 p-1.5 bg-neutral-950/60 backdrop-blur-md text-white rounded-full border border-white/15"
+              >
+                <Maximize2 size={11} />
+              </button>
+
+              <div className="absolute inset-x-0 bottom-0 p-3.5">
+                <h4 className="text-sm font-bold text-white uppercase font-display mb-1 leading-tight truncate">
+                  {sector.label}
+                </h4>
+                <p className="text-[10.5px] text-white/75 font-light leading-snug mb-2 line-clamp-2">
+                  {sector.tagline}
+                </p>
+                <div className="flex items-center justify-between pt-2 border-t border-white/15">
+                  <span className="inline-flex items-center gap-1 text-[9px] font-bold text-gold uppercase tracking-widest font-display">
+                    <span>VER GALERÍA</span>
+                    <ArrowRight size={10} />
+                  </span>
+                  <span className="text-[8.5px] text-white/50 font-semibold">{sector.images.length} fotos</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* --- Tablet chico (sm-md): bento grid de 2 columnas --- */}
         <div
-          className="md:hidden grid gap-4"
+          className="hidden sm:grid md:hidden gap-4"
           style={{
             gridTemplateColumns: '1fr 1fr',
             gridTemplateRows: 'repeat(7, minmax(170px, auto))',

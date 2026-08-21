@@ -14,6 +14,23 @@
     <meta name="theme-color" content="#F2CA50" />
     <meta name="description" content="Prius Playa Grande - Experiencia premium de playa en Mar del Plata." />
 
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Prius Playa Grande" />
+    <meta property="og:title" content="Prius Playa Grande | Experiencia de Playa" />
+    <meta property="og:description" content="Prius Playa Grande - Experiencia premium de playa en Mar del Plata." />
+    <meta property="og:url" content="https://www.priusplayagrande.com.ar/" />
+    <meta property="og:image" content="https://www.priusplayagrande.com.ar/images/og-cover.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="es_AR" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Prius Playa Grande | Experiencia de Playa" />
+    <meta name="twitter:description" content="Prius Playa Grande - Experiencia premium de playa en Mar del Plata." />
+    <meta name="twitter:image" content="https://www.priusplayagrande.com.ar/images/og-cover.jpg" />
+
     <!-- Preload LCP Hero Images for fast First Contentful Paint -->
     <link rel="preload" as="image" href="/images/bg-mobile.webp" media="(max-width: 768px)" type="image/webp" fetchpriority="high" />
     <link rel="preload" as="image" href="/images/prius-home-desktop.webp" media="(min-width: 769px)" type="image/webp" fetchpriority="high" />
@@ -22,6 +39,38 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Exo:wght@200;300;400;700&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <title>Prius Playa Grande | Experiencia de Playa</title>
+
+    <!--
+      JSON-LD LocalBusiness. Datos tomados tal cual figuran ya publicados en el
+      sitio (Footer.jsx / ContactSection.jsx): dirección y WhatsApp. "geo"
+      confirmado por Balta vía Google Places (place_id ChIJQaFra8rdhJURflMJm96GTPQ).
+      "priceRange" se omite: no hay tarifario público confirmado.
+    -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "additionalType": "https://www.wikidata.org/wiki/Q838948",
+      "name": "Prius Playa Grande",
+      "image": "https://www.priusplayagrande.com.ar/images/og-cover.jpg",
+      "url": "https://www.priusplayagrande.com.ar/",
+      "telephone": "+542235765482",
+      "email": "reservas@priusplayagrande.com.ar",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Balneario 7, Playa Grande",
+        "addressLocality": "Mar del Plata",
+        "addressRegion": "Buenos Aires",
+        "postalCode": "B7600",
+        "addressCountry": "AR"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -38.0269109,
+        "longitude": -57.5319855
+      }
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>

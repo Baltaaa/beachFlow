@@ -100,10 +100,15 @@ export default function Footer() {
               <span className="text-[10px] font-bold uppercase text-gold tracking-[0.2em] font-display block mb-1">
                 Ubicación Oficial
               </span>
-              <div className="flex items-start gap-2.5 text-xs text-white/80 font-light leading-relaxed">
+              <a
+                href="https://www.google.com/maps/place/?q=place_id:ChIJQaFra8rdhJURflMJm96GTPQ"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-2.5 text-xs text-white/80 font-light leading-relaxed hover:text-gold transition-colors"
+              >
                 <MapPin size={15} className="text-gold shrink-0 mt-0.5" />
                 <span>Balneario 7, Playa Grande, B7600 Mar del Plata</span>
-              </div>
+              </a>
               <div className="flex items-center gap-2.5 text-xs text-white/80 font-light">
                 <Mail size={14} className="text-gold shrink-0" />
                 <a href="mailto:reservas@priusplayagrande.com.ar" className="hover:text-gold transition-colors">
