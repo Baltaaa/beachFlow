@@ -76,7 +76,7 @@ export default function Navbar() {
 
   // --- Clases derivadas del estado (scrolled x theme), desktop ---
   const desktopInnerClass = !scrolled
-    ? 'max-w-[1920px] h-[88px] bg-transparent border-transparent px-8'
+    ? 'max-w-[1200px] h-[88px] bg-transparent border-transparent px-8'
     : isDark
       ? 'max-w-[1200px] h-[60px] bg-neutral-950/85 border-transparent shadow-[0_0_20px_rgba(242,202,80,0.18),0_10px_30px_rgba(0,0,0,0.6)] backdrop-blur-lg px-6'
       : 'max-w-[1200px] h-[60px] bg-white/[0.78] border-black/[0.08] shadow-[0_10px_30px_rgba(0,0,0,0.08),0_2px_8px_rgba(0,0,0,0.04)] backdrop-blur-lg px-6'
