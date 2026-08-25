@@ -231,17 +231,22 @@ export default function ContactSection() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-3">
+              <a
+                href="https://www.google.com/maps/place/?q=place_id:ChIJQaFra8rdhJURflMJm96GTPQ"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 group"
+              >
                 <div className="p-2.5 bg-gold/15 rounded-full border border-gold/40 text-prius-black shrink-0">
                   <MapPin size={14} className="text-prius-black" />
                 </div>
                 <div>
                   <p className="text-[9px] font-bold uppercase tracking-widest text-prius-black/50 mb-0.5 font-display">Ubicación</p>
-                  <p className="text-xs font-medium text-prius-black/80 tracking-wide leading-relaxed">
+                  <p className="text-xs 2xl:text-xs font-bold text-prius-black hover:text-gold transition-colors tracking-wide">
                     Balneario 7, Playa Grande, Mar del Plata
                   </p>
                 </div>
-              </div>
+              </a>
             </div>
           </div>
 

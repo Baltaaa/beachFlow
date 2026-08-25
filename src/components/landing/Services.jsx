@@ -23,7 +23,7 @@ const SECTORS = [
       { src: '/images/carpas-sombrillas-5.webp', title: 'Sombrillas Exclusivas', desc: 'Disfrutá de la brisa marina en nuestro sector exclusivo de sombrillas.' },
       { src: '/images/carpas-sombrillas-4.webp', title: 'Relax Frente al Mar', desc: 'Con o sin companía, tu espacio de relax esta asegurado' },
       { src: '/images/carpas-reposeras-2.webp', title: 'Reposeras Ergonómicas', desc: 'Mobiliario exterior de alta gama diseñado para un descanso absoluto.' },
-      { src: '/images/carpas-pasillo-6.webp', title: 'Pasillos de Carpas', desc: 'Pasillos limpios, amplios y perfectamente mantenidos para un tránsito cómodo.' },
+      { src: '/images/carpas-pasillo-6.webp', title: 'Pasillos de Carpas', desc: 'Pasillos amplios, limpios y perfectamente mantenidos para un tránsito cómodo.' },
       { src: '/images/carpas-sombrillas-mar.webp', title: 'Sonrisas frente al Mar', desc: 'Tu lugar donde la vas a pasar bien todo el verano' },
     ],
   },
@@ -77,7 +77,7 @@ const SECTORS = [
     tagline: 'Masajes, yoga y bienestar frente al Atlántico.',
     cover: '/images/wellness-masajes.webp',
     images: [
-      { src: '/images/wellness-masajes.webp', title: 'Masajes Terapéuticos', desc: 'Sesiones de masajes descontracturantes y relajantes a cargo de la kinesióloga Pilar Ferrando para renovar cuerpo y mente.' },
+      { src: '/images/wellness-masajes.webp', title: 'Masajes Terapéuticos', desc: 'Sesiones de masajes descontracturantes y relajantes para renovar cuerpo y mente.' },
       { src: '/images/wellness-aquadance.webp', title: 'Aqua Dance', desc: 'Clases dinámicas y divertidas de aqua dance en nuestra piscina climatizada para todas las edades.' },
       { src: '/images/wellness-yoga.webp', title: 'Yoga Grupal', desc: 'Prácticas de yoga grupales sobre la arena para conectar con la respiración y el sonido del mar.' },
       { src: '/images/recreacion-surf.webp', title: 'Surf', desc: 'Disfrutá de las mejores olas de Playa Grande con tablas de surf de primer nivel.' },
@@ -112,7 +112,7 @@ const SECTORS = [
   {
     id: 'marcas',
     label: 'Marcas',
-    tagline: 'Las marcas que confiaron en Prius Playa Grande.',
+    tagline: 'Las marcas que confían en Prius Playa Grande.',
     cover: '/images/marca-banco-macro.webp',
     images: [
       { src: '/images/marca-banco-macro.webp', title: 'Banco Macro', desc: 'Banco Macro acompañó un evento exclusivo junto a la pileta de Prius Playa Grande.' },
@@ -396,7 +396,7 @@ export default function Services() {
               Estilo de Vida Prius
             </span>
             <h2 className="text-2xl md:text-4xl 2xl:text-4xl 3xl:text-6xl font-normal tracking-tight text-prius-black uppercase font-display leading-none">
-              Servicios de <span className="text-gold font-bold">Exclusividad</span> Absoluta
+              Servicios <span className="text-gold font-bold">Exclusivos</span>
             </h2>
           </div>
           <div className='max-w-sm'>
@@ -413,7 +413,7 @@ export default function Services() {
             maxWidth: 1200,
             gridTemplateColumns: 'repeat(4, 1fr)',
             gridTemplateRows: 'repeat(4, 220px)',
-            gridTemplateAreas: '"a a c d" "a a e d" "b b f g" "b b h g"',
+            gridTemplateAreas: '"a a c d" "a a e d" "f g b b" "h g b b"',
           }}
         >
           {SECTORS.map((sector, i) => (
