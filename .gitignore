@@ -26,3 +26,7 @@ dist
 .env
 .vite
 .dyad/
+
+# Playwright
+test-results/
+playwright-report/
