@@ -1,2 +1,7 @@
 /ubicacion.html   /            301
 /contacto.html    /#contacto   301
+
+# Fallback SPA: sin esto, una URL directa a /r/PRIUS-XXXXXX (QR, link
+# compartido) da 404 en Cloudflare Pages en vez de dejar que React Router
+# la resuelva del lado del cliente.
+/*                /index.html  200
