@@ -44,6 +44,22 @@ export const AYUDA_EMAIL = 'Te enviamos tu código de reserva acá'
 
 export const LINK_CONSULTA_TEMPORADA = '¿Temporada completa? Consultanos'
 
+export const TOTAL_PASOS = 6
+export const TITULOS_PASO = {
+  2: 'Fechas y Personas',
+  3: 'Elegí tu Lugar',
+  4: 'Tus Datos',
+  5: 'Confirmá tu Reserva',
+  6: 'Reserva Preconfirmada',
+}
+
+export const LEYENDA_PLANO = [
+  { estado: 'libre', label: 'Libre' },
+  { estado: 'bloqueada', label: 'Ocupada' },
+  { estado: 'seleccionada', label: 'Tu elección' },
+  { estado: 'sugerida', label: 'Sugerida' },
+]
+
 // Mensajes de negocio de las Edge Functions (crear-reserva-publica,
 // consultar-reserva, lead-reserva). Códigos documentados en el CLAUDE.md de
 // priusApp — no inventar ninguno nuevo desde este repo.

@@ -16,9 +16,12 @@ import {
   Zap,
   Award
 } from "lucide-react";
+import ReservaFlow from "../features/reservas/ReservaFlow";
+
+const ID_RESERVA_CARPAS_SOMBRILLAS = "Reserva de carpas / sombrillas";
 
 const ASUNTO_OPTIONS = [
-  { id: "Reserva de carpas / sombrillas", label: "Carpas & Sombrillas", icon: Umbrella, desc: "Reserva de sombra en Playa Grande" },
+  { id: ID_RESERVA_CARPAS_SOMBRILLAS, label: "Carpas & Sombrillas", icon: Umbrella, desc: "Reserva de sombra en Playa Grande" },
   { id: "Cabinas & lockers", label: "Cabinas & Lockers", icon: Shield, desc: "Vestuarios y seguridad privada" },
   { id: "Eventos (corporativo, cumpleaños, casamiento)", label: "Eventos", icon: Sparkles, desc: "Corporativos, cumpleaños, casamientos y más" },
   { id: "Otra consulta", label: "Otra Consulta", icon: HelpCircle, desc: "Consultas generales al equipo" },
@@ -28,6 +31,7 @@ const N8N_WEBHOOK_URL = import.meta.env.VITE_N8N_WEBHOOK_URL ?? "";
 
 export default function ContactSection() {
   const [step, setStep] = useState(1);
+  const [modoReserva, setModoReserva] = useState(false);
   const [form, setForm] = useState({
     nombre: "",
     telefono: "",
@@ -64,11 +68,25 @@ export default function ContactSection() {
   }
 
   function handleSelectAsunto(asuntoId) {
+    if (asuntoId === ID_RESERVA_CARPAS_SOMBRILLAS) {
+      setModoReserva(true);
+      return;
+    }
     setForm((prev) => ({ ...prev, asunto: asuntoId }));
     setFieldErrors((prev) => ({ ...prev, asunto: undefined }));
     setTimeout(() => {
       setStep(2);
     }, 280);
+  }
+
+  // El flujo de reserva (ReservaFlow) delega acá cuando no puede resolver
+  // algo (temporada, grupo grande, sin disponibilidad, pausadas, límite por
+  // teléfono) — reusa este mismo Paso 2 y el mismo envío a n8n de siempre,
+  // sin tocar su payload.
+  function handleIrAConsultaForm({ asunto, mensaje }) {
+    setModoReserva(false);
+    setForm((prev) => ({ ...prev, asunto, mensaje }));
+    setStep(2);
   }
 
   function handleChange(e) {
@@ -252,7 +270,11 @@ export default function ContactSection() {
 
           {/* Bloque Derecho: Formulario Interactivo Paso a Paso */}
           <div className="lg:col-span-8 p-6 md:p-8 2xl:p-10 bg-white flex flex-col justify-between min-h-[420px] lg:min-h-[440px]">
-            
+
+            {modoReserva ? (
+              <ReservaFlow onIrAConsultaForm={handleIrAConsultaForm} />
+            ) : (
+              <>
             {/* Barra de Progreso */}
             {status !== "success" && (
               <div className="mb-6">
@@ -497,6 +519,8 @@ export default function ContactSection() {
                   </button>
                 )}
               </div>
+            )}
+              </>
             )}
 
           </div>
