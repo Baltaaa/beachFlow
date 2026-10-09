@@ -104,19 +104,16 @@ al hacer cambios de UI, salvo pedido explícito:
 ## Lead capture (en producción, funcionando)
 
 - `ContactSection.jsx` — formulario de 5 campos con validación de estados
-- Pipeline: form → n8n (`prius-leads` workflow) → Supabase tabla `leads`
-- RLS configurado: insert anónimo (landing) + read/update autenticado (CRM)
+- Pipeline: form (`fetch` a `VITE_N8N_WEBHOOK_URL`) → n8n (`prius-leads` workflow) → Supabase tabla `leads`
+- ⚠️ **Corrección (auditoría 08/10/2026):** `ContactSection.jsx` **no inserta en Supabase
+  directamente** — hace `fetch POST` al webhook de n8n, y es n8n el que escribe en `leads`
+  (presumiblemente con service role, no con la anon key). Verificado con la anon key: el
+  rol `anon` NO tiene permiso de `select` ni de `insert` sobre `leads` (`permission denied
+  for table leads`). La descripción vieja de "RLS: insert anónimo" ya no aplica tal cual —
+  cualquier futuro insert directo desde este repo con la anon key necesita que priusApp
+  habilite esa policy primero.
 - **Pendiente:** nodo de notificación WhatsApp vía CallMeBot en el workflow de n8n
   (bloqueado hasta tener acceso físico al WhatsApp del balneario para registrarlo)
-
-## Cotizador / reservas
-
-Sección actualmente **funcionalmente intocable**. Roadmap futuro (no implementar todavía
-sin confirmación explícita):
-- Mapa interactivo de playa (espejo del que va a tener el CRM)
-- Renderizado en tiempo real desde Supabase
-- Gateway de pago Mercado Pago
-- Generación de ID único de reserva
 
 ## Prius Club (roadmap, no iniciado)
 
@@ -170,3 +167,66 @@ dentro del viewport por mal manejo del array en el loop infinito.
 - Cuando se pida un cambio de UI, no asumir que también hay que tocar lógica —
   si hace falta, preguntar antes
 - Priorizar código explícito y scopeado; evitar refactors amplios no pedidos
+
+## Reservas públicas y DB compartida con priusApp
+
+### Propiedad del schema
+- beachFlow comparte el proyecto Supabase `oslbsnwccchdxmbjhhcg` con el CRM (repo priusApp).
+- Schema, migraciones, RLS y Edge Functions son propiedad exclusiva de priusApp. Desde este repo nunca se migra ni se despliegan funciones.
+- El MCP de Supabase de este repo es read_only.
+- Fuente de verdad de reglas de negocio y datos: el CLAUDE.md de priusApp.
+
+### Qué puede hacer la anon key (contrato)
+- Ejecutar `disponibilidad_publica(desde, hasta)`, `cotizar(tipo_unidad, tipo_alquiler, metodo, desde, hasta)` y `buscar_unidad_vecina(unidad_id, desde, hasta)`.
+- Leer `config_reservas_publicas`.
+- Insertar en `leads` (form de contacto, comportamiento heredado).
+- Nada más: nunca lee `reservas`, `clientes` ni `pagos`.
+- Toda creación de reserva pasa por una Edge Function de priusApp (`crear-reserva-publica`, fase 2), nunca por insert directo.
+- El cliente nunca envía precios: los calcula el servidor.
+
+### Plano de la landing
+- Es EL MISMO plano diario del CRM: misma grilla, construida con `unidades.fila` y `unidades.orden`, donde los pasillos son saltos en `orden`.
+- Se filtra por las fechas elegidas en el paso 1 del form.
+- No muestra ningún dato de clientes. Toda unidad con `bloqueada = true` (ocupada por día, período o temporada, preconfirmada vigente o no habilitada web) aparece con un candado. Las libres son seleccionables.
+- Tiempo real: suscripción al canal Broadcast `disponibilidad`, evento `cambio`. Al recibirlo, se vuelve a llamar `disponibilidad_publica` para las fechas actuales con un debounce de unos 500 ms. El payload no trae datos; es solo un aviso.
+- El componente visual del plano se porta desde priusApp, en la fase 4, como componente puramente presentacional (recibe unidades y devuelve la grilla). Hay que adaptar las clases de Tailwind v3 del CRM a la v4 de este repo sin cambiar el resultado visual.
+
+### Form step-by-step (/reservar)
+1. Fechas y tipo de alquiler, solo los de `config.tipos_alquiler_web`. Para temporada se ofrece contacto, que genera un lead.
+2. Cantidad de personas.
+3. Carpa o sombrilla.
+4. Plano.
+5. Datos de contacto.
+6. Resumen con el precio por cada método de pago.
+7. Confirmar → QR.
+
+Reglas del form:
+- Capacidad: carpa 6, sombrilla 4 (dato de `unidades.capacidad`). Si las personas superan la capacidad, se marca una segunda unidad vecina (`buscar_unidad_vecina`) que el cliente puede cambiar por otra libre. Máximo `config.max_unidades_por_reserva`; si se necesitan más, se ofrece contacto con administración.
+- Si `config.activo = false`, el form muestra que las reservas online no están disponibles y ofrece contacto.
+- Sin tarifa (cotizar devuelve null), esas fechas no se pueden reservar online.
+
+### Confirmación y QR (/r/:codigo)
+- Código `PRIUS-XXXXXX`.
+- El QR (librería `qrcode`) contiene la URL `https://priusplayagrande.com.ar/r/PRIUS-XXXXXX`, sin datos sensibles.
+- La página /r/:codigo obtiene los datos mínimos con la Edge Function `consultar-reserva` (fase 2) y muestra el QR descargable y un botón para compartir por WhatsApp (wa.me).
+- En recepción se escanea el QR o se dicta el código. Con eso solo falta cobrar.
+
+### Orden de trabajo
+- beachFlow 1-B (este repo): preparación, contrato y smoke test.
+- priusApp 2: Edge Functions.
+- priusApp 3: Recepción.
+- beachFlow 4: form y plano, con diseño previo en Stitch.
+- beachFlow 5: página del QR y email.
+
+### Hallazgos de la auditoría 1-B (08/10/2026) — importante para fases 2, 4 y 5
+- **`config_reservas_publicas.activo = false` en este momento.** El form de reservas, cuando se construya, debe arrancar mostrando el mensaje de "reservas online no disponibles" hasta que se active desde priusApp.
+- `tipos_alquiler_web` actual: `["dia", "periodo"]` (sin `"temporada"` todavía).
+- `max_unidades_por_reserva = 2`, `max_reservas_activas_por_telefono = 2`, `dias_anticipacion_max = 60`, `hora_corte_noshow = 12:00:00`.
+- `cotizar(...)` devuelve `null` hoy (no hay tarifas cargadas en `tarifas`, 0 filas) — comportamiento esperado, sin error.
+- **Firmas exactas confirmadas por MCP (introspección read-only, `pg_proc`):**
+  - `disponibilidad_publica(p_desde date, p_hasta date) RETURNS TABLE(unidad_id uuid, numero integer, tipo text, fila integer, orden integer, capacidad integer, bloqueada boolean)`
+  - `cotizar(p_tipo_unidad text, p_tipo_alquiler text, p_metodo text, p_desde date, p_hasta date) RETURNS numeric`
+  - `buscar_unidad_vecina(p_unidad uuid, p_desde date, p_hasta date) RETURNS TABLE(unidad_id uuid, contigua boolean)` — el parámetro se llama **`p_unidad`**, no `p_unidad_id`. Importante: **no devuelve los datos completos de la unidad**, solo `unidad_id` y `contigua` — el form tiene que cruzar ese id con el resultado ya cargado de `disponibilidad_publica` para mostrarla en el plano.
+- El rol `anon` **no tiene ningún permiso sobre `leads`** (ni `select` ni `insert` — `permission denied for table leads`, con RLS habilitado en la tabla), lo que confirma que el insert real pasa por n8n con otra credencial, no por la anon key del browser. Antes de que el form de reservas (fase 4/5) necesite insertar algo directamente con la anon key, hay que confirmar con priusApp qué tabla/RPC es la vía correcta — no asumir que `leads` acepta insert anónimo.
+- **Columnas reales de `leads`** (confirmadas por MCP): `id, created_at, nombre, telefono, email, asunto, mensaje, origen, estado, notas_crm, motivo, datos_form`. `estado` ∈ `nuevo|contactado|convertido|descartado` (default `nuevo`). `motivo` ∈ `contacto|form_abandonado|grupo_grande|temporada|sin_disponibilidad` (default `contacto`). `datos_form` es `jsonb`, nullable.
+- No existe la herramienta `generate_typescript_types` en el MCP de este repo (scope `features=database,docs`, sin el grupo `development`). `src/lib/reservas-contrato.ts` quedó escrito a mano a partir del schema real en vez de derivarse de un `src/types/supabase.ts` generado — si se necesita ese archivo, hay que ampliar el scope del MCP desde priusApp/Supabase o generarlo con la CLI de Supabase (no instalada en este entorno).

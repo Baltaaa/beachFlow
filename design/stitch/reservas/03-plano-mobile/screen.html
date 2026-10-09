@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-slate-950" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Prius Playa Grande - Paso 3: Elegí tu lugar</title>
+<!-- Tailwind CSS CDN with forms and container queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Montserrat & Exo 2 -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700;800&amp;family=Montserrat:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Font Awesome Icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              gold: '#F2CA50',
+              goldLight: '#fae498',
+              goldDark: '#d4ab33',
+              sand: '#FDFBF7',
+              night: '#080E1E',
+              nightCard: '#0F1A30',
+              sea: '#1E3A8A'
+            }
+          },
+          fontFamily: {
+            exo: ['"Exo 2"', 'sans-serif'],
+            sans: ['Montserrat', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+<!-- BEGIN: Custom Styles -->
+<style data-purpose="custom-ui">
+    /* Subtle custom map scrolling & touch manipulation */
+    .map-viewport {
+      touch-action: pan-x pan-y pinch-zoom;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(242, 202, 80, 0.3) rgba(15, 23, 42, 0.6);
+    }
+    .map-viewport::-webkit-scrollbar {
+      height: 4px;
+      width: 4px;
+    }
+    .map-viewport::-webkit-scrollbar-thumb {
+      background: rgba(242, 202, 80, 0.4);
+      border-radius: 9999px;
+    }
+
+    /* Wave animation effect for the seashore */
+    @keyframes waveShore {
+      0%, 100% { transform: translateY(0px) scaleY(1); opacity: 0.8; }
+      50% { transform: translateY(3px) scaleY(1.08); opacity: 1; }
+    }
+    .animate-waves {
+      animation: waveShore 4s ease-in-out infinite;
+    }
+  </style>
+<!-- END: Custom Styles -->
+</head>
+<body class="h-full text-slate-100 font-sans antialiased flex justify-center bg-slate-950 selection:bg-brand-gold selection:text-slate-950">
+<!-- BEGIN: Main Mobile Container (390px iOS format) -->
+<div class="relative w-full max-w-[390px] min-h-screen bg-slate-950 flex flex-col justify-between shadow-2xl border-x border-slate-800/80 overflow-x-hidden">
+<!-- BEGIN: Top Navigation & Summary Section -->
+<header class="sticky top-0 z-40 bg-slate-950/95 backdrop-blur-md border-b border-slate-800/60 pt-3 pb-2 px-4 space-y-2.5">
+<!-- Brand Logo / Small Title -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-brand-gold animate-pulse"></span>
+<span class="font-exo font-bold text-xs uppercase tracking-widest text-slate-300">PRIUS · BALNEARIO 7</span>
+</div>
+<span class="text-[10px] font-medium text-slate-400 bg-slate-900 border border-slate-800 px-2 py-0.5 rounded-full">TEMPORADA 2025</span>
+</div>
+<!-- Capsule: Editable Booking Summary -->
+<div class="flex items-center justify-between bg-slate-900/90 border border-slate-800 rounded-full px-3.5 py-1.5 shadow-inner" data-purpose="booking-capsule">
+<div class="flex items-center gap-2 overflow-hidden text-xs">
+<i class="fa-regular fa-calendar-check text-brand-gold text-[13px]"></i>
+<span class="text-slate-200 font-medium truncate">10/01 al 16/01 · 7 días · 8 pers.</span>
+</div>
+<button class="text-xs font-semibold text-brand-gold hover:text-brand-goldLight transition-colors pl-2 flex items-center gap-0.5" type="button">
+<span>Cambiar</span>
+<i class="fa-solid fa-chevron-right text-[9px]"></i>
+</button>
+</div>
+<!-- Step Counter & Title Indicator -->
+<div class="space-y-1 pt-0.5">
+<div class="flex justify-between items-center text-[10px] uppercase font-exo tracking-wider">
+<span class="text-brand-gold font-bold">PASO 3 DE 6</span>
+<span class="text-slate-400 font-semibold">ELEGÍ TU LUGAR</span>
+</div>
+<!-- Progress bar (50% filled for step 3/6) -->
+<div class="h-1 w-full bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-brand-gold w-1/2 rounded-full transition-all duration-300"></div>
+</div>
+</div>
+</header>
+<!-- END: Top Navigation & Summary Section -->
+<!-- BEGIN: Main Content Area -->
+<main class="flex-1 px-3.5 pt-3 pb-28 space-y-3.5">
+<!-- Section Title & Subtitle -->
+<section class="space-y-1">
+<h1 class="text-lg font-exo font-extrabold uppercase tracking-tight text-white leading-tight">
+          ELEGÍ TU UBICACIÓN <span class="text-brand-gold">EN LA PLAYA</span>
+</h1>
+<p class="text-xs text-slate-400 leading-relaxed">
+          Tocá una carpa libre o cambiá las asignadas para personalizar tu estadía frente al mar.
+        </p>
+</section>
+<!-- BEGIN: Legend Bar -->
+<section class="bg-slate-900/70 border border-slate-800/80 rounded-xl px-2.5 py-2" data-purpose="map-legend">
+<div class="grid grid-cols-4 gap-1 text-[10px]">
+<!-- Legend 1: Libre -->
+<div class="flex flex-col items-center text-center gap-1">
+<div class="w-5 h-5 rounded border border-slate-600 bg-slate-800/60 flex items-center justify-center shadow-xs"></div>
+<span class="text-slate-300 font-medium">Libre</span>
+</div>
+<!-- Legend 2: Ocupado -->
+<div class="flex flex-col items-center text-center gap-1">
+<div class="w-5 h-5 rounded bg-slate-800/40 border border-slate-800 flex items-center justify-center text-slate-500">
+<i class="fa-solid fa-lock text-[8px]"></i>
+</div>
+<span class="text-slate-500">Ocupada</span>
+</div>
+<!-- Legend 3: Tu Elección -->
+<div class="flex flex-col items-center text-center gap-1">
+<div class="w-5 h-5 rounded bg-brand-gold text-slate-950 font-bold flex items-center justify-center shadow-sm text-[9px] shadow-brand-gold/20">
+              19
+            </div>
+<span class="text-brand-gold font-semibold">Tu elección</span>
+</div>
+<!-- Legend 4: Sugerida -->
+<div class="flex flex-col items-center text-center gap-1">
+<div class="w-5 h-5 rounded border-2 border-dashed border-brand-gold bg-brand-gold/10 text-brand-gold font-bold flex items-center justify-center text-[9px]">
+              20
+            </div>
+<span class="text-brand-goldLight font-medium">Sugerida</span>
+</div>
+</div>
+</section>
+<!-- END: Legend Bar -->
+<!-- BEGIN: Interactive Beach Map -->
+<section class="relative rounded-2xl border border-slate-800 bg-[#0A1128] shadow-2xl overflow-hidden p-3" data-purpose="beach-map-container">
+<!-- Sea Shore Header Line -->
+<div class="w-full mb-3 rounded-lg bg-gradient-to-r from-blue-950 via-cyan-900/60 to-blue-950 border border-cyan-800/40 p-2 flex items-center justify-between text-[11px] text-cyan-200/90 shadow-sm">
+<div class="flex items-center gap-1.5 font-exo font-bold tracking-wider uppercase text-[10px]">
+<i class="fa-solid fa-water text-cyan-400 animate-waves"></i>
+<span>ORILLA DEL MAR · VISTA DIRECTA</span>
+</div>
+<span class="text-[9px] bg-cyan-950/80 px-2 py-0.5 rounded text-cyan-300 font-mono border border-cyan-800/50">SECTOR A</span>
+</div>
+<!-- Floating Pinch/Zoom Helper Tag -->
+<div class="absolute top-12 left-4 z-10 pointer-events-none bg-slate-900/90 border border-slate-700/60 backdrop-blur-md rounded-full px-2.5 py-1 text-[10px] text-slate-300 flex items-center gap-1.5 shadow-md">
+<span>Pellizcá o arrastrá para explorar</span>
+<span class="text-brand-gold">🔍</span>
+</div>
+<!-- Floating Map Controls (+ / - / Reset) -->
+<div class="absolute top-12 right-4 z-10 flex flex-col gap-1.5 bg-slate-900/90 border border-slate-700/70 p-1 rounded-xl shadow-lg backdrop-blur-md">
+<button aria-label="Aumentar zoom" class="w-7 h-7 flex items-center justify-center text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg text-xs active:scale-95 transition" type="button">
+<i class="fa-solid fa-plus"></i>
+</button>
+<button aria-label="Disminuir zoom" class="w-7 h-7 flex items-center justify-center text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg text-xs active:scale-95 transition" type="button">
+<i class="fa-solid fa-minus"></i>
+</button>
+<button aria-label="Recentrar mapa" class="w-7 h-7 flex items-center justify-center text-brand-gold hover:bg-slate-800 rounded-lg text-xs active:scale-95 transition" type="button">
+<i class="fa-solid fa-crosshairs"></i>
+</button>
+</div>
+<!-- Map Viewport -->
+<div class="map-viewport overflow-x-auto overflow-y-hidden pt-8 pb-3 min-w-full">
+<div class="w-[430px] space-y-3 px-1">
+<!-- Fila 1 (Frente al mar) -->
+<div>
+<div class="flex items-center justify-between text-[9px] uppercase tracking-wider text-slate-400 font-exo font-semibold mb-1">
+<span>1ª Fila · Frente al mar</span>
+<span class="text-[8px] text-slate-500 font-normal">Pasillo Playa Norte</span>
+</div>
+<div class="grid grid-cols-7 gap-2">
+<!-- Carpas 1-7 -->
+<div class="h-10 rounded-lg bg-slate-900/70 border border-slate-800/80 flex flex-col items-center justify-center text-slate-600 cursor-not-allowed">
+<span class="text-[9px] font-mono">01</span>
+<i class="fa-solid fa-lock text-[8px] mt-0.5"></i>
+</div>
+<div class="h-10 rounded-lg bg-slate-900/70 border border-slate-800/80 flex flex-col items-center justify-center text-slate-600 cursor-not-allowed">
+<span class="text-[9px] font-mono">02</span>
+<i class="fa-solid fa-lock text-[8px] mt-0.5"></i>
+</div>
+<button class="h-10 rounded-lg bg-slate-800/60 border border-slate-700/80 hover:border-brand-gold/70 text-slate-200 flex flex-col items-center justify-center active:scale-95 transition" type="button">
+<span class="text-[10px] font-bold font-mono">03</span>
+<span class="text-[7px] text-emerald-400 font-semibold">LIBRE</span>
+</button>
+<div class="h-10 rounded-lg bg-slate-900/70 border border-slate-800/80 flex flex-col items-center justify-center text-slate-600 cursor-not-allowed">
+<span class="text-[9px] font-mono">04</span>
+<i class="fa-solid fa-lock text-[8px] mt-0.5"></i>
+</div>
+<button class="h-10 rounded-lg bg-slate-800/60 border border-slate-700/80 hover:border-brand-gold/70 text-slate-200 flex flex-col items-center justify-center active:scale-95 transition" type="button">
+<span class="text-[10px] font-bold font-mono">05</span>
+<span class="text-[7px] text-emerald-400 font-semibold">LIBRE</span>
+</button>
+<div class="h-10 rounded-lg bg-slate-900/70 border border-slate-800/80 flex flex-col items-center justify-center text-slate-600 cursor-not-allowed">
+<span class="text-[9px] font-mono">06</span>
+<i class="fa-solid fa-lock text-[8px] mt-0.5"></i>
+</div>
+<div class="h-10 rounded-lg bg-slate-900/70 border border-slate-800/80 flex flex-col items-center justify-center text-slate-600 cursor-not-allowed">
+<span class="text-[9px] font-mono">07</span>
+<i class="fa-solid fa-lock text-[8px] mt-0.5"></i>
+</div>
+</div>
+</div>
+<!-- Pasillo Peatonal Principal -->
+<div class="h-4 border-y border-dashed border-slate-800/90 flex items-center justify-between px-3 text-[8px] text-slate-500 font-mono tracking-widest bg-slate-900/30">
+<span>🚶 PASILLO DE ACCESO CENTRAL</span>
+<span>CARPAS BALNEARIO 7 🚶</span>
+</div>
+<!-- Fila 2 (Sector Destacado con Carpa 19 y 20) -->
+<div>
+<div class="flex items-center justify-between text-[9px] uppercase tracking-wider text-slate-400 font-exo font-semibold mb-1">
+<span>2ª Fila · Sector Premium</span>
+<span class="text-brand-gold text-[8px] font-semibold">Tu grupo seleccionado</span>
+</div>
+<div class="grid grid-cols-7 gap-2">
+<!-- Carpas 15-18 -->
+<button class="h-10 rounded-lg bg-slate-800/60 border border-slate-700/80 hover:border-brand-gold/70 text-slate-200 flex flex-col items-center justify-center active:scale-95 transition" type="button">
+<span class="text-[10px] font-bold font-mono">15</span>
+<span class="text-[7px] text-emerald-400 font-semibold">LIBRE</span>
+</button>
+<div class="h-10 rounded-lg bg-slate-900/70 border border-slate-800/80 flex flex-col items-center justify-center text-slate-600 cursor-not-allowed">
+<span class="text-[9px] font-mono">16</span>
+<i class="fa-solid fa-lock text-[8px] mt-0.5"></i>
+</div>
+<div class="h-10 rounded-lg bg-slate-900/70 border border-slate-800/80 flex flex-col items-center justify-center text-slate-600 cursor-not-allowed">
+<span class="text-[9px] font-mono">17</span>
+<i class="fa-solid fa-lock text-[8px] mt-0.5"></i>
+</div>
+<button class="h-10 rounded-lg bg-slate-800/60 border border-slate-700/80 hover:border-brand-gold/70 text-slate-200 flex flex-col items-center justify-center active:scale-95 transition" type="button">
+<span class="text-[10px] font-bold font-mono">18</span>
+<span class="text-[7px] text-emerald-400 font-semibold">LIBRE</span>
+</button>
+<!-- CARPA 19: Tu elección (dorada sólida) -->
+<button class="relative h-10 rounded-lg bg-brand-gold text-slate-950 border border-amber-300 font-extrabold flex flex-col items-center justify-center shadow-lg shadow-brand-gold/30 ring-2 ring-brand-gold ring-offset-2 ring-offset-slate-900 active:scale-95 transition" type="button">
+<span class="text-[11px] font-mono leading-none">19</span>
+<span class="text-[7px] tracking-tight font-black uppercase mt-0.5">ELEGIDA</span>
+<span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-emerald-500 rounded-full border-2 border-slate-900"></span>
+</button>
+<!-- CARPA 20: Sugerida (borde dorado punteado/doble) -->
+<button class="relative h-10 rounded-lg bg-brand-gold/15 border-2 border-dashed border-brand-gold text-brand-gold hover:bg-brand-gold/25 font-extrabold flex flex-col items-center justify-center shadow-md active:scale-95 transition" type="button">
+<span class="text-[11px] font-mono leading-none">20</span>
+<span class="text-[7px] tracking-tight font-black uppercase mt-0.5">SUGERIDA</span>
+<span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-brand-gold rounded-full border-2 border-slate-900 animate-ping"></span>
+</button>
+<!-- Carpa 21 -->
+<div class="h-10 rounded-lg bg-slate-900/70 border border-slate-800/80 flex flex-col items-center justify-center text-slate-600 cursor-not-allowed">
+<span class="text-[9px] font-mono">21</span>
+<i class="fa-solid fa-lock text-[8px] mt-0.5"></i>
+</div>
+</div>
+</div>
+<!-- Fila 3 (Sombrillas & Zona Familiar) -->
+<div>
+<div class="flex items-center justify-between text-[9px] uppercase tracking-wider text-slate-400 font-exo font-semibold mb-1">
+<span>3ª Fila · Sector Sombrillas &amp; Vestuarios</span>
+<span class="text-slate-500 text-[8px]">Sector S</span>
+</div>
+<div class="grid grid-cols-7 gap-2">
+<button class="h-10 rounded-lg bg-slate-800/60 border border-slate-700/80 hover:border-brand-gold/70 text-slate-200 flex flex-col items-center justify-center active:scale-95 transition" type="button">
+<span class="text-[10px] font-bold font-mono">S-01</span>
+<span class="text-[7px] text-emerald-400 font-semibold">LIBRE</span>
+</button>
+<button class="h-10 rounded-lg bg-slate-800/60 border border-slate-700/80 hover:border-brand-gold/70 text-slate-200 flex flex-col items-center justify-center active:scale-95 transition" type="button">
+<span class="text-[10px] font-bold font-mono">S-02</span>
+<span class="text-[7px] text-emerald-400 font-semibold">LIBRE</span>
+</button>
+<div class="h-10 rounded-lg bg-slate-900/70 border border-slate-800/80 flex flex-col items-center justify-center text-slate-600 cursor-not-allowed">
+<span class="text-[9px] font-mono">S-03</span>
+<i class="fa-solid fa-lock text-[8px] mt-0.5"></i>
+</div>
+<div class="h-10 rounded-lg bg-slate-900/70 border border-slate-800/80 flex flex-col items-center justify-center text-slate-600 cursor-not-allowed">
+<span class="text-[9px] font-mono">S-04</span>
+<i class="fa-solid fa-lock text-[8px] mt-0.5"></i>
+</div>
+<button class="h-10 rounded-lg bg-slate-800/60 border border-slate-700/80 hover:border-brand-gold/70 text-slate-200 flex flex-col items-center justify-center active:scale-95 transition" type="button">
+<span class="text-[10px] font-bold font-mono">S-05</span>
+<span class="text-[7px] text-emerald-400 font-semibold">LIBRE</span>
+</button>
+<button class="h-10 rounded-lg bg-slate-800/60 border border-slate-700/80 hover:border-brand-gold/70 text-slate-200 flex flex-col items-center justify-center active:scale-95 transition" type="button">
+<span class="text-[10px] font-bold font-mono">S-06</span>
+<span class="text-[7px] text-emerald-400 font-semibold">LIBRE</span>
+</button>
+<div class="h-10 rounded-lg bg-slate-900/70 border border-slate-800/80 flex flex-col items-center justify-center text-slate-600 cursor-not-allowed">
+<span class="text-[9px] font-mono">S-07</span>
+<i class="fa-solid fa-lock text-[8px] mt-0.5"></i>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footnote of the map -->
+<div class="mt-2 pt-2 border-t border-slate-800/80 flex justify-between items-center text-[10px] text-slate-400">
+<div class="flex items-center gap-1">
+<i class="fa-solid fa-shield-halved text-brand-gold text-[9px]"></i>
+<span>Espacio seguro &amp; lockers incluidos</span>
+</div>
+<span class="font-mono text-slate-500 text-[9px]">Plano v2.4</span>
+</div>
+</section>
+<!-- END: Interactive Beach Map -->
+<!-- BEGIN: Contextual Callout Info -->
+<section class="rounded-xl p-3 bg-amber-500/10 border border-amber-500/30 text-amber-200/90 shadow-sm space-y-1.5" data-purpose="smart-suggestion-callout">
+<div class="flex items-start gap-2.5">
+<span class="text-base leading-none">💡</span>
+<div class="text-[11px] leading-snug">
+<p class="font-medium">
+<strong class="text-brand-gold font-bold">Para 8 personas necesitás 2 carpas.</strong> Te sugerimos la de al lado (<span class="underline decoration-brand-gold font-semibold text-white">Carpa 20</span>); podés cambiarla tocando otra libre.
+            </p>
+</div>
+</div>
+</section>
+<!-- END: Contextual Callout Info -->
+<!-- Amenities Pill Row -->
+<div class="grid grid-cols-3 gap-2 text-center text-[10px] text-slate-400 pt-1">
+<div class="bg-slate-900/80 border border-slate-800 p-1.5 rounded-lg">
+<i class="fa-solid fa-umbrella-beach text-brand-gold mb-1 block"></i>
+<span>Servicio a carpa</span>
+</div>
+<div class="bg-slate-900/80 border border-slate-800 p-1.5 rounded-lg">
+<i class="fa-solid fa-wifi text-brand-gold mb-1 block"></i>
+<span>Wi-Fi Alta Velocidad</span>
+</div>
+<div class="bg-slate-900/80 border border-slate-800 p-1.5 rounded-lg">
+<i class="fa-solid fa-shower text-brand-gold mb-1 block"></i>
+<span>Vestuarios &amp; Spa</span>
+</div>
+</div>
+</main>
+<!-- END: Main Content Area -->
+<!-- BEGIN: Fixed Native Bottom Bar -->
+<footer class="fixed bottom-0 max-w-[390px] w-full z-50 bg-slate-950/95 backdrop-blur-lg border-t border-slate-800 px-4 py-3 shadow-2xl" data-purpose="mobile-sticky-action-bar">
+<!-- Selection Summary Row -->
+<div class="flex items-center justify-between mb-2.5">
+<div>
+<span class="block text-[10px] uppercase font-exo tracking-wider text-slate-400 font-semibold">Tu selección actual</span>
+<span class="text-xs font-bold font-exo text-brand-gold flex items-center gap-1.5">
+<i class="fa-solid fa-circle-check text-emerald-400 text-[10px]"></i>
+            Carpa 19 + Carpa 20 · 8 personas
+          </span>
+</div>
+<div class="text-right">
+<span class="text-[10px] text-slate-500 block">Cotización oficial</span>
+<span class="text-[11px] font-mono font-bold text-slate-200">Sin intermediarios</span>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex items-center justify-between gap-3">
+<!-- Back Button -->
+<button class="w-1/3 py-2.5 px-3 rounded-full border border-slate-700 hover:border-slate-500 text-slate-300 font-exo font-semibold text-xs tracking-wide flex items-center justify-center gap-1.5 transition active:scale-95 bg-slate-900" type="button">
+<i class="fa-solid fa-chevron-left text-[10px]"></i>
+<span>VOLVER</span>
+</button>
+<!-- Forward Button: Golden active pill -->
+<button class="w-2/3 py-2.5 px-4 rounded-full bg-brand-gold hover:bg-brand-goldLight text-slate-950 font-exo font-extrabold text-xs tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-brand-gold/25 transition active:scale-95" type="button">
+<span>SIGUIENTE</span>
+<i class="fa-solid fa-chevron-right text-[11px]"></i>
+</button>
+</div>
+<!-- Safe Area Inset Spacer for iOS Home Bar -->
+<div class="h-2 w-full"></div>
+</footer>
+<!-- END: Fixed Native Bottom Bar -->
+</div>
+<!-- END: Main Mobile Container -->
+<!-- BEGIN: Interactive Logic for Spot Switching -->
+<script data-purpose="carpa-selection-demo">
+    document.addEventListener('DOMContentLoaded', () => {
+      // Small feedback click effect on beach spots
+      const interactiveButtons = document.querySelectorAll('.map-viewport button');
+      interactiveButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          // Vibratory feedback if supported
+          if (navigator.vibrate) {
+            navigator.vibrate(25);
+          }
+        });
+      });
+    });
+  </script>
+<!-- END: Interactive Logic -->
+</body></html>
