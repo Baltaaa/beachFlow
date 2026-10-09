@@ -1,0 +1,9 @@
+/* Requerido por src/components/plano/PlanoViewport.jsx (cluster de botones
+   de zoom) — ver PORTABILIDAD.md. Acotado a esta feature, no global.
+   Fuente: priusApp/src/index.css. Sin backdrop-filter a propósito: el blur
+   en tiempo real fuerza al compositor a re-rasterizar en cada hover/scroll. */
+.glass-card {
+  background: rgba(23, 32, 48, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+}
