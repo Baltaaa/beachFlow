@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import { guardarLeadReserva } from '../api'
+import { telefonoValido, telefonoE164 } from '../telefono'
 import { AYUDA_EMAIL } from '../mensajes'
 
 function validarEmail(email) {
@@ -9,10 +9,6 @@ function validarEmail(email) {
 }
 function validarDni(dni) {
   return dni.trim() === '' || /^\d{7,8}$/.test(dni.trim())
-}
-function validarTelefono(telefono) {
-  const parsed = parsePhoneNumberFromString(telefono, 'AR')
-  return !!parsed?.isValid()
 }
 
 export default function Paso4Datos({ state, actions, obtenerToken }) {
@@ -28,7 +24,7 @@ export default function Paso4Datos({ state, actions, obtenerToken }) {
   async function handleTelefonoBlur() {
     const telefono = datos.telefono.trim()
     if (!telefono) return
-    if (!validarTelefono(telefono)) {
+    if (!telefonoValido(telefono)) {
       setErrores((prev) => ({ ...prev, telefono: 'Formato de teléfono no válido.' }))
       return
     }
@@ -38,8 +34,8 @@ export default function Paso4Datos({ state, actions, obtenerToken }) {
       const resultado = await guardarLeadReserva({
         leadId: state.leadId,
         nombre: `${datos.nombre} ${datos.apellido}`.trim(),
-        telefono,
-        email: datos.email || undefined,
+        telefonoE164: telefonoE164(telefono),
+        email: datos.email || null,
         motivo: 'form_abandonado',
         datosForm: {
           fechas: state.fechas,
@@ -49,7 +45,8 @@ export default function Paso4Datos({ state, actions, obtenerToken }) {
         },
         turnstileToken: token,
       })
-      if (resultado?.leadId) actions.setLeadId(resultado.leadId)
+      // guardar_lead_reserva() devuelve { ok:true, lead_id } (snake_case).
+      if (resultado?.lead_id) actions.setLeadId(resultado.lead_id)
     } catch {
       // guardado de lead silencioso — no bloquea el flujo del cliente
     } finally {
@@ -62,7 +59,7 @@ export default function Paso4Datos({ state, actions, obtenerToken }) {
     if (!datos.nombre.trim()) nuevosErrores.nombre = 'El nombre es obligatorio.'
     if (!datos.apellido.trim()) nuevosErrores.apellido = 'El apellido es obligatorio.'
     if (!datos.telefono.trim()) nuevosErrores.telefono = 'El teléfono es obligatorio.'
-    else if (!validarTelefono(datos.telefono)) nuevosErrores.telefono = 'Formato de teléfono no válido.'
+    else if (!telefonoValido(datos.telefono)) nuevosErrores.telefono = 'Formato de teléfono no válido.'
     if (!datos.email.trim()) nuevosErrores.email = 'El email es obligatorio.'
     else if (!validarEmail(datos.email)) nuevosErrores.email = 'El email no es válido.'
     if (!validarDni(datos.dni)) nuevosErrores.dni = 'El DNI debe tener 7 u 8 dígitos.'

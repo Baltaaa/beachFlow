@@ -292,6 +292,39 @@ reseteado después de cada uso porque el token es de un solo uso. Hoy usa
 de Cloudflare) — **reemplazar por la clave real antes de activar
 reservas online**.
 
+### A prueba de fallas si faltan env vars (oct 2026)
+`src/lib/supabase.js` **nunca** llama a `createClient()` sin las dos env
+vars de Supabase — antes lo hacía siempre, y `createClient()` tira una
+excepción sincrónica si falta la URL; como ese módulo se importa desde
+`ContactSection.jsx` (que siempre se renderiza en la landing), una sola env
+var faltante dejaba **toda la landing en blanco**, no solo el cotizador.
+Ahora exporta `supabaseConfigurado` (boolean) y `supabase` (cliente real, o
+`null` si falta algo). Lo mismo con `VITE_TURNSTILE_SITE_KEY`
+(`turnstileConfigurado` en `useTurnstile.jsx`). `ReservaFlow.jsx` chequea
+ambos flags antes de renderizar cualquier paso: si falta cualquiera de los
+dos, muestra directamente el estado "Reservas Online Pausadas" — el resto
+de la landing sigue funcionando normal. Verificado a mano simulando cada
+variable faltante por separado (sin tocar el código, solo el `.env` local).
+
+### Variables de entorno obligatorias en Cloudflare Pages (Production y Preview)
+Las cuatro se necesitan en **ambos** entornos (Production y Preview) del
+proyecto de Cloudflare Pages — la landing usa el mismo proyecto Supabase en
+los dos:
+
+| Variable | Requerida | Nota |
+|---|---|---|
+| `VITE_SUPABASE_URL` | Sí | `https://oslbsnwccchdxmbjhhcg.supabase.co` |
+| `VITE_SUPABASE_ANON_KEY` | Sí | anon key del mismo proyecto |
+| `VITE_N8N_WEBHOOK_URL` | Sí (para que el form de contacto mande de verdad) | sin ella, `ContactSection.jsx` solo simula éxito en consola, no llega nada a n8n |
+| `VITE_TURNSTILE_SITE_KEY` | Sí | hoy la clave de prueba `1x00000000000000000000AA`; reemplazar por la real antes de activar reservas |
+
+Si falta `VITE_SUPABASE_URL`/`VITE_SUPABASE_ANON_KEY` o
+`VITE_TURNSTILE_SITE_KEY`, el flujo de reserva cae solo a "pausadas" (ver
+arriba) — no rompe el resto del sitio. Si falta `VITE_N8N_WEBHOOK_URL`, el
+form de contacto (las 4 opciones del Paso 1, incluido el flujo de consulta
+de reservas) deja de enviar nada de verdad sin avisar visualmente al
+usuario — confirmar que esté siempre cargada en los dos entornos.
+
 ### Flujo de consulta (temporada, grupo grande, sin disponibilidad, pausadas, límite por teléfono)
 Reutiliza el Paso 2 de datos ya existente de `ContactSection.jsx` y el
 mismo envío a n8n de siempre — mismo payload, sin campos nuevos. El

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { ChevronLeft, Phone } from 'lucide-react'
 import { cotizar, crearReservaPublica, ReservaApiError } from '../api'
+import { telefonoE164 } from '../telefono'
 import { resumenFechas, formatoPesos } from '../fechas'
 import {
   MENSAJE_SUJETO_A_DISPONIBILIDAD,
@@ -56,18 +57,21 @@ export default function Paso5Confirmar({ config, state, actions, obtenerToken, o
     try {
       const token = await obtenerToken()
       const resultado = await crearReservaPublica({
-        leadId: state.leadId,
-        nombre: state.datos.nombre,
-        apellido: state.datos.apellido,
-        telefono: state.datos.telefono,
-        email: state.datos.email,
-        dni: state.datos.dni || undefined,
+        tipoAlquiler,
         desde,
         hasta,
-        tipoAlquiler,
         personas: state.personas,
-        unidades: [principal, sugerida].filter(Boolean).map((u) => u.unidad_id),
+        tipoUnidad: principal.tipo,
+        unidadIds: [principal, sugerida].filter(Boolean).map((u) => u.unidad_id),
         metodoPago: metodoElegido,
+        cliente: {
+          nombre: state.datos.nombre,
+          apellido: state.datos.apellido,
+          telefonoE164: telefonoE164(state.datos.telefono),
+          email: state.datos.email,
+          dni: state.datos.dni || null,
+        },
+        leadId: state.leadId,
         turnstileToken: token,
       })
       actions.setResultado(resultado)

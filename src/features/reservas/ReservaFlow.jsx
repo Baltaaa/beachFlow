@@ -1,6 +1,7 @@
+import { supabaseConfigurado } from '../../lib/supabase'
 import { useConfigReservas } from './useConfigReservas'
 import { useReservaFlow } from './useReservaFlow'
-import { useTurnstile } from './useTurnstile'
+import { useTurnstile, turnstileConfigurado } from './useTurnstile'
 import BarraProgreso from './BarraProgreso'
 import EstadoPausadas from './EstadoPausadas'
 import Paso2FechasPersonas from './pasos/Paso2FechasPersonas'
@@ -40,6 +41,13 @@ export default function ReservaFlow({ onIrAConsultaForm }) {
       asunto: 'Reserva de carpas / sombrillas',
       mensaje: armarMensajeContexto(motivo, state),
     })
+  }
+
+  // Sin Supabase o sin Turnstile configurados, ningún paso puede funcionar
+  // de verdad — mejor mostrar "pausadas" de entrada (el resto de la
+  // landing, incluida esta misma sección, sigue andando igual).
+  if (!supabaseConfigurado || !turnstileConfigurado) {
+    return <EstadoPausadas onIrAConsulta={() => onIrAConsulta('contacto')} />
   }
 
   if (cargandoConfig) {

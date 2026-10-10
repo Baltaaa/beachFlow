@@ -91,10 +91,10 @@ export default function Paso6Confirmacion({ config, state }) {
         </p>
       )}
 
-      {resultado?.monto != null && (
+      {resultado?.total != null && (
         <div className="p-3 rounded-xl border border-hairline bg-neutral-50 text-xs w-full max-w-xs">
           <span className="text-prius-black/50 font-light">A abonar: </span>
-          <span className="font-bold text-prius-black">{formatoPesos(resultado.monto)}</span>
+          <span className="font-bold text-prius-black">{formatoPesos(resultado.total)}</span>
         </div>
       )}
     </div>

@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { Download, MapPin, Phone } from "lucide-react";
 import QRCode from "qrcode";
 import { consultarReserva } from "../features/reservas/api";
+import { useConfigReservas } from "../features/reservas/useConfigReservas";
 import { REGEX_CODIGO, URL_RESERVA } from "../lib/reservas-contrato";
 import {
   BADGE_PRECONFIRMADA,
@@ -23,6 +24,9 @@ export default function ReservaPublica() {
   const [estado, setEstado] = useState(codigoValido ? "cargando" : "no_encontrada"); // cargando | ok | no_encontrada
   const [reserva, setReserva] = useState(null);
   const [qrDataUrl, setQrDataUrl] = useState(null);
+  // consultar_reserva_publica() no devuelve hora_corte_noshow — se pide
+  // aparte para el texto del bloque "sujeta a disponibilidad".
+  const { config } = useConfigReservas();
 
   useEffect(() => {
     if (!codigoValido) return;
@@ -85,18 +89,26 @@ export default function ReservaPublica() {
               <img src={qrDataUrl} alt={`QR de la reserva ${codigo}`} className="w-40 h-40 mx-auto" />
             )}
 
+            {reserva.titular && (
+              <p className="text-xs text-prius-black/50 font-light">{reserva.titular}</p>
+            )}
+
             {reserva.estado === "vencida" ? (
               <p className="text-xs text-prius-black/70 font-light leading-relaxed max-w-xs mx-auto">
                 {MENSAJE_VENCIDA}
               </p>
-            ) : (
+            ) : reserva.estado === "cancelada" ? (
+              <p className="text-xs text-prius-black/70 font-light leading-relaxed max-w-xs mx-auto">
+                Esta reserva fue cancelada.
+              </p>
+            ) : reserva.estado === "preconfirmada" ? (
               <p className="text-xs text-prius-black/70 font-light leading-relaxed max-w-xs mx-auto">
                 {MENSAJE_PRECONFIRMADA_PASO6(
-                  reserva.horaCorte ?? "12:00",
+                  config?.hora_corte_noshow?.slice(0, 5) ?? "12:00",
                   reserva.desde ? resumenFechas(reserva.desde, reserva.desde).split(" · ")[0] : "",
                 )}
               </p>
-            )}
+            ) : null}
 
             <div className="p-4 rounded-xl border border-hairline bg-neutral-50 space-y-2 text-left">
               {reserva.unidades?.length > 0 && (
@@ -106,8 +118,10 @@ export default function ReservaPublica() {
                 />
               )}
               {reserva.desde && <Fila label="Fechas" valor={resumenFechas(reserva.desde, reserva.hasta)} />}
-              {reserva.personas != null && <Fila label="Personas" valor={reserva.personas} />}
-              {reserva.monto != null && <Fila label="A abonar" valor={formatoPesos(reserva.monto)} />}
+              {reserva.cantidad_personas != null && <Fila label="Personas" valor={reserva.cantidad_personas} />}
+              {reserva.saldo != null && reserva.saldo > 0 && (
+                <Fila label="A abonar" valor={formatoPesos(reserva.saldo)} />
+              )}
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3">
@@ -146,11 +160,18 @@ export default function ReservaPublica() {
 }
 
 function Badge({ estado }) {
-  const texto = estado === "confirmada" ? BADGE_CONFIRMADA : estado === "vencida" ? "Vencida" : BADGE_PRECONFIRMADA;
+  const texto =
+    estado === "confirmada"
+      ? BADGE_CONFIRMADA
+      : estado === "vencida"
+        ? "Vencida"
+        : estado === "cancelada"
+          ? "Cancelada"
+          : BADGE_PRECONFIRMADA;
   const clase =
     estado === "confirmada"
       ? "bg-green-100 text-green-700"
-      : estado === "vencida"
+      : estado === "vencida" || estado === "cancelada"
         ? "bg-neutral-200 text-neutral-600"
         : "bg-gold/20 text-prius-black";
   return (
