@@ -230,3 +230,94 @@ Reglas del form:
 - El rol `anon` **no tiene ningún permiso sobre `leads`** (ni `select` ni `insert` — `permission denied for table leads`, con RLS habilitado en la tabla), lo que confirma que el insert real pasa por n8n con otra credencial, no por la anon key del browser. Antes de que el form de reservas (fase 4/5) necesite insertar algo directamente con la anon key, hay que confirmar con priusApp qué tabla/RPC es la vía correcta — no asumir que `leads` acepta insert anónimo.
 - **Columnas reales de `leads`** (confirmadas por MCP): `id, created_at, nombre, telefono, email, asunto, mensaje, origen, estado, notas_crm, motivo, datos_form`. `estado` ∈ `nuevo|contactado|convertido|descartado` (default `nuevo`). `motivo` ∈ `contacto|form_abandonado|grupo_grande|temporada|sin_disponibilidad` (default `contacto`). `datos_form` es `jsonb`, nullable.
 - No existe la herramienta `generate_typescript_types` en el MCP de este repo (scope `features=database,docs`, sin el grupo `development`). `src/lib/reservas-contrato.ts` quedó escrito a mano a partir del schema real en vez de derivarse de un `src/types/supabase.ts` generado — si se necesita ese archivo, hay que ampliar el scope del MCP desde priusApp/Supabase o generarlo con la CLI de Supabase (no instalada en este entorno).
+
+## Fase 4B — Reserva online sin pago (implementado, rama `fase4b-reservas`)
+
+### Flujo implementado
+En el Paso 1 del cotizador existente (`ContactSection.jsx`), la opción
+**"Carpas & Sombrillas"** entra al flujo de reserva de 6 pasos
+(`src/features/reservas/ReservaFlow.jsx`) en vez de ir directo al Paso 2 de
+datos de siempre. Las otras 3 opciones (Cabinas & Lockers, Eventos, Otra
+consulta) siguen exactamente igual, con el mismo `fetch` al webhook de n8n
+de siempre — nada de su código se tocó.
+
+### Regla de branding
+Lo que ya está en producción manda (Exo + Instrument Sans, dorado
+`#F2CA50`, botones píldora, radios de la escala real). De Stitch
+(`design/stitch/reservas/`) solo se tomó la estructura/disposición de las
+pantallas nuevas — sus colores, fuentes y radios no se usaron donde no
+coincidían con producción. Única excepción: el panel del plano (Paso 3) es
+Glass Dark, copia exacta del CRM, no de Stitch. Los estilos nuevos quedan
+acotados a los componentes del cotizador y a `/r/:codigo`
+(`src/features/reservas/*.css`, nunca CSS global). No-regresión verificada
+con capturas Playwright de la landing completa fuera del cotizador
+(`e2e/no-regresion.spec.js`, baseline en
+`e2e/no-regresion.spec.js-snapshots/`).
+
+### Mensaje obligatorio: sujeta a disponibilidad hasta el pago
+Todos los textos viven centralizados en `src/features/reservas/mensajes.js`
+(incluida la hora de `config.hora_corte_noshow`). Paso 5 tiene un checkbox
+obligatorio — sin tildarlo, el botón de confirmar queda deshabilitado.
+**Prohibido usar "garantizada", "asegurada" o "confirmada" para una
+reserva que todavía no se pagó** — en ningún texto nuevo de este flujo.
+
+### Contenido inventado por Stitch que NO se implementó
+Temporizador de "cupo reservado 15 minutos", "Bonificación 7%"/"Tarifa
+lista"/"Sin recargo"/comprobante por WhatsApp/botón de pago instantáneo,
+"lista de espera", "Sector central"/"Ubicación privilegiada"/"Sector
+premium"/"Espacio seguro & lockers incluidos"/"Conexión cifrada SSL",
+"Comprobante oficial válido" (en `/r/` dice "Tu reserva"), años fijos tipo
+"Temporada 2025", filas/sectores inventados del plano de Stitch (se usa
+siempre el componente real), y links de navegación que no existen en la
+landing.
+
+### Estructura de `src/features/reservas/`
+`api.js` (RPCs + Edge Functions con mapeo de errores de negocio),
+`mensajes.js`, `fechas.js`, `useConfigReservas.js`, `useDisponibilidad.js`
+(RPC + Broadcast `disponibilidad`/`cambio`, debounce 500ms),
+`useReservaFlow.js` (estado completo del flujo vía `useReducer`),
+`useTurnstile.jsx`, `ReservaFlow.jsx`, `BarraProgreso.jsx`,
+`EstadoPausadas.jsx`, `PlanoInteractivo.jsx`, `pasos/Paso2..6*.jsx`.
+
+### Plano
+`src/components/plano/` sigue siendo copia exacta de priusApp — no se edita
+acá (ver `PORTABILIDAD.md`). La lógica de zoom/pan/touch y la asistencia
+"tocá para acercar" en mobile viven en `src/features/reservas/
+PlanoInteractivo.jsx`, fuera de esa carpeta, a propósito.
+
+### Turnstile
+Un solo widget invisible/managed montado por `ReservaFlow` (`useTurnstile`),
+reseteado después de cada uso porque el token es de un solo uso. Hoy usa
+`VITE_TURNSTILE_SITE_KEY=1x00000000000000000000AA` (clave de prueba pública
+de Cloudflare) — **reemplazar por la clave real antes de activar
+reservas online**.
+
+### Flujo de consulta (temporada, grupo grande, sin disponibilidad, pausadas, límite por teléfono)
+Reutiliza el Paso 2 de datos ya existente de `ContactSection.jsx` y el
+mismo envío a n8n de siempre — mismo payload, sin campos nuevos. El
+contexto (fechas, personas, motivo) va dentro del texto de `mensaje`.
+
+### EMAIL_RESERVA_ACTIVO
+`false` en `mensajes.js` — la línea "también te lo enviamos a tu email" en
+el Paso 6 y en `/r/:codigo` queda oculta hasta la Fase 5 (entrega de QR por
+email).
+
+### Verificación obligatoria
+Playwright, `channel: 'chrome'`, proyectos `mobile-360`, `mobile-390` y
+`desktop-1440` (`playwright.config.js`, `pnpm run test:e2e`). Ningún paso
+de este flujo se da por terminado sin pasar por ahí.
+
+### Pendiente antes de activar (`config_reservas_publicas.activo = true`)
+- Confirmar con priusApp los campos exactos de los payloads de
+  `crear-reserva-publica`, `lead-reserva` y la forma de la respuesta de
+  `consultar-reserva` — se implementaron con nombres de campo razonables
+  (`turnstileToken`, `leadId`, `desde`/`hasta`/`tipoAlquiler`/`unidades`,
+  etc.) pero sin el contrato exacto documentado, porque las Edge Functions
+  son del lado de priusApp.
+- Reemplazar `VITE_TURNSTILE_SITE_KEY` por la clave real.
+- Prueba real end-to-end (reservas E2E TEST, lugar tomado con dos pestañas,
+  checkbox sin tildar, consulta a n8n) — recién cuando priusApp confirme
+  `activo = true` con tarifas E2E cargadas.
+- Sumar la URL de preview de `fase4b-reservas` a `ALLOWED_ORIGINS` desde
+  priusApp (CORS de las Edge Functions) — no se puede hacer desde este
+  repo.
