@@ -15,4 +15,18 @@ if (!supabaseConfigurado) {
   )
 }
 
-export const supabase = supabaseConfigurado ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null
+// Fase 5B: login de clientes con Google.
+// - persistSession / detectSessionInUrl ya eran el default de auth-js, pero
+//   van explícitos porque de ellos depende que la sesión sobreviva al
+//   redirect de OAuth y que el callback se procese al volver a la landing.
+// - flowType 'pkce' NO es el default ('implicit'): sin esto el token viajaría
+//   en el fragmento de la URL en vez de intercambiarse por un code verifier.
+export const supabase = supabaseConfigurado
+  ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+      auth: {
+        persistSession: true,
+        detectSessionInUrl: true,
+        flowType: 'pkce',
+      },
+    })
+  : null

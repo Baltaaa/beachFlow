@@ -10,10 +10,12 @@ import { resumenFechas } from '../fechas'
 
 const TIPO_LABEL = { carpa: 'Carpa', sombrilla: 'Sombrilla' }
 
-export default function Paso3Plano({ config, state, actions, onIrAConsulta }) {
+export default function Paso3Plano({ config, state, actions, onIrAConsulta, avisoExterno = null }) {
   const { desde, hasta } = state.fechas
   const { unidades, cargando } = useDisponibilidad(desde, hasta)
-  const [aviso, setAviso] = useState(null)
+  // avisoExterno: la unidad guardada se ocupó mientras el cliente estaba en
+  // Google (ver ReservaFlow). Solo es el valor inicial; cualquier click lo borra.
+  const [aviso, setAviso] = useState(avisoExterno)
   const prevUnidadesRef = useRef(unidades)
 
   const { principal, sugerida } = state.unidades

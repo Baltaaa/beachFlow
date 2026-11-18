@@ -6,6 +6,7 @@ import { resumenFechas, formatoPesos } from '../fechas'
 import {
   MENSAJE_SUJETO_A_DISPONIBILIDAD,
   CHECKBOX_SUJETO_A_DISPONIBILIDAD,
+  SESION_VENCIDA,
   mensajeDeError,
 } from '../mensajes'
 
@@ -19,12 +20,22 @@ const METODOS = [
 
 const TIPO_LABEL = { carpa: 'Carpa', sombrilla: 'Sombrilla' }
 
-export default function Paso5Confirmar({ config, state, actions, obtenerToken, onIrAConsulta }) {
+export default function Paso5Confirmar({ config, state, actions, obtenerToken, onIrAConsulta, cuentaCliente }) {
   const [precios, setPrecios] = useState(null)
   const [metodoElegido, setMetodoElegido] = useState(null)
   const [enviando, setEnviando] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
   const [errorOfreceConsulta, setErrorOfreceConsulta] = useState(false)
+
+  // Cliente reconocido: los datos salen del vínculo de la cuenta, no del
+  // form. El email nunca se manda — crear-reserva-publica lo toma del JWT —
+  // pero nombre, apellido y teléfono siguen siendo obligatorios en el schema
+  // zod de la Edge Function, también para un cliente existente (los ignora:
+  // usa el cliente del vínculo).
+  const clienteCuenta = cuentaCliente?.cuenta?.vinculo === 'confirmado' ? cuentaCliente.cuenta.cliente : null
+  const nombreMostrado = [clienteCuenta?.nombre ?? state.datos.nombre, clienteCuenta?.apellido ?? state.datos.apellido]
+    .filter(Boolean)
+    .join(' ')
 
   const { principal, sugerida } = state.unidades
   const cantidadUnidades = 1 + (sugerida ? 1 : 0)
@@ -65,11 +76,13 @@ export default function Paso5Confirmar({ config, state, actions, obtenerToken, o
         unidadIds: [principal, sugerida].filter(Boolean).map((u) => u.unidad_id),
         metodoPago: metodoElegido,
         cliente: {
-          nombre: state.datos.nombre,
-          apellido: state.datos.apellido,
-          telefonoE164: telefonoE164(state.datos.telefono),
-          email: state.datos.email,
-          dni: state.datos.dni || null,
+          nombre: clienteCuenta?.nombre ?? state.datos.nombre,
+          apellido: clienteCuenta?.apellido ?? state.datos.apellido,
+          telefonoE164: telefonoE164(clienteCuenta?.telefono ?? state.datos.telefono),
+          // El email sale siempre de la cuenta de Google del lado del
+          // servidor; mandarlo acá no tendría efecto.
+          email: null,
+          dni: clienteCuenta ? null : state.datos.dni || null,
         },
         leadId: state.leadId,
         turnstileToken: token,
@@ -90,7 +103,15 @@ export default function Paso5Confirmar({ config, state, actions, obtenerToken, o
         actions.setEstado('pausadas')
         return
       }
-      setErrorOfreceConsulta(codigo === 'limite_por_telefono')
+      // 401 de crear-reserva-publica: la sesión venció o se cerró en otra
+      // pestaña. Vuelve al Paso 4 a loguearse de nuevo, con todo el resto del
+      // flow intacto.
+      if (codigo === 'login_requerido') {
+        actions.setAvisoSesion(SESION_VENCIDA)
+        actions.irAPaso(4)
+        return
+      }
+      setErrorOfreceConsulta(codigo === 'limite_por_telefono' || codigo === 'limite_por_cuenta')
       setErrorMsg(mensajeDeError(codigo))
     } finally {
       setEnviando(false)
@@ -126,7 +147,7 @@ export default function Paso5Confirmar({ config, state, actions, obtenerToken, o
           </div>
           <div>
             <p className="text-prius-black/50 font-light">Contacto:</p>
-            <p className="font-medium text-prius-black">{state.datos.nombre} {state.datos.apellido}</p>
+            <p className="font-medium text-prius-black">{nombreMostrado}</p>
           </div>
         </div>
       </div>

@@ -31,6 +31,14 @@ export default tseslint.config(
     },
   },
   {
+    // Archivos que corren en Node, no en el browser: la config de Playwright
+    // y los tests e2e (process.env, Buffer, etc.).
+    files: ['playwright.config.js', 'vitest.config.js', 'e2e/**/*.{js,jsx}'],
+    languageOptions: {
+      globals: { ...globals.browser, ...globals.node },
+    },
+  },
+  {
     files: ['**/*.{ts,tsx}'],
     extends: [...tseslint.configs.recommended],
     languageOptions: {

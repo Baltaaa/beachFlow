@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { 
   Mail, 
   Phone, 
@@ -17,6 +17,7 @@ import {
   Award
 } from "lucide-react";
 import ReservaFlow from "../features/reservas/ReservaFlow";
+import { hayQueContinuar, limpiarParamContinuar } from "../features/reservas/persistenciaFlow";
 
 const ID_RESERVA_CARPAS_SOMBRILLAS = "Reserva de carpas / sombrillas";
 
@@ -30,8 +31,21 @@ const ASUNTO_OPTIONS = [
 const N8N_WEBHOOK_URL = import.meta.env.VITE_N8N_WEBHOOK_URL ?? "";
 
 export default function ContactSection() {
+  // Vuelta del login con Google (Fase 5B): se lee una sola vez, antes de
+  // limpiar la URL, y abre el cotizador directo en el flujo de reserva con el
+  // estado restaurado desde sessionStorage.
+  const [continuarReserva] = useState(hayQueContinuar);
   const [step, setStep] = useState(1);
-  const [modoReserva, setModoReserva] = useState(false);
+  const [modoReserva, setModoReserva] = useState(continuarReserva);
+  const tarjetaRef = useRef(null);
+
+  useEffect(() => {
+    if (!continuarReserva) return;
+    limpiarParamContinuar();
+    // Scroll a la tarjeta del cotizador: el cliente volvió de Google y tiene
+    // que caer donde dejó el form, no arriba de todo.
+    tarjetaRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [continuarReserva]);
   const [form, setForm] = useState({
     nombre: "",
     telefono: "",
@@ -195,7 +209,7 @@ export default function ContactSection() {
         </div>
 
         {/* Tarjeta Estructura Bento Flotante sobre la Foto del Footer con Sombra Profunda */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 border border-hairline/80 rounded-3xl overflow-hidden bg-white shadow-[0_25px_60px_-15px_rgba(0,0,0,0.30)] hover:shadow-[0_30px_70px_-12px_rgba(0,0,0,0.35)] transition-all duration-500 relative z-30">
+        <div ref={tarjetaRef} className="grid grid-cols-1 lg:grid-cols-12 gap-0 border border-hairline/80 rounded-3xl overflow-hidden bg-white shadow-[0_25px_60px_-15px_rgba(0,0,0,0.30)] hover:shadow-[0_30px_70px_-12px_rgba(0,0,0,0.35)] transition-all duration-500 relative z-30">
           
           {/* Bloque Izquierdo: Información de Contacto */}
           <div className="lg:col-span-4 relative text-prius-black p-6 md:p-8 2xl:p-10 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-hairline bg-neutral-50/90 overflow-hidden min-h-[320px] lg:min-h-[440px]">
@@ -272,7 +286,7 @@ export default function ContactSection() {
           <div className="lg:col-span-8 p-6 md:p-8 2xl:p-10 bg-white flex flex-col justify-between min-h-[420px] lg:min-h-[440px]">
 
             {modoReserva ? (
-              <ReservaFlow onIrAConsultaForm={handleIrAConsultaForm} />
+              <ReservaFlow onIrAConsultaForm={handleIrAConsultaForm} continuar={continuarReserva} />
             ) : (
               <>
             {/* Barra de Progreso */}

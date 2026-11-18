@@ -1,4 +1,5 @@
 import { useReducer, useMemo } from 'react'
+import { guardarFlow, leerFlow, limpiarFlow } from './persistenciaFlow'
 
 // Paso 1 es el existente de ContactSection (selección de servicio) — este
 // flujo arranca en el Paso 2 ("PASO X DE 6" solo aplica a este flujo).
@@ -15,6 +16,17 @@ const ESTADO_INICIAL = {
   // idle | pausadas | grupo_grande | sin_tarifa | sin_lugar | consulta
   estado: 'idle',
   motivoConsulta: null,
+  // Aviso que tiene que ver el cliente al caer en el Paso 4 (login fallido,
+  // sesión vencida). No se persiste.
+  avisoSesion: null,
+}
+
+// Fase 5B: al volver del redirect de Google la página se recargó entera, así
+// que el estado sale de sessionStorage en vez de arrancar en el Paso 2.
+function estadoInicial(continuar) {
+  if (!continuar) return ESTADO_INICIAL
+  const guardado = leerFlow()
+  return guardado ? { ...ESTADO_INICIAL, ...guardado } : ESTADO_INICIAL
 }
 
 function reservaFlowReducer(state, action) {
@@ -58,6 +70,10 @@ function reservaFlowReducer(state, action) {
       return { ...state, resultado: action.resultado, paso: 6 }
     case 'SET_ESTADO':
       return { ...state, estado: action.estado, motivoConsulta: action.motivo ?? null }
+    case 'SET_AVISO_SESION':
+      return { ...state, avisoSesion: action.aviso ?? null }
+    case 'HIDRATAR':
+      return { ...state, ...action.state }
     case 'RESET':
       return ESTADO_INICIAL
     default:
@@ -65,8 +81,8 @@ function reservaFlowReducer(state, action) {
   }
 }
 
-export function useReservaFlow() {
-  const [state, dispatch] = useReducer(reservaFlowReducer, ESTADO_INICIAL)
+export function useReservaFlow(continuar = false) {
+  const [state, dispatch] = useReducer(reservaFlowReducer, continuar, estadoInicial)
 
   const actions = useMemo(
     () => ({
@@ -85,11 +101,21 @@ export function useReservaFlow() {
       setMetodoPago: (metodo) => dispatch({ type: 'SET_METODO_PAGO', metodo }),
       setAceptaCondiciones: (valor) =>
         dispatch({ type: 'SET_ACEPTA_CONDICIONES', valor }),
-      setResultado: (resultado) =>
-        dispatch({ type: 'SET_RESULTADO', resultado }),
+      setResultado: (resultado) => {
+        // Reserva creada: el flow guardado ya no sirve para nada y no se
+        // tiene que poder "continuar" después de confirmar.
+        limpiarFlow()
+        dispatch({ type: 'SET_RESULTADO', resultado })
+      },
+      setAvisoSesion: (aviso) => dispatch({ type: 'SET_AVISO_SESION', aviso }),
+      // Guarda el flow entero antes de mandar al cliente a Google.
+      persistirAntesDeLogin: (estadoActual) => guardarFlow(estadoActual),
       setEstado: (estado, motivo) =>
         dispatch({ type: 'SET_ESTADO', estado, motivo }),
-      reset: () => dispatch({ type: 'RESET' }),
+      reset: () => {
+        limpiarFlow()
+        dispatch({ type: 'RESET' })
+      },
     }),
     [],
   )

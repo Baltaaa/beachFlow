@@ -340,6 +340,133 @@ Playwright, `channel: 'chrome'`, proyectos `mobile-360`, `mobile-390` y
 `desktop-1440` (`playwright.config.js`, `pnpm run test:e2e`). Ningún paso
 de este flujo se da por terminado sin pasar por ahí.
 
+⚠️ **El puerto 5173 es también el default del dev server de priusApp.** Si el
+CRM está levantado, `reuseExistingServer` hacía que toda la suite corriera
+contra esa app y pasara o fallara por motivos inventados. El puerto ahora sale
+de `E2E_PORT` (default 5173): con el CRM abierto, correr
+`E2E_PORT=5180 pnpm run test:e2e`.
+
+## Fase 5B — Login con Google en el form de reservas (implementado, rama `fase4b-reservas`)
+
+### Qué cambia y qué no
+Los pasos 1 a 3 (servicio, fechas y personas, plano) siguen **anónimos**: no
+se pide login para mirar disponibilidad ni para elegir lugar. El login con
+Google es obligatorio recién en el **Paso 4**, antes de confirmar y pagar.
+El Paso 6 y `/r/:codigo` no cambiaron (consultar una reserva por código sigue
+sin login); el resumen del Paso 5 ahora muestra el nombre del cliente
+reconocido. El flujo de n8n y las otras tres opciones del cotizador no se
+tocaron.
+
+El contrato es de priusApp (Fase 5A): `mi_cuenta()`, `completar_cuenta(p)` y
+`crear-reserva-publica` exigiendo sesión. Este repo nunca migra base, RLS ni
+Edge Functions.
+
+### Cliente de Supabase y persistencia durante el redirect
+- `src/lib/supabase.js` crea el cliente con `persistSession: true`,
+  `detectSessionInUrl: true` y **`flowType: 'pkce'`**. Los dos primeros ya eran
+  el default de auth-js; `pkce` **no** lo es (el default es `'implicit'`).
+- Antes de mandar al cliente a Google se guarda el flow entero en
+  **`sessionStorage`**, clave versionada **`prius_reserva_v1`**
+  (`src/features/reservas/persistenciaFlow.js`), todo con try/catch y con un
+  TTL de 1 hora. Se guarda paso, fechas, personas, unidades elegida y
+  sugerida, método, `leadId` y datos tipeados; **nunca** el `resultado` de una
+  reserva ya creada.
+- `redirectTo` es `window.location.origin + '/?reserva=continuar'` — anda
+  igual en localhost, en la preview y en producción, sin hardcodear nada.
+  `queryParams: { prompt: 'select_account' }`.
+- Al volver con `?reserva=continuar`, `ContactSection` abre el cotizador en
+  "Carpas & Sombrillas" con el estado restaurado, hace scroll a la tarjeta y
+  limpia el parámetro de la URL con `replaceState`.
+- La clave se borra al confirmar la reserva, al resetear el flow y al salir
+  hacia el form de consulta.
+- Si al restaurar la unidad guardada ya está ocupada, `ReservaFlow` vuelve a
+  pedir `disponibilidad_publica`, la deselecciona y manda al Paso 3 con el
+  mismo aviso que usa el Realtime.
+- Si el login falla o el cliente cancela en Google, vuelve al mismo paso con
+  "No pudimos iniciar sesión con Google. Probá de nuevo." y el form intacto.
+
+### `useCuentaCliente` — única fuente de la cuenta del cliente web
+`src/features/cuenta/useCuentaCliente.js` expone
+`{ sesion, cargando, cuenta, refrescar, cerrarSesion }`. `cuenta` es el
+resultado de `mi_cuenta()`, cacheado mientras dura la sesión (clave: el
+`user_id`, así un `TOKEN_REFRESHED` no vuelve a pedirla) y refrescado al
+iniciar sesión o al llamar a `refrescar()`. No tiene nada de reservas a
+propósito: **se reutiliza tal cual en la futura sección de actividades, la
+carta y los pedidos desde la carpa por QR de unidad.**
+
+Detalles del contrato que importan:
+- `mi_cuenta()` y `completar_cuenta(p)` están **revocadas para `anon`** (solo
+  `authenticated`): llamarlas sin sesión no devuelve `login_requerido` sino un
+  `42501` de Postgres. Nunca se llaman sin sesión.
+- `mi_cuenta()` no es pura: en el primer llamado puede crear el vínculo por
+  email. Por eso se llama una vez y se cachea.
+- El parámetro de `completar_cuenta` se llama literalmente **`p`**.
+
+### Estados de vínculo en el Paso 4
+| `cuenta.vinculo` | Qué muestra |
+|---|---|
+| sin sesión | Botón "Continuar con Google" y los dos textos de uso de datos. **Ningún campo de datos a la vista.** |
+| `confirmado` | Tarjeta "Hola, `<nombre>`" con nombre, apellido, teléfono formateado y email **en solo lectura**, la línea "Tu unidad esta temporada: Carpa 19" si hay `unidades_vigentes`, botón "Continuar" y link "¿Algún dato está mal? Escribinos" (WhatsApp). |
+| `ninguno` | Form de nombre, apellido, teléfono y DNI (opcional), con nombre y apellido precargados del `nombre_google`. El email es el de Google, visible y no editable. Al continuar llama a `completar_cuenta()` y vuelve a pedir `mi_cuenta()`. |
+| `pendiente` | "Encontramos un registro con esos datos. Lo confirmamos en recepción cuando llegues; tu reserva queda igual a tu nombre." y continúa normal, sin mostrar ningún dato del cliente existente. |
+
+**La web nunca edita los datos de un cliente existente** (regla D5 de
+priusApp): en `confirmado` no hay un solo input habilitado. Con sesión,
+siempre visible "Conectado como `<email>` · Cambiar cuenta" (cierra sesión y
+vuelve a Google con `select_account`, manteniendo el flow guardado).
+
+El lead `form_abandonado` ahora se dispara **al tener sesión**, no en el blur
+del teléfono, con el email verificado de la cuenta y el token del usuario
+(`lead-reserva` acepta token opcional y, si viene, pisa el email y marca
+`datos_form.cuenta_google`). Mismas reglas de actualización por `lead_id`.
+
+### Paso 5 y sesión vencida
+`crear-reserva-publica` **exige sesión**. `supabase.functions.invoke` ya manda
+el `Authorization: Bearer <access_token>` solo: `fetchWithAuth` usa
+`getSession().access_token` y cae en la anon key si no hay sesión (verificado
+en `@supabase/supabase-js` 2.99.3) — no hace falta `setAuth` manual.
+- Si responde **401 `login_requerido`**, el flujo vuelve al Paso 4 con
+  "Tu sesión venció, iniciá sesión de nuevo" **sin perder el resto del flow**.
+- Error nuevo mapeado: **`limite_por_cuenta`** (el límite de reservas activas
+  ahora se cuenta también por cuenta, no solo por teléfono), más
+  `cuenta_personal` y `sin_email`.
+- El **email ya no se manda** en el payload: lo toma el servidor del JWT.
+  Nombre, apellido y teléfono **sí se siguen mandando** incluso para un
+  cliente reconocido — el schema zod de la Edge Function los exige con
+  `min(1)` — pero salen de `cuenta.cliente`, no del form, y la RPC los ignora:
+  usa el cliente del vínculo.
+
+### Archivos de la fase
+`src/features/cuenta/` (`useCuentaCliente.js`, `auth.js`, `BotonGoogle.jsx`),
+`src/features/reservas/persistenciaFlow.js`, y los cambios en
+`src/lib/supabase.js`, `useReservaFlow.js`, `ReservaFlow.jsx`,
+`ContactSection.jsx`, `pasos/Paso3Plano.jsx`, `pasos/Paso4Datos.jsx`,
+`pasos/Paso5Confirmar.jsx`, `mensajes.js` y `telefono.js`.
+Todos los textos nuevos viven en `mensajes.js`; siguen valiendo las palabras
+prohibidas y el mensaje de "sujeta a disponibilidad" tal como estaban hasta
+que entre el pago online.
+
+### Branding del botón de Google
+Es el **único botón del cotizador que no es dorado**: las brand guidelines de
+Google exigen el logo "G" a cuatro colores sin recolorear sobre fondo blanco o
+azul. Forma y tipografía sí son las de producción (píldora `9999px`, Exo 700,
+uppercase, 12px). El dorado `#F2CA50` queda para el CTA primario que sigue.
+El SVG del logo está embebido en `BotonGoogle.jsx`, sin CDN.
+
+### Verificación de esta fase
+`e2e/cuenta-google.spec.js`: los cuatro estados del Paso 4 con sesión y
+`mi_cuenta()` simulados (se siembra el storage de auth-js y se interceptan las
+llamadas — **nunca** se hace un login real de Google en un test), y el flow
+sobreviviendo a una recarga completa con `?reserva=continuar`. 33 tests en
+verde en los tres proyectos, no-regresión incluida.
+`e2e/reserva-flow-mock.spec.js` ahora termina en el Paso 4: el recorrido
+anónimo no puede pasar de ahí.
+
+### Pendiente de esta fase
+- Prueba real con una cuenta de Google sobre la preview (ver más abajo).
+- Al terminarla, limpiar desde priusApp los datos `E2E TEST` y los usuarios de
+  prueba de Auth.
+
 ### Pendiente antes de activar (`config_reservas_publicas.activo = true`)
 - Confirmar con priusApp los campos exactos de los payloads de
   `crear-reserva-publica`, `lead-reserva` y la forma de la respuesta de
@@ -354,3 +481,7 @@ de este flujo se da por terminado sin pasar por ahí.
 - Sumar la URL de preview de `fase4b-reservas` a `ALLOWED_ORIGINS` desde
   priusApp (CORS de las Edge Functions) — no se puede hacer desde este
   repo.
+- ✅ **Google ya está habilitado** (18/11/2026): `/auth/v1/settings` devuelve
+  `"google": true`, `/authorize?provider=google` redirige a
+  `accounts.google.com` con scope `email profile` y `response_type=code`, y el
+  signup público por email quedó cerrado (`disable_signup: true`).

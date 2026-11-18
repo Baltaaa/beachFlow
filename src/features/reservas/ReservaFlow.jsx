@@ -1,6 +1,11 @@
+import { useEffect, useRef, useState } from 'react'
 import { supabaseConfigurado } from '../../lib/supabase'
 import { useConfigReservas } from './useConfigReservas'
 import { useReservaFlow } from './useReservaFlow'
+import { useCuentaCliente } from '../cuenta/useCuentaCliente'
+import { obtenerDisponibilidad } from './api'
+import { limpiarFlow } from './persistenciaFlow'
+import { MENSAJE_UNIDAD_TOMADA } from './mensajes'
 import { useTurnstile, turnstileConfigurado } from './useTurnstile'
 import BarraProgreso from './BarraProgreso'
 import EstadoPausadas from './EstadoPausadas'
@@ -31,12 +36,53 @@ function armarMensajeContexto(motivo, state) {
 // (temporada, grupo grande, sin disponibilidad, pausadas, límite por
 // teléfono), se delega al Paso 2 de datos ya existente de ContactSection
 // vía onIrAConsultaForm — mismo envío a n8n de siempre, sin tocar su payload.
-export default function ReservaFlow({ onIrAConsultaForm }) {
+export default function ReservaFlow({ onIrAConsultaForm, continuar = false }) {
   const { config, cargando: cargandoConfig } = useConfigReservas()
-  const { state, actions } = useReservaFlow()
+  const { state, actions } = useReservaFlow(continuar)
   const { widget: turnstileWidget, obtenerToken } = useTurnstile()
+  const cuentaCliente = useCuentaCliente()
+  // Aviso que arrastra el Paso 3 cuando la unidad guardada se ocupó mientras
+  // el cliente estaba en Google.
+  const [avisoPlano, setAvisoPlano] = useState(null)
+  const revalidadoRef = useRef(false)
+
+  // Al volver del login, el plano puede haber cambiado: la unidad que el
+  // cliente tenía elegida antes del redirect quizá ya la tomó otro. Misma
+  // regla que el Realtime del Paso 3 — se deselecciona, se avisa y vuelve al
+  // plano.
+  useEffect(() => {
+    if (!continuar || revalidadoRef.current) return
+    const { principal, sugerida } = state.unidades
+    const { desde, hasta } = state.fechas
+    if (!principal || !desde || !hasta) return
+    revalidadoRef.current = true
+    let vivo = true
+    obtenerDisponibilidad(desde, hasta)
+      .then((unidades) => {
+        if (!vivo) return
+        const sigueLibre = (u) => {
+          if (!u) return true
+          const actual = unidades.find((x) => x.unidad_id === u.unidad_id)
+          return !!actual && !actual.bloqueada
+        }
+        if (!sigueLibre(principal) || !sigueLibre(sugerida)) {
+          actions.quitarUnidades()
+          setAvisoPlano(MENSAJE_UNIDAD_TOMADA)
+          actions.irAPaso(3)
+        }
+      })
+      .catch(() => {
+        // Sin respuesta no se toca nada: el Paso 3 vuelve a consultar igual.
+      })
+    return () => {
+      vivo = false
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [continuar])
 
   function onIrAConsulta(motivo) {
+    // Salir del flujo hacia el form de consulta cancela la reserva en curso.
+    limpiarFlow()
     onIrAConsultaForm({
       asunto: 'Reserva de carpas / sombrillas',
       mensaje: armarMensajeContexto(motivo, state),
@@ -73,10 +119,21 @@ export default function ReservaFlow({ onIrAConsultaForm }) {
         <Paso2FechasPersonas config={config} state={state} actions={actions} onIrAConsulta={onIrAConsulta} />
       )}
       {state.paso === 3 && (
-        <Paso3Plano config={config} state={state} actions={actions} onIrAConsulta={onIrAConsulta} />
+        <Paso3Plano
+          config={config}
+          state={state}
+          actions={actions}
+          onIrAConsulta={onIrAConsulta}
+          avisoExterno={avisoPlano}
+        />
       )}
       {state.paso === 4 && (
-        <Paso4Datos state={state} actions={actions} obtenerToken={obtenerToken} />
+        <Paso4Datos
+          state={state}
+          actions={actions}
+          obtenerToken={obtenerToken}
+          cuentaCliente={cuentaCliente}
+        />
       )}
       {state.paso === 5 && (
         <Paso5Confirmar
@@ -85,6 +142,7 @@ export default function ReservaFlow({ onIrAConsultaForm }) {
           actions={actions}
           obtenerToken={obtenerToken}
           onIrAConsulta={onIrAConsulta}
+          cuentaCliente={cuentaCliente}
         />
       )}
       {state.paso === 6 && <Paso6Confirmacion config={config} state={state} />}

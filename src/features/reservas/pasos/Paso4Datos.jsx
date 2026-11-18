@@ -1,86 +1,356 @@
-import { useState } from 'react'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { ChevronLeft, ChevronRight, LogOut } from 'lucide-react'
 import { guardarLeadReserva } from '../api'
-import { telefonoValido, telefonoE164 } from '../telefono'
-import { AYUDA_EMAIL } from '../mensajes'
+import { telefonoValido, telefonoE164, telefonoLegible } from '../telefono'
+import { iniciarSesionGoogle, completarCuenta } from '../../cuenta/auth'
+import BotonGoogle from '../../cuenta/BotonGoogle'
+import {
+  LOGIN_TITULO,
+  LOGIN_EXPLICACION,
+  LOGIN_USO_DATOS,
+  LOGIN_BOTON,
+  LOGIN_ERROR,
+  CUENTA_CONECTADO,
+  CUENTA_CAMBIAR,
+  CUENTA_BIENVENIDA,
+  CUENTA_UNIDAD_VIGENTE,
+  CUENTA_DATO_MAL,
+  CUENTA_PENDIENTE,
+  CUENTA_NINGUNO_TITULO,
+  CUENTA_NINGUNO_BAJADA,
+  CUENTA_EMAIL_FIJO,
+  mensajeDeError,
+} from '../mensajes'
 
-function validarEmail(email) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
-}
+const WHATSAPP = 'https://wa.me/542235765482'
+const TIPO_LABEL = { carpa: 'Carpa', sombrilla: 'Sombrilla' }
+
 function validarDni(dni) {
   return dni.trim() === '' || /^\d{7,8}$/.test(dni.trim())
 }
 
-export default function Paso4Datos({ state, actions, obtenerToken }) {
+// "Juan Pérez García" → { nombre: "Juan", apellido: "Pérez García" }
+function partirNombreGoogle(completo) {
+  const partes = (completo ?? '').trim().split(/\s+/).filter(Boolean)
+  if (partes.length === 0) return { nombre: '', apellido: '' }
+  return { nombre: partes[0], apellido: partes.slice(1).join(' ') }
+}
+
+function textoUnidades(unidades) {
+  return (unidades ?? [])
+    .map((u) => `${TIPO_LABEL[u.tipo] || u.tipo} ${u.numero}`)
+    .join(' + ')
+}
+
+export default function Paso4Datos({ state, actions, obtenerToken, cuentaCliente }) {
+  const { sesion, cargando, cuenta, refrescar, cerrarSesion } = cuentaCliente
   const [errores, setErrores] = useState({})
-  const [enviandoLead, setEnviandoLead] = useState(false)
+  const [errorGeneral, setErrorGeneral] = useState('')
+  const [yendoAGoogle, setYendoAGoogle] = useState(false)
+  const [guardandoCuenta, setGuardandoCuenta] = useState(false)
   const datos = state.datos
+  const vinculo = cuenta?.vinculo
+  const cliente = cuenta?.cliente
+
+  // Un solo lead por sesión del flow: el disparador ahora es tener sesión
+  // (con el email ya verificado por Google y el token del usuario), no el
+  // blur del teléfono.
+  const leadDisparadoRef = useRef(false)
+  const prefillRef = useRef(false)
+
+  async function irAGoogle() {
+    setErrorGeneral('')
+    setYendoAGoogle(true)
+    // Primero el estado completo del flow en sessionStorage: el redirect
+    // recarga la página entera.
+    actions.persistirAntesDeLogin(state)
+    const { ok } = await iniciarSesionGoogle()
+    if (!ok) {
+      setYendoAGoogle(false)
+      setErrorGeneral(LOGIN_ERROR)
+    }
+  }
+
+  async function cambiarCuenta() {
+    actions.persistirAntesDeLogin(state)
+    await cerrarSesion()
+    await irAGoogle()
+  }
+
+  // Cliente reconocido: sus datos son los de la reserva. La web no los edita
+  // nunca (regla D5 de priusApp), solo los copia al flow para el resumen y
+  // para el payload que sigue pidiendo nombre/apellido/teléfono.
+  useEffect(() => {
+    if (vinculo !== 'confirmado' || !cliente) return
+    actions.setDatos({
+      nombre: cliente.nombre ?? '',
+      apellido: cliente.apellido ?? '',
+      telefono: cliente.telefono ?? '',
+      email: cuenta.email ?? '',
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [vinculo, cliente])
+
+  // Cuenta nueva: nombre y apellido precargados de Google si vinieron.
+  useEffect(() => {
+    if (vinculo !== 'ninguno' || prefillRef.current) return
+    prefillRef.current = true
+    const sugerido = partirNombreGoogle(cuenta?.nombre_google)
+    actions.setDatos({
+      nombre: datos.nombre || sugerido.nombre,
+      apellido: datos.apellido || sugerido.apellido,
+      email: cuenta?.email ?? '',
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [vinculo])
+
+  const dispararLead = useCallback(async () => {
+    if (leadDisparadoRef.current) return
+    const nombre = `${datos.nombre} ${datos.apellido}`.trim()
+    const e164 = telefonoE164(datos.telefono)
+    if (!nombre || !e164) return
+    leadDisparadoRef.current = true
+    try {
+      const token = await obtenerToken()
+      const resultado = await guardarLeadReserva({
+        leadId: state.leadId,
+        nombre,
+        telefonoE164: e164,
+        // El email lo pisa lead-reserva con el de la cuenta de Google.
+        email: cuenta?.email ?? null,
+        motivo: 'form_abandonado',
+        datosForm: {
+          fechas: state.fechas,
+          personas: state.personas,
+          unidades: [state.unidades.principal, state.unidades.sugerida]
+            .filter(Boolean)
+            .map((u) => u.unidad_id),
+          tipo: state.unidades.principal?.tipo,
+        },
+        turnstileToken: token,
+      })
+      if (resultado?.lead_id) actions.setLeadId(resultado.lead_id)
+    } catch {
+      // guardado de lead silencioso — no bloquea el flujo del cliente
+      leadDisparadoRef.current = false
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [datos.nombre, datos.apellido, datos.telefono, cuenta, state.leadId])
+
+  useEffect(() => {
+    if (!sesion || !cuenta) return
+    dispararLead()
+  }, [sesion, cuenta, dispararLead])
 
   function handleChange(campo, valor) {
     actions.setDatos({ [campo]: valor })
     if (errores[campo]) setErrores((prev) => ({ ...prev, [campo]: undefined }))
   }
 
-  async function handleTelefonoBlur() {
-    const telefono = datos.telefono.trim()
-    if (!telefono) return
-    if (!telefonoValido(telefono)) {
-      setErrores((prev) => ({ ...prev, telefono: 'Formato de teléfono no válido.' }))
-      return
-    }
-    setEnviandoLead(true)
-    try {
-      const token = await obtenerToken()
-      const resultado = await guardarLeadReserva({
-        leadId: state.leadId,
-        nombre: `${datos.nombre} ${datos.apellido}`.trim(),
-        telefonoE164: telefonoE164(telefono),
-        email: datos.email || null,
-        motivo: 'form_abandonado',
-        datosForm: {
-          fechas: state.fechas,
-          personas: state.personas,
-          unidades: [state.unidades.principal, state.unidades.sugerida].filter(Boolean).map((u) => u.unidad_id),
-          tipo: state.unidades.principal?.tipo,
-        },
-        turnstileToken: token,
-      })
-      // guardar_lead_reserva() devuelve { ok:true, lead_id } (snake_case).
-      if (resultado?.lead_id) actions.setLeadId(resultado.lead_id)
-    } catch {
-      // guardado de lead silencioso — no bloquea el flujo del cliente
-    } finally {
-      setEnviandoLead(false)
-    }
-  }
-
-  function validar() {
+  async function handleAltaCuenta() {
     const nuevosErrores = {}
     if (!datos.nombre.trim()) nuevosErrores.nombre = 'El nombre es obligatorio.'
     if (!datos.apellido.trim()) nuevosErrores.apellido = 'El apellido es obligatorio.'
     if (!datos.telefono.trim()) nuevosErrores.telefono = 'El teléfono es obligatorio.'
     else if (!telefonoValido(datos.telefono)) nuevosErrores.telefono = 'Formato de teléfono no válido.'
-    if (!datos.email.trim()) nuevosErrores.email = 'El email es obligatorio.'
-    else if (!validarEmail(datos.email)) nuevosErrores.email = 'El email no es válido.'
     if (!validarDni(datos.dni)) nuevosErrores.dni = 'El DNI debe tener 7 u 8 dígitos.'
     setErrores(nuevosErrores)
-    return Object.keys(nuevosErrores).length === 0
+    if (Object.keys(nuevosErrores).length > 0) return
+
+    setGuardandoCuenta(true)
+    setErrorGeneral('')
+    try {
+      const resultado = await completarCuenta({
+        nombre: datos.nombre.trim(),
+        apellido: datos.apellido.trim(),
+        telefonoE164: telefonoE164(datos.telefono),
+        dni: datos.dni.trim(),
+      })
+      if (resultado?.ok === false) {
+        if (resultado.error === 'datos_invalidos' && resultado.campos) {
+          setErrores({
+            nombre: resultado.campos.nombre,
+            apellido: resultado.campos.apellido,
+            telefono: resultado.campos.telefono_e164,
+            dni: resultado.campos.dni,
+          })
+          return
+        }
+        setErrorGeneral(resultado.mensaje ?? mensajeDeError(resultado.error))
+        return
+      }
+      // El vínculo ya quedó resuelto del lado del servidor: se vuelve a pedir
+      // mi_cuenta() y el paso se redibuja como 'confirmado' o 'pendiente'.
+      await refrescar()
+    } finally {
+      setGuardandoCuenta(false)
+    }
   }
 
-  function handleSiguiente() {
-    if (validar()) actions.siguiente()
+  const volver = (
+    <button
+      type="button"
+      onClick={() => actions.volver()}
+      className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-prius-black/60 hover:text-prius-black transition-colors font-display cursor-pointer"
+    >
+      <ChevronLeft size={14} /> Volver
+    </button>
+  )
+
+  function botonContinuar(onClick, { disabled = false, texto = 'Continuar' } = {}) {
+    return (
+      <button
+        type="button"
+        onClick={onClick}
+        disabled={disabled}
+        className="inline-flex h-9 md:h-10 items-center justify-center rounded-full bg-gold px-6 text-xs font-bold uppercase tracking-wider text-prius-black hover:bg-gold-hover disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-display cursor-pointer gap-1.5 shadow-md"
+      >
+        {texto} <ChevronRight size={14} />
+      </button>
+    )
   }
 
+  const avisos = (
+    <>
+      {state.avisoSesion && (
+        <div className="bg-neutral-50 border border-hairline rounded-xl px-4 py-2.5">
+          <span className="text-xs text-prius-black/70 font-light">{state.avisoSesion}</span>
+        </div>
+      )}
+      {errorGeneral && (
+        <div className="bg-red-50 border border-red-200 text-red-600 rounded-xl p-3 text-xs leading-relaxed">
+          {errorGeneral}
+        </div>
+      )}
+    </>
+  )
+
+  // ── Cargando la sesión / la cuenta ──────────────────────────────────────
+  if (cargando) {
+    return (
+      <div className="py-16 flex items-center justify-center">
+        <span className="text-[10px] font-bold uppercase tracking-widest text-prius-black/30 font-display">
+          Cargando…
+        </span>
+      </div>
+    )
+  }
+
+  // ── Sin sesión: login obligatorio, sin campos a la vista ────────────────
+  if (!sesion) {
+    return (
+      <div className="space-y-4">
+        <div className="text-center md:text-left">
+          <h3 className="text-sm md:text-base font-bold uppercase tracking-wider text-prius-black font-display mb-0.5">
+            {LOGIN_TITULO}
+          </h3>
+          <p className="text-prius-black/50 text-xs font-light">{LOGIN_EXPLICACION}</p>
+        </div>
+
+        {avisos}
+
+        <div className="flex flex-col items-center gap-2.5 py-6">
+          <BotonGoogle onClick={irAGoogle} cargando={yendoAGoogle}>
+            {LOGIN_BOTON}
+          </BotonGoogle>
+          <p className="text-[10px] text-prius-black/40 font-light text-center max-w-xs">
+            {LOGIN_USO_DATOS}
+          </p>
+        </div>
+
+        <div className="flex justify-between items-center pt-4 border-t border-hairline mt-6">
+          {volver}
+        </div>
+      </div>
+    )
+  }
+
+  const barraCuenta = (
+    <div className="flex items-center justify-between gap-3 flex-wrap text-[10px] font-light text-prius-black/50 border border-hairline rounded-xl px-3 py-2 bg-neutral-50">
+      <span className="truncate">{CUENTA_CONECTADO(cuenta?.email ?? sesion.user?.email ?? '')}</span>
+      <button
+        type="button"
+        onClick={cambiarCuenta}
+        className="shrink-0 inline-flex items-center gap-1 font-bold uppercase tracking-wider text-prius-black/60 hover:text-gold transition-colors font-display cursor-pointer"
+      >
+        <LogOut size={11} /> {CUENTA_CAMBIAR}
+      </button>
+    </div>
+  )
+
+  // ── Cliente reconocido ──────────────────────────────────────────────────
+  if (vinculo === 'confirmado' && cliente) {
+    const unidades = textoUnidades(cuenta.unidades_vigentes)
+    return (
+      <div className="space-y-4">
+        {barraCuenta}
+        {avisos}
+
+        <div className="p-4 rounded-2xl border border-gold/50 bg-gold/10 space-y-3">
+          <h3 className="text-sm md:text-base font-bold uppercase tracking-wider text-prius-black font-display">
+            {CUENTA_BIENVENIDA(cliente.nombre)}
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
+            <Dato label="Nombre" valor={`${cliente.nombre ?? ''} ${cliente.apellido ?? ''}`.trim()} />
+            <Dato label="Teléfono" valor={telefonoLegible(cliente.telefono)} />
+            <Dato label="Email" valor={cliente.email ?? cuenta.email} />
+          </div>
+          {unidades && (
+            <p className="text-xs font-bold text-prius-black font-display pt-1 border-t border-gold/30">
+              {CUENTA_UNIDAD_VIGENTE(unidades)}
+            </p>
+          )}
+        </div>
+
+        <a
+          href={WHATSAPP}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block text-[10px] font-light text-prius-black/40 hover:text-gold transition-colors underline underline-offset-2"
+        >
+          {CUENTA_DATO_MAL}
+        </a>
+
+        <div className="flex justify-between items-center pt-4 border-t border-hairline mt-6">
+          {volver}
+          {botonContinuar(() => actions.siguiente())}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Vínculo pendiente de confirmar en recepción ─────────────────────────
+  if (vinculo === 'pendiente') {
+    return (
+      <div className="space-y-4">
+        {barraCuenta}
+        {avisos}
+
+        <div className="p-4 rounded-2xl border border-hairline bg-neutral-50">
+          <p className="text-xs text-prius-black/70 font-light leading-relaxed">{CUENTA_PENDIENTE}</p>
+        </div>
+
+        <div className="flex justify-between items-center pt-4 border-t border-hairline mt-6">
+          {volver}
+          {botonContinuar(() => actions.siguiente())}
+        </div>
+      </div>
+    )
+  }
+
+  // ── Cuenta nueva: alta con los datos del form ───────────────────────────
   return (
     <div className="space-y-4">
+      {barraCuenta}
+
       <div className="text-center md:text-left">
         <h3 className="text-sm md:text-base font-bold uppercase tracking-wider text-prius-black font-display mb-0.5">
-          Tus datos de contacto
+          {CUENTA_NINGUNO_TITULO}
         </h3>
-        <p className="text-prius-black/50 text-xs font-light">
-          Los necesitamos para confirmar tu lugar y mandarte el código.
-        </p>
+        <p className="text-prius-black/50 text-xs font-light">{CUENTA_NINGUNO_BAJADA}</p>
       </div>
+
+      {avisos}
 
       <div className="space-y-3.5">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
@@ -107,19 +377,18 @@ export default function Paso4Datos({ state, actions, obtenerToken }) {
             type="tel"
             value={datos.telefono}
             onChange={(e) => handleChange('telefono', e.target.value)}
-            onBlur={handleTelefonoBlur}
             placeholder="Ej. +54 223 576 5482"
             className={inputClass(!!errores.telefono)}
           />
         </Campo>
 
-        <Campo label="Correo electrónico" error={errores.email} ayuda={AYUDA_EMAIL}>
+        <Campo label="Correo electrónico" ayuda={CUENTA_EMAIL_FIJO}>
           <input
             type="email"
-            value={datos.email}
-            onChange={(e) => handleChange('email', e.target.value)}
-            placeholder="ejemplo@mail.com"
-            className={inputClass(!!errores.email)}
+            value={cuenta?.email ?? ''}
+            readOnly
+            disabled
+            className={`${inputClass(false)} text-prius-black/50 cursor-not-allowed`}
           />
         </Campo>
 
@@ -135,26 +404,23 @@ export default function Paso4Datos({ state, actions, obtenerToken }) {
         </Campo>
       </div>
 
-      {enviandoLead && (
-        <p className="text-[10px] text-prius-black/30 font-light text-center">Guardando…</p>
-      )}
-
       <div className="flex justify-between items-center pt-4 border-t border-hairline mt-6">
-        <button
-          type="button"
-          onClick={() => actions.volver()}
-          className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-prius-black/60 hover:text-prius-black transition-colors font-display cursor-pointer"
-        >
-          <ChevronLeft size={14} /> Volver
-        </button>
-        <button
-          type="button"
-          onClick={handleSiguiente}
-          className="inline-flex h-9 md:h-10 items-center justify-center rounded-full bg-gold px-6 text-xs font-bold uppercase tracking-wider text-prius-black hover:bg-gold-hover transition-colors font-display cursor-pointer gap-1.5 shadow-md"
-        >
-          Siguiente <ChevronRight size={14} />
-        </button>
+        {volver}
+        {botonContinuar(handleAltaCuenta, {
+          disabled: guardandoCuenta,
+          texto: guardandoCuenta ? 'Guardando…' : 'Continuar',
+        })}
       </div>
+    </div>
+  )
+}
+
+function Dato({ label, valor }) {
+  if (!valor) return null
+  return (
+    <div>
+      <p className="text-[9px] tracking-wider text-prius-black/50 uppercase font-bold font-display">{label}</p>
+      <p className="text-xs text-prius-black font-medium break-words">{valor}</p>
     </div>
   )
 }

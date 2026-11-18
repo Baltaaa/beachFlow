@@ -44,6 +44,30 @@ export const AYUDA_EMAIL = 'Te enviamos tu código de reserva acá'
 
 export const LINK_CONSULTA_TEMPORADA = '¿Temporada completa? Consultanos'
 
+// ── Cuenta de cliente / login con Google (Fase 5B) ────────────────────────
+// Los pasos 2 y 3 siguen siendo anónimos: el login se pide recién acá, antes
+// de confirmar y pagar.
+export const LOGIN_TITULO = 'Identificate para reservar'
+export const LOGIN_EXPLICACION =
+  'Para reservar y pagar necesitamos identificarte. Si ya sos cliente del balneario, te reconocemos automáticamente.'
+export const LOGIN_USO_DATOS =
+  'Usamos tu nombre y email de Google solo para gestionar tu reserva.'
+export const LOGIN_BOTON = 'Continuar con Google'
+export const LOGIN_ERROR = 'No pudimos iniciar sesión con Google. Probá de nuevo.'
+export const SESION_VENCIDA = 'Tu sesión venció, iniciá sesión de nuevo'
+
+export const CUENTA_CONECTADO = (email) => `Conectado como ${email}`
+export const CUENTA_CAMBIAR = 'Cambiar cuenta'
+export const CUENTA_BIENVENIDA = (nombre) => `Hola, ${nombre}`
+export const CUENTA_UNIDAD_VIGENTE = (texto) => `Tu unidad esta temporada: ${texto}`
+export const CUENTA_DATO_MAL = '¿Algún dato está mal? Escribinos'
+export const CUENTA_PENDIENTE =
+  'Encontramos un registro con esos datos. Lo confirmamos en recepción cuando llegues; tu reserva queda igual a tu nombre.'
+export const CUENTA_NINGUNO_TITULO = 'Completá tus datos'
+export const CUENTA_NINGUNO_BAJADA =
+  'Es la primera vez que reservás online con esta cuenta. Con estos datos te damos de alta.'
+export const CUENTA_EMAIL_FIJO = 'Es el email de tu cuenta de Google y no se puede editar acá.'
+
 export const TOTAL_PASOS = 6
 export const TITULOS_PASO = {
   2: 'Fechas y Personas',
@@ -75,6 +99,10 @@ export const MENSAJES_ERROR = {
   unidad_no_disponible: 'Esa unidad se acaba de ocupar. Elegí otra en el plano.',
   sin_vecina_disponible: MENSAJE_SIN_VECINA,
   limite_por_telefono: 'Ya tenés el máximo de reservas activas con este teléfono.',
+  limite_por_cuenta: 'Ya tenés el máximo de reservas activas con tu cuenta.',
+  login_requerido: SESION_VENCIDA,
+  cuenta_personal: 'Esa cuenta es del personal del balneario. Entrá con tu cuenta personal para reservar.',
+  sin_email: 'Tu cuenta de Google no tiene un email asociado. Probá con otra cuenta.',
   sin_tarifa: MENSAJE_SIN_TARIFA,
   no_encontrada: MENSAJE_RESERVA_NO_ENCONTRADA,
   datos_invalidos: 'Revisá los datos ingresados.',

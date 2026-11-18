@@ -32,14 +32,22 @@ test('"Dejar mi consulta" devuelve al Paso 2 de datos existente', async ({ page 
 })
 
 // /r/:codigo — ambos casos son lecturas sin efectos secundarios.
-test('código con formato inválido no dispara ningún request', async ({ page }) => {
-  const requests = []
+// Ojo con el alcance: la página SÍ pide config_reservas_publicas al montar
+// (necesita hora_corte_noshow, ver ReservaPublica.jsx) pase lo que pase con
+// el código. Lo que no tiene que pasar nunca es consultar la reserva con un
+// código que ni siquiera respeta el formato. Antes esto miraba todo
+// supabase.co y pasaba solo por carrera: el request de config llega a los
+// ~800 ms y la aserción corría antes.
+test('código con formato inválido no consulta la reserva', async ({ page }) => {
+  const consultas = []
   page.on('request', (r) => {
-    if (r.url().includes('supabase.co')) requests.push(r.url())
+    if (r.url().includes('consultar-reserva')) consultas.push(r.url())
   })
   await page.goto('/r/no-es-un-codigo-valido')
   await expect(page.getByText('No encontramos esa reserva.')).toBeVisible()
-  expect(requests).toEqual([])
+  // Margen para que, si se escapara una consulta, llegue a registrarse.
+  await page.waitForTimeout(1500)
+  expect(consultas).toEqual([])
 })
 
 test('código con formato válido pero inexistente muestra "no encontramos"', async ({ page }) => {
