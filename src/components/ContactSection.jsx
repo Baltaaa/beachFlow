@@ -33,7 +33,7 @@ const N8N_WEBHOOK_URL = import.meta.env.VITE_N8N_WEBHOOK_URL ?? "";
 
 export default function ContactSection() {
   // Vuelta del login con Google (Fase 5B): se lee una sola vez, antes de
-  // limpiar la URL, y abre el cotizador directo en el flujo de reserva con el
+  // limpiar la URL, y abre el overlay de reserva (Fase 6B) directo con el
   // estado restaurado desde sessionStorage.
   const [continuarReserva] = useState(hayQueContinuar);
   // Si Google/Supabase volvieron con ?error=...#error=..., el Paso 4 lo
@@ -48,8 +48,8 @@ export default function ContactSection() {
     // haya flow guardado para restaurar.
     if (continuarReserva || errorLogin) limpiarUrlRetorno();
     if (!continuarReserva) return;
-    // Scroll a la tarjeta del cotizador: el cliente volvió de Google y tiene
-    // que caer donde dejó el form, no arriba de todo.
+    // Scroll a la tarjeta del cotizador: el overlay abre solo, pero al
+    // cerrarlo el cliente tiene que quedar donde dejó el form, no arriba.
     tarjetaRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
   }, [continuarReserva, errorLogin]);
   const [form, setForm] = useState({
@@ -107,6 +107,13 @@ export default function ContactSection() {
     setModoReserva(false);
     setForm((prev) => ({ ...prev, asunto, mensaje }));
     setStep(2);
+  }
+
+  // Cerrar el overlay de reserva (X, Escape, click afuera o "Listo" en el
+  // Paso 6): el cotizador vuelve a su Paso 1.
+  function handleCerrarReserva() {
+    setModoReserva(false);
+    setStep(1);
   }
 
   function handleChange(e) {
@@ -291,13 +298,16 @@ export default function ContactSection() {
           {/* Bloque Derecho: Formulario Interactivo Paso a Paso */}
           <div className="lg:col-span-8 p-6 md:p-8 2xl:p-10 bg-white flex flex-col justify-between min-h-[420px] lg:min-h-[440px]">
 
-            {modoReserva ? (
+            {/* Fase 6B: el flujo de reserva es un overlay (portal a body); el
+                cotizador queda abajo, en su Paso 1. */}
+            {modoReserva && (
               <ReservaFlow
                 onIrAConsultaForm={handleIrAConsultaForm}
+                onCerrar={handleCerrarReserva}
                 continuar={continuarReserva}
                 avisoLogin={errorLogin ? mensajeDeErrorOAuth(errorLogin) : null}
               />
-            ) : (
+            )}
               <>
             {/* Barra de Progreso */}
             {status !== "success" && (
@@ -545,7 +555,6 @@ export default function ContactSection() {
               </div>
             )}
               </>
-            )}
 
           </div>
         </div>

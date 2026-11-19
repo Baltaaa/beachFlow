@@ -1,15 +1,25 @@
 import { test, expect } from '@playwright/test'
+import { CONFIG } from './soporte'
 
-// Flujo real contra la DB real (anon key, solo lecturas) — nada de esto
-// escribe en la base. Con config_reservas_publicas.activo = false (estado
-// real hoy), entrar por "Carpas & Sombrillas" tiene que mostrar el estado
-// de pausadas, no romper ni quedar colgado.
-test('estado real "reservas pausadas" cuando activo=false', async ({ page }) => {
+// Reservas pausadas: config_reservas_publicas.activo = false simulado (la
+// base real ya está en true desde nov 2026, así que depender de ella hacía
+// fallar estos tests). Entrar por "Carpas & Sombrillas" abre el overlay con
+// el estado de pausadas, sin romper ni quedar colgado.
+async function mockearPausadas(page) {
+  await page.route('**/rest/v1/config_reservas_publicas**', (route) => {
+    const fila = { ...CONFIG, activo: false }
+    const comoObjeto = (route.request().headers()['accept'] ?? '').includes('vnd.pgrst.object')
+    return route.fulfill({ status: 200, contentType: 'application/json', json: comoObjeto ? fila : [fila] })
+  })
+}
+
+test('estado "reservas pausadas" cuando activo=false', async ({ page }) => {
   const erroresConsola = []
   page.on('pageerror', (e) => erroresConsola.push(e.message))
   page.on('console', (m) => {
     if (m.type() === 'error') erroresConsola.push(m.text())
   })
+  await mockearPausadas(page)
 
   await page.goto('/#contacto')
   await page.evaluate(() => document.querySelector('#contacto')?.scrollIntoView())
@@ -21,13 +31,15 @@ test('estado real "reservas pausadas" cuando activo=false', async ({ page }) => 
   expect(erroresConsola).toEqual([])
 })
 
-test('"Dejar mi consulta" devuelve al Paso 2 de datos existente', async ({ page }) => {
+test('"Dejar mi consulta" cierra el overlay y devuelve al Paso 2 de datos existente', async ({ page }) => {
+  await mockearPausadas(page)
   await page.goto('/#contacto')
   await page.evaluate(() => document.querySelector('#contacto')?.scrollIntoView())
   await page.getByRole('button', { name: /Carpas & Sombrillas/ }).click()
   await expect(page.getByText('Reservas Online Pausadas')).toBeVisible({ timeout: 5000 })
 
   await page.getByText('Dejar mi consulta').click()
+  await expect(page.locator('[data-panel-reserva]')).toHaveCount(0)
   await expect(page.locator('input[name="nombre"]')).toBeVisible()
 })
 

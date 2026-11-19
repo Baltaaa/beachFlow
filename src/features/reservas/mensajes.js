@@ -38,6 +38,11 @@ export const MENSAJE_SIN_VECINA =
 
 export const MENSAJE_UNIDAD_TOMADA = 'Alguien reservó esa unidad recién.'
 
+// Fase 6B: cambió las fechas desde el header y lo que tenía elegido no está
+// libre en las nuevas.
+export const MENSAJE_UNIDAD_OCUPADA_EN_FECHAS =
+  'Lo que elegiste no está libre en las fechas nuevas. Elegí otro lugar.'
+
 export const MENSAJE_TOCAR_PARA_ACERCAR = 'Tocá para acercar'
 
 export const AYUDA_EMAIL = 'Te enviamos tu código de reserva acá'
@@ -90,11 +95,11 @@ export const CUENTA_NO_VINCULADA =
 
 export const TOTAL_PASOS = 6
 export const TITULOS_PASO = {
-  2: 'Fechas y Personas',
-  3: 'Elegí tu Lugar',
-  4: 'Tus Datos',
-  5: 'Confirmá tu Reserva',
-  6: 'Reserva Preconfirmada',
+  2: 'Fechas y personas',
+  3: 'Elegí tu lugar',
+  4: 'Tus datos',
+  5: 'Confirmá tu reserva',
+  6: 'Reserva preconfirmada',
 }
 
 export const LEYENDA_PLANO = [

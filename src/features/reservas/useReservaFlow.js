@@ -46,6 +46,11 @@ function reservaFlowReducer(state, action) {
         // cambiar fechas invalida la selección de unidades previa
         unidades: ESTADO_INICIAL.unidades,
       }
+    // Fase 6B: fechas cambiadas desde el header del marco (Pasos 3 y 4). La
+    // selección se conserva; el Paso 3 la suelta con aviso si ya no está
+    // libre en las fechas nuevas.
+    case 'CAMBIAR_FECHAS':
+      return { ...state, fechas: { ...state.fechas, ...action.fechas } }
     case 'SET_PERSONAS':
       return { ...state, personas: Math.max(1, action.personas) }
     case 'SET_UNIDAD_PRINCIPAL':
@@ -96,6 +101,7 @@ export function useReservaFlow(continuar = false, avisoInicial = null) {
       siguiente: () => dispatch({ type: 'SIGUIENTE' }),
       volver: () => dispatch({ type: 'VOLVER' }),
       setFechas: (fechas) => dispatch({ type: 'SET_FECHAS', fechas }),
+      cambiarFechas: (fechas) => dispatch({ type: 'CAMBIAR_FECHAS', fechas }),
       setPersonas: (personas) => dispatch({ type: 'SET_PERSONAS', personas }),
       setUnidadPrincipal: (unidad) =>
         dispatch({ type: 'SET_UNIDAD_PRINCIPAL', unidad }),

@@ -1,20 +1,17 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { DayPicker } from 'react-day-picker'
 import { es } from 'react-day-picker/locale'
-import { Minus, Plus, ChevronRight } from 'lucide-react'
+import { Minus, Plus } from 'lucide-react'
 import 'react-day-picker/style.css'
 import '../rdp-reservas.css'
-import { cotizar } from '../api'
-import {
-  hoyArgentinaISO,
-  horaArgentinaActual,
-  sumarDiasISO,
-  isoADate,
-  dateAIso,
-  resumenFechas,
-} from '../fechas'
+import { isoADate, resumenFechas } from '../fechas'
+import { errorTipoAlquiler, fechasDeRango, useRestriccionesFechas, validarFechas } from '../reglasFechas'
 import { LINK_CONSULTA_TEMPORADA, MENSAJE_SIN_TARIFA } from '../mensajes'
+import PiePaso, { BotonSiguiente } from '../marco/PiePaso'
 
+// "Fechas y personas": solo la primera vez (Fase 6B). Después las fechas y
+// las personas se cambian desde el header del marco sin salir del plano. Las
+// reglas de qué fechas valen son las mismas (reglasFechas.js).
 export default function Paso2FechasPersonas({ config, state, actions, onIrAConsulta }) {
   const [rango, setRango] = useState(
     state.fechas.desde
@@ -23,61 +20,46 @@ export default function Paso2FechasPersonas({ config, state, actions, onIrAConsu
   )
   const [errorTipo, setErrorTipo] = useState('')
   const [sinTarifa, setSinTarifa] = useState(false)
+  const [errorConsulta, setErrorConsulta] = useState('')
   const [cargando, setCargando] = useState(false)
-
-  const hoyISO = hoyArgentinaISO()
-  const horaActual = horaArgentinaActual()
-  const corteHoyPasado = config && horaActual >= config.hora_corte_noshow.slice(0, 5)
-  const maxFechaISO = config ? sumarDiasISO(hoyISO, config.dias_anticipacion_max) : null
-
-  const disabledMatcher = useMemo(() => {
-    return (date) => {
-      const iso = dateAIso(date)
-      if (iso < hoyISO) return true
-      if (iso === hoyISO && corteHoyPasado) return true
-      if (maxFechaISO && iso > maxFechaISO) return true
-      return false
-    }
-  }, [hoyISO, corteHoyPasado, maxFechaISO])
+  const { hoyISO, disabledMatcher } = useRestriccionesFechas(config)
 
   function handleSelect(nuevoRango) {
     setErrorTipo('')
     setSinTarifa(false)
+    setErrorConsulta('')
     setRango(nuevoRango)
-    if (!nuevoRango?.from) {
+    const fechas = fechasDeRango(nuevoRango)
+    if (!fechas) {
       actions.setFechas({ desde: null, hasta: null, tipoAlquiler: null })
       return
     }
-    const desde = dateAIso(nuevoRango.from)
-    const hasta = dateAIso(nuevoRango.to ?? nuevoRango.from)
-    const tipo = desde === hasta ? 'dia' : 'periodo'
-
-    if (!config?.tipos_alquiler_web?.includes(tipo)) {
-      setErrorTipo(
-        tipo === 'periodo'
-          ? 'El alquiler por período no está disponible por ahora. Elegí un solo día.'
-          : 'El alquiler por día no está disponible por ahora.',
-      )
+    const error = errorTipoAlquiler(config, fechas.tipoAlquiler)
+    if (error) {
+      setErrorTipo(error)
       return
     }
-    actions.setFechas({ desde, hasta, tipoAlquiler: tipo })
+    actions.setFechas(fechas)
   }
 
   async function handleSiguiente() {
     if (!state.fechas.desde) return
     setCargando(true)
     setSinTarifa(false)
+    setErrorConsulta('')
     try {
-      const { desde, hasta, tipoAlquiler } = state.fechas
-      const [precioCarpa, precioSombrilla] = await Promise.all([
-        cotizar('carpa', tipoAlquiler, 'efectivo', desde, hasta),
-        cotizar('sombrilla', tipoAlquiler, 'efectivo', desde, hasta),
-      ])
-      if (precioCarpa == null && precioSombrilla == null) {
+      const error = await validarFechas(config, state.fechas)
+      if (error === MENSAJE_SIN_TARIFA) {
         setSinTarifa(true)
         return
       }
+      if (error) {
+        setErrorTipo(error)
+        return
+      }
       actions.siguiente()
+    } catch {
+      setErrorConsulta('No pudimos consultar esas fechas. Probá de nuevo.')
     } finally {
       setCargando(false)
     }
@@ -113,8 +95,8 @@ export default function Paso2FechasPersonas({ config, state, actions, onIrAConsu
           {resumenFechas(state.fechas.desde, state.fechas.hasta)}
         </p>
       )}
-      {errorTipo && (
-        <p className="text-xs text-red-500 text-center font-light">{errorTipo}</p>
+      {(errorTipo || errorConsulta) && (
+        <p className="text-xs text-red-500 text-center font-light">{errorTipo || errorConsulta}</p>
       )}
 
       <div className="flex items-center justify-center gap-6 pt-2">
@@ -166,16 +148,13 @@ export default function Paso2FechasPersonas({ config, state, actions, onIrAConsu
         </button>
       </div>
 
-      <div className="flex justify-end pt-4 border-t border-hairline mt-6">
-        <button
-          type="button"
-          onClick={handleSiguiente}
-          disabled={!state.fechas.desde || !!errorTipo || cargando}
-          className="inline-flex h-9 md:h-10 items-center justify-center rounded-full bg-gold px-6 text-xs font-bold uppercase tracking-wider text-prius-black hover:bg-gold-hover disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-display cursor-pointer gap-1.5 shadow-md"
-        >
-          {cargando ? 'Consultando…' : 'Siguiente'} <ChevronRight size={14} />
-        </button>
-      </div>
+      <PiePaso
+        derecha={
+          <BotonSiguiente onClick={handleSiguiente} disabled={!state.fechas.desde || !!errorTipo || cargando}>
+            {cargando ? 'Consultando…' : 'Siguiente'}
+          </BotonSiguiente>
+        }
+      />
     </div>
   )
 }

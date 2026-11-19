@@ -21,7 +21,7 @@ de schema en Supabase deben considerar ambos consumidores y sus distintos contex
 
 - **Vite + React + JSX** — NO es Next.js. No usar convenciones de Next (ni App Router,
   ni `process.env.NEXT_PUBLIC_*`, ni `next/image`, etc.)
-- **Tailwind CSS**
+- **Tailwind CSS v3.4** (`postcss.config.js` + `tailwind.config.js`; el `postcss.config.mjs` de v4 que quedó suelto no se usa)
 - Deploy: **Cloudflare Pages**
 - Backend/automatización: **Supabase** + **n8n** (`priuspg.app.n8n.cloud`) + **CallMeBot** (WhatsApp)
 
@@ -189,7 +189,7 @@ dentro del viewport por mal manejo del array en el loop infinito.
 - Se filtra por las fechas elegidas en el paso 1 del form.
 - No muestra ningún dato de clientes. Toda unidad con `bloqueada = true` (ocupada por día, período o temporada, preconfirmada vigente o no habilitada web) aparece con un candado. Las libres son seleccionables.
 - Tiempo real: suscripción al canal Broadcast `disponibilidad`, evento `cambio`. Al recibirlo, se vuelve a llamar `disponibilidad_publica` para las fechas actuales con un debounce de unos 500 ms. El payload no trae datos; es solo un aviso.
-- El componente visual del plano se porta desde priusApp, en la fase 4, como componente puramente presentacional (recibe unidades y devuelve la grilla). Hay que adaptar las clases de Tailwind v3 del CRM a la v4 de este repo sin cambiar el resultado visual.
+- El componente visual del plano se porta desde priusApp, en la fase 4, como componente puramente presentacional (recibe unidades y devuelve la grilla). Los dos repos usan Tailwind v3, así que las clases se copian tal cual.
 
 ### Form step-by-step (/reservar)
 1. Fechas y tipo de alquiler, solo los de `config.tipos_alquiler_web`. Para temporada se ofrece contacto, que genera un lead.
@@ -276,7 +276,7 @@ landing.
 `mensajes.js`, `fechas.js`, `useConfigReservas.js`, `useDisponibilidad.js`
 (RPC + Broadcast `disponibilidad`/`cambio`, debounce 500ms),
 `useReservaFlow.js` (estado completo del flujo vía `useReducer`),
-`useTurnstile.jsx`, `ReservaFlow.jsx`, `BarraProgreso.jsx`,
+`useTurnstile.jsx`, `ReservaFlow.jsx`, `marco/` (Fase 6B, ver abajo),
 `EstadoPausadas.jsx`, `PlanoInteractivo.jsx`, `pasos/Paso2..6*.jsx`.
 
 ### Plano
@@ -491,3 +491,58 @@ anónimo no puede pasar de ahí.
   `"google": true`, `/authorize?provider=google` redirige a
   `accounts.google.com` con scope `email profile` y `response_type=code`, y el
   signup público por email quedó cerrado (`disable_signup: true`).
+
+## Fase 6B — Marco fijo del flujo de reserva (en curso, rama `fase4b-reservas`)
+
+### Overlay con marco fijo (Tarea 2)
+Elegir "Carpas & Sombrillas" en el cotizador abre el flujo como overlay
+(`marco/PanelReserva.jsx`, portal a `body`). El cotizador queda abajo, en su
+Paso 1, y vuelve ahí al cerrar.
+- **Tamaño fijo, igual en los 6 pasos.** Desktop (≥768): hoja blanca de
+  `90vw × 88dvh` con máximo `1440 × 920`, radio de 24px y scrim negro al 30%
+  con blur, como el modal "vista clientes" del CRM. Mobile: pantalla completa
+  con safe areas. `e2e/marco-reserva.spec.js` mide la hoja en cada paso.
+- **Cierre:** con la X, con Escape o con click afuera. Si hay datos cargados,
+  primero pregunta dentro de la hoja ("¿Salir de la reserva?"). En el Paso 6,
+  con reservas pausadas o mientras carga, cierra directo. Cerrar limpia el
+  flow guardado.
+- **Body lock:** `overflow: hidden` en `html` y `body`, compensando el ancho
+  de la barra de scroll. `#root` queda `inert` mientras el overlay está
+  abierto.
+- **Manrope solo en el overlay:** se pide a Google Fonts la primera vez que
+  se abre y pisa también `.font-display` dentro de `.panel-reserva`
+  (`marco/marco.css`). Fuera del overlay no cambia nada.
+- **Estructura** (`marco/MarcoReserva.jsx`):
+  1. Header con el logo, el selector de fechas, la pill de personas, los
+     chips Todo/Carpas/Sombrillas y la X.
+  2. Barra "Paso X de 6 · nombre" con el progreso dorado (`BarraPaso`). En
+     mobile, la X va en esta barra.
+  3. Cuerpo `flex-1`: el plano en el Paso 3; en los otros pasos, contenido de
+     640px máximo con scroll interno.
+  4. Footer fijo de 64px. Cada paso declara sus botones con `<PiePaso
+     izquierda centro derecha>`, que los dibuja ahí por portal.
+- **⚠️ `MarcoReserva` es provisorio.** Copia el header de `MarcoPlanoClaro`
+  (f1a031a) porque ese todavía no tiene lugar para la barra, el footer ni un
+  cuerpo que no sea el mapa. Cuando entre la 6A.1 de priusApp, se reemplaza
+  por `MarcoPlanoClaro` y se borra el archivo.
+- **Fechas y personas:** el Paso 2 ("Fechas y personas") aparece en el cuerpo
+  solo la primera vez. Después se cambian desde el header en los Pasos 3 y 4;
+  desde el 5 quedan fijas.
+  - **Selector de fechas** (`SelectorFechas`): pill de 40px con `‹ fecha ›`.
+    Las flechas mueven un día y solo aparecen con alquiler por día. Tocar la
+    fecha abre react-day-picker: popover en desktop, hoja desde abajo en
+    mobile. Valida igual que el Paso 2 (`reglasFechas.js`): tipo de alquiler
+    habilitado y tarifa.
+  - **Cambiar fechas conserva la selección.** El Paso 3 la suelta con
+    `MENSAJE_UNIDAD_OCUPADA_EN_FECHAS` si no está libre en el rango nuevo.
+    Desde el Paso 4 se vuelve al plano.
+  - **Pill de personas** (`SelectorPersonas`, se aplica con "Aplicar"). Aplica
+    las mismas reglas que el plano: grupo grande sale a consulta; si cambia
+    cuántas unidades hacen falta, se busca o se suelta la vecina. Desde el
+    Paso 4 vuelve al plano si cambia la cantidad de unidades.
+- **Tests:**
+  - `e2e/soporte.js` reúne los helpers de sesión, flow y mocks simulados.
+  - La config se simula fija: con la sesión simulada, supabase-js manda el JWT
+    falso y PostgREST rechazaba la lectura real.
+  - Los tests de "pausadas" de `reserva-flow.spec.js` simulan `activo=false`,
+    porque la base real ya está en `true`.

@@ -37,7 +37,8 @@ test('Pasos 2 a 4 se recorren sin errores (disponibilidad real, tarifas simulada
   await page.screenshot({ path: 'test-results/paso2.png' })
 
   await page.locator('.rdp-reservas button.rdp-day_button:not([disabled])').nth(5).click()
-  await page.locator('button.bg-gold', { hasText: 'Siguiente' }).click()
+  const hoja = page.locator('[data-panel-reserva]')
+  await hoja.locator('button.bg-gold', { hasText: 'Siguiente' }).click()
 
   await expect(page.getByText('PASO 3 DE 6')).toBeVisible({ timeout: 5000 })
   await page.waitForTimeout(1500) // disponibilidad_publica real
@@ -45,7 +46,7 @@ test('Pasos 2 a 4 se recorren sin errores (disponibilidad real, tarifas simulada
 
   const celdaLibre = page.locator('button.cursor-pointer.rounded-sm:not([disabled])').first()
   await celdaLibre.evaluate((el) => el.click())
-  await page.locator('button.bg-gold', { hasText: 'Siguiente' }).click()
+  await hoja.locator('button.bg-gold', { hasText: 'Siguiente' }).click()
 
   await expect(page.getByText('PASO 4 DE 6')).toBeVisible({ timeout: 5000 })
   await page.screenshot({ path: 'test-results/paso4.png' })

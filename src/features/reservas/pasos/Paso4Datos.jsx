@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { ChevronLeft, ChevronRight, LogOut } from 'lucide-react'
+import { LogOut } from 'lucide-react'
 import { guardarLeadReserva } from '../api'
 import { telefonoValido, telefonoE164, telefonoLegible } from '../telefono'
 import { iniciarSesionGoogle, completarCuenta } from '../../cuenta/auth'
@@ -22,6 +22,7 @@ import {
   CUENTA_NO_VINCULADA,
   mensajeDeError,
 } from '../mensajes'
+import PiePaso, { BotonSiguiente, BotonVolver } from '../marco/PiePaso'
 
 const WHATSAPP = 'https://wa.me/542235765482'
 const TIPO_LABEL = { carpa: 'Carpa', sombrilla: 'Sombrilla' }
@@ -197,26 +198,13 @@ export default function Paso4Datos({ state, actions, obtenerToken, cuentaCliente
     }
   }
 
-  const volver = (
-    <button
-      type="button"
-      onClick={() => actions.volver()}
-      className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-prius-black/60 hover:text-prius-black transition-colors font-display cursor-pointer"
-    >
-      <ChevronLeft size={14} /> Volver
-    </button>
-  )
+  const volver = <BotonVolver onClick={() => actions.volver()} />
 
   function botonContinuar(onClick, { disabled = false, texto = 'Continuar' } = {}) {
     return (
-      <button
-        type="button"
-        onClick={onClick}
-        disabled={disabled}
-        className="inline-flex h-9 md:h-10 items-center justify-center rounded-full bg-gold px-6 text-xs font-bold uppercase tracking-wider text-prius-black hover:bg-gold-hover disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-display cursor-pointer gap-1.5 shadow-md"
-      >
-        {texto} <ChevronRight size={14} />
-      </button>
+      <BotonSiguiente onClick={onClick} disabled={disabled}>
+        {texto}
+      </BotonSiguiente>
     )
   }
 
@@ -268,9 +256,7 @@ export default function Paso4Datos({ state, actions, obtenerToken, cuentaCliente
           </p>
         </div>
 
-        <div className="flex justify-between items-center pt-4 border-t border-hairline mt-6">
-          {volver}
-        </div>
+        <PiePaso izquierda={volver} />
       </div>
     )
   }
@@ -321,10 +307,7 @@ export default function Paso4Datos({ state, actions, obtenerToken, cuentaCliente
           {CUENTA_DATO_MAL}
         </a>
 
-        <div className="flex justify-between items-center pt-4 border-t border-hairline mt-6">
-          {volver}
-          {botonContinuar(() => actions.siguiente())}
-        </div>
+        <PiePaso izquierda={volver} derecha={botonContinuar(() => actions.siguiente())} />
       </div>
     )
   }
@@ -340,10 +323,7 @@ export default function Paso4Datos({ state, actions, obtenerToken, cuentaCliente
           <p className="text-xs text-prius-black/70 font-light leading-relaxed">{CUENTA_PENDIENTE}</p>
         </div>
 
-        <div className="flex justify-between items-center pt-4 border-t border-hairline mt-6">
-          {volver}
-          {botonContinuar(() => actions.siguiente())}
-        </div>
+        <PiePaso izquierda={volver} derecha={botonContinuar(() => actions.siguiente())} />
       </div>
     )
   }
@@ -414,13 +394,13 @@ export default function Paso4Datos({ state, actions, obtenerToken, cuentaCliente
         </Campo>
       </div>
 
-      <div className="flex justify-between items-center pt-4 border-t border-hairline mt-6">
-        {volver}
-        {botonContinuar(handleAltaCuenta, {
+      <PiePaso
+        izquierda={volver}
+        derecha={botonContinuar(handleAltaCuenta, {
           disabled: guardandoCuenta,
           texto: guardandoCuenta ? 'Guardando…' : 'Continuar',
         })}
-      </div>
+      />
     </div>
   )
 }

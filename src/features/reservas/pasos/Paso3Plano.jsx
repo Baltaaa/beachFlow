@@ -1,12 +1,17 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { ChevronRight } from 'lucide-react'
 import { useDisponibilidad } from '../useDisponibilidad'
 import { buscarUnidadVecina } from '../api'
 import PlanoInteractivo from '../PlanoInteractivo'
 import PlanoGrid from '../../../components/plano/PlanoGrid'
 import CeldaPublica from '../../../components/plano/CeldaPublica'
-import { LEYENDA_PLANO, MENSAJE_SIN_LUGAR, MENSAJE_SIN_VECINA, MENSAJE_UNIDAD_TOMADA } from '../mensajes'
-import { resumenFechas } from '../fechas'
+import {
+  LEYENDA_PLANO,
+  MENSAJE_SIN_LUGAR,
+  MENSAJE_SIN_VECINA,
+  MENSAJE_UNIDAD_OCUPADA_EN_FECHAS,
+  MENSAJE_UNIDAD_TOMADA,
+} from '../mensajes'
+import PiePaso, { BotonSiguiente } from '../marco/PiePaso'
 
 const TIPO_LABEL = { carpa: 'Carpa', sombrilla: 'Sombrilla' }
 
@@ -16,28 +21,55 @@ export default function Paso3Plano({ config, state, actions, onIrAConsulta, avis
   // avisoExterno: la unidad guardada se ocupó mientras el cliente estaba en
   // Google (ver ReservaFlow). Solo es el valor inicial; cualquier click lo borra.
   const [aviso, setAviso] = useState(avisoExterno)
-  const prevUnidadesRef = useRef(unidades)
+  // Rango de la última disponibilidad revisada: si cambió, la unidad no se
+  // "tomó" recién, es que no está libre en las fechas nuevas del header.
+  const rangoRevisadoRef = useRef(null)
 
   const { principal, sugerida } = state.unidades
 
-  // Realtime: si la unidad elegida pasó a bloqueada, se deselecciona.
+  // Realtime y cambio de fechas: si la unidad elegida pasó a bloqueada, se
+  // deselecciona con aviso.
   useEffect(() => {
-    if (!principal) {
-      prevUnidadesRef.current = unidades
-      return
-    }
+    if (cargando) return
+    const rango = `${desde}|${hasta}`
+    const cambioDeFechas = rangoRevisadoRef.current !== null && rangoRevisadoRef.current !== rango
+    rangoRevisadoRef.current = rango
+    if (!principal) return
+    const aviso = cambioDeFechas ? MENSAJE_UNIDAD_OCUPADA_EN_FECHAS : MENSAJE_UNIDAD_TOMADA
     const actualizada = unidades.find((u) => u.unidad_id === principal.unidad_id)
     const sugeridaActualizada = sugerida && unidades.find((u) => u.unidad_id === sugerida.unidad_id)
     if (actualizada?.bloqueada || (sugerida && !sugeridaActualizada)) {
       actions.quitarUnidades()
-      setAviso(MENSAJE_UNIDAD_TOMADA)
+      setAviso(aviso)
     } else if (sugerida && sugeridaActualizada?.bloqueada) {
       actions.setUnidadSugerida(null)
-      setAviso(MENSAJE_UNIDAD_TOMADA)
+      setAviso(aviso)
     }
-    prevUnidadesRef.current = unidades
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [unidades])
+  }, [unidades, cargando])
+
+  // Busca la vecina para un grupo que necesita dos unidades.
+  const completarConVecina = useCallback(
+    async (slot) => {
+      const vecinas = await buscarUnidadVecina(slot.unidad_id, desde, hasta)
+      const encontrada = vecinas[0] ? unidades.find((u) => u.unidad_id === vecinas[0].unidad_id) : null
+      if (encontrada && !encontrada.bloqueada) actions.setUnidadSugerida(encontrada)
+      else setAviso(MENSAJE_SIN_VECINA)
+    },
+    [desde, hasta, unidades, actions],
+  )
+
+  // Personas cambiadas desde el header (Fase 6B), con la selección hecha:
+  // misma regla que al elegir. Si ahora alcanza una unidad se suelta la
+  // vecina; si hacen falta dos, se busca. El grupo grande lo saca a consulta
+  // ReservaFlow antes de llegar acá.
+  useEffect(() => {
+    if (!principal || cargando) return
+    const necesarias = Math.ceil(state.personas / (principal.capacidad || 1))
+    if (necesarias <= 1 && sugerida) actions.setUnidadSugerida(null)
+    else if (necesarias === 2 && !sugerida) completarConVecina(principal)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.personas, cargando])
 
   const handleUnitClick = useCallback(
     async (slot) => {
@@ -64,19 +96,9 @@ export default function Paso3Plano({ config, state, actions, onIrAConsulta, avis
         onIrAConsulta('grupo_grande')
         return
       }
-      if (necesarias === 2) {
-        const vecinas = await buscarUnidadVecina(slot.unidad_id, desde, hasta)
-        const encontrada = vecinas[0]
-          ? unidades.find((u) => u.unidad_id === vecinas[0].unidad_id)
-          : null
-        if (encontrada) {
-          actions.setUnidadSugerida(encontrada)
-        } else {
-          setAviso(MENSAJE_SIN_VECINA)
-        }
-      }
+      if (necesarias === 2) await completarConVecina(slot)
     },
-    [principal, sugerida, state.personas, config, desde, hasta, unidades, actions, onIrAConsulta],
+    [principal, sugerida, state.personas, config, actions, onIrAConsulta, completarConVecina],
   )
 
   const renderCelda = useCallback(
@@ -112,20 +134,8 @@ export default function Paso3Plano({ config, state, actions, onIrAConsulta, avis
   const seleccionCompleta = !!principal && (necesarias <= 1 || !!sugerida)
 
   return (
-    <div className="flex flex-col gap-3 h-[520px] max-h-[70vh]">
-      <div className="flex items-center justify-between flex-wrap gap-2">
-        <div>
-          <p className="text-xs font-bold text-prius-black font-display">
-            {resumenFechas(desde, hasta)} · {state.personas} persona{state.personas === 1 ? '' : 's'}
-          </p>
-          <button
-            type="button"
-            onClick={() => actions.irAPaso(2)}
-            className="text-[10px] font-bold uppercase tracking-widest text-prius-black/50 hover:text-gold transition-colors font-display cursor-pointer"
-          >
-            Cambiar
-          </button>
-        </div>
+    <div className="flex-1 min-h-0 flex flex-col gap-3">
+      <div className="flex items-center justify-end flex-wrap gap-2 shrink-0">
         <div className="flex items-center gap-3 flex-wrap">
           {LEYENDA_PLANO.map((item) => (
             <span key={item.estado} className="flex items-center gap-1 text-[9px] text-prius-black/50 font-display">
@@ -177,19 +187,18 @@ export default function Paso3Plano({ config, state, actions, onIrAConsulta, avis
         )}
       </div>
 
-      <div className="flex items-center justify-between gap-3 pt-3 border-t border-hairline shrink-0">
-        <span className="text-xs font-bold text-prius-black font-display truncate">
-          {resumenSeleccion || 'Elegí tu lugar en el plano'}
-        </span>
-        <button
-          type="button"
-          onClick={() => actions.siguiente()}
-          disabled={!seleccionCompleta}
-          className="inline-flex h-9 md:h-10 items-center justify-center rounded-full bg-gold px-6 text-xs font-bold uppercase tracking-wider text-prius-black hover:bg-gold-hover disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-display cursor-pointer gap-1.5 shadow-md shrink-0"
-        >
-          Siguiente <ChevronRight size={14} />
-        </button>
-      </div>
+      <PiePaso
+        izquierda={
+          <span className="text-[13px] leading-[18px] font-semibold text-black truncate">
+            {resumenSeleccion || 'Elegí tu lugar en el plano'}
+          </span>
+        }
+        derecha={
+          <BotonSiguiente onClick={() => actions.siguiente()} disabled={!seleccionCompleta}>
+            Siguiente
+          </BotonSiguiente>
+        }
+      />
     </div>
   )
 }

@@ -4,8 +4,9 @@ import { Download, MessageCircle } from 'lucide-react'
 import { URL_RESERVA } from '../../../lib/reservas-contrato'
 import { MENSAJE_PRECONFIRMADA_PASO6, EMAIL_RESERVA_ACTIVO } from '../mensajes'
 import { formatoPesos } from '../fechas'
+import PiePaso, { BotonSiguiente } from '../marco/PiePaso'
 
-export default function Paso6Confirmacion({ config, state }) {
+export default function Paso6Confirmacion({ config, state, onCerrar }) {
   const [qrDataUrl, setQrDataUrl] = useState(null)
   const canvasRef = useRef(null)
   const { resultado } = state
@@ -97,6 +98,14 @@ export default function Paso6Confirmacion({ config, state }) {
           <span className="font-bold text-prius-black">{formatoPesos(resultado.total)}</span>
         </div>
       )}
+
+      <PiePaso
+        derecha={
+          <BotonSiguiente onClick={onCerrar} icono={false}>
+            Listo
+          </BotonSiguiente>
+        }
+      />
     </div>
   )
 }

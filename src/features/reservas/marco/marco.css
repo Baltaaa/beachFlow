@@ -1,0 +1,31 @@
+/* Overlay del flujo de reserva (Fase 6B). Manrope en todo el overlay, igual
+   que el modal "vista clientes" del CRM; se carga solo al abrirlo (ver
+   PanelReserva.jsx) y no cambia nada fuera de .panel-reserva. */
+.panel-reserva,
+.panel-reserva .font-display,
+.panel-reserva .font-sans,
+.panel-reserva .rdp-reservas .rdp-root {
+  font-family: 'Manrope', 'Instrument Sans', sans-serif;
+}
+
+.panel-reserva-hoja {
+  /* Mobile: pantalla completa respetando las safe areas. */
+  padding-top: max(12px, env(safe-area-inset-top));
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
+}
+@media (min-width: 640px) {
+  .panel-reserva-hoja { padding: 16px; }
+}
+@media (min-width: 768px) {
+  .panel-reserva-hoja { padding: 24px 24px 8px; }
+}
+
+@keyframes panel-reserva-entrar { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: none; } }
+@keyframes panel-reserva-fondo { from { opacity: 0; } to { opacity: 1; } }
+.panel-reserva-entrar { animation: panel-reserva-entrar 200ms ease-out; }
+.panel-reserva-fondo { animation: panel-reserva-fondo 200ms ease-out; }
+@media (prefers-reduced-motion: reduce) {
+  .panel-reserva-entrar, .panel-reserva-fondo { animation: none; }
+}

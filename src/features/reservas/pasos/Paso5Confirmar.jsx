@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { ChevronLeft, Phone } from 'lucide-react'
+import { Phone } from 'lucide-react'
 import { cotizar, crearReservaPublica, ReservaApiError } from '../api'
 import { telefonoE164 } from '../telefono'
 import { resumenFechas, formatoPesos } from '../fechas'
@@ -9,6 +9,7 @@ import {
   SESION_VENCIDA,
   mensajeDeError,
 } from '../mensajes'
+import PiePaso, { BotonSiguiente, BotonVolver } from '../marco/PiePaso'
 
 const METODOS = [
   { id: 'efectivo', label: 'Efectivo' },
@@ -221,23 +222,18 @@ export default function Paso5Confirmar({ config, state, actions, obtenerToken, o
         </div>
       )}
 
-      <div className="flex justify-between items-center pt-4 border-t border-hairline mt-6">
-        <button
-          type="button"
-          onClick={() => actions.volver()}
-          className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-prius-black/60 hover:text-prius-black transition-colors font-display cursor-pointer"
-        >
-          <ChevronLeft size={14} /> Volver
-        </button>
-        <button
-          type="button"
-          onClick={handleConfirmar}
-          disabled={!state.aceptaCondiciones || !metodoElegido || enviando}
-          className="inline-flex h-9 md:h-10 items-center justify-center rounded-full bg-gold px-6 text-xs font-bold uppercase tracking-wider text-prius-black hover:bg-gold-hover disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-display cursor-pointer gap-1.5 shadow-md"
-        >
-          {enviando ? 'Confirmando…' : 'Confirmar Reserva'}
-        </button>
-      </div>
+      <PiePaso
+        izquierda={<BotonVolver onClick={() => actions.volver()} disabled={enviando} />}
+        derecha={
+          <BotonSiguiente
+            onClick={handleConfirmar}
+            disabled={!state.aceptaCondiciones || !metodoElegido || enviando}
+            icono={false}
+          >
+            {enviando ? 'Confirmando…' : 'Confirmar Reserva'}
+          </BotonSiguiente>
+        }
+      />
     </div>
   )
 }
