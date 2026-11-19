@@ -19,6 +19,7 @@ import {
   CUENTA_NINGUNO_TITULO,
   CUENTA_NINGUNO_BAJADA,
   CUENTA_EMAIL_FIJO,
+  CUENTA_NO_VINCULADA,
   mensajeDeError,
 } from '../mensajes'
 
@@ -43,7 +44,7 @@ function textoUnidades(unidades) {
 }
 
 export default function Paso4Datos({ state, actions, obtenerToken, cuentaCliente }) {
-  const { sesion, cargando, cuenta, refrescar, cerrarSesion } = cuentaCliente
+  const { sesion, cargando, cuenta, actualizarCuenta, cerrarSesion } = cuentaCliente
   const [errores, setErrores] = useState({})
   const [errorGeneral, setErrorGeneral] = useState('')
   const [yendoAGoogle, setYendoAGoogle] = useState(false)
@@ -167,22 +168,30 @@ export default function Paso4Datos({ state, actions, obtenerToken, cuentaCliente
         telefonoE164: telefonoE164(datos.telefono),
         dni: datos.dni.trim(),
       })
-      if (resultado?.ok === false) {
-        if (resultado.error === 'datos_invalidos' && resultado.campos) {
+      // Sin respuesta utilizable (error de red/RPC ya mapeado a 'interno').
+      if (!resultado || resultado.ok === false) {
+        const codigo = resultado?.error ?? 'interno'
+        if (codigo === 'datos_invalidos' && resultado?.campos) {
           setErrores({
             nombre: resultado.campos.nombre,
             apellido: resultado.campos.apellido,
             telefono: resultado.campos.telefono_e164,
             dni: resultado.campos.dni,
           })
-          return
         }
-        setErrorGeneral(resultado.mensaje ?? mensajeDeError(resultado.error))
+        // Siempre un texto visible: rate_limited y cuenta_personal traen su
+        // propio `mensaje`; el resto sale de mensajes.js.
+        setErrorGeneral(resultado?.mensaje ?? mensajeDeError(codigo))
         return
       }
-      // El vínculo ya quedó resuelto del lado del servidor: se vuelve a pedir
-      // mi_cuenta() y el paso se redibuja como 'confirmado' o 'pendiente'.
-      await refrescar()
+      // completar_cuenta() devuelve el estado nuevo con la misma forma que
+      // mi_cuenta(): se usa directo como cuenta, sin volver a pedirla (eso
+      // pasaba por "Cargando…" y podía redibujar el mismo form).
+      if (resultado.vinculo === 'ninguno') {
+        setErrorGeneral(CUENTA_NO_VINCULADA)
+        return
+      }
+      actualizarCuenta(resultado)
     } finally {
       setGuardandoCuenta(false)
     }

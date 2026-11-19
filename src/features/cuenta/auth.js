@@ -33,17 +33,19 @@ export async function iniciarSesionGoogle() {
 /** completar_cuenta(p) — alta/vínculo del cliente web. Devuelve el jsonb crudo. */
 export async function completarCuenta({ nombre, apellido, telefonoE164, dni }) {
   if (!supabase) return { ok: false, error: 'interno' }
-  const { data, error } = await supabase.rpc('completar_cuenta', {
-    p: {
-      nombre,
-      apellido,
-      telefono_e164: telefonoE164,
-      dni: dni || null,
-    },
-  })
-  if (error) {
-    console.error('[cuenta] completar_cuenta() falló:', error)
+  try {
+    const { data, error } = await supabase.rpc('completar_cuenta', {
+      p: {
+        nombre,
+        apellido,
+        telefono_e164: telefonoE164,
+        dni: dni || null,
+      },
+    })
+    if (error) throw error
+    return data ?? { ok: false, error: 'interno' }
+  } catch (err) {
+    console.error('[cuenta] completar_cuenta() falló:', err)
     return { ok: false, error: 'interno' }
   }
-  return data
 }

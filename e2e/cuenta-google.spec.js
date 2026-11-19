@@ -271,3 +271,149 @@ for (const { nombre, error, codigo, descripcion, mensaje } of [
     await expect(page.getByText('PASO 3 DE 6')).toBeVisible()
   })
 }
+
+// Bug de la prueba real con la cuenta B: alta con el teléfono de otro cliente,
+// "Cargando…" y de vuelta al mismo form, en bucle. La respuesta de
+// completar_cuenta() es la cuenta nueva: se usa directo, sin volver a pedir
+// mi_cuenta() ni redibujar el form en silencio.
+async function prepararAlta(page, respuestaCompletar) {
+  await prepararPagina(page, { cuenta: CUENTAS.ninguno })
+  const llamadas = { miCuenta: 0, completar: [], leads: [] }
+  // Las rutas registradas después tienen prioridad sobre las de prepararPagina.
+  await page.route('**/rest/v1/rpc/mi_cuenta', (route) => {
+    llamadas.miCuenta += 1
+    return route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(CUENTAS.ninguno) })
+  })
+  await page.route('**/rest/v1/rpc/completar_cuenta', (route) => {
+    llamadas.completar.push(route.request().postDataJSON())
+    return route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(respuestaCompletar) })
+  })
+  await page.route('**/functions/v1/lead-reserva', (route) => {
+    llamadas.leads.push(route.request().postDataJSON())
+    return route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, lead_id: null }) })
+  })
+  const avisosTurnstile = []
+  page.on('console', (m) => {
+    if (/Turnstile has not been loaded/i.test(m.text())) avisosTurnstile.push(m.text())
+  })
+
+  await page.goto('/?reserva=continuar')
+  await expect(page.getByText('PASO 4 DE 6')).toBeVisible({ timeout: 10000 })
+  await expect(page.locator('input[type="text"]').first()).toHaveValue('Lucas')
+
+  // Los datos de la prueba real: el teléfono es el del cliente A.
+  await page.locator('input[type="tel"]').fill('+5492235000001')
+  await page.locator('input[inputmode="numeric"]').fill('44123457')
+  return { llamadas, avisosTurnstile }
+}
+
+const continuar = (page) => page.getByRole('button', { name: 'Continuar', exact: true })
+
+test('alta → pendiente: mensaje de pendiente y sigue al Paso 5', async ({ page }) => {
+  const { llamadas, avisosTurnstile } = await prepararAlta(page, CUENTAS.pendiente)
+  await continuar(page).click()
+
+  await expect(page.getByText('Encontramos un registro con esos datos', { exact: false })).toBeVisible()
+  await expect(page.locator('input:not([type="hidden"])')).toHaveCount(0)
+  expect(llamadas.completar).toHaveLength(1)
+  expect(llamadas.completar[0]).toEqual({
+    p: { nombre: 'Lucas', apellido: 'Fernández', telefono_e164: '+5492235000001', dni: '44123457' },
+  })
+
+  await continuar(page).click()
+  await expect(page.getByText('PASO 5 DE 6')).toBeVisible()
+
+  // Turnstile: el lead salió con un token (el widget estaba montado) y nunca
+  // se le pidió nada a un widget sin cargar.
+  await expect.poll(() => llamadas.leads.length, { timeout: 20000 }).toBeGreaterThan(0)
+  expect(llamadas.leads[0].turnstile_token).toBeTruthy()
+
+  // Y crear-reserva-publica también sale con token: el widget se reseteó
+  // después del lead y se volvió a ejecutar. (La clave de prueba de
+  // Cloudflare devuelve siempre el mismo token dummy: no se compara.)
+  const reservas = []
+  await page.route('**/functions/v1/crear-reserva-publica', (route) => {
+    reservas.push(route.request().postDataJSON())
+    return route.fulfill({
+      status: 429,
+      contentType: 'application/json',
+      body: JSON.stringify({ ok: false, error: 'rate_limited' }),
+    })
+  })
+  await page.locator('input[type="checkbox"]').check()
+  await page.getByRole('button', { name: /Confirmar Reserva/i }).click()
+  await expect(page.getByText('Probá de nuevo en unos minutos.')).toBeVisible({ timeout: 20000 })
+  expect(reservas).toHaveLength(1)
+  expect(reservas[0].turnstile_token).toBeTruthy()
+  expect(avisosTurnstile).toEqual([])
+})
+
+test('alta → respuesta de completar_cuenta usada directo, sin volver al form', async ({ page }) => {
+  const { llamadas } = await prepararAlta(page, {
+    ...CUENTAS.confirmado,
+    email: 'nuevo@example.com',
+    cliente: { ...CUENTAS.confirmado.cliente, nombre: 'Lucas', apellido: 'Fernández', email: 'nuevo@example.com' },
+    unidades_vigentes: [],
+  })
+  const miCuentaAntes = llamadas.miCuenta
+  await continuar(page).click()
+
+  await expect(page.getByText('Hola, Lucas')).toBeVisible()
+  await expect(page.getByText('Completá tus datos')).toHaveCount(0)
+  await expect(page.getByText('Cargando…')).toHaveCount(0)
+  // No se volvió a pedir mi_cuenta(): la caché se reemplazó con la respuesta.
+  expect(llamadas.miCuenta).toBe(miCuentaAntes)
+
+  await continuar(page).click()
+  await expect(page.getByText('PASO 5 DE 6')).toBeVisible()
+})
+
+test('alta → completar_cuenta sigue en "ninguno" (conflicto): avisa, no vuelve en silencio', async ({ page }) => {
+  await prepararAlta(page, CUENTAS.ninguno)
+  await continuar(page).click()
+
+  await expect(
+    page.getByText('No pudimos vincular tu cuenta con esos datos. Escribinos por WhatsApp y te ayudamos.'),
+  ).toBeVisible()
+  // Lo cargado sigue ahí.
+  await expect(page.locator('input[type="tel"]')).toHaveValue('+5492235000001')
+  await expect(continuar(page)).toBeEnabled()
+})
+
+for (const { error, respuesta, texto } of [
+  {
+    error: 'datos_invalidos',
+    respuesta: { ok: false, error: 'datos_invalidos', campos: { telefono_e164: 'El teléfono no es válido' } },
+    texto: 'Revisá los datos ingresados.',
+  },
+  {
+    error: 'rate_limited',
+    respuesta: { ok: false, error: 'rate_limited', mensaje: 'Demasiados intentos. Esperá un momento y probá de nuevo.' },
+    texto: 'Demasiados intentos. Esperá un momento y probá de nuevo.',
+  },
+  {
+    error: 'cuenta_personal',
+    respuesta: {
+      ok: false,
+      error: 'cuenta_personal',
+      mensaje: 'Esta cuenta es del personal del balneario: no se vincula como cliente.',
+    },
+    texto: 'Esta cuenta es del personal del balneario: no se vincula como cliente.',
+  },
+  {
+    error: 'sin_email',
+    respuesta: { ok: false, error: 'sin_email' },
+    texto: 'Tu cuenta de Google no tiene un email asociado. Probá con otra cuenta.',
+  },
+]) {
+  test(`alta → ok:false ${error}: muestra el error y no vuelve en silencio`, async ({ page }) => {
+    await prepararAlta(page, respuesta)
+    await continuar(page).click()
+
+    await expect(page.getByText(texto, { exact: true })).toBeVisible()
+    if (error === 'datos_invalidos') await expect(page.getByText('El teléfono no es válido')).toBeVisible()
+    await expect(page.getByText('Completá tus datos')).toBeVisible()
+    await expect(page.locator('input[type="tel"]')).toHaveValue('+5492235000001')
+    await expect(continuar(page)).toBeEnabled()
+  })
+}

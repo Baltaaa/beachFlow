@@ -81,6 +81,12 @@ export const CUENTA_NINGUNO_TITULO = 'Completá tus datos'
 export const CUENTA_NINGUNO_BAJADA =
   'Es la primera vez que reservás online con esta cuenta. Con estos datos te damos de alta.'
 export const CUENTA_EMAIL_FIJO = 'Es el email de tu cuenta de Google y no se puede editar acá.'
+// completar_cuenta() respondió ok pero la cuenta sigue sin vínculo: los datos
+// coinciden con un cliente que ya tiene otra cuenta, o con varios (el
+// "conflicto" de priusApp no crea fila en clientes_cuentas). Nunca se vuelve
+// al form en silencio.
+export const CUENTA_NO_VINCULADA =
+  'No pudimos vincular tu cuenta con esos datos. Escribinos por WhatsApp y te ayudamos.'
 
 export const TOTAL_PASOS = 6
 export const TITULOS_PASO = {

@@ -92,5 +92,19 @@ export function useCuentaCliente() {
     setSesion(null)
   }, [])
 
-  return { sesion, cargando, cuenta, refrescar: traerCuenta, cerrarSesion }
+  // completar_cuenta() ya devuelve el estado nuevo de la cuenta (mismo
+  // contrato que mi_cuenta()): se usa tal cual como cuenta, se invalida lo
+  // cacheado y se reemplaza con esa respuesta. Volver a pedir mi_cuenta()
+  // acá no aporta nada y pasaba por "Cargando…" en el medio.
+  const actualizarCuenta = useCallback(
+    (nueva) => {
+      cacheRef.current = null
+      if (!nueva || nueva.ok === false) return
+      cacheRef.current = userId
+      setCuenta(nueva)
+    },
+    [userId],
+  )
+
+  return { sesion, cargando, cuenta, refrescar: traerCuenta, actualizarCuenta, cerrarSesion }
 }

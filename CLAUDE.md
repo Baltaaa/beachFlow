@@ -287,7 +287,13 @@ PlanoInteractivo.jsx`, fuera de esa carpeta, a propósito.
 
 ### Turnstile
 Un solo widget invisible/managed montado por `ReservaFlow` (`useTurnstile`),
-reseteado después de cada uso porque el token es de un solo uso. Hoy usa
+reseteado después de cada uso porque el token es de un solo uso.
+`obtenerToken()` espera a que el widget esté renderizado (`onWidgetLoad`,
+hasta 15 s) antes de `execute()`, encola las llamadas (lead y reserva pueden
+pisarse) y nunca queda colgada: sin token devuelve `null` (30 s de tope) y la
+Edge Function responde `captcha_invalido`. Antes, `execute()` sobre un widget
+sin cargar solo logueaba "Turnstile has not been loaded or container not
+found" y la promesa no resolvía nunca. Hoy usa
 `VITE_TURNSTILE_SITE_KEY=1x00000000000000000000AA` (clave de prueba pública
 de Cloudflare) — **reemplazar por la clave real antes de activar
 reservas online**.
@@ -387,7 +393,7 @@ Edge Functions.
 
 ### `useCuentaCliente` — única fuente de la cuenta del cliente web
 `src/features/cuenta/useCuentaCliente.js` expone
-`{ sesion, cargando, cuenta, refrescar, cerrarSesion }`. `cuenta` es el
+`{ sesion, cargando, cuenta, refrescar, actualizarCuenta, cerrarSesion }`. `cuenta` es el
 resultado de `mi_cuenta()`, cacheado mientras dura la sesión (clave: el
 `user_id`, así un `TOKEN_REFRESHED` no vuelve a pedirla) y refrescado al
 iniciar sesión o al llamar a `refrescar()`. No tiene nada de reservas a
@@ -407,7 +413,7 @@ Detalles del contrato que importan:
 |---|---|
 | sin sesión | Botón "Continuar con Google" y los dos textos de uso de datos. **Ningún campo de datos a la vista.** |
 | `confirmado` | Tarjeta "Hola, `<nombre>`" con nombre, apellido, teléfono formateado y email **en solo lectura**, la línea "Tu unidad esta temporada: Carpa 19" si hay `unidades_vigentes`, botón "Continuar" y link "¿Algún dato está mal? Escribinos" (WhatsApp). |
-| `ninguno` | Form de nombre, apellido, teléfono y DNI (opcional), con nombre y apellido precargados del `nombre_google`. El email es el de Google, visible y no editable. Al continuar llama a `completar_cuenta()` y vuelve a pedir `mi_cuenta()`. |
+| `ninguno` | Form de nombre, apellido, teléfono y DNI (opcional), con nombre y apellido precargados del `nombre_google`. El email es el de Google, visible y no editable. Al continuar llama a `completar_cuenta()` y usa **su respuesta** como cuenta nueva (`actualizarCuenta`): no vuelve a pedir `mi_cuenta()`. `ok:false` muestra su texto; si la respuesta sigue en `ninguno` (el `conflicto` de priusApp: teléfono/DNI de un cliente que ya tiene otra cuenta, o de varios) muestra "No pudimos vincular tu cuenta…". Nunca vuelve al form en silencio. |
 | `pendiente` | "Encontramos un registro con esos datos. Lo confirmamos en recepción cuando llegues; tu reserva queda igual a tu nombre." y continúa normal, sin mostrar ningún dato del cliente existente. |
 
 **La web nunca edita los datos de un cliente existente** (regla D5 de
