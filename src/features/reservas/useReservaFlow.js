@@ -23,10 +23,12 @@ const ESTADO_INICIAL = {
 
 // Fase 5B: al volver del redirect de Google la página se recargó entera, así
 // que el estado sale de sessionStorage en vez de arrancar en el Paso 2.
-function estadoInicial(continuar) {
+// `avisoInicial`: mensaje para el Paso 4 cuando el login volvió con error.
+function estadoInicial({ continuar, avisoInicial }) {
   if (!continuar) return ESTADO_INICIAL
   const guardado = leerFlow()
-  return guardado ? { ...ESTADO_INICIAL, ...guardado } : ESTADO_INICIAL
+  if (!guardado) return ESTADO_INICIAL
+  return { ...ESTADO_INICIAL, ...guardado, avisoSesion: avisoInicial ?? null }
 }
 
 function reservaFlowReducer(state, action) {
@@ -81,8 +83,12 @@ function reservaFlowReducer(state, action) {
   }
 }
 
-export function useReservaFlow(continuar = false) {
-  const [state, dispatch] = useReducer(reservaFlowReducer, continuar, estadoInicial)
+export function useReservaFlow(continuar = false, avisoInicial = null) {
+  const [state, dispatch] = useReducer(
+    reservaFlowReducer,
+    { continuar, avisoInicial },
+    estadoInicial,
+  )
 
   const actions = useMemo(
     () => ({

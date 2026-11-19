@@ -60,6 +60,7 @@ export default function Paso4Datos({ state, actions, obtenerToken, cuentaCliente
 
   async function irAGoogle() {
     setErrorGeneral('')
+    actions.setAvisoSesion(null)
     setYendoAGoogle(true)
     // Primero el estado completo del flow en sessionStorage: el redirect
     // recarga la página entera.

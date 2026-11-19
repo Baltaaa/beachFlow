@@ -68,24 +68,63 @@ export function limpiarFlow() {
   }
 }
 
-/** ¿La URL actual es la vuelta de un login de Google con un flow guardado? */
+// Parámetros con los que Supabase/Google devuelven un login fallido. Llegan
+// duplicados en la query y en el fragmento: ?error=...&error_code=...#error=...
+const PARAMS_ERROR_OAUTH = ['error', 'error_code', 'error_description']
+
+/**
+ * ¿La vuelta de Google trajo un error? Lee query y hash (el que tenga datos).
+ * Devuelve { error, codigo, descripcion } o null.
+ */
+export function leerErrorOAuth() {
+  try {
+    const query = new URLSearchParams(window.location.search)
+    const hash = new URLSearchParams(window.location.hash.replace(/^#/, ''))
+    const leer = (clave) => query.get(clave) || hash.get(clave) || null
+    const error = leer('error')
+    const codigo = leer('error_code')
+    const descripcion = leer('error_description')
+    if (!error && !codigo && !descripcion) return null
+    return { error, codigo, descripcion }
+  } catch {
+    return null
+  }
+}
+
+/**
+ * ¿La URL actual es la vuelta de un login de Google con un flow guardado?
+ * Cuenta también un error de OAuth sin ?reserva=continuar: si Supabase no
+ * respetó el redirectTo, el flow guardado igual se tiene que restaurar.
+ */
 export function hayQueContinuar() {
   try {
     const params = new URLSearchParams(window.location.search)
-    return params.get(PARAM_CONTINUAR) === VALOR_CONTINUAR && leerFlow() !== null
+    const esRetorno = params.get(PARAM_CONTINUAR) === VALOR_CONTINUAR || leerErrorOAuth() !== null
+    return esRetorno && leerFlow() !== null
   } catch {
     return false
   }
 }
 
-/** Saca ?reserva=continuar de la URL sin recargar ni ensuciar el historial. */
-export function limpiarParamContinuar() {
+/**
+ * Saca de la URL todo lo que dejó la vuelta de Google (?reserva=continuar,
+ * error, error_code, error_description y el fragmento con el error) sin
+ * recargar ni ensuciar el historial. Así un refresh no reabre el flujo ni
+ * repite el mensaje de error.
+ */
+export function limpiarUrlRetorno() {
   try {
     const url = new URL(window.location.href)
-    if (!url.searchParams.has(PARAM_CONTINUAR)) return
-    url.searchParams.delete(PARAM_CONTINUAR)
+    const hash = new URLSearchParams(url.hash.replace(/^#/, ''))
+    const hashConError = PARAMS_ERROR_OAUTH.some((clave) => hash.has(clave))
+    const queryConRetorno = [PARAM_CONTINUAR, ...PARAMS_ERROR_OAUTH].some((clave) =>
+      url.searchParams.has(clave),
+    )
+    if (!hashConError && !queryConRetorno) return
+    for (const clave of [PARAM_CONTINUAR, ...PARAMS_ERROR_OAUTH]) url.searchParams.delete(clave)
     const query = url.searchParams.toString()
-    window.history.replaceState({}, '', `${url.pathname}${query ? `?${query}` : ''}${url.hash}`)
+    const fragmento = hashConError ? '' : url.hash
+    window.history.replaceState({}, '', `${url.pathname}${query ? `?${query}` : ''}${fragmento}`)
   } catch {
     // nada que hacer
   }

@@ -36,9 +36,9 @@ function armarMensajeContexto(motivo, state) {
 // (temporada, grupo grande, sin disponibilidad, pausadas, límite por
 // teléfono), se delega al Paso 2 de datos ya existente de ContactSection
 // vía onIrAConsultaForm — mismo envío a n8n de siempre, sin tocar su payload.
-export default function ReservaFlow({ onIrAConsultaForm, continuar = false }) {
+export default function ReservaFlow({ onIrAConsultaForm, continuar = false, avisoLogin = null }) {
   const { config, cargando: cargandoConfig } = useConfigReservas()
-  const { state, actions } = useReservaFlow(continuar)
+  const { state, actions } = useReservaFlow(continuar, avisoLogin)
   const { widget: turnstileWidget, obtenerToken } = useTurnstile()
   const cuentaCliente = useCuentaCliente()
   // Aviso que arrastra el Paso 3 cuando la unidad guardada se ocupó mientras

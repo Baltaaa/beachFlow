@@ -17,7 +17,8 @@ import {
   Award
 } from "lucide-react";
 import ReservaFlow from "../features/reservas/ReservaFlow";
-import { hayQueContinuar, limpiarParamContinuar } from "../features/reservas/persistenciaFlow";
+import { hayQueContinuar, leerErrorOAuth, limpiarUrlRetorno } from "../features/reservas/persistenciaFlow";
+import { mensajeDeErrorOAuth } from "../features/reservas/mensajes";
 
 const ID_RESERVA_CARPAS_SOMBRILLAS = "Reserva de carpas / sombrillas";
 
@@ -35,17 +36,22 @@ export default function ContactSection() {
   // limpiar la URL, y abre el cotizador directo en el flujo de reserva con el
   // estado restaurado desde sessionStorage.
   const [continuarReserva] = useState(hayQueContinuar);
+  // Si Google/Supabase volvieron con ?error=...#error=..., el Paso 4 lo
+  // explica en vez de quedar mudo.
+  const [errorLogin] = useState(leerErrorOAuth);
   const [step, setStep] = useState(1);
   const [modoReserva, setModoReserva] = useState(continuarReserva);
   const tarjetaRef = useRef(null);
 
   useEffect(() => {
+    // La URL se limpia siempre que haya algo de la vuelta de OAuth, aunque no
+    // haya flow guardado para restaurar.
+    if (continuarReserva || errorLogin) limpiarUrlRetorno();
     if (!continuarReserva) return;
-    limpiarParamContinuar();
     // Scroll a la tarjeta del cotizador: el cliente volvió de Google y tiene
     // que caer donde dejó el form, no arriba de todo.
     tarjetaRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
-  }, [continuarReserva]);
+  }, [continuarReserva, errorLogin]);
   const [form, setForm] = useState({
     nombre: "",
     telefono: "",
@@ -286,7 +292,11 @@ export default function ContactSection() {
           <div className="lg:col-span-8 p-6 md:p-8 2xl:p-10 bg-white flex flex-col justify-between min-h-[420px] lg:min-h-[440px]">
 
             {modoReserva ? (
-              <ReservaFlow onIrAConsultaForm={handleIrAConsultaForm} continuar={continuarReserva} />
+              <ReservaFlow
+                onIrAConsultaForm={handleIrAConsultaForm}
+                continuar={continuarReserva}
+                avisoLogin={errorLogin ? mensajeDeErrorOAuth(errorLogin) : null}
+              />
             ) : (
               <>
             {/* Barra de Progreso */}

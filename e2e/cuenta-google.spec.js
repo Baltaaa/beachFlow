@@ -225,3 +225,49 @@ test('el flow sobrevive a una recarga completa con ?reserva=continuar', async ({
   // El parámetro se limpia de la URL para que un refresh no reabra el flujo.
   await expect.poll(() => new URL(page.url()).searchParams.get('reserva')).toBeNull()
 })
+
+// Bug de la prueba real: Google/Supabase vuelven con el error en la query y
+// en el fragmento, y el Paso 4 quedaba mudo con la URL sucia.
+for (const { nombre, error, codigo, descripcion, mensaje } of [
+  {
+    nombre: 'signup_disabled',
+    error: 'access_denied',
+    codigo: 'signup_disabled',
+    descripcion: 'Signups not allowed for this instance',
+    mensaje: 'No pudimos crear tu cuenta en este momento. Escribinos por WhatsApp y te ayudamos.',
+  },
+  {
+    nombre: 'cancelado',
+    error: 'access_denied',
+    codigo: null,
+    descripcion: 'The user denied the request',
+    mensaje: 'Cancelaste el inicio de sesión con Google. Podés intentarlo de nuevo.',
+  },
+  {
+    nombre: 'otro',
+    error: 'server_error',
+    codigo: 'unexpected_failure',
+    descripcion: 'Unable to exchange external code',
+    mensaje: 'No pudimos iniciar sesión con Google. Probá de nuevo.',
+  },
+]) {
+  test(`vuelta de Google con error ${nombre}: aviso en el Paso 4 y URL limpia`, async ({ page }) => {
+    await prepararPagina(page, { cuenta: null })
+    const params = new URLSearchParams({ error, error_description: descripcion })
+    if (codigo) params.set('error_code', codigo)
+    await page.goto(`/?reserva=continuar&${params}#${params}`)
+
+    // El flow guardado se restaura en el Paso 4 con el mensaje a la vista.
+    await expect(page.getByText('PASO 4 DE 6')).toBeVisible({ timeout: 10000 })
+    await expect(page.getByText(mensaje, { exact: true })).toBeVisible()
+    await expect(page.getByRole('button', { name: /Continuar con Google/i })).toBeVisible()
+
+    // Ni query ni fragmento: un refresh no repite el error ni reabre el flujo.
+    await expect.poll(() => new URL(page.url()).search).toBe('')
+    await expect.poll(() => new URL(page.url()).hash).toBe('')
+
+    // El flow restaurado sigue entero: volver lleva al plano con la unidad.
+    await page.getByRole('button', { name: 'Volver', exact: true }).click()
+    await expect(page.getByText('PASO 3 DE 6')).toBeVisible()
+  })
+}

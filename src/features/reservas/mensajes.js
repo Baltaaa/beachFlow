@@ -56,6 +56,20 @@ export const LOGIN_BOTON = 'Continuar con Google'
 export const LOGIN_ERROR = 'No pudimos iniciar sesión con Google. Probá de nuevo.'
 export const SESION_VENCIDA = 'Tu sesión venció, iniciá sesión de nuevo'
 
+// Vuelta de Google con ?error=...&error_code=... (Supabase los manda en la
+// query y en el fragmento).
+export const LOGIN_ERROR_ALTA_DESHABILITADA =
+  'No pudimos crear tu cuenta en este momento. Escribinos por WhatsApp y te ayudamos.'
+export const LOGIN_CANCELADO = 'Cancelaste el inicio de sesión con Google. Podés intentarlo de nuevo.'
+
+/** Mensaje para el Paso 4 según el error con el que volvió el login. */
+export function mensajeDeErrorOAuth({ error, codigo } = {}) {
+  if (codigo === 'signup_disabled') return LOGIN_ERROR_ALTA_DESHABILITADA
+  // Google devuelve access_denied cuando el cliente cancela en su pantalla.
+  if (error === 'access_denied' || codigo === 'access_denied') return LOGIN_CANCELADO
+  return LOGIN_ERROR
+}
+
 export const CUENTA_CONECTADO = (email) => `Conectado como ${email}`
 export const CUENTA_CAMBIAR = 'Cambiar cuenta'
 export const CUENTA_BIENVENIDA = (nombre) => `Hola, ${nombre}`
