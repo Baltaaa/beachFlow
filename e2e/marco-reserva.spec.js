@@ -9,9 +9,20 @@ import { CUENTAS, UNIDAD, flowGuardado, prepararPagina, tocarCelda } from './sop
 const hoja = (page) => page.locator('[data-panel-reserva]')
 const siguiente = (page) => hoja(page).getByRole('button', { name: /^Siguiente/ })
 
+const redondear = (caja) => ({ x: Math.round(caja.x), y: Math.round(caja.y), w: Math.round(caja.width), h: Math.round(caja.height) })
+
+// La hoja, y adentro el marco (data-marco-plano) y la card del cuerpo
+// (data-cuerpo-marco, con el mapa o con el contenido libre): uno de cada uno.
 async function medir(page) {
-  const caja = await hoja(page).boundingBox()
-  return { x: Math.round(caja.x), y: Math.round(caja.y), w: Math.round(caja.width), h: Math.round(caja.height) }
+  const marco = hoja(page).locator('[data-marco-plano]')
+  const cuerpo = hoja(page).locator('[data-cuerpo-marco]')
+  await expect(marco).toHaveCount(1)
+  await expect(cuerpo).toHaveCount(1)
+  return {
+    hoja: redondear(await hoja(page).boundingBox()),
+    marco: redondear(await marco.boundingBox()),
+    cuerpo: redondear(await cuerpo.boundingBox()),
+  }
 }
 
 async function abrirDesdeCotizador(page) {
@@ -71,10 +82,10 @@ test('el marco mide exactamente lo mismo en los 6 pasos', async ({ page }, testI
   const vp = page.viewportSize()
   if (vp.width >= 768) {
     // 90vw × 88dvh con máximo 1440 × 920.
-    expect(medidas[0].w).toBe(Math.round(Math.min(vp.width * 0.9, 1440)))
-    expect(medidas[0].h).toBe(Math.round(Math.min(vp.height * 0.88, 920)))
+    expect(medidas[0].hoja.w).toBe(Math.round(Math.min(vp.width * 0.9, 1440)))
+    expect(medidas[0].hoja.h).toBe(Math.round(Math.min(vp.height * 0.88, 920)))
   } else {
-    expect(medidas[0]).toEqual({ x: 0, y: 0, w: vp.width, h: vp.height })
+    expect(medidas[0].hoja).toEqual({ x: 0, y: 0, w: vp.width, h: vp.height })
   }
 
   // En el Paso 6 se cierra sin preguntar y el cotizador vuelve a su Paso 1.
@@ -242,7 +253,8 @@ test('plano en vivo: 4 estados, chips, refrescar y el primer toque acerca', asyn
   )
   await page.goto('/?reserva=continuar')
   await expect(page.getByText('Paso 3 de 6')).toBeVisible({ timeout: 10000 })
-  const celda = (id) => page.locator(`[data-panel-reserva] [data-celda="${id}"]`)
+  const cuerpo = page.locator('[data-panel-reserva] [data-cuerpo-marco]')
+  const celda = (id) => cuerpo.locator(`[data-celda="${id}"]`)
   await expect(celda('carpa-19')).toHaveAttribute('data-estado', 'libre')
 
   // Mobile: el primer toque sobre una casilla chica acerca y no elige.
@@ -259,7 +271,18 @@ test('plano en vivo: 4 estados, chips, refrescar y el primer toque acerca', asyn
   await expect(celda('carpa-21')).toHaveAttribute('data-estado', 'ocupada')
   await expect(celda('sombrilla-1')).toHaveAttribute('data-estado', 'libre')
   await expect(page.locator('[data-pie-marco]')).toContainText('Carpa 19 + Carpa 20')
-  await expect(page.locator('[data-leyenda-plano]')).toContainText('Tu elección')
+  // Leyenda en el slot del marco: dentro de la card del cuerpo, en la misma
+  // fila que "Pasillo A · B · C", a su derecha, sin pisarlo ni salirse.
+  const leyenda = cuerpo.locator('[data-leyenda-plano]')
+  await expect(leyenda).toContainText('Tu elección')
+  const rotulo = await cuerpo.getByText('Pasillo A · B · C').boundingBox()
+  const bLeyenda = await leyenda.boundingBox()
+  const bCuerpo = await cuerpo.boundingBox()
+  expect(bLeyenda.x).toBeGreaterThanOrEqual(rotulo.x + rotulo.width)
+  expect(bLeyenda.x + bLeyenda.width).toBeLessThanOrEqual(bCuerpo.x + bCuerpo.width)
+  expect(bLeyenda.y).toBeLessThan(rotulo.y + rotulo.height)
+  expect(bLeyenda.y + bLeyenda.height).toBeGreaterThan(rotulo.y)
+  expect(await cuerpo.getByText('Pasillo A · B · C').evaluate((el) => el.scrollWidth <= el.clientWidth)).toBe(true)
   await page.screenshot({ path: `test-results/plano-${testInfo.project.name}-estados.png` })
 
   // Chips: "Sombrillas" atenúa las carpas (sin click) y resalta las sombrillas.

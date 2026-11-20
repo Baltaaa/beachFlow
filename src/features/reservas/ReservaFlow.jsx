@@ -293,6 +293,7 @@ export default function ReservaFlow({ onIrAConsultaForm, onCerrar, continuar = f
             }
             cuerpo={enMapa ? 'mapa' : 'libre'}
             claseCuerpo="border border-[#EDEDED]"
+            leyenda={enMapa && plano.leyenda}
             aviso={
               (toastMarco || enMapa) && (
                 <>

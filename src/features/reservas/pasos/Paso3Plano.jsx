@@ -47,7 +47,7 @@ function esToqueGrueso(amplia) {
  * deselección con aviso si lo elegido pasa a ocupado (en vivo o al cambiar
  * las fechas del header) y el primer toque acerca.
  *
- * Devuelve { plano, aviso, pie, cargando, refrescando, refrescar, avisar }.
+ * Devuelve { plano, leyenda, aviso, pie, cargando, refrescando, refrescar, avisar }.
  */
 export function usePaso3Plano({ activo, config, state, actions, onIrAConsulta, tipoFiltro, amplia, mapaRef, rotado }) {
   const { desde, hasta } = state.fechas
@@ -214,13 +214,13 @@ export function usePaso3Plano({ activo, config, state, actions, onIrAConsulta, t
   const seleccionCompleta = !!principal && (necesarias <= 1 || !!sugerida)
   const textoAviso = aviso || (todoBloqueado ? MENSAJE_SIN_LUGAR : error ? MENSAJE_ERROR_PLANO : null)
 
-  if (!activo) return { plano: null, aviso: null, pie: null, cargando: false, refrescando: false, refrescar, avisar: setAviso }
+  if (!activo) return { plano: null, leyenda: null, aviso: null, pie: null, cargando: false, refrescando: false, refrescar, avisar: setAviso }
 
   return {
     plano: <PlanoClaro unidades={unidades} renderCelda={renderCelda} rotado={rotado} />,
+    leyenda: <LeyendaPlano amplia={amplia} />,
     aviso: (
       <>
-        <LeyendaPlano amplia={amplia} />
         {ayuda ? (
           <div
             role="status"

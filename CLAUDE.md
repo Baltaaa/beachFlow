@@ -284,7 +284,7 @@ landing.
 
 ### Plano
 `src/components/plano/` sigue siendo copia exacta de priusApp — no se edita
-acá (ver `PORTABILIDAD.md`). Hoy es la de **priusApp `f2a52cd`** (Fase 6A.1,
+acá (ver `PORTABILIDAD.md`). Hoy es la de **priusApp `6e8aaaf`** (Fase 6A.2,
 rama `fase6a-plano-clientes`). Zoom, pan y gestos son de esa carpeta
 (`usePlanoEncuadre`, `ZoomPanPinch`); "el primer toque acerca" vive afuera,
 en `pasos/Paso3Plano.jsx`, a propósito. Ver "Fase 6B" abajo.
@@ -550,15 +550,16 @@ remonta al cambiar de paso):
     vecina. Desde el Paso 4 vuelve al plano si cambia la cantidad de unidades.
 - `tailwind.config.js` tiene `darkMode: 'class'` (y nunca se pone la clase):
   las variantes `dark:` del plano solo valen en el CRM.
-- `eslint.config.js` apaga **solo** `react-hooks/immutability` y **solo** en
-  `src/components/plano/` (MarcoPlanoClaro asigna `viewportRef.current` en un
-  callback ref; priusApp no usa esa regla). Pedido a priusApp.
+- `eslint.config.js` no tiene excepciones para `src/components/plano/`: desde
+  la 6A.2 la carpeta pasa `react-hooks/immutability` (priusApp la corre como
+  error; el viewport se conecta con `encuadre.setViewport`, nunca asignando
+  `viewportRef.current` desde afuera).
 
 ### Plano "vista clientes" en vivo (Paso 3)
 `pasos/Paso3Plano.jsx` exporta el hook **`usePaso3Plano`** (no un componente:
 el mapa tiene que ser el `children` directo del marco). Devuelve `plano`
-(`PlanoClaro` + `CeldaClara`), `aviso`, `pie`, `cargando`, `refrescando` y
-`refrescar`; con `activo` en false no consulta nada.
+(`PlanoClaro` + `CeldaClara`), `leyenda`, `aviso`, `pie`, `cargando`,
+`refrescando` y `refrescar`; con `activo` en false no consulta nada.
 - **Celdas:** libre blanca, ocupada negra (no seleccionable), elegida dorada,
   sugerida con borde dorado; filtrada por chip atenuada y la que coincide con
   aro dorado. `tamano="compacta"` en amplia, `"tactil"` (44×36) en mobile.
@@ -575,9 +576,13 @@ el mapa tiene que ser el `children` directo del marco). Devuelve `plano`
   escala del mapa es menor a la cómoda (`tactil` 1, `compacta` 1.8), el toque
   hace `mapaRef.acercarEn()` en ese punto y muestra "Tocá de nuevo para
   elegir". Con mouse, el click elige directo.
-- **Leyenda:** `marco/LeyendaPlano.jsx`, dentro del slot `aviso` (el marco no
-  tiene slot de leyenda): en amplia, a la derecha de la fila "Pasillo A · B ·
-  C"; en mobile, abajo sobre el mapa.
+- **Leyenda:** `marco/LeyendaPlano.jsx`, en el slot `leyenda` del marco (6A.2):
+  a la derecha de la fila "Pasillo A · B · C", en el flujo del layout. En
+  amplia, una línea; en compacta, 2×2 para no cortar el rótulo. `aviso` queda
+  solo para los toasts del plano.
+- **Tests:** las casillas se buscan dentro de `[data-cuerpo-marco]` y el marco
+  por `[data-marco-plano]` (atributos estables de la carpeta, 6A.2), nunca por
+  clases o estructura.
 - `CeldaPublica` (Glass Dark) ya no se usa; sigue en la carpeta porque es
   copia exacta. Se borraron `PlanoInteractivo.jsx`, `plano-glass.css` y el
   `MarcoReserva` provisorio. El CSS del plano (`.plano-rotable`,
@@ -668,12 +673,7 @@ negra con logo blanco y "Reservá" dorado, Exo uppercase, tarjetas blancas).
 - Playwright vacía `test-results/` en cada corrida: las capturas
   (`marco-*`, `plano-*`, `mi-cuenta-*`, `r-codigo-*`) son de la última.
 
-### Pendiente para priusApp (6A.1 → 6A.2)
-Lo que la 6A.1 (`f2a52cd`) no trae y acá se resolvió afuera de la carpeta:
-- **Slot `leyenda`** en la fila "Pasillo A · B · C" (amplia y compacta). Hoy la
-  leyenda va por `aviso`, posicionada a mano.
-- **`data-*` estables** en el marco: `data-marco-plano` en la raíz y
-  `data-cuerpo-marco` también en la card del modo mapa (hoy solo en
-  `cuerpo="libre"`).
-- **Lint:** `MarcoPlanoClaro.jsx:244` (`enc.viewportRef.current = node`) falla
-  `react-hooks/immutability` con la config de beachFlow.
+### Pedido a priusApp en la 6A.2 (resuelto, `6e8aaaf`)
+Slot `leyenda`, `data-marco-plano` / `data-cuerpo-marco` siempre, y la
+carpeta pasando `react-hooks/immutability`. Ya aplicado acá: la leyenda salió
+de `aviso` y no queda ninguna excepción de lint para la carpeta.

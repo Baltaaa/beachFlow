@@ -162,12 +162,11 @@ function useModalNavigation(selectedIdx, setSelectedIdx, imageIdx, setImageIdx) 
 // no terminó de descargar, el fade corre "vacío" y la foto aparece de un
 // salto cuando por fin carga. Este hook trackea el load real por src para
 // mostrar un loader mientras tanto y recién ahí disparar el fade-in.
+// Guarda QUÉ src terminó de cargar: al cambiar el src vuelve a "no cargada"
+// sola, sin un efecto que haga setState.
 function useImageLoaded(src) {
-  const [loaded, setLoaded] = useState(false)
-  useEffect(() => {
-    setLoaded(false)
-  }, [src])
-  return [loaded, () => setLoaded(true)]
+  const [cargada, setCargada] = useState(null)
+  return [cargada === src, () => setCargada(src)]
 }
 
 // --- Modal Desktop: layout lateral (imagen 65% / info 35%), coherente con el

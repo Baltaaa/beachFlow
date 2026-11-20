@@ -172,7 +172,7 @@ export async function prepararPagina(page, { cuenta, paso = 4, flow = flowGuarda
 // `celda`: el data-celda ("carpa-19") o un locator ya armado.
 export async function tocarCelda(page, celda) {
   const boton =
-    typeof celda === 'string' ? page.locator(`[data-panel-reserva] [data-celda="${celda}"]`) : celda
+    typeof celda === 'string' ? page.locator(`[data-panel-reserva] [data-cuerpo-marco] [data-celda="${celda}"]`) : celda
   const amplia = page.viewportSize().width >= 768
   const objetivo = amplia ? boton.locator('xpath=..') : boton
   const estadoAntes = await boton.getAttribute('data-estado')
