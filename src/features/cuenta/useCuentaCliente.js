@@ -1,110 +1,131 @@
 // Cuenta del cliente web — fuente: mi_cuenta() en priusApp. Reutilizable
 // fuera de reservas.
 //
-// No tiene nada específico del flujo de reserva a propósito: la futura
-// sección de actividades, la carta del café y los pedidos desde la carpa por
-// QR de unidad se cuelgan de este mismo hook.
+// Fase 6B: un solo store para toda la app (navbar, flujo de reserva y
+// /mi-cuenta usan la misma sesión y la misma cuenta). Una sola suscripción a
+// auth y un solo mi_cuenta() por usuario: lo que refresca uno lo ven todos.
 //
-// Contrato de mi_cuenta() (priusApp, Fase 5A), siempre jsonb:
-//   { ok:true, vinculo:'ninguno',    email, nombre_google }
-//   { ok:true, vinculo:'pendiente',  email }
+// Contrato de mi_cuenta() (priusApp, Fase 5A + 6A.1), siempre jsonb:
+//   { ok:true, vinculo:'ninguno',    email, nombre_google, reservas_web:[...] }
+//   { ok:true, vinculo:'pendiente',  email, reservas_web:[...] }
 //   { ok:true, vinculo:'confirmado', email, cliente:{nombre, apellido,
 //       telefono, email, dni_cargado}, unidades_vigentes:[...],
 //       reservas_web:[...] }
+// reservas_web es siempre de ESTA cuenta (codigos_reserva.user_id), nunca del
+// cliente vinculado. unidades_vigentes solo con vínculo confirmado.
 // Ojo: la RPC está revocada para `anon` (solo `authenticated`), así que
 // llamarla sin sesión no devuelve 'login_requerido' sino un 42501 de
 // Postgres. Por eso nunca se llama sin sesión.
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useSyncExternalStore } from 'react'
 import { supabase } from '../../lib/supabase'
 
-export function useCuentaCliente() {
-  const [sesion, setSesion] = useState(null)
-  const [cuenta, setCuenta] = useState(null)
-  const [cargando, setCargando] = useState(!!supabase)
-  // user_id cuya cuenta ya está cacheada: evita repetir mi_cuenta() en cada
-  // TOKEN_REFRESHED (el refresh del access token dispara onAuthStateChange).
-  const cacheRef = useRef(null)
+let estado = { sesion: null, cuenta: null, cargando: !!supabase }
+const oyentes = new Set()
+let iniciado = false
+// user_id cuya cuenta está cargada (o pidiéndose): evita repetir mi_cuenta()
+// en cada TOKEN_REFRESHED (el refresh del access token dispara
+// onAuthStateChange).
+let cacheUserId = null
+let pedido = null
+// Invalida respuestas que llegan tarde (cerró sesión, cambió de cuenta o
+// completar_cuenta() ya trajo la cuenta nueva).
+let generacion = 0
 
-  useEffect(() => {
-    if (!supabase) {
-      setCargando(false)
-      return
-    }
-    let vivo = true
+function actualizar(parcial) {
+  estado = { ...estado, ...parcial }
+  oyentes.forEach((avisar) => avisar())
+}
 
-    supabase.auth.getSession().then(({ data }) => {
-      if (!vivo) return
-      setSesion(data.session ?? null)
-      if (!data.session) setCargando(false)
-    })
-
-    // Solo se actualiza el estado acá dentro: llamar a otra función async de
-    // supabase dentro del callback puede trabar el lock interno de auth-js.
-    // El fetch de la cuenta vive en el efecto de abajo.
-    const { data: sub } = supabase.auth.onAuthStateChange((_evento, nuevaSesion) => {
-      if (!vivo) return
-      setSesion(nuevaSesion ?? null)
-      if (!nuevaSesion) {
-        cacheRef.current = null
-        setCuenta(null)
-        setCargando(false)
-      }
-    })
-
-    return () => {
-      vivo = false
-      sub.subscription.unsubscribe()
-    }
-  }, [])
-
+function aplicarSesion(sesion) {
   const userId = sesion?.user?.id ?? null
+  if (!userId) {
+    cacheUserId = null
+    pedido = null
+    generacion++
+    actualizar({ sesion: null, cuenta: null, cargando: false })
+    return
+  }
+  if (cacheUserId === userId) {
+    actualizar({ sesion })
+    return
+  }
+  actualizar({ sesion, cuenta: null, cargando: true })
+  // Fuera del callback de auth: llamar a otra función async de supabase ahí
+  // adentro puede trabar el lock interno de auth-js.
+  setTimeout(traerCuenta, 0)
+}
 
-  const traerCuenta = useCallback(async () => {
-    if (!supabase || !userId) return null
-    setCargando(true)
+function iniciar() {
+  if (iniciado || !supabase) return
+  iniciado = true
+  supabase.auth.getSession().then(({ data }) => aplicarSesion(data.session ?? null))
+  supabase.auth.onAuthStateChange((_evento, nuevaSesion) => aplicarSesion(nuevaSesion ?? null))
+}
+
+function suscribir(avisar) {
+  oyentes.add(avisar)
+  iniciar()
+  return () => oyentes.delete(avisar)
+}
+
+const leer = () => estado
+
+async function traerCuenta() {
+  const userId = estado.sesion?.user?.id ?? null
+  if (!supabase || !userId) return null
+  if (pedido && cacheUserId === userId) return pedido
+  cacheUserId = userId
+  const gen = ++generacion
+  actualizar({ cargando: true })
+  pedido = (async () => {
     try {
       const { data, error } = await supabase.rpc('mi_cuenta')
       if (error) throw error
-      cacheRef.current = userId
-      setCuenta(data)
+      if (gen === generacion) actualizar({ cuenta: data, cargando: false })
       return data
     } catch (err) {
       console.error('[cuenta] mi_cuenta() falló:', err)
-      cacheRef.current = null
-      setCuenta(null)
+      if (gen === generacion) {
+        cacheUserId = null
+        actualizar({ cuenta: null, cargando: false })
+      }
       return null
     } finally {
-      setCargando(false)
+      if (gen === generacion) pedido = null
     }
-  }, [userId])
+  })()
+  return pedido
+}
 
-  // Se dispara al iniciar sesión y cuando cambia de cuenta; cacheada mientras
-  // dure la sesión.
-  useEffect(() => {
-    if (!userId || cacheRef.current === userId) return
-    traerCuenta()
-  }, [userId, traerCuenta])
+/** Vuelve a pedir mi_cuenta() aunque esté cacheada. */
+function refrescar() {
+  if (!pedido) cacheUserId = null
+  return traerCuenta()
+}
 
-  const cerrarSesion = useCallback(async () => {
-    cacheRef.current = null
-    setCuenta(null)
-    if (supabase) await supabase.auth.signOut()
-    setSesion(null)
-  }, [])
+// completar_cuenta() ya devuelve el estado nuevo de la cuenta (mismo
+// contrato que mi_cuenta()): se usa tal cual como cuenta, se invalida lo
+// cacheado y se reemplaza con esa respuesta. Volver a pedir mi_cuenta() acá
+// no aporta nada y pasaba por "Cargando…" en el medio.
+function actualizarCuenta(nueva) {
+  generacion++
+  pedido = null
+  cacheUserId = null
+  if (!nueva || nueva.ok === false) return
+  cacheUserId = estado.sesion?.user?.id ?? null
+  actualizar({ cuenta: nueva, cargando: false })
+}
 
-  // completar_cuenta() ya devuelve el estado nuevo de la cuenta (mismo
-  // contrato que mi_cuenta()): se usa tal cual como cuenta, se invalida lo
-  // cacheado y se reemplaza con esa respuesta. Volver a pedir mi_cuenta()
-  // acá no aporta nada y pasaba por "Cargando…" en el medio.
-  const actualizarCuenta = useCallback(
-    (nueva) => {
-      cacheRef.current = null
-      if (!nueva || nueva.ok === false) return
-      cacheRef.current = userId
-      setCuenta(nueva)
-    },
-    [userId],
-  )
+async function cerrarSesion() {
+  cacheUserId = null
+  pedido = null
+  generacion++
+  actualizar({ cuenta: null })
+  if (supabase) await supabase.auth.signOut()
+  actualizar({ sesion: null, cargando: false })
+}
 
-  return { sesion, cargando, cuenta, refrescar: traerCuenta, actualizarCuenta, cerrarSesion }
+export function useCuentaCliente() {
+  const { sesion, cuenta, cargando } = useSyncExternalStore(suscribir, leer, leer)
+  return { sesion, cargando, cuenta, refrescar, actualizarCuenta, cerrarSesion }
 }

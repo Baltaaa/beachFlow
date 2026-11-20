@@ -118,7 +118,7 @@ export const CUENTAS = {
 
 // `flow`: flow guardado a restaurar (default: el del Paso `paso` con la
 // carpa 19 elegida); `unidades`: respuesta de disponibilidad_publica.
-export async function prepararPagina(page, { cuenta, paso = 4, flow = flowGuardado(paso), unidades = [UNIDAD] }) {
+export async function prepararPagina(page, { cuenta, paso = 4, flow = flowGuardado(paso), unidades = [UNIDAD], nombreGoogle }) {
   // Config con reservas activas y una tarifa, como el mock de la Fase 4B.
   // Config fija (no la real): con la sesión simulada supabase-js manda el JWT
   // falso y PostgREST rechaza la lectura, que quedaba en null.
@@ -158,7 +158,7 @@ export async function prepararPagina(page, { cuenta, paso = 4, flow = flowGuarda
     {
       claveAuth: CLAVE_AUTH,
       claveFlow: CLAVE_FLOW,
-      sesion: cuenta ? sesionFalsa({ email: cuenta.email, nombreGoogle: cuenta.nombre_google ?? 'Test' }) : null,
+      sesion: cuenta ? sesionFalsa({ email: cuenta.email, nombreGoogle: nombreGoogle ?? cuenta.nombre_google ?? 'Test' }) : null,
       flow,
     },
   )

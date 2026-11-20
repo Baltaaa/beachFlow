@@ -8,6 +8,9 @@ import {
   ArrowRight,
   Phone,
 } from 'lucide-react'
+import ChipCuenta from '../../features/cuenta/ChipCuenta'
+import { hayQueContinuar, leerErrorOAuth } from '../../features/reservas/persistenciaFlow'
+import { mensajeDeErrorOAuth } from '../../features/reservas/mensajes'
 
 const SECTIONS = [
   { id: 'servicios', label: 'Playa & Servicios', icon: LayoutGrid },
@@ -19,6 +22,18 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [theme, setTheme] = useState('dark')
+  // Vuelta de un "Ingresar" del navbar con error (canceló, alta cerrada…).
+  // Si hay un flow de reserva guardado, el mensaje lo muestra el Paso 4.
+  const [avisoLogin, setAvisoLogin] = useState(() => {
+    const error = leerErrorOAuth()
+    return error && !hayQueContinuar() ? mensajeDeErrorOAuth(error) : null
+  })
+
+  useEffect(() => {
+    if (!avisoLogin) return
+    const t = setTimeout(() => setAvisoLogin(null), 7000)
+    return () => clearTimeout(t)
+  }, [avisoLogin])
 
   // El header lee el atributo data-theme de la sección que tiene detrás
   // (seteado en LandingPage.jsx en cada bloque) para pasar de modo oscuro
@@ -130,7 +145,7 @@ export default function Navbar() {
       <header className="hidden md:block fixed z-50 left-0 right-0 mx-auto top-4 px-8 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
         <div className={`mx-auto relative flex items-center justify-between gap-4 border transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] rounded-full ${desktopInnerClass}`}>
 
-          <div className="flex items-center shrink-0">
+          <div className="flex items-center gap-4 shrink-0">
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               className="bg-transparent px-0 inline-flex items-center justify-center cursor-pointer"
@@ -142,6 +157,10 @@ export default function Navbar() {
                 style={{ height: scrolled ? 34 : 62 }}
               />
             </button>
+            {/* Fase 6B: cuenta del cliente. Va al lado del logo y no a la
+                derecha: entre 768 y ~1024px la navegación centrada ya pisa
+                el grupo de la derecha, y a la izquierda sobra lugar. */}
+            <ChipCuenta variante="desktop" claseBoton={`${desktopPillClass} ${desktopTextClass}`} />
           </div>
 
           <nav className="flex items-center gap-2 absolute left-1/2 -translate-x-1/2 transition-all duration-700">
@@ -203,15 +222,30 @@ export default function Navbar() {
             />
           </button>
 
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className={`flex items-center justify-center size-9 rounded-full border cursor-pointer transition-colors duration-400 ${mobileBurgerClass}`}
-            aria-label="Menu"
-          >
-            {isOpen ? <X size={17} /> : <Menu size={17} />}
-          </button>
+          <div className="flex items-center gap-2.5">
+            <ChipCuenta variante="mobile" claseBoton={mobileBurgerClass} />
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className={`flex items-center justify-center size-9 rounded-full border cursor-pointer transition-colors duration-400 ${mobileBurgerClass}`}
+              aria-label="Menu"
+            >
+              {isOpen ? <X size={17} /> : <Menu size={17} />}
+            </button>
+          </div>
         </div>
       </header>
+
+      {avisoLogin && (
+        <div
+          role="status"
+          className="fixed z-[60] left-1/2 -translate-x-1/2 top-24 md:top-28 w-[calc(100%-32px)] max-w-md bg-white text-prius-black text-xs leading-relaxed rounded-2xl border border-hairline shadow-[0_20px_50px_-12px_rgba(0,0,0,0.35)] px-4 py-3 flex items-start justify-between gap-3 animate-premium-fade"
+        >
+          <span>{avisoLogin}</span>
+          <button type="button" onClick={() => setAvisoLogin(null)} aria-label="Cerrar aviso" className="shrink-0 text-prius-black/50 hover:text-prius-black cursor-pointer">
+            <X size={14} />
+          </button>
+        </div>
+      )}
 
       {/* Menú Mobile Fullscreen */}
       {isOpen && (

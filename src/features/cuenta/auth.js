@@ -4,13 +4,29 @@ import { supabase } from '../../lib/supabase'
 import { urlDeRetorno } from '../reservas/persistenciaFlow'
 
 /**
+ * La página actual, para volver a ella después de Google (navbar, Fase 6B).
+ * Sin fragmento ni restos de una vuelta de OAuth anterior.
+ */
+export function urlDeEstaPagina() {
+  const url = new URL(window.location.href)
+  for (const clave of ['reserva', 'error', 'error_code', 'error_description', 'code']) url.searchParams.delete(clave)
+  const query = url.searchParams.toString()
+  return `${url.origin}${url.pathname}${query ? `?${query}` : ''}`
+}
+
+/**
  * Manda al cliente a Google. Si resuelve, el browser ya está navegando: no
  * hay que hacer nada más. Devuelve { ok:false } si ni siquiera pudo arrancar.
+ *
+ * `volverA`: a dónde vuelve. Default: el flujo de reserva
+ * (`/?reserva=continuar`); el navbar pasa `urlDeEstaPagina()`. Tiene que estar
+ * en las Redirect URLs de Supabase (`<origen>/**`); si no, Supabase vuelve a
+ * la Site URL.
  *
  * `prompt: 'select_account'` para que "Cambiar cuenta" ofrezca de verdad el
  * selector en vez de reentrar con la sesión de Google que ya estaba abierta.
  */
-export async function iniciarSesionGoogle() {
+export async function iniciarSesionGoogle({ volverA } = {}) {
   if (!supabase) return { ok: false }
   try {
     const { error } = await supabase.auth.signInWithOAuth({
@@ -18,7 +34,7 @@ export async function iniciarSesionGoogle() {
       options: {
         // window.location.origin: anda igual en localhost, en la preview de
         // Cloudflare y en producción, sin hardcodear ninguna URL.
-        redirectTo: urlDeRetorno(),
+        redirectTo: volverA ?? urlDeRetorno(),
         queryParams: { prompt: 'select_account' },
       },
     })

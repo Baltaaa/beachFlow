@@ -393,7 +393,10 @@ Edge Functions.
 
 ### `useCuentaCliente` — única fuente de la cuenta del cliente web
 `src/features/cuenta/useCuentaCliente.js` expone
-`{ sesion, cargando, cuenta, refrescar, actualizarCuenta, cerrarSesion }`. `cuenta` es el
+`{ sesion, cargando, cuenta, refrescar, actualizarCuenta, cerrarSesion }`. Desde
+la Fase 6B es un **store único de módulo** (`useSyncExternalStore`): el navbar,
+el flujo de reserva y `/mi-cuenta` comparten una sola suscripción a auth y un
+solo `mi_cuenta()` por usuario; lo que refresca uno lo ven todos. `cuenta` es el
 resultado de `mi_cuenta()`, cacheado mientras dura la sesión (clave: el
 `user_id`, así un `TOKEN_REFRESHED` no vuelve a pedirla) y refrescado al
 iniciar sesión o al llamar a `refrescar()`. No tiene nada de reservas a
@@ -546,3 +549,46 @@ Paso 1, y vuelve ahí al cerrar.
     falso y PostgREST rechazaba la lectura real.
   - Los tests de "pausadas" de `reserva-flow.spec.js` simulan `activo=false`,
     porque la base real ya está en `true`.
+
+### Cuenta en el navbar (Tarea 4)
+`src/features/cuenta/ChipCuenta.jsx` va montado en las dos cabeceras de
+`Navbar.jsx`. Toma el dibujo del botón de al lado en cada estado del navbar
+(transparente, oscuro o claro). Lo que muestra sale de
+`src/features/cuenta/datosCuenta.js`, que son funciones puras con
+`datosCuenta.test.js`.
+- **Sin sesión:** "Ingresar". En mobile y por debajo de `lg` es solo un ícono.
+  Llama a `iniciarSesionGoogle({ volverA: urlDeEstaPagina() })` y vuelve a la
+  misma página, sin `?reserva=continuar`. Si vuelve con error y no hay flow de
+  reserva guardado, el navbar muestra el mensaje en un aviso (7 s).
+- **Con sesión:** foto de Google (`avatar_url`/`picture`, o la inicial en
+  dorado), nombre y, si hoy tiene una unidad vigente, "Mariana · Carpa 133".
+  - Para la unidad se usa cualquier tipo de alquiler, con prioridad
+    temporada (`unidadDeHoy`). Sin unidad hoy, solo el nombre.
+  - El nombre se ve desde `xl` (máximo 140px, cortado); por debajo de `xl` y
+    en mobile, solo la foto.
+  - El menú tiene Mi cuenta (`/mi-cuenta`), Mis reservas
+    (`/mi-cuenta/reservas`) y Cerrar sesión.
+- **Pendiente:** nombre de Google (nunca el del cliente existente), punto
+  dorado y, en el menú, "Tu cuenta se confirma en recepción".
+- **⚠️ Va al lado del logo, no a la derecha.** El navbar de producción ya
+  superpone la navegación centrada sobre "Contacto" entre 768 y ~1024px (hasta
+  75px). Es un problema previo a esta fase y no se tocó. A la izquierda sobran
+  entre 88 y 298px. `navbar-cuenta.spec.js` verifica de 768 a 1440, arriba y
+  scrolleado, que el chip nunca llega a la navegación.
+- **Capturas de no-regresión del navbar:** sin sesión, confirmado y pendiente,
+  arriba y scrolleado (`e2e/navbar-cuenta.spec.js-snapshots/`). La baseline de
+  la landing completa se regeneró: el único cambio real es "Ingresar"
+  (verificado píxel a píxel; lo demás es el ruido de render de Eventos que ya
+  cubría la tolerancia del 1%).
+- **Fuera de este repo:** las Redirect URLs de Supabase tienen que aceptar
+  `<origen>/**` (no solo `/?reserva=continuar`); si no, Supabase vuelve a la
+  Site URL.
+- `/mi-cuenta` todavía no existe (Tarea 5): hasta entonces los links del menú
+  caen en el `*` → `/`.
+
+### Pendiente: 6A.1 del marco en priusApp
+`3c64b68` (priusApp) solo trajo el arreglo de `mi_cuenta()`: `reservas_web`
+ahora sale por la cuenta y viene también con `pendiente` y `ninguno`. El
+pedido de props y slots de `MarcoPlanoClaro` está escrito en el encabezado de
+`marco/MarcoReserva.jsx`. La Tarea 3 (plano vista clientes en vivo) espera a
+ese commit para no migrar dos veces.
