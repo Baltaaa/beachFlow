@@ -36,6 +36,15 @@ export default function LandingPage() {
     }
   }, [])
 
+  // Llegada desde otra página con ancla (ej. "Reservar" de /mi-cuenta →
+  // /#contacto): la sección recién existe después del primer render.
+  useEffect(() => {
+    const id = window.location.hash.slice(1)
+    if (!id) return
+    const t = setTimeout(() => document.getElementById(id)?.scrollIntoView({ block: 'start' }), 100)
+    return () => clearTimeout(t)
+  }, [])
+
   return (
     <div className="min-h-screen bg-white font-sans text-prius-black selection:bg-gold selection:text-prius-black">
       <Navbar />

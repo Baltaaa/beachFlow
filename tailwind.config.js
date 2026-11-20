@@ -1,5 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  // El plano de priusApp (src/components/plano) trae variantes `dark:` que solo
+  // tienen que prenderse en el CRM. Con 'class' (y sin poner nunca la clase)
+  // no se activan por el tema del sistema del visitante. Ver PORTABILIDAD.md.
+  darkMode: 'class',
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",

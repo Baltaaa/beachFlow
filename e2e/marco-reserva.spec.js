@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test'
-import { CUENTAS, UNIDAD, flowGuardado, prepararPagina } from './soporte'
+import { CUENTAS, UNIDAD, flowGuardado, prepararPagina, tocarCelda } from './soporte'
 
 // Fase 6B, Tarea 2 — marco fijo del flujo de reserva: overlay con el mismo
 // tamaño en los 6 pasos, cierre (X, Escape, click afuera) con confirmación,
@@ -45,7 +45,7 @@ test('el marco mide exactamente lo mismo en los 6 pasos', async ({ page }, testI
 
   await expect(page.getByText('Paso 3 de 6')).toBeVisible()
   medidas.push(await medir(page))
-  await page.locator('button.cursor-pointer.rounded-sm:not([disabled])').first().evaluate((el) => el.click())
+  await tocarCelda(page, 'carpa-19')
   await expect(page.locator('[data-pie-marco]')).toContainText('Carpa 19')
   await captura(3)
   await siguiente(page).click()
@@ -209,4 +209,74 @@ test('personas desde el header: vecina, y grupo grande sale a consulta', async (
   await page.getByRole('button', { name: 'Aplicar' }).click()
   await expect(hoja(page)).toHaveCount(0)
   await expect(page.locator('input[name="nombre"]')).toBeVisible()
+})
+
+// Tarea 3 — plano "vista clientes" en vivo (PlanoClaro + CeldaClara).
+test('plano en vivo: 4 estados, chips, refrescar y el primer toque acerca', async ({ page }, testInfo) => {
+  test.setTimeout(60000)
+  const errores = []
+  page.on('pageerror', (e) => errores.push(e.message))
+  const unidad = (numero, extra = {}) => ({
+    ...UNIDAD,
+    unidad_id: `11111111-1111-4111-8111-${String(numero).padStart(12, '0')}`,
+    numero,
+    orden: numero,
+    ...extra,
+  })
+  const C20 = unidad(20)
+  let tomada = false
+  let lecturas = 0
+  await prepararPagina(page, { cuenta: null, paso: 3, flow: { ...flowGuardado(3), state: { ...flowGuardado(3).state, personas: 8, unidades: { principal: null, sugerida: null } } } })
+  await page.route('**/rest/v1/rpc/disponibilidad_publica', (route) => {
+    lecturas++
+    const lista = [
+      { ...UNIDAD, bloqueada: tomada },
+      C20,
+      unidad(21, { bloqueada: true }),
+      unidad(1, { tipo: 'sombrilla', fila: 7, capacidad: 4 }),
+    ]
+    return route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(lista) })
+  })
+  await page.route('**/rest/v1/rpc/buscar_unidad_vecina', (route) =>
+    route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify([{ unidad_id: C20.unidad_id, contigua: true }]) }),
+  )
+  await page.goto('/?reserva=continuar')
+  await expect(page.getByText('Paso 3 de 6')).toBeVisible({ timeout: 10000 })
+  const celda = (id) => page.locator(`[data-panel-reserva] [data-celda="${id}"]`)
+  await expect(celda('carpa-19')).toHaveAttribute('data-estado', 'libre')
+
+  // Mobile: el primer toque sobre una casilla chica acerca y no elige.
+  if (page.viewportSize().width < 768) {
+    await celda('carpa-19').click()
+    await expect(page.getByText('Tocá de nuevo para elegir')).toBeVisible()
+    await expect(celda('carpa-19')).toHaveAttribute('data-estado', 'libre')
+  }
+
+  // 8 personas: hacen falta dos carpas → la vecina queda sugerida.
+  await tocarCelda(page, 'carpa-19')
+  await expect(celda('carpa-19')).toHaveAttribute('data-estado', 'elegida')
+  await expect(celda('carpa-20')).toHaveAttribute('data-estado', 'sugerida')
+  await expect(celda('carpa-21')).toHaveAttribute('data-estado', 'ocupada')
+  await expect(celda('sombrilla-1')).toHaveAttribute('data-estado', 'libre')
+  await expect(page.locator('[data-pie-marco]')).toContainText('Carpa 19 + Carpa 20')
+  await expect(page.locator('[data-leyenda-plano]')).toContainText('Tu elección')
+  await page.screenshot({ path: `test-results/plano-${testInfo.project.name}-estados.png` })
+
+  // Chips: "Sombrillas" atenúa las carpas (sin click) y resalta las sombrillas.
+  await page.getByRole('group', { name: 'Filtrar el plano por tipo de unidad' }).getByRole('button', { name: 'Sombrillas' }).click()
+  await expect(celda('carpa-21')).toHaveClass(/opacity-(20|30)/)
+  await expect(celda('sombrilla-1')).toHaveClass(/ring-2/)
+  await page.screenshot({ path: `test-results/plano-${testInfo.project.name}-chip-sombrillas.png` })
+  await page.getByRole('group', { name: 'Filtrar el plano por tipo de unidad' }).getByRole('button', { name: 'Todo' }).click()
+
+  // Refrescar: otra persona tomó la carpa 19 → se suelta con aviso.
+  tomada = true
+  const antes = lecturas
+  await page.getByRole('button', { name: 'Actualizar disponibilidad' }).click()
+  await expect.poll(() => lecturas).toBeGreaterThan(antes)
+  await expect(page.getByText('Alguien reservó esa unidad recién.')).toBeVisible()
+  await expect(celda('carpa-19')).toHaveAttribute('data-estado', 'ocupada')
+  await expect(page.locator('[data-pie-marco]')).toContainText('Elegí tu lugar en el plano')
+  await page.screenshot({ path: `test-results/plano-${testInfo.project.name}-tomada.png` })
+  expect(errores).toEqual([])
 })

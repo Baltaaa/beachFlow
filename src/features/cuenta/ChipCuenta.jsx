@@ -52,7 +52,10 @@ function PuntoAviso() {
 //   recepción". Nada del cliente existente.
 // `claseBoton`: el dibujo del navbar en su estado actual (transparente,
 // oscuro o claro), el mismo que el botón de al lado.
-export default function ChipCuenta({ variante = 'desktop', claseBoton = '' }) {
+// `alinear`: de qué lado del chip se abre el menú en desktop ('izquierda' en
+// el navbar de la landing, al lado del logo; 'derecha' en las páginas de
+// cuenta, donde el chip va a la derecha).
+export default function ChipCuenta({ variante = 'desktop', claseBoton = '', alinear = 'izquierda' }) {
   const { sesion, cuenta, cargando, cerrarSesion } = useCuentaCliente()
   const [abierto, setAbierto] = useState(false)
   // Mobile: el menú va fijo debajo del header, a lo ancho de la pantalla.
@@ -167,7 +170,7 @@ export default function ChipCuenta({ variante = 'desktop', claseBoton = '' }) {
           aria-label="Tu cuenta"
           style={mobile ? { top: topMenu } : undefined}
           className={`z-[60] bg-white text-prius-black rounded-2xl border border-hairline shadow-[0_20px_50px_-12px_rgba(0,0,0,0.35)] p-2 animate-premium-fade ${
-            mobile ? 'fixed inset-x-4' : 'absolute left-0 top-full mt-3 w-72'
+            mobile ? 'fixed inset-x-4' : `absolute ${alinear === 'derecha' ? 'right-0' : 'left-0'} top-full mt-3 w-72`
           }`}
         >
           <div className="flex items-center gap-3 px-3 pt-2 pb-3">

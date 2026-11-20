@@ -39,6 +39,17 @@ export default tseslint.config(
     },
   },
   {
+    // src/components/plano es copia exacta de priusApp (no se edita acá, ver
+    // PORTABILIDAD.md) y allá se lintea solo con rules-of-hooks y
+    // exhaustive-deps. MarcoPlanoClaro asigna `encuadre.viewportRef.current`
+    // en un callback ref, que la regla del compilador `immutability` marca.
+    // Pedido a priusApp; mientras tanto, solo esa regla y solo en la copia.
+    files: ['src/components/plano/**/*.{js,jsx}'],
+    rules: {
+      'react-hooks/immutability': 'off',
+    },
+  },
+  {
     files: ['**/*.{ts,tsx}'],
     extends: [...tseslint.configs.recommended],
     languageOptions: {

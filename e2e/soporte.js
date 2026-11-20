@@ -163,3 +163,25 @@ export async function prepararPagina(page, { cuenta, paso = 4, flow = flowGuarda
     },
   )
 }
+
+// Toca una casilla del plano (CeldaClara) como lo haría el cliente.
+// - Amplia (≥768): la casilla `compacta` es un <div> clickeable con el botón
+//   adentro sin eventos de puntero: se clickea el div.
+// - Compacta (mobile): el botón `tactil`. Si la casilla se ve chica, el
+//   primer toque acerca ("Tocá de nuevo para elegir") y el segundo elige.
+// `celda`: el data-celda ("carpa-19") o un locator ya armado.
+export async function tocarCelda(page, celda) {
+  const boton =
+    typeof celda === 'string' ? page.locator(`[data-panel-reserva] [data-celda="${celda}"]`) : celda
+  const amplia = page.viewportSize().width >= 768
+  const objetivo = amplia ? boton.locator('xpath=..') : boton
+  const estadoAntes = await boton.getAttribute('data-estado')
+  await objetivo.click()
+  if (amplia) return
+  // ZoomPanPinch difiere el tap 260 ms (por si es doble) y anima el zoom.
+  await page.waitForTimeout(700)
+  if ((await boton.getAttribute('data-estado')) === estadoAntes) {
+    await objetivo.click()
+    await page.waitForTimeout(400)
+  }
+}

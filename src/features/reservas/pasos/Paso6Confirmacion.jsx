@@ -3,10 +3,13 @@ import QRCode from 'qrcode'
 import { Download, MessageCircle } from 'lucide-react'
 import { URL_RESERVA } from '../../../lib/reservas-contrato'
 import { MENSAJE_PRECONFIRMADA_PASO6, EMAIL_RESERVA_ACTIVO } from '../mensajes'
-import { formatoPesos } from '../fechas'
+import { formatoPesos, resumenFechas } from '../fechas'
 import PiePaso, { BotonSiguiente } from '../marco/PiePaso'
 
-export default function Paso6Confirmacion({ config, state, onCerrar }) {
+// Paso 6: la reserva ya existe. El botón principal lleva a la reserva dentro
+// de Mi cuenta (/mi-cuenta/reservas/<codigo>), donde queda el QR para
+// siempre; "Listo" cierra y vuelve a la landing.
+export default function Paso6Confirmacion({ config, state, onCerrar, onVerEnCuenta }) {
   const [qrDataUrl, setQrDataUrl] = useState(null)
   const canvasRef = useRef(null)
   const { resultado } = state
@@ -65,14 +68,14 @@ export default function Paso6Confirmacion({ config, state, onCerrar }) {
       <canvas ref={canvasRef} className="hidden" />
 
       <p className="text-prius-black/70 text-xs max-w-md leading-relaxed font-light mb-5">
-        {MENSAJE_PRECONFIRMADA_PASO6(hora, state.fechas.desde)}
+        {MENSAJE_PRECONFIRMADA_PASO6(hora, resumenFechas(state.fechas.desde, state.fechas.desde).split(' · ')[0])}
       </p>
 
       <div className="flex flex-col sm:flex-row gap-3 w-full max-w-xs mb-5">
         <button
           type="button"
           onClick={handleDescargar}
-          className="flex-1 inline-flex items-center justify-center gap-1.5 h-10 rounded-full border border-hairline text-xs font-bold uppercase tracking-wider text-prius-black hover:border-gold transition-colors font-display cursor-pointer"
+          className="sm:flex-1 inline-flex items-center justify-center gap-1.5 h-10 rounded-full border border-hairline text-xs font-bold uppercase tracking-wider text-prius-black hover:border-gold transition-colors font-display cursor-pointer"
         >
           <Download size={14} /> Descargar QR
         </button>
@@ -80,7 +83,7 @@ export default function Paso6Confirmacion({ config, state, onCerrar }) {
           href={linkWhatsapp}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex-1 inline-flex items-center justify-center gap-1.5 h-10 rounded-full bg-gold text-xs font-bold uppercase tracking-wider text-prius-black hover:bg-gold-hover transition-colors font-display cursor-pointer"
+          className="sm:flex-1 inline-flex items-center justify-center gap-1.5 h-10 rounded-full bg-gold text-xs font-bold uppercase tracking-wider text-prius-black hover:bg-gold-hover transition-colors font-display cursor-pointer"
         >
           <MessageCircle size={14} /> Compartir
         </a>
@@ -100,10 +103,17 @@ export default function Paso6Confirmacion({ config, state, onCerrar }) {
       )}
 
       <PiePaso
-        derecha={
-          <BotonSiguiente onClick={onCerrar} icono={false}>
+        izquierda={
+          <button
+            type="button"
+            onClick={onCerrar}
+            className="h-11 px-1 text-xs font-bold uppercase tracking-wider text-prius-black/60 hover:text-prius-black transition-colors font-display cursor-pointer"
+          >
             Listo
-          </BotonSiguiente>
+          </button>
+        }
+        derecha={
+          <BotonSiguiente onClick={() => onVerEnCuenta(codigo)}>Ver en mi cuenta</BotonSiguiente>
         }
       />
     </div>

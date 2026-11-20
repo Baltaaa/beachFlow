@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test'
+import { tocarCelda } from './soporte'
 
 // Recorrido visual de los Pasos 2 a 4 con activo y cotizar() simulados del
 // lado del cliente (vía page.route) — la DB real sigue con activo=false y
@@ -44,8 +45,7 @@ test('Pasos 2 a 4 se recorren sin errores (disponibilidad real, tarifas simulada
   await page.waitForTimeout(1500) // disponibilidad_publica real
   await page.screenshot({ path: 'test-results/paso3.png' })
 
-  const celdaLibre = page.locator('button.cursor-pointer.rounded-sm:not([disabled])').first()
-  await celdaLibre.evaluate((el) => el.click())
+  await tocarCelda(page, hoja.locator('[data-celda][data-estado="libre"]').first())
   await hoja.locator('button.bg-gold', { hasText: 'Siguiente' }).click()
 
   await expect(page.getByText('PASO 4 DE 6')).toBeVisible({ timeout: 5000 })

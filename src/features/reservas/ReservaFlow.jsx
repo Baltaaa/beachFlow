@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { supabaseConfigurado } from '../../lib/supabase'
 import { useConfigReservas } from './useConfigReservas'
 import { useReservaFlow } from './useReservaFlow'
@@ -8,14 +9,16 @@ import { limpiarFlow } from './persistenciaFlow'
 import { MENSAJE_UNIDAD_TOMADA } from './mensajes'
 import { useTurnstile, turnstileConfigurado } from './useTurnstile'
 import EstadoPausadas from './EstadoPausadas'
+import MarcoPlanoClaro from '../../components/plano/MarcoPlanoClaro'
 import PanelReserva from './marco/PanelReserva'
-import MarcoReserva from './marco/MarcoReserva'
 import BarraPaso from './marco/BarraPaso'
 import SelectorFechas from './marco/SelectorFechas'
 import SelectorPersonas from './marco/SelectorPersonas'
+import { ContextoPieMarco } from './marco/contextoMarco'
 import { useEsAmplia } from './marco/useEsAmplia'
+import './marco/plano-claro.css'
 import Paso2FechasPersonas from './pasos/Paso2FechasPersonas'
-import Paso3Plano from './pasos/Paso3Plano'
+import { usePaso3Plano } from './pasos/Paso3Plano'
 import Paso4Datos from './pasos/Paso4Datos'
 import Paso5Confirmar from './pasos/Paso5Confirmar'
 import Paso6Confirmacion from './pasos/Paso6Confirmacion'
@@ -42,26 +45,61 @@ function unidadesNecesarias(personas, unidad) {
   return Math.ceil(personas / (unidad?.capacidad || 1))
 }
 
-// Flujo de reserva de 6 pasos. Fase 6B: vive en un overlay con marco fijo
-// (PanelReserva + MarcoReserva) que se abre al elegir "Carpas & Sombrillas"
-// en el cotizador. Cuando no hay salida posible dentro del flujo (temporada,
-// grupo grande, sin disponibilidad, pausadas, límite por teléfono), se cierra
-// el overlay y se delega al Paso 2 de datos ya existente de ContactSection vía
+const LOGO = <img src="/images/prius-icon.png" alt="Prius" className="w-11 h-11 object-contain shrink-0" />
+
+// Flujo de reserva de 6 pasos. Fase 6B: vive en un overlay (PanelReserva) con
+// el marco de la vista clientes del CRM (MarcoPlanoClaro, copia exacta de
+// priusApp) en TODOS los pasos: mismo header, barra del paso, cuerpo y footer.
+// El Paso 3 es el mapa en vivo; los demás, cuerpo libre con scroll interno.
+// Cuando no hay salida posible dentro del flujo (temporada, grupo grande, sin
+// disponibilidad, pausadas, límite por teléfono), se cierra el overlay y se
+// delega al Paso 2 de datos ya existente de ContactSection vía
 // onIrAConsultaForm — mismo envío a n8n de siempre, sin tocar su payload.
 export default function ReservaFlow({ onIrAConsultaForm, onCerrar, continuar = false, avisoLogin = null }) {
   const { config, cargando: cargandoConfig } = useConfigReservas()
   const { state, actions } = useReservaFlow(continuar, avisoLogin)
   const { widget: turnstileWidget, obtenerToken } = useTurnstile()
   const cuentaCliente = useCuentaCliente()
+  const navigate = useNavigate()
   const amplia = useEsAmplia()
   // Chips Todo / Carpas / Sombrillas del header: null | 'carpas' | 'sombrillas'.
   const [tipoFiltro, setTipoFiltro] = useState(null)
-  // Aviso que arrastra el Paso 3 cuando la unidad guardada se ocupó mientras
-  // el cliente estaba en Google.
-  const [avisoPlano, setAvisoPlano] = useState(null)
+  const [rotado, setRotado] = useState(false)
   // Aviso flotante del marco (ej. error de las flechas de fecha).
   const [avisoMarco, setAvisoMarco] = useState(null)
+  // Nodo del footer del marco: cada paso dibuja ahí sus botones (PiePaso).
+  const [nodoPie, setNodoPie] = useState(null)
+  const mapaRef = useRef(null)
   const revalidadoRef = useRef(false)
+
+  const flujoActivo =
+    supabaseConfigurado && turnstileConfigurado && !cargandoConfig && state.estado !== 'pausadas' && config?.activo !== false
+  const { paso } = state
+
+  const onIrAConsulta = useCallback(
+    (motivo) => {
+      // Salir del flujo hacia el form de consulta cancela la reserva en curso.
+      limpiarFlow()
+      onIrAConsultaForm({
+        asunto: 'Reserva de carpas / sombrillas',
+        mensaje: armarMensajeContexto(motivo, state),
+      })
+    },
+    [onIrAConsultaForm, state],
+  )
+
+  const plano = usePaso3Plano({
+    activo: flujoActivo && paso === 3,
+    config,
+    state,
+    actions,
+    onIrAConsulta,
+    tipoFiltro,
+    amplia,
+    mapaRef,
+    rotado,
+  })
+  const avisarPlano = plano.avisar
 
   useEffect(() => {
     if (!avisoMarco) return
@@ -69,10 +107,21 @@ export default function ReservaFlow({ onIrAConsultaForm, onCerrar, continuar = f
     return () => clearTimeout(t)
   }, [avisoMarco])
 
+  // Cada paso del cuerpo libre arranca arriba (el scroll es del marco).
+  useLayoutEffect(() => {
+    document.querySelector('[data-panel-reserva] [data-scroll-cuerpo]')?.scrollTo(0, 0)
+  }, [paso])
+
+  // Reserva creada: la cuenta (navbar, /mi-cuenta) la tiene que ver ya.
+  const codigoCreado = paso === 6 ? state.resultado?.codigo : null
+  const { refrescar: refrescarCuenta } = cuentaCliente
+  useEffect(() => {
+    if (codigoCreado) refrescarCuenta()
+  }, [codigoCreado, refrescarCuenta])
+
   // Al volver del login, el plano puede haber cambiado: la unidad que el
   // cliente tenía elegida antes del redirect quizá ya la tomó otro. Misma
-  // regla que el Realtime del Paso 3 — se deselecciona, se avisa y vuelve al
-  // plano.
+  // regla que el plano en vivo — se deselecciona, se avisa y vuelve al plano.
   useEffect(() => {
     if (!continuar || revalidadoRef.current) return
     const { principal, sugerida } = state.unidades
@@ -90,7 +139,7 @@ export default function ReservaFlow({ onIrAConsultaForm, onCerrar, continuar = f
         }
         if (!sigueLibre(principal) || !sigueLibre(sugerida)) {
           actions.quitarUnidades()
-          setAvisoPlano(MENSAJE_UNIDAD_TOMADA)
+          avisarPlano(MENSAJE_UNIDAD_TOMADA)
           actions.irAPaso(3)
         }
       })
@@ -103,30 +152,30 @@ export default function ReservaFlow({ onIrAConsultaForm, onCerrar, continuar = f
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [continuar])
 
-  function onIrAConsulta(motivo) {
-    // Salir del flujo hacia el form de consulta cancela la reserva en curso.
-    limpiarFlow()
-    onIrAConsultaForm({
-      asunto: 'Reserva de carpas / sombrillas',
-      mensaje: armarMensajeContexto(motivo, state),
-    })
-  }
-
   const cerrar = useCallback(() => {
     actions.reset()
     onCerrar()
   }, [actions, onCerrar])
 
+  // Paso 6 → "Ver en mi cuenta": cierra el overlay y lleva a la reserva.
+  const verEnCuenta = useCallback(
+    (codigo) => {
+      cerrar()
+      navigate(`/mi-cuenta/reservas/${codigo}`)
+    },
+    [cerrar, navigate],
+  )
+
   // Fechas desde el header (Pasos 3 y 4; desde el 5 quedan bloqueadas). La
-  // selección se conserva: el Paso 3 la deselecciona con aviso si no está
+  // selección se conserva: el plano la deselecciona con aviso si no está
   // libre en las fechas nuevas. Desde el Paso 4 se vuelve al plano.
   function cambiarFechas(fechas) {
     actions.cambiarFechas(fechas)
-    if (state.paso === 4) actions.irAPaso(3)
+    if (paso === 4) actions.irAPaso(3)
   }
 
   // Personas desde el header, con las mismas reglas del plano: grupo grande
-  // sale a consulta; si cambia cuántas unidades hacen falta, el Paso 3 busca
+  // sale a consulta; si cambia cuántas unidades hacen falta, el plano busca
   // o suelta la vecina (y desde el Paso 4 se vuelve al plano).
   function cambiarPersonas(personas) {
     const { principal, sugerida } = state.unidades
@@ -138,54 +187,38 @@ export default function ReservaFlow({ onIrAConsultaForm, onCerrar, continuar = f
         return
       }
       const elegidas = sugerida ? 2 : 1
-      if (state.paso === 4 && Math.max(1, necesarias) !== elegidas) actions.irAPaso(3)
+      if (paso === 4 && Math.max(1, necesarias) !== elegidas) actions.irAPaso(3)
     }
     actions.setPersonas(personas)
   }
 
-  const flujoActivo =
-    supabaseConfigurado && turnstileConfigurado && !cargandoConfig && state.estado !== 'pausadas' && config?.activo !== false
-  const { paso } = state
   const pedirConfirmacion =
     flujoActivo && paso < 6 && (!!state.fechas.desde || !!state.unidades.principal || paso > 2)
   // Fechas y personas se editan en el cuerpo la primera vez (Paso 2), desde el
   // header en los Pasos 3 y 4, y quedan fijas desde el 5.
   const headerEditable = flujoActivo && (paso === 3 || paso === 4)
+  const enMapa = flujoActivo && paso === 3
 
-  function cuerpo() {
+  function cuerpoLibre() {
     // Sin Supabase o sin Turnstile configurados, ningún paso puede funcionar
     // de verdad — mejor mostrar "pausadas" de entrada (el resto de la
     // landing, incluida esta misma sección, sigue andando igual).
     if (!supabaseConfigurado || !turnstileConfigurado || (!cargandoConfig && !flujoActivo)) {
       return (
-        <CuerpoContenido>
+        <ContenidoPaso>
           <EstadoPausadas onIrAConsulta={() => onIrAConsulta('contacto')} />
-        </CuerpoContenido>
+        </ContenidoPaso>
       )
     }
     if (cargandoConfig) {
       return (
-        <div className="flex-1 flex items-center justify-center">
+        <div className="h-full flex items-center justify-center">
           <span className="text-[13px] font-medium text-[#6B6B6B]">Cargando…</span>
         </div>
       )
     }
-    if (paso === 3) {
-      return (
-        <div className="flex-1 min-h-0 flex flex-col p-3">
-          <Paso3Plano
-            config={config}
-            state={state}
-            actions={actions}
-            onIrAConsulta={onIrAConsulta}
-            avisoExterno={avisoPlano}
-            tipoFiltro={tipoFiltro}
-          />
-        </div>
-      )
-    }
     return (
-      <CuerpoContenido key={paso}>
+      <ContenidoPaso key={paso}>
         {paso === 2 && (
           <Paso2FechasPersonas config={config} state={state} actions={actions} onIrAConsulta={onIrAConsulta} />
         )}
@@ -202,41 +235,55 @@ export default function ReservaFlow({ onIrAConsultaForm, onCerrar, continuar = f
             cuentaCliente={cuentaCliente}
           />
         )}
-        {paso === 6 && <Paso6Confirmacion config={config} state={state} onCerrar={cerrar} />}
-      </CuerpoContenido>
+        {paso === 6 && <Paso6Confirmacion config={config} state={state} onCerrar={cerrar} onVerEnCuenta={verEnCuenta} />}
+      </ContenidoPaso>
     )
   }
+
+  const toastMarco = avisoMarco && (
+    <div
+      role="status"
+      className="absolute top-3 left-1/2 -translate-x-1/2 z-30 max-w-[90%] bg-black text-white text-[13px] leading-[18px] font-medium rounded-full px-4 py-2 shadow-lg"
+    >
+      {avisoMarco}
+    </div>
+  )
 
   return (
     <PanelReserva pedirConfirmacion={pedirConfirmacion} onCerrar={cerrar}>
       {(solicitarCierre) => (
-        <>
+        <ContextoPieMarco.Provider value={nodoPie}>
           {turnstileWidget}
-          <MarcoReserva
+          <MarcoPlanoClaro
             variante={amplia ? 'amplia' : 'compacta'}
-            logo={<img src="/images/prius-icon.png" alt="Prius" className="w-11 h-11 object-contain shrink-0" />}
+            logo={LOGO}
             selectorFecha={
-              <>
-                <SelectorFechas
-                  fechas={state.fechas}
-                  config={config}
-                  bloqueado={!headerEditable}
-                  amplia={amplia}
-                  onCambiar={cambiarFechas}
-                  onError={setAvisoMarco}
-                />
-                <SelectorPersonas
-                  personas={state.personas}
-                  bloqueado={!headerEditable}
-                  amplia={amplia}
-                  onCambiar={cambiarPersonas}
-                />
-              </>
+              <SelectorFechas
+                fechas={state.fechas}
+                config={config}
+                bloqueado={!headerEditable}
+                amplia={amplia}
+                onCambiar={cambiarFechas}
+                onError={setAvisoMarco}
+              />
+            }
+            selectorPersonas={
+              <SelectorPersonas
+                personas={state.personas}
+                bloqueado={!headerEditable}
+                amplia={amplia}
+                onCambiar={cambiarPersonas}
+              />
             }
             tipo={tipoFiltro}
             onTipo={setTipoFiltro}
-            chipsDeshabilitados={!flujoActivo || paso !== 3}
-            onCerrar={solicitarCierre}
+            chipsDeshabilitados={!enMapa}
+            // Amplia: la X del header. Compacta: la X va en la barra del paso
+            // (sin onCerrar, la pill del mapa no muestra "cerrar pantalla").
+            onCerrar={amplia ? solicitarCierre : undefined}
+            tituloCerrar="Cerrar"
+            onRefrescar={enMapa ? plano.refrescar : undefined}
+            refrescando={enMapa && plano.refrescando}
             barra={
               flujoActivo ? (
                 <BarraPaso paso={paso} onCerrar={amplia ? null : solicitarCierre} />
@@ -244,28 +291,34 @@ export default function ReservaFlow({ onIrAConsultaForm, onCerrar, continuar = f
                 !amplia && <BarraPaso paso={null} onCerrar={solicitarCierre} />
               )
             }
+            cuerpo={enMapa ? 'mapa' : 'libre'}
+            claseCuerpo="border border-[#EDEDED]"
             aviso={
-              avisoMarco && (
-                <div role="status" className="absolute top-3 left-1/2 -translate-x-1/2 z-20 max-w-[90%] bg-black text-white text-[13px] leading-[18px] font-medium rounded-full px-4 py-2 shadow-lg">
-                  {avisoMarco}
-                </div>
+              (toastMarco || enMapa) && (
+                <>
+                  {enMapa && plano.aviso}
+                  {toastMarco}
+                </>
               )
             }
+            pieRef={setNodoPie}
+            rotado={rotado}
+            onRotar={() => setRotado((v) => !v)}
+            cargando={enMapa && plano.cargando}
+            mapaRef={mapaRef}
+            resetKey={tipoFiltro ?? ''}
           >
-            {cuerpo()}
-          </MarcoReserva>
-        </>
+            {enMapa ? plano.plano : cuerpoLibre()}
+          </MarcoPlanoClaro>
+          {enMapa && plano.pie}
+        </ContextoPieMarco.Provider>
       )}
     </PanelReserva>
   )
 }
 
-// Cuerpo de los pasos que no son el plano: mismo tamaño que el mapa, contenido
-// centrado y scroll interno (nunca del overlay).
-function CuerpoContenido({ children }) {
-  return (
-    <div data-cuerpo-scroll className="flex-1 min-h-0 overflow-y-auto overscroll-contain">
-      <div className="max-w-[640px] mx-auto px-4 py-6 sm:px-6 sm:py-8">{children}</div>
-    </div>
-  )
+// Contenido de los pasos que no son el mapa: centrado y de 640px como máximo.
+// El scroll interno lo pone el marco (cuerpo="libre").
+function ContenidoPaso({ children }) {
+  return <div className="max-w-[640px] mx-auto px-4 py-6 sm:px-6 sm:py-8">{children}</div>
 }

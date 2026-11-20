@@ -1,5 +1,18 @@
 import { describe, expect, it } from 'vitest'
-import { avatarDe, nombreCompleto, nombreCorto, textoChip, unidadDeHoy } from './datosCuenta'
+import {
+  TIPO_ALQUILER_LABEL,
+  avatarDe,
+  etiquetaUnidad,
+  etiquetaUnidades,
+  nombreCompleto,
+  nombreCorto,
+  reservaParaQR,
+  reservasDeHoy,
+  textoChip,
+  unidadDeHoy,
+  unidadParaTarjeta,
+  unidadesDeHoy,
+} from './datosCuenta'
 
 const sesion = {
   user: {
@@ -59,5 +72,53 @@ describe('avatar y nombre completo', () => {
   it('confirmado: nombre y apellido del cliente; si no, el de Google', () => {
     expect(nombreCompleto(confirmado([]), sesion)).toBe('Balta Bruschetti')
     expect(nombreCompleto({ vinculo: 'ninguno' }, sesion)).toBe('Baltasar Bruschetti')
+  })
+})
+
+describe('/mi-cuenta', () => {
+  const HOY = '2026-12-10'
+  const r = (codigo, estado, desde, hasta, unidades = [{ tipo: 'carpa', numero: 19 }]) => ({
+    codigo, estado, desde, hasta, unidades, total: 1000, saldo: 1000,
+  })
+
+  it('QR: la reserva activa en curso hoy, o la próxima; nunca vencidas ni pasadas', () => {
+    const reservas = [
+      r('PRIUS-AAAAAA', 'preconfirmada', '2026-12-20', '2026-12-20'),
+      r('PRIUS-BBBBBB', 'confirmada', '2026-12-09', '2026-12-11'),
+      r('PRIUS-CCCCCC', 'vencida', '2026-12-10', '2026-12-10'),
+      r('PRIUS-DDDDDD', 'preconfirmada', '2026-12-01', '2026-12-02'),
+    ]
+    expect(reservaParaQR(reservas, HOY).codigo).toBe('PRIUS-BBBBBB')
+    expect(reservaParaQR(reservas.slice(0, 1), HOY).codigo).toBe('PRIUS-AAAAAA')
+    expect(reservaParaQR(reservas.slice(2), HOY)).toBeNull()
+    expect(reservaParaQR(undefined, HOY)).toBeNull()
+  })
+
+  it('Hoy: reservas web de hoy y unidades vigentes que no repiten una reserva web', () => {
+    const hoy = reservasDeHoy([r('PRIUS-BBBBBB', 'confirmada', HOY, HOY), r('PRIUS-CCCCCC', 'cancelada', HOY, HOY)], HOY)
+    expect(hoy.map((x) => x.codigo)).toEqual(['PRIUS-BBBBBB'])
+    const unidades = [
+      { tipo: 'carpa', numero: 19, tipo_alquiler: 'dia', desde: HOY, hasta: HOY },
+      { tipo: 'sombrilla', numero: 4, tipo_alquiler: 'dia', desde: HOY, hasta: HOY },
+      { tipo: 'carpa', numero: 133, tipo_alquiler: 'temporada', desde: '2026-12-01', hasta: '2027-03-31' },
+      { tipo: 'carpa', numero: 7, tipo_alquiler: 'periodo', desde: '2027-01-05', hasta: '2027-01-10' },
+    ]
+    expect(unidadesDeHoy(unidades, HOY, hoy).map(etiquetaUnidad)).toEqual(['Carpa 133', 'Sombrilla 4'])
+  })
+
+  it('tarjeta sin QR: solo confirmado, hoy primero y temporada antes que el resto', () => {
+    const temporada = { tipo: 'carpa', numero: 133, tipo_alquiler: 'temporada', desde: '2027-01-01', hasta: '2027-03-31' }
+    const futura = { tipo: 'sombrilla', numero: 4, tipo_alquiler: 'periodo', desde: '2026-12-20', hasta: '2026-12-22' }
+    const deHoy = { tipo: 'sombrilla', numero: 9, tipo_alquiler: 'dia', desde: HOY, hasta: HOY }
+    const cuenta = (unidades) => ({ vinculo: 'confirmado', unidades_vigentes: unidades })
+    expect(unidadParaTarjeta(cuenta([futura, temporada]), HOY)).toBe(temporada)
+    expect(unidadParaTarjeta(cuenta([temporada, deHoy]), HOY)).toBe(deHoy)
+    expect(unidadParaTarjeta(cuenta([]), HOY)).toBeNull()
+    expect(unidadParaTarjeta({ vinculo: 'pendiente', unidades_vigentes: [deHoy] }, HOY)).toBeNull()
+  })
+
+  it('etiquetas', () => {
+    expect(etiquetaUnidades([{ tipo: 'carpa', numero: 19 }, { tipo: 'carpa', numero: 20 }])).toBe('Carpa 19 + Carpa 20')
+    expect(TIPO_ALQUILER_LABEL.temporada).toBe('Temporada')
   })
 })

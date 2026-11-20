@@ -1,3 +1,6 @@
+import { MENSAJE_PRECONFIRMADA_PASO6, MENSAJE_VENCIDA } from '../reservas/mensajes'
+import { resumenFechas } from '../reservas/fechas'
+
 // Lo que el navbar (y /mi-cuenta) muestran de la cuenta, derivado de la
 // sesión de Supabase y de mi_cuenta(). Funciones puras: se testean en
 // datosCuenta.test.js.
@@ -60,4 +63,74 @@ export function textoChip(cuenta, sesion, hoyISO) {
   const nombre = nombreCorto(cuenta, sesion)
   const unidad = cuenta?.vinculo === 'confirmado' ? unidadDeHoy(cuenta.unidades_vigentes, hoyISO) : null
   return unidad ? `${nombre} · ${etiquetaUnidad(unidad)}` : nombre
+}
+
+// ── /mi-cuenta (Fase 6B, Tarea 5) ─────────────────────────────────────────
+// Todo sale de mi_cuenta(): reservas_web ({ codigo, estado, unidades:[{tipo,
+// numero}], desde, hasta, total, saldo }) y, solo con vínculo confirmado,
+// unidades_vigentes ({ tipo, numero, tipo_alquiler, desde, hasta }).
+
+export const TIPO_ALQUILER_LABEL = { dia: 'Por día', periodo: 'Período', temporada: 'Temporada' }
+
+/** Estados de reservas_web que todavía valen (las mismas del QR de /r/). */
+export function reservaActiva(reserva) {
+  return reserva?.estado === 'preconfirmada' || reserva?.estado === 'confirmada'
+}
+
+/** "Carpa 19 + Carpa 20". */
+export function etiquetaUnidades(unidades) {
+  return (unidades ?? []).map(etiquetaUnidad).join(' + ')
+}
+
+/**
+ * La reserva web del QR: la activa que está en curso hoy o, si no, la próxima.
+ * null si no tiene ninguna activa que termine hoy o después.
+ */
+export function reservaParaQR(reservas, hoyISO) {
+  const vigentes = (reservas ?? []).filter((r) => reservaActiva(r) && r.hasta >= hoyISO)
+  if (!vigentes.length) return null
+  return [...vigentes].sort((a, b) => (a.desde < b.desde ? -1 : a.desde > b.desde ? 1 : 0))[0]
+}
+
+/** Reservas web activas que incluyen hoy. */
+export function reservasDeHoy(reservas, hoyISO) {
+  return (reservas ?? []).filter((r) => reservaActiva(r) && r.desde <= hoyISO && hoyISO <= r.hasta)
+}
+
+/**
+ * Unidades vigentes hoy (temporada primero) que no son ya una reserva web de
+ * hoy (una reserva web confirmada también aparece en unidades_vigentes).
+ */
+export function unidadesDeHoy(unidades, hoyISO, reservasHoy = []) {
+  const deReservas = new Set(reservasHoy.flatMap((r) => (r.unidades ?? []).map((u) => `${u.tipo}:${u.numero}`)))
+  return (unidades ?? [])
+    .filter((u) => u.desde <= hoyISO && hoyISO <= u.hasta && !deReservas.has(`${u.tipo}:${u.numero}`))
+    .sort((a, b) => (a.tipo_alquiler === 'temporada' ? -1 : 0) - (b.tipo_alquiler === 'temporada' ? -1 : 0))
+}
+
+/**
+ * Unidad para la tarjeta sin QR (cuenta sin reserva web vigente): la de hoy
+ * con prioridad temporada o, si no, la primera vigente (temporada primero).
+ * Solo con vínculo confirmado: nada del cliente para una cuenta pendiente.
+ */
+export function unidadParaTarjeta(cuenta, hoyISO) {
+  if (cuenta?.vinculo !== 'confirmado') return null
+  const unidades = cuenta.unidades_vigentes ?? []
+  return unidadDeHoy(unidades, hoyISO) ?? unidades.find((u) => u.tipo_alquiler === 'temporada') ?? unidades[0] ?? null
+}
+
+/**
+ * Explicación del estado de una reserva web, la misma en /r/ y en /mi-cuenta
+ * (o null si no hace falta, ej. confirmada).
+ */
+export function textoEstadoReserva(reserva, config) {
+  if (!reserva) return null
+  if (reserva.estado === 'vencida') return MENSAJE_VENCIDA
+  if (reserva.estado === 'cancelada') return 'Esta reserva fue cancelada.'
+  if (reserva.estado === 'preconfirmada') {
+    const hora = config?.hora_corte_noshow?.slice(0, 5) ?? '12:00'
+    const dia = reserva.desde ? resumenFechas(reserva.desde, reserva.desde).split(' · ')[0] : ''
+    return MENSAJE_PRECONFIRMADA_PASO6(hora, dia)
+  }
+  return null
 }

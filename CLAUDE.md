@@ -246,8 +246,10 @@ Lo que ya está en producción manda (Exo + Instrument Sans, dorado
 `#F2CA50`, botones píldora, radios de la escala real). De Stitch
 (`design/stitch/reservas/`) solo se tomó la estructura/disposición de las
 pantallas nuevas — sus colores, fuentes y radios no se usaron donde no
-coincidían con producción. Única excepción: el panel del plano (Paso 3) es
-Glass Dark, copia exacta del CRM, no de Stitch. Los estilos nuevos quedan
+coincidían con producción. Única excepción: el flujo de reserva entero vive en
+el marco de la "vista clientes" del CRM (`MarcoPlanoClaro`, claro, con
+Manrope), copia exacta de priusApp, no de Stitch (Fase 6B; antes el plano era
+Glass Dark). Los estilos nuevos quedan
 acotados a los componentes del cotizador y a `/r/:codigo`
 (`src/features/reservas/*.css`, nunca CSS global). No-regresión verificada
 con capturas Playwright de la landing completa fuera del cotizador
@@ -277,13 +279,15 @@ landing.
 (RPC + Broadcast `disponibilidad`/`cambio`, debounce 500ms),
 `useReservaFlow.js` (estado completo del flujo vía `useReducer`),
 `useTurnstile.jsx`, `ReservaFlow.jsx`, `marco/` (Fase 6B, ver abajo),
-`EstadoPausadas.jsx`, `PlanoInteractivo.jsx`, `pasos/Paso2..6*.jsx`.
+`EstadoPausadas.jsx`, `pasos/Paso2..6*.jsx` (el Paso 3 es el hook
+`usePaso3Plano`).
 
 ### Plano
 `src/components/plano/` sigue siendo copia exacta de priusApp — no se edita
-acá (ver `PORTABILIDAD.md`). La lógica de zoom/pan/touch y la asistencia
-"tocá para acercar" en mobile viven en `src/features/reservas/
-PlanoInteractivo.jsx`, fuera de esa carpeta, a propósito.
+acá (ver `PORTABILIDAD.md`). Hoy es la de **priusApp `f2a52cd`** (Fase 6A.1,
+rama `fase6a-plano-clientes`). Zoom, pan y gestos son de esa carpeta
+(`usePlanoEncuadre`, `ZoomPanPinch`); "el primer toque acerca" vive afuera,
+en `pasos/Paso3Plano.jsx`, a propósito. Ver "Fase 6B" abajo.
 
 ### Turnstile
 Un solo widget invisible/managed montado por `ReservaFlow` (`useTurnstile`),
@@ -495,9 +499,9 @@ anónimo no puede pasar de ahí.
   `accounts.google.com` con scope `email profile` y `response_type=code`, y el
   signup público por email quedó cerrado (`disable_signup: true`).
 
-## Fase 6B — Marco fijo del flujo de reserva (en curso, rama `fase4b-reservas`)
+## Fase 6B — Reserva con el plano "vista clientes" + Mi cuenta (rama `fase4b-reservas`)
 
-### Overlay con marco fijo (Tarea 2)
+### Overlay con marco fijo
 Elegir "Carpas & Sombrillas" en el cotizador abre el flujo como overlay
 (`marco/PanelReserva.jsx`, portal a `body`). El cotizador queda abajo, en su
 Paso 1, y vuelve ahí al cerrar.
@@ -515,40 +519,69 @@ Paso 1, y vuelve ahí al cerrar.
 - **Manrope solo en el overlay:** se pide a Google Fonts la primera vez que
   se abre y pisa también `.font-display` dentro de `.panel-reserva`
   (`marco/marco.css`). Fuera del overlay no cambia nada.
-- **Estructura** (`marco/MarcoReserva.jsx`):
-  1. Header con el logo, el selector de fechas, la pill de personas, los
-     chips Todo/Carpas/Sombrillas y la X.
-  2. Barra "Paso X de 6 · nombre" con el progreso dorado (`BarraPaso`). En
-     mobile, la X va en esta barra.
-  3. Cuerpo `flex-1`: el plano en el Paso 3; en los otros pasos, contenido de
-     640px máximo con scroll interno.
-  4. Footer fijo de 64px. Cada paso declara sus botones con `<PiePaso
-     izquierda centro derecha>`, que los dibuja ahí por portal.
-- **⚠️ `MarcoReserva` es provisorio.** Copia el header de `MarcoPlanoClaro`
-  (f1a031a) porque ese todavía no tiene lugar para la barra, el footer ni un
-  cuerpo que no sea el mapa. Cuando entre la 6A.1 de priusApp, se reemplaza
-  por `MarcoPlanoClaro` y se borra el archivo.
+
+### El marco es `MarcoPlanoClaro` (copia de priusApp, Fase 6A.1)
+`ReservaFlow.jsx` monta **un solo** `MarcoPlanoClaro` para los 6 pasos (no se
+remonta al cambiar de paso):
+1. Header: logo, `selectorFecha` (`marco/SelectorFechas`), `selectorPersonas`
+   (`marco/SelectorPersonas`), chips Todo/Carpas/Sombrillas
+   (`chipsDeshabilitados` fuera del plano), ↻ (`onRefrescar`, solo en el
+   Paso 3) y la X (`onCerrar`, solo en amplia).
+2. `barra`: "Paso X de 6 · nombre" con el progreso dorado (`marco/BarraPaso`).
+   En mobile lleva la X (por eso en compacta no se pasa `onCerrar`).
+3. Cuerpo: `cuerpo="mapa"` en el Paso 3 (el plano); `cuerpo="libre"` en los
+   demás (contenido de 640px máximo; el scroll interno es del marco).
+   `claseCuerpo="border border-[#EDEDED]"` porque la hoja también es blanca.
+4. Footer fijo de 64px (`pieRef`): cada paso declara sus botones con
+   `<PiePaso izquierda centro derecha>`, que los dibuja ahí por portal
+   (`ContextoPieMarco` envuelve al marco).
 - **Fechas y personas:** el Paso 2 ("Fechas y personas") aparece en el cuerpo
   solo la primera vez. Después se cambian desde el header en los Pasos 3 y 4;
   desde el 5 quedan fijas.
-  - **Selector de fechas** (`SelectorFechas`): pill de 40px con `‹ fecha ›`.
-    Las flechas mueven un día y solo aparecen con alquiler por día. Tocar la
-    fecha abre react-day-picker: popover en desktop, hoja desde abajo en
-    mobile. Valida igual que el Paso 2 (`reglasFechas.js`): tipo de alquiler
-    habilitado y tarifa.
-  - **Cambiar fechas conserva la selección.** El Paso 3 la suelta con
+  - **Selector de fechas:** pill de 40px con `‹ fecha ›`. Las flechas mueven
+    un día y solo aparecen con alquiler por día. Tocar la fecha abre
+    react-day-picker: popover en desktop, hoja desde abajo en mobile. Valida
+    igual que el Paso 2 (`reglasFechas.js`): tipo de alquiler y tarifa.
+  - **Cambiar fechas conserva la selección.** El plano la suelta con
     `MENSAJE_UNIDAD_OCUPADA_EN_FECHAS` si no está libre en el rango nuevo.
     Desde el Paso 4 se vuelve al plano.
-  - **Pill de personas** (`SelectorPersonas`, se aplica con "Aplicar"). Aplica
-    las mismas reglas que el plano: grupo grande sale a consulta; si cambia
-    cuántas unidades hacen falta, se busca o se suelta la vecina. Desde el
-    Paso 4 vuelve al plano si cambia la cantidad de unidades.
-- **Tests:**
-  - `e2e/soporte.js` reúne los helpers de sesión, flow y mocks simulados.
-  - La config se simula fija: con la sesión simulada, supabase-js manda el JWT
-    falso y PostgREST rechazaba la lectura real.
-  - Los tests de "pausadas" de `reserva-flow.spec.js` simulan `activo=false`,
-    porque la base real ya está en `true`.
+  - **Pill de personas** (se aplica con "Aplicar"): grupo grande sale a
+    consulta; si cambia cuántas unidades hacen falta, se busca o se suelta la
+    vecina. Desde el Paso 4 vuelve al plano si cambia la cantidad de unidades.
+- `tailwind.config.js` tiene `darkMode: 'class'` (y nunca se pone la clase):
+  las variantes `dark:` del plano solo valen en el CRM.
+- `eslint.config.js` apaga **solo** `react-hooks/immutability` y **solo** en
+  `src/components/plano/` (MarcoPlanoClaro asigna `viewportRef.current` en un
+  callback ref; priusApp no usa esa regla). Pedido a priusApp.
+
+### Plano "vista clientes" en vivo (Paso 3)
+`pasos/Paso3Plano.jsx` exporta el hook **`usePaso3Plano`** (no un componente:
+el mapa tiene que ser el `children` directo del marco). Devuelve `plano`
+(`PlanoClaro` + `CeldaClara`), `aviso`, `pie`, `cargando`, `refrescando` y
+`refrescar`; con `activo` en false no consulta nada.
+- **Celdas:** libre blanca, ocupada negra (no seleccionable), elegida dorada,
+  sugerida con borde dorado; filtrada por chip atenuada y la que coincide con
+  aro dorado. `tamano="compacta"` en amplia, `"tactil"` (44×36) en mobile.
+  Cada casilla lleva `data-celda="carpa-19"` y `data-estado`.
+- **Ocupación en vivo** (`useDisponibilidad`): `disponibilidad_publica` para
+  el rango del header, Broadcast `disponibilidad`/`cambio` con debounce de
+  500 ms, al volver el foco a la pestaña, cada 60 s y con el botón ↻.
+  `cargando` es solo la primera carga (el marco desmonta el mapa); los
+  refrescos y los cambios de fecha dejan el mapa y prenden `refrescando`.
+  Mientras llegan los datos de fechas nuevas, los toques se ignoran.
+- **Reglas que se mantienen:** vecina sugerida, capacidad, grupo grande,
+  deselección con aviso si lo elegido pasa a ocupado.
+- **El primer toque acerca** (mobile, o tablet con puntero grueso): si la
+  escala del mapa es menor a la cómoda (`tactil` 1, `compacta` 1.8), el toque
+  hace `mapaRef.acercarEn()` en ese punto y muestra "Tocá de nuevo para
+  elegir". Con mouse, el click elige directo.
+- **Leyenda:** `marco/LeyendaPlano.jsx`, dentro del slot `aviso` (el marco no
+  tiene slot de leyenda): en amplia, a la derecha de la fila "Pasillo A · B ·
+  C"; en mobile, abajo sobre el mapa.
+- `CeldaPublica` (Glass Dark) ya no se usa; sigue en la carpeta porque es
+  copia exacta. Se borraron `PlanoInteractivo.jsx`, `plano-glass.css` y el
+  `MarcoReserva` provisorio. El CSS del plano (`.plano-rotable`,
+  `.plano-contra`, `.plano-ola`) está en `marco/plano-claro.css`.
 
 ### Cuenta en el navbar (Tarea 4)
 `src/features/cuenta/ChipCuenta.jsx` va montado en las dos cabeceras de
@@ -576,19 +609,71 @@ Paso 1, y vuelve ahí al cerrar.
   entre 88 y 298px. `navbar-cuenta.spec.js` verifica de 768 a 1440, arriba y
   scrolleado, que el chip nunca llega a la navegación.
 - **Capturas de no-regresión del navbar:** sin sesión, confirmado y pendiente,
-  arriba y scrolleado (`e2e/navbar-cuenta.spec.js-snapshots/`). La baseline de
-  la landing completa se regeneró: el único cambio real es "Ingresar"
-  (verificado píxel a píxel; lo demás es el ruido de render de Eventos que ya
-  cubría la tolerancia del 1%).
+  arriba y scrolleado (`e2e/navbar-cuenta.spec.js-snapshots/`).
 - **Fuera de este repo:** las Redirect URLs de Supabase tienen que aceptar
   `<origen>/**` (no solo `/?reserva=continuar`); si no, Supabase vuelve a la
-  Site URL.
-- `/mi-cuenta` todavía no existe (Tarea 5): hasta entonces los links del menú
-  caen en el `*` → `/`.
+  Site URL. Lo usan "Ingresar" del navbar, `/mi-cuenta` y `/r/:codigo`.
 
-### Pendiente: 6A.1 del marco en priusApp
-`3c64b68` (priusApp) solo trajo el arreglo de `mi_cuenta()`: `reservas_web`
-ahora sale por la cuenta y viene también con `pendiente` y `ninguno`. El
-pedido de props y slots de `MarcoPlanoClaro` está escrito en el encabezado de
-`marco/MarcoReserva.jsx`. La Tarea 3 (plano vista clientes en vivo) espera a
-ese commit para no migrar dos veces.
+### Sección Mi cuenta (`/mi-cuenta`, Tarea 5)
+`src/pages/MiCuenta.jsx` + `src/features/cuenta/pagina/`. Misma estructura de
+items que "Mis servicios" de Playapp, con el branding de la landing (cabecera
+negra con logo blanco y "Reservá" dorado, Exo uppercase, tarjetas blancas).
+- **Tabs en la URL:** `/mi-cuenta/hoy` (default), `/unidad`, `/reservas`,
+  `/pedidos`, `/actividades`; el detalle con QR en
+  `/mi-cuenta/reservas/<codigo>`.
+- **Tarjeta QR** (izquierda; arriba en mobile, `TarjetaQR.jsx`):
+  1. Reserva web activa en curso o la próxima (`reservaParaQR`): su QR (la URL
+     de `/r/<codigo>`), nombre, email y "Mostrá este QR en recepción".
+  2. Sin reserva web pero con una unidad vigente (solo vínculo confirmado,
+     cualquier tipo, hoy y temporada primero): "Carpa 133 · Temporada" sin QR
+     y "Tu QR personal para pedidos y actividades llega pronto".
+  3. Sin nada: invitación a reservar.
+- **Hoy:** reservas web de hoy y la unidad vigente hoy (sin repetir una que ya
+  es reserva web). **Mi unidad:** `unidades_vigentes`. **Reservas:**
+  `reservas_web` con código, badge (los mismos textos que `/r/`,
+  `pagina/estadoReserva.jsx`), unidades, fechas, total y saldo.
+- **Pedidos y Actividades:** solo el estado vacío "Próximamente…", sin datos
+  de ejemplo.
+- **⚠️ El QR personal rotativo, los pedidos y las actividades son de la fase
+  de recreación** (el QR necesita firma del servidor). No inventar nada acá.
+- **Sin sesión:** "Ingresá con Google", que vuelve a la misma pestaña.
+- **Vínculo pendiente:** solo sus reservas web (las de esa cuenta) y el aviso
+  "Tu cuenta se confirma en recepción"; nada del cliente existente.
+- **Datos:** solo `mi_cuenta()` vía `useCuentaCliente`. Se refresca al entrar
+  a la sección (una vez por usuario) y al confirmar una reserva (Paso 6).
+  `reservas_web` sale siempre de esta cuenta (`codigos_reserva.user_id`,
+  priusApp `3c64b68`), también con vínculo `pendiente` y `ninguno`.
+- `e2e/mi-cuenta.spec.js`: cada tab con confirmado con unidad, confirmado sin
+  unidad y pendiente, más sin sesión y la tarjeta de unidad sin QR.
+
+### `/r/:codigo` y Paso 6 (Tarea 6)
+- **Paso 6:** botón principal "Ver en mi cuenta", que cierra el overlay y
+  lleva a `/mi-cuenta/reservas/<codigo>`. "Listo" cierra y queda en la
+  landing.
+- **`/r/:codigo`:** con sesión y la reserva en `reservas_web` de esa cuenta,
+  redirige (`replace`) a `/mi-cuenta/reservas/<codigo>` sin consultar nada.
+  Si no hay sesión o no es suya, sigue siendo la página pública con datos
+  mínimos (`consultar-reserva`; la usan el QR y el link compartido),
+  rediseñada con el branding de la landing. Debajo, "Ingresá para ver todas
+  tus reservas" (o "Ver mis reservas" si la sesión es de otra cuenta).
+- `/#contacto` desde otra página baja a la sección (`LandingPage.jsx`).
+
+### Tests
+- `e2e/soporte.js` reúne los helpers de sesión, flow y mocks simulados, y
+  `tocarCelda()` (en mobile toca dos veces si el primer toque acercó).
+- La config se simula fija: con la sesión simulada, supabase-js manda el JWT
+  falso y PostgREST rechazaba la lectura real.
+- Los tests de "pausadas" de `reserva-flow.spec.js` simulan `activo=false`,
+  porque la base real ya está en `true`.
+- Playwright vacía `test-results/` en cada corrida: las capturas
+  (`marco-*`, `plano-*`, `mi-cuenta-*`, `r-codigo-*`) son de la última.
+
+### Pendiente para priusApp (6A.1 → 6A.2)
+Lo que la 6A.1 (`f2a52cd`) no trae y acá se resolvió afuera de la carpeta:
+- **Slot `leyenda`** en la fila "Pasillo A · B · C" (amplia y compacta). Hoy la
+  leyenda va por `aviso`, posicionada a mano.
+- **`data-*` estables** en el marco: `data-marco-plano` en la raíz y
+  `data-cuerpo-marco` también en la card del modo mapa (hoy solo en
+  `cuerpo="libre"`).
+- **Lint:** `MarcoPlanoClaro.jsx:244` (`enc.viewportRef.current = node`) falla
+  `react-hooks/immutability` con la config de beachFlow.

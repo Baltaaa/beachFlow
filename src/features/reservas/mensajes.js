@@ -43,7 +43,8 @@ export const MENSAJE_UNIDAD_TOMADA = 'Alguien reservó esa unidad recién.'
 export const MENSAJE_UNIDAD_OCUPADA_EN_FECHAS =
   'Lo que elegiste no está libre en las fechas nuevas. Elegí otro lugar.'
 
-export const MENSAJE_TOCAR_PARA_ACERCAR = 'Tocá para acercar'
+// Mobile: el primer toque sobre una casilla chica acerca en vez de elegir.
+export const MENSAJE_TOCAR_DE_NUEVO = 'Tocá de nuevo para elegir'
 
 export const AYUDA_EMAIL = 'Te enviamos tu código de reserva acá'
 
@@ -102,10 +103,11 @@ export const TITULOS_PASO = {
   6: 'Reserva preconfirmada',
 }
 
+// Estados de CeldaClara (src/components/plano) en el orden de la leyenda.
 export const LEYENDA_PLANO = [
   { estado: 'libre', label: 'Libre' },
-  { estado: 'bloqueada', label: 'Ocupada' },
-  { estado: 'seleccionada', label: 'Tu elección' },
+  { estado: 'ocupada', label: 'Ocupada' },
+  { estado: 'elegida', label: 'Tu elección' },
   { estado: 'sugerida', label: 'Sugerida' },
 ]
 

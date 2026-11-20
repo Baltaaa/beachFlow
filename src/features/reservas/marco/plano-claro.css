@@ -1,0 +1,14 @@
+/* CSS del plano "vista clientes" (src/components/plano), copiado tal cual de
+   priusApp/src/index.css como pide PORTABILIDAD.md. Solo clases propias del
+   plano: no toca nada más de la landing. */
+
+/* Rotar 180° (PlanoRotable) y rótulos que contra-giran */
+.plano-rotable { transform: rotate(var(--plano-giro, 0deg)); transform-origin: 50% 50%; transition: transform 600ms cubic-bezier(.4, 0, .2, 1); }
+.plano-contra { display: inline-block; transform: rotate(var(--plano-contra, 0deg)); transition: transform 600ms cubic-bezier(.4, 0, .2, 1); }
+@media (prefers-reduced-motion: reduce) {
+  .plano-rotable, .plano-contra { transition-duration: 1ms; }
+}
+/* Olas del océano (MarCliente en PlanoGrid) */
+@keyframes plano-ola { to { transform: translateX(calc(var(--ola-p) * -1)); } }
+.plano-ola { animation: plano-ola 18s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .plano-ola { animation: none; } }
